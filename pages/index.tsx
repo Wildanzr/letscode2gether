@@ -1,7 +1,15 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
+import { useStateContext } from '../contexts/ContextProvider'
+
 const Home: NextPage = () => {
+  // Get global state from ContextProvider
+  const { states, authStates }:any = useStateContext()
+
+  console.log(states)
+  console.log(authStates)
+
   return (
     <div>
       <Head>
@@ -11,7 +19,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <p className='text-5xl font-bold text-center'>Hello men</p>
+        <p className='text-5xl font-bold text-center'>Hello</p>
       </main>
     </div>
   )
