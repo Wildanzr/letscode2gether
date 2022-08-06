@@ -1,14 +1,34 @@
+import { useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
 import { useStateContext } from '../contexts/ContextProvider'
 
+import { languageOptions } from '../constants/languageOptions'
+import { AppLogo, SideBarMenu, RoomInfo, AudioVideoCall, SideContent, CodeEditor, EditorOutput } from '../components'
+
 const Home: NextPage = () => {
   // Get global state from ContextProvider
-  const { states, authStates }:any = useStateContext()
+  const { states }:any = useStateContext()
+  const { colSideHide, colOutputHide } = states
 
-  console.log(states)
-  console.log(authStates)
+  // Local State
+  const [code, setCode] = useState('console.log(\'Hello World\')')
+  const [language] = useState(languageOptions[0])
+  const [theme] = useState('cobalt')
+
+  const onChange = (action: any, data: any) => {
+    console.log(data)
+    switch (action) {
+      case 'code': {
+        setCode(data)
+        break
+      }
+      default: {
+        console.warn('case not handled!', action, data)
+      }
+    }
+  }
 
   return (
     <div>
@@ -18,8 +38,35 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <p className='text-5xl font-bold text-center'>Hello</p>
+      <main className='flex flex-row w-full h-screen items-start justify-start'>
+        <div className='flex flex-col w-1/12 h-full items-center justify-center z-40'>
+          <AppLogo />
+          <SideBarMenu />
+        </div>
+
+        <div className='flex flex-col w-11/12 h-full items-center justify-start'>
+          <div className='flex w-full h-1/6 bg-[url("/images/bg-3.jpg")] bg-center bg-no-repeat bg-cover items-center justify-between'>
+            <RoomInfo />
+            <AudioVideoCall />
+          </div>
+
+          <div className='flex flex-row w-full h-5/6 bg-green-300 items-center justify-start transition-all ease-in-out duration-500'>
+            <SideContent />
+
+            <div className={`flex flex-col ${colSideHide ? 'w-full' : 'w-8/12'} h-full bg-lime-300 items-center justify-start transition-all ease-in-out duration-500`}>
+                <div className={`flex ${colOutputHide ? 'h-[100%]' : 'h-4/6'} w-full bg-indigo-300 items-center justify-center transition-all ease-in-out duration-500`}>
+                  <CodeEditor
+                    code={code}
+                    onChange={onChange}
+                    language={language?.value}
+                    theme={theme}
+                  />
+                </div>
+
+                <EditorOutput />
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   )

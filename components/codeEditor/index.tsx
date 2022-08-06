@@ -1,0 +1,35 @@
+import { useState } from 'react'
+
+import Editor from '@monaco-editor/react'
+
+interface CodeEditorProps {
+  onChange: Function;
+  language: string;
+  code: string;
+  theme: any;
+}
+
+const CodeEditor = (props: CodeEditorProps) => {
+  const { onChange, language, code, theme } = props
+
+  const handleEditorChange = (value: any) => {
+    setValue(value)
+    onChange('code', value)
+  }
+  const [value, setValue] = useState(code || '')
+  return (
+    <div className="overlay rounded-md overflow-hidden w-full h-full shadow-4xl">
+      <Editor
+        height={'100%'}
+        width={'100%'}
+        language={language || 'javascript'}
+        value={value}
+        theme={theme}
+        defaultValue="// some comment"
+        onChange={handleEditorChange}
+      />
+    </div>
+  )
+}
+
+export default CodeEditor
