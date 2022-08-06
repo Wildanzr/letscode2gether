@@ -14,6 +14,7 @@ export const ContextProvider = (props: ContextProps) => {
   const [colOutputHide, setColOutputHide] = useState(false)
   const [colSideContent, setColSideContent] = useState('Problems')
   const [colSideKey, setColSideKey] = useState('problems')
+  const [colTheme, setColTheme] = useState('amy')
 
   // Room State
   const [roomConnect, setRoomConnect] = useState(false)
@@ -30,7 +31,9 @@ export const ContextProvider = (props: ContextProps) => {
     colSideContent,
     setColSideContent,
     colSideKey,
-    setColSideKey
+    setColSideKey,
+    colTheme,
+    setColTheme
   }
 
   // Export global auth state here
@@ -47,7 +50,7 @@ export const ContextProvider = (props: ContextProps) => {
 
   return (
     <StateContext.Provider value={{ states, authStates, roomStates }}>
-        {children}
+      {children}
     </StateContext.Provider>
   )
 }

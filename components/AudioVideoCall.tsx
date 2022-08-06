@@ -1,5 +1,5 @@
 // @ts-nocheck
-import Head from 'next/head'
+import Script from 'next/script'
 
 import { useStateContext } from '../contexts/ContextProvider'
 
@@ -48,9 +48,7 @@ const AudioVideoCall = () => {
 
   return (
     <>
-    <Head>
-        <script type="text/javascript" src="https://meet.jit.si/external_api.js" />
-    </Head>
+    <Script src="https://meet.jit.si/external_api.js" />
     <div className="flex w-3/12 h-full items-center justify-center" id="meet">
       <div className={`${roomConnect ? 'hidden' : ''}`}>
         <Button type="primary" onClick={start}>
