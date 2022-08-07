@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { useStateContext } from '../../contexts/ContextProvider'
 
 import Editor from '@monaco-editor/react'
@@ -7,24 +5,24 @@ import SelectLanguage from './SelectLanguage'
 import SelectTheme from './SelectTheme'
 
 interface CodeEditorProps {
-  onChange: Function;
   language: string;
   code: string;
   theme: any;
 }
 
 const CodeEditor = (props: CodeEditorProps) => {
-  const { onChange, language, code, theme } = props
+  const { language, code, theme } = props
 
   // Get global state from ContextProvider
-  const { states }:any = useStateContext()
+  const { states, langStates }:any = useStateContext()
+
   const { colOutputHide } = states
+  const { setIdeCode } = langStates
 
   const handleEditorChange = (value: any) => {
-    setValue(value)
-    onChange('code', value)
+    setIdeCode(value)
   }
-  const [value, setValue] = useState(code || '')
+
   return (
     <div className={`flex flex-col ${colOutputHide ? 'h-[100%]' : 'h-full'} w-full items-start justify-start transition-all ease-in-out duration-500 z-40`}>
       <div className='flex flex-row w-full my-2 px-5 justify-start'>
@@ -40,7 +38,7 @@ const CodeEditor = (props: CodeEditorProps) => {
           height={'100%'}
           width={'100%'}
           language={language || 'javascript'}
-          value={value}
+          value={code}
           theme={theme}
           defaultValue="// some comment"
           onChange={handleEditorChange}

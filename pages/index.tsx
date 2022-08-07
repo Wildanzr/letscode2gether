@@ -1,33 +1,16 @@
-import { useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
 import { useStateContext } from '../contexts/ContextProvider'
 
-import { languageOptions } from '../constants/languageOptions'
 import { AppLogo, SideBarMenu, RoomInfo, AudioVideoCall, SideContent, CodeEditor, EditorOutput } from '../components'
 
 const Home: NextPage = () => {
   // Get global state from ContextProvider
-  const { states }:any = useStateContext()
+  const { states, langStates }:any = useStateContext()
+
   const { colSideHide, colOutputHide, colTheme } = states
-
-  // Local State
-  const [code, setCode] = useState('console.log(\'Hello World\')')
-  const [language] = useState(languageOptions[0])
-
-  const onChange = (action: any, data: any) => {
-    console.log(data)
-    switch (action) {
-      case 'code': {
-        setCode(data)
-        break
-      }
-      default: {
-        console.warn('case not handled!', action, data)
-      }
-    }
-  }
+  const { ideCode, ideLang } = langStates
 
   return (
     <div>
@@ -55,9 +38,8 @@ const Home: NextPage = () => {
             <div className={`flex flex-col ${colSideHide ? 'w-full' : 'w-8/12'} h-full items-center justify-start transition-all ease-in-out duration-500 z-40`}>
                 <div className={`flex flex-col ${colOutputHide ? 'h-full' : 'h-4/6'} w-full items-center justify-center transition-all ease-in-out duration-500`}>
                   <CodeEditor
-                    code={code}
-                    onChange={onChange}
-                    language={language?.value}
+                    code={ideCode}
+                    language={ideLang}
                     theme={colTheme}
                   />
                 </div>

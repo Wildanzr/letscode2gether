@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useState } from 'react'
 
+import { languageOptions } from '../constants/languageOptions'
+import { defaultLanguage } from '../constants/defaultLanguage'
+
 const StateContext = createContext({})
 
 interface ContextProps {
@@ -21,6 +24,10 @@ export const ContextProvider = (props: ContextProps) => {
 
   // Auth State
   const [authName, setAuthName] = useState('Wildan')
+
+  // Language State
+  const [ideCode, setIdeCode] = useState(defaultLanguage[0].template)
+  const [ideLang, setIdeLang] = useState(languageOptions[0].value)
 
   // Export global state here
   const states:any = {
@@ -48,8 +55,16 @@ export const ContextProvider = (props: ContextProps) => {
     setRoomConnect
   }
 
+  // Export language state here
+  const langStates = {
+    ideCode,
+    setIdeCode,
+    ideLang,
+    setIdeLang
+  }
+
   return (
-    <StateContext.Provider value={{ states, authStates, roomStates }}>
+    <StateContext.Provider value={{ states, authStates, roomStates, langStates }}>
       {children}
     </StateContext.Provider>
   )
