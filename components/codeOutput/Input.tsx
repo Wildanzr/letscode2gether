@@ -11,7 +11,7 @@ const CustomInput = () => {
     <div
       className={`${
         colOutputHide ? 'translate-y-0 h-0 hidden' : 'flex'
-      } flex-col w-4/12 h-full bg-violet-400 items-center justify-center px-5 py-2 transition-all ease-in-out duration-500`}
+      } flex-col w-4/12 h-full items-center justify-center px-5 py-2 transition-all ease-in-out duration-500`}
     >
       <div className="flex flex-col w-full h-4/6 items-center justify-center pb-2">
         <TextArea rows={6} className="w-full h-full" />

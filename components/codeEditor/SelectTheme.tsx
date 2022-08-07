@@ -16,8 +16,8 @@ const selectTheme = () => {
   return (
     <Select
         showSearch
-        placeholder="Select theme"
         optionFilterProp="children"
+        defaultValue={'light'}
         onChange={onChange}
         filterOption={(input, option) =>
           (option!.children as unknown as string).toLowerCase().includes(input.toLowerCase())

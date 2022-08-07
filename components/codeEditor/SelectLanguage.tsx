@@ -1,5 +1,7 @@
 import { Select } from 'antd'
 
+import { languageOptions } from '../../constants/languageOptions'
+
 const SelectLanguage = () => {
   const { Option } = Select
 
@@ -14,21 +16,23 @@ const SelectLanguage = () => {
   return (
     <Select
         showSearch
-        placeholder="Select language"
         optionFilterProp="children"
+        defaultValue={'JavaScript (Node.js 12.14.0)'}
         onChange={onChange}
         onSearch={onSearch}
         filterOption={(input, option) =>
           (option!.children as unknown as string).toLowerCase().includes(input.toLowerCase())
         }
         className='w-full'
-    >
-      <Option value="1">C</Option>
-      <Option value="2">C++</Option>
-      <Option value="3">Java</Option>
-      <Option value="4">JavaScript</Option>
-      <Option value="5">PHP</Option>
-      <Option value="6">Python</Option>
+    >{
+      languageOptions.map(lang => {
+        return (
+          <Option key={lang.id} value={lang.id}>
+            {lang.label}
+          </Option>
+        )
+      })
+    }
     </Select>
   )
 }
