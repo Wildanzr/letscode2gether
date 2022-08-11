@@ -26,10 +26,10 @@ const CodeEditor = (props: CodeEditorProps) => {
   return (
     <div className={`flex flex-col ${colOutputHide ? 'h-[100%]' : 'h-full'} w-full items-start justify-start transition-all ease-in-out duration-500 z-40`}>
       <div className='flex flex-row w-full my-2 px-5 justify-start'>
-        <div className="flex w-4/12 mr-2">
+        <div className="flex mr-2">
           <SelectLanguage />
         </div>
-        <div className="flex w-2/12 ml-2">
+        <div className="flex ml-2">
           <SelectTheme />
         </div>
       </div>

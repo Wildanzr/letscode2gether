@@ -1,5 +1,7 @@
 import { useStateContext } from '../../contexts/ContextProvider'
 
+import Leaderboards from './Leaderboards'
+
 const SideContent = () => {
   const { states }: any = useStateContext()
   const { colSideHide, colSideContent } = states
@@ -10,7 +12,7 @@ const SideContent = () => {
       } h-full bg-green-300 items-center justify-center translate-x-0 transition-all ease-in-out duration-500`}
     >
       <div className="flex flex-col w-full h-full items-center justify-center overflow-auto">
-        <p>This is {colSideContent} section</p>
+        {colSideContent === 'Leaderboards' ? <Leaderboards /> : <p>This is {colSideContent} section</p>}
       </div>
     </div>
   )

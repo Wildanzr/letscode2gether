@@ -49,7 +49,7 @@ const AudioVideoCall = () => {
   return (
     <>
     <Script src="https://meet.jit.si/external_api.js" />
-    <div className="flex w-3/12 h-full items-center justify-center" id="meet">
+    <div className="flex h-full items-center justify-center" id="meet">
       <div className={`${roomConnect ? 'hidden' : ''}`}>
         <Button type="primary" onClick={start}>
           {roomConnect ? 'Close' : 'Start Communication'}
