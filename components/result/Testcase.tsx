@@ -3,21 +3,21 @@ const Testcase = () => {
     <div className="flex flex-col px-2 py-2 gap-4 text-white w-full">
       <div className="flex flex-col w-full gap-2">
         <p className="font-semibold text-lg">Input (stdin)</p>
-        <p className="w-full px-2 py-1 font-mono text-lg bg-white text-black">
+        <p className="w-full px-2 py-1 font-mono text-base bg-white text-black">
           13
         </p>
       </div>
 
       <div className="flex flex-col w-full gap-2">
         <p className="font-semibold text-lg">Output (stdout)</p>
-        <p className="w-full px-2 py-1 font-mono text-lg bg-white text-black">
-          Tiga Belas
+        <p className="w-full px-2 py-1 font-mono text-base bg-white text-black">
+          Tiga Belasi
         </p>
       </div>
 
       <div className="flex flex-col w-full gap-2">
         <p className="font-semibold text-lg">Excpected Output</p>
-        <p className="w-full px-2 py-1 font-mono text-lg bg-white text-black">
+        <p className="w-full px-2 py-1 font-mono text-base bg-white text-black">
           Tiga Belas
         </p>
       </div>

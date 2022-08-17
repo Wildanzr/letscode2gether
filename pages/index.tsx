@@ -30,9 +30,6 @@ const Home: NextPage = () => {
             <Runner />
             <Result />
           </div>
-          <div className="flex flex-col w-full mt-4 items-center bg-gray-200 justify-center">
-            Letscode2gether
-          </div>
         </div>
       </main>
     </div>
