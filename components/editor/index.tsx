@@ -22,7 +22,7 @@ const Editor = () => {
   ]
   return (
     <>
-      <div className="flex flex-row w-full gap-4 bg-[#4B5563] items-start justify-start">
+      <div className="flex flex-row w-full gap-4 items-start justify-start">
         <Dropdown options={languageOptions} placeholder='Select Language' onChange={setLanguage} />
         <Dropdown options={themes} placeholder='Select Theme' onChange={setTheme} />
       </div>

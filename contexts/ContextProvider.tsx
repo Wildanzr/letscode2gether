@@ -20,7 +20,12 @@ export const ContextProvider = (props: ContextProps) => {
   const [theme, setTheme] = useState('vs')
 
   // Export global state here
-  const states:any = {
+  const states = {
+    colHide
+  }
+
+  // Export collaboration state here
+  const collabStates = {
     colHide,
     setColHide
   }
@@ -40,7 +45,7 @@ export const ContextProvider = (props: ContextProps) => {
   }
 
   return (
-    <StateContext.Provider value={{ states, authStates, editorStates }}>
+    <StateContext.Provider value={{ states, authStates, editorStates, collabStates }}>
         {children}
     </StateContext.Provider>
   )

@@ -42,7 +42,7 @@ const RoomInfo = () => {
   return (
     <>
     <Script src="https://meet.jit.si/external_api.js" strategy='beforeInteractive'/>
-    <div className="flex flex-row w-full max-h-full py-2 bg-[#4B5563] items-center justify-between" >
+    <div className="flex flex-row w-full max-h-full py-2 items-center justify-between" >
       <div className="flex flex-col text-white">
         <p className="m-0">
           Driver: Wildanzr
