@@ -11,6 +11,7 @@ export const ContextProvider = (props: ContextProps) => {
 
   // Global State
   const [colHide, setColHide] = useState(false)
+  const [colSideContent, setColSideContent] = useState('')
 
   // Auth State
   const [authName, setAuthName] = useState('Wildan')
@@ -27,7 +28,9 @@ export const ContextProvider = (props: ContextProps) => {
   // Export collaboration state here
   const collabStates = {
     colHide,
-    setColHide
+    setColHide,
+    colSideContent,
+    setColSideContent
   }
 
   // Export global auth state here

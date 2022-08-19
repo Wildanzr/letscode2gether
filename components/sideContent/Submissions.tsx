@@ -10,10 +10,10 @@ const Submissions = () => {
   return (
     <div className="flex flex-col w-full h-full gap-4">
       <div className="flex flex-col w-full">
-        <h4 className="mb-0 text-lg lg:text-2xl font-semibold ">
+        <h4 className="mb-0 text-lg lg:text-2xl font-semibold text-white">
           Program Mengeja Angka 1 Hingga 100
         </h4>
-        <p className="mb-0 text-sm font-thin">
+        <p className="mb-0 text-sm font-thin text-white">
           Challenger: <span className="font-semibold">meowwed</span>
         </p>
       </div>
@@ -26,18 +26,18 @@ const Submissions = () => {
           accordion
         >
           <Panel
-            header={<p className="font-bold">Submission #1</p>}
+            header={<p className="font-bold text-white">Submission #1</p>}
             key="1"
-            className="py-2"
+            className="bg-[#4B5563] text-white"
           >
             <div className="flex flex-row w-full pb-0">
-              <p className="mb-0 pr-2 font-semi">Score:</p>
+              <p className="mb-0 pr-2 font-semibold text-white">Score:</p>
               <Tag color="blue" className="font-semibold">100</Tag>
             </div>
 
             <div className="flex flex-col w-full h-full">
               <TestCaseResult />
-              <p className="mb-2">Source Code:</p>
+              <p className="mb-2 text-white">Source Code:</p>
               <div className="flex flex-col w-full h-40">
                 <Editor
                   height={'100%'}
@@ -51,15 +51,15 @@ const Submissions = () => {
               </div>
             </div>
           </Panel>
-          <Panel header={<p className="font-bold">Submission #2</p>} key="2" className="py-2">
+          <Panel header={<p className="font-bold text-white">Submission #2</p>} key="2" className="bg-[#4B5563] text-white">
           <div className="flex flex-row w-full pb-0">
-              <p className="mb-0 pr-2 font-semi">Score:</p>
+              <p className="mb-0 pr-2 font-semibold text-white">Score:</p>
               <Tag color="blue" className="font-semibold">100</Tag>
             </div>
 
             <div className="flex flex-col w-full h-full">
               <TestCaseResult />
-              <p className="mb-2">Source Code:</p>
+              <p className="mb-2 text-white">Source Code:</p>
               <div className="flex flex-col w-full h-40">
                 <Editor
                   height={'100%'}
@@ -73,15 +73,15 @@ const Submissions = () => {
               </div>
             </div>
           </Panel>
-          <Panel header={<p className="font-bold">Submission #3</p>} key="3" className="py-2">
+          <Panel header={<p className="font-bold text-white">Submission #3</p>} key="3" className="bg-[#4B5563] text-white">
           <div className="flex flex-row w-full pb-0">
-              <p className="mb-0 pr-2 font-semi">Score:</p>
+              <p className="mb-0 pr-2 font-semibold text-white">Score:</p>
               <Tag color="blue" className="font-semibold">100</Tag>
             </div>
 
             <div className="flex flex-col w-full h-full">
               <TestCaseResult />
-              <p className="mb-2">Source Code:</p>
+              <p className="mb-2 text-white">Source Code:</p>
               <div className="flex flex-col w-full h-40">
                 <Editor
                   height={'100%'}
