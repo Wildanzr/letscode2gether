@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState } from 'react'
+import { encode } from 'js-base64'
+import axios from 'axios'
 
 const StateContext = createContext({})
 
@@ -19,6 +21,92 @@ export const ContextProvider = (props: ContextProps) => {
   // Editor State
   const [language, setLanguage] = useState('63')
   const [theme, setTheme] = useState('vs')
+
+  // Submission State
+  const [runConfig, setRunConfig] = useState({
+    language_id: '63',
+    source_code: encode('console.log("Hello World")'),
+    stdin: encode('Hello World')
+  })
+  const [submitConfig, setSubmitConfig] = useState({
+    language_id: '63',
+    source_code: encode('console.log("Hello World")'),
+    stdin: encode('Hello World'),
+    expected_output: encode('Hello World')
+  })
+
+  const [runOptions, setRunOptions] = useState({
+    method: 'POST',
+    url: process.env.NEXT_PUBLIC_RAPID_API_URL as string,
+    params: { base64_encoded: 'true', fields: '*' },
+    headers: {
+      'content-type': 'application/json',
+      'Content-Type': 'application/json',
+      'X-RapidAPI-Key': process.env.NEXT_PUBLIC_RAPID_API_KEY as string,
+      'X-RapidAPI-Host': process.env.NEXT_PUBLIC_RAPID_API_HOST as string
+    },
+    data: runConfig
+  })
+
+  const [submitOptions, setSubmitOptions] = useState({
+    method: 'POST',
+    url: process.env.NEXT_PUBLIC_RAPID_API_URL as string,
+    params: { base64_encoded: 'true', fields: '*' },
+    headers: {
+      'content-type': 'application/json',
+      'Content-Type': 'application/json',
+      'X-RapidAPI-Key': process.env.NEXT_PUBLIC_RAPID_API_KEY as string,
+      'X-RapidAPI-Host': process.env.NEXT_PUBLIC_RAPID_API_HOST as string
+    },
+    data: submitConfig
+  })
+
+  // Submission Function
+  const submitCode = (mode: string) => {
+    const options = mode === 'run' ? runOptions : submitOptions
+
+    axios.request(options).then(function (response) {
+      console.log(response.data)
+      checkStatus(response.data.token)
+    }).catch(function (error) {
+      console.error(error)
+    })
+  }
+
+  const checkStatus = async (token: string) => {
+    const options = {
+      method: 'GET',
+      url: process.env.NEXT_PUBLIC_RAPID_API_URL as string + '/' + token,
+      params: { base64_encoded: 'true', fields: '*' },
+      headers: {
+        'X-RapidAPI-Host': process.env.NEXT_PUBLIC_RAPID_API_HOST as string,
+        'X-RapidAPI-Key': process.env.NEXT_PUBLIC_RAPID_API_KEY as string
+      }
+    }
+    try {
+      const response = await axios.request(options)
+      const statusId = response.data.status?.id
+
+      // Processed - we have a result
+      if (statusId === 1 || statusId === 2) {
+        // still processing
+        setTimeout(() => {
+          checkStatus(token)
+        }, 2000)
+        return
+      } else {
+        // setProcessing(false)
+        // setOutputDetails(response.data)
+        // showSuccessToast('Compiled Successfully!')
+        console.log('response.data', response.data)
+        return
+      }
+    } catch (err) {
+      console.log('err', err)
+      // setProcessing(false)
+      // showErrorToast()
+    }
+  }
 
   // Export global state here
   const states = {
@@ -47,9 +135,33 @@ export const ContextProvider = (props: ContextProps) => {
     setTheme
   }
 
+  // Export global submission state here
+  const submissionStates = {
+    runOptions,
+    setRunOptions,
+    submitOptions,
+    setSubmitOptions,
+    runConfig,
+    setRunConfig,
+    submitConfig,
+    setSubmitConfig
+  }
+
+  // Export editor functions here
+  const submissionFunctions = {
+    submitCode
+  }
+
   return (
-    <StateContext.Provider value={{ states, authStates, editorStates, collabStates }}>
-        {children}
+    <StateContext.Provider value={{
+      states,
+      authStates,
+      editorStates,
+      collabStates,
+      submissionStates,
+      submissionFunctions
+    }}>
+      {children}
     </StateContext.Provider>
   )
 }

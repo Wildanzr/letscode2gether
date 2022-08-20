@@ -15,13 +15,12 @@ const Problems = () => {
         </p>
       </div>
 
-      <ProblemSpecification title="Constraints" content="0 <= angka <= 100"/>
-      <ProblemSpecification title="Input Format" content="angka"/>
+      <ProblemSpecification title="Constraints" content="0 <= angka <= 100" />
+      <ProblemSpecification title="Input Format" content="angka" />
       <ProblemSpecification title="Output Format" content="ejaan angka"/>
 
       <SampleCase title="Sample Case 1" input='13' output='Tiga Belas'/>
       <SampleCase title="Sample Case 2" input='45' output='Empat Puluh Lima'/>
-
     </div>
   )
 }
