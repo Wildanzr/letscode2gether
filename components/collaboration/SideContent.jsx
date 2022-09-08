@@ -1,11 +1,11 @@
 import { useStateContext } from '../../contexts/ContextProvider'
 
-import { Submission } from '../sideContent'
+import { Problem, Submission, Leaderboard } from '../sideContent'
 
 const SideContent = () => {
   const { collabStates } = useStateContext()
 
-  const { colHide } = collabStates
+  const { colHide, colSideContent } = collabStates
 
   return (
     <div
@@ -13,10 +13,20 @@ const SideContent = () => {
         colHide
           ? 'w-full lg:w-1/2 h-full py-2 px-2'
           : 'w-full lg:w-0 h-0 lg:h-full py-0 px-0'
-      } bg-gray-300 transition-all ease-in-out duration-500 overflow-y-auto`}
+      } bg-[#1F2937] transition-all ease-in-out duration-500 overflow-y-auto`}
     >
       <div className={`${colHide ? 'flex' : 'hidden'} flex-col w-full h-full`}>
-        <Submission />
+        {colSideContent === 'problems'
+          ? (
+          <Problem />
+            )
+          : colSideContent === 'submissions'
+            ? (
+          <Submission />
+              )
+            : (
+          <Leaderboard />
+              )}
       </div>
     </div>
   )
