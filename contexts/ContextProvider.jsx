@@ -17,6 +17,11 @@ export const ContextProvider = (props) => {
 
   // Export global state here
   const states = {
+    colHide
+  }
+
+  // Export collaboration state here
+  const collabStates = {
     colHide,
     setColHide
   }
@@ -36,7 +41,9 @@ export const ContextProvider = (props) => {
   }
 
   return (
-    <StateContext.Provider value={{ states, authStates, editorStates }}>
+    <StateContext.Provider
+      value={{ states, authStates, editorStates, collabStates }}
+    >
       {children}
     </StateContext.Provider>
   )
