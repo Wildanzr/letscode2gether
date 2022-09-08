@@ -11,6 +11,10 @@ export const ContextProvider = (props) => {
   // Auth State
   const [authName, setAuthName] = useState('Wildan')
 
+  // Editor State
+  const [language, setLanguage] = useState('63')
+  const [theme, setTheme] = useState('vs')
+
   // Export global state here
   const states = {
     colHide,
@@ -23,8 +27,16 @@ export const ContextProvider = (props) => {
     setAuthName
   }
 
+  // Export global editor state here
+  const editorStates = {
+    language,
+    setLanguage,
+    theme,
+    setTheme
+  }
+
   return (
-    <StateContext.Provider value={{ states, authStates }}>
+    <StateContext.Provider value={{ states, authStates, editorStates }}>
       {children}
     </StateContext.Provider>
   )
