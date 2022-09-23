@@ -1,9 +1,16 @@
+import { AuthProvider } from './contexts/AuthContext'
+import { GlobalProvider } from './contexts/GlobalContext'
 import { Button } from 'antd'
-function App () {
+
+const App = () => {
   return (
-    <div className="flex w-full items-center justify-center">
-      <Button type='primary'>Click Me</Button>
-    </div>
+    <AuthProvider>
+      <GlobalProvider>
+        <div className="flex w-full items-center justify-center">
+          <Button type="primary">Click Me</Button>
+        </div>
+      </GlobalProvider>
+    </AuthProvider>
   )
 }
 

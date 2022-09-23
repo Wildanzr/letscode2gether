@@ -18,6 +18,9 @@
     ],
     "rules": {
         // disable react must in scope
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+
+        // disable props validation
+        "react/prop-types": "off"
     }
 }
