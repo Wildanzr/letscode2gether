@@ -2,26 +2,25 @@ import { Select } from 'antd'
 
 const { Option } = Select
 
-const Dropdown = () => {
+const Dropdown = (props) => {
+  const { options, placeholder, onChange } = props
+
   return (
     <Select
       showSearch
       style={{ width: 200 }}
-      placeholder="Search to Select"
+      placeholder={placeholder}
       optionFilterProp="children"
-      filterOption={(input, option) => option.children.includes(input)}
-      filterSort={(optionA, optionB) =>
-        optionA.children
-          .toLowerCase()
-          .localeCompare(optionB.children.toLowerCase())
-      }
+      defaultValue={options[0].label}
+      onChange={(value) => onChange(value)}
     >
-      <Option value="1">Not Identified</Option>
-      <Option value="2">Closed</Option>
-      <Option value="3">Communicated</Option>
-      <Option value="4">Identified</Option>
-      <Option value="5">Resolved</Option>
-      <Option value="6">Cancelled</Option>
+      {options.map((language) => {
+        return (
+          <Option key={language.id} value={language.id}>
+            {language.label}
+          </Option>
+        )
+      })}
     </Select>
   )
 }

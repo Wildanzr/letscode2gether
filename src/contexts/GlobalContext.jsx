@@ -3,7 +3,12 @@ import { createContext, useContext, useState } from 'react'
 const GlobalContext = createContext()
 
 export const GlobalProvider = ({ children }) => {
+  // Global state
   const [colhide, setColhide] = useState(false)
+
+  // Editor State
+  const [language, setLanguage] = useState('63')
+  const [theme, setTheme] = useState('vs')
 
   // Export global state
   const globalState = {
@@ -11,8 +16,16 @@ export const GlobalProvider = ({ children }) => {
     setColhide
   }
 
+  // Export editor state
+  const editorState = {
+    language,
+    setLanguage,
+    theme,
+    setTheme
+  }
+
   return (
-    <GlobalContext.Provider value={{ globalState }}>
+    <GlobalContext.Provider value={{ globalState, editorState }}>
         {children}
     </GlobalContext.Provider>
   )
