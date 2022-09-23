@@ -10,21 +10,18 @@ const App = () => {
   return (
     <AuthProvider>
       <GlobalProvider>
-        <main className="flex flex-col lg:flex-row w-full h-screen bg-[#4B5563] items-center lg:items-start justify-start">
-          <Navbar />
+      <main className="flex flex-col lg:flex-row w-full h-screen bg-[#4B5563] items-center lg:items-start justify-start">
+        <Navbar />
 
-          <div className="flex flex-col w-full h-full overflow-auto">
-            <div className="flex flex-col w-full items-start justify-start py-2 px-2 gap-6">
-              <RoomInfo />
-              <Editor />
-              <Runner />
-              <Result />
-            </div>
-            <div className="flex flex-col w-full mt-4 items-center bg-gray-200 justify-center">
-              Letscode2gether
-            </div>
+        <div className="flex flex-col w-full h-full overflow-auto">
+          <div className="flex flex-col w-full items-start justify-start py-2 px-2 gap-6">
+            <RoomInfo />
+            <Editor />
+            <Runner />
+            <Result />
           </div>
-        </main>
+        </div>
+      </main>
       </GlobalProvider>
     </AuthProvider>
   )
