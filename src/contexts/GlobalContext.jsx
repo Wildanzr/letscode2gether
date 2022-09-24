@@ -4,7 +4,7 @@ const GlobalContext = createContext()
 
 export const GlobalProvider = ({ children }) => {
   // Global state
-  const [colhide, setColhide] = useState(false)
+  const [colHide, setColHide] = useState(false)
 
   // Editor State
   const [language, setLanguage] = useState('63')
@@ -12,8 +12,8 @@ export const GlobalProvider = ({ children }) => {
 
   // Export global state
   const globalState = {
-    colhide,
-    setColhide
+    colHide,
+    setColHide
   }
 
   // Export editor state
