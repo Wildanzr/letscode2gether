@@ -18,6 +18,12 @@ const Result = () => {
         <TabPane tab="Testcase 3" key="3">
           <Testcase />
         </TabPane>
+        <TabPane tab="Testcase 4" key="4">
+          <Testcase />
+        </TabPane>
+        <TabPane tab="Testcase 5" key="5">
+          <Testcase />
+        </TabPane>
       </Tabs>
     </div>
   )

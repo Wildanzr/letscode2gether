@@ -19,7 +19,7 @@ const App = () => {
           colHide ? 'w-full lg:w-1/2 h-0 lg:h-full' : 'w-full h-full'
         } overflow-auto transition-all ease-in-out duration-500`}
       >
-        <div className="flex flex-col w-full items-start justify-start py-2 px-2 gap-6">
+        <div className="flex flex-col w-full items-start justify-start py-2 px-2 space-y-4">
           <RoomInfo />
           <Editor />
           <Runner />

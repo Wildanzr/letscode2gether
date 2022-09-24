@@ -22,7 +22,7 @@ const Editor = () => {
   ]
   return (
     <>
-      <div className="flex flex-row w-full gap-4 items-start justify-start">
+      <div className="flex flex-row w-full space-x-4 items-start justify-start">
         <Dropdown
           options={languageOptions}
           placeholder="Select Language"
