@@ -5,16 +5,16 @@ const Problem = () => {
   return (
     <div className="flex flex-col w-full h-full gap-4">
       <div className="flex flex-col w-full">
-        <h4 className="mb-0 text-lg lg:text-2xl font-semibold ">
+        <h4 className="mb-0 text-lg lg:text-2xl font-semibold text-white">
           Program Mengeja Angka 1 Hingga 100
         </h4>
-        <p className="mb-0 text-sm font-thin">
+        <p className="mb-0 text-sm font-thin text-white">
           Challenger: <span className="font-semibold">meowwed</span>
         </p>
       </div>
 
       <div className="flex flex-col w-full">
-        <p className="text-base text-justify">
+        <p className="text-base text-justify text-white">
           Andri memiliki seorang adik berumur 4 tahun. Pada usia tersebut
           adiknya mulai belajar untuk mengeja sebuah kata. Melihat hal itu Andri
           ingin membantu adiknya untuk belajar mengeja, Andri menggunakan
