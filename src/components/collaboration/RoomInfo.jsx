@@ -34,41 +34,42 @@ const RoomInfo = () => {
         displayName: 'Saya'
       }
     }
-
     // eslint-disable-next-line no-undef
     return new JitsiMeetExternalAPI(domain, options)
   }
 
   return (
-    <div className="flex flex-row w-full max-h-full py-2 bg-[#4B5563] items-center justify-between">
-      <div className="flex flex-col text-white">
-        <p className="m-0">
-          Driver: Wildanzr
-          <br />
-          Navigator: Azmi
-          <br />
-          Room Id: 12345
-        </p>
-      </div>
+    <>
+      <div className="flex flex-row w-full max-h-full py-2 items-center justify-between">
+        <div className="flex flex-col text-white">
+          <p className="m-0">
+            Driver: Wildanzr
+            <br />
+            Navigator: Azmi
+            <br />
+            Room Id: 12345
+          </p>
+        </div>
 
-      <div
-        className="flex flex-col px-2 py-2 h-full max-w-full items-center justify-center text-white"
-        id="meet"
-      >
-        {collab
-          ? (
-          <div className="flex w-full h-full" />
-            )
-          : (
-          <button
-            onClick={openCollaboration}
-            className="flex py-1 px-2 bg-[#111827] rounded-sm border-b-2 border-white hover:border-blue-500 duration-300"
-          >
-            Open Communication
-          </button>
-            )}
+        <div
+          className="flex flex-col px-2 py-2 h-full max-w-full items-center justify-center text-white"
+          id="meet"
+        >
+          {collab
+            ? (
+            <div className="flex w-full h-full" />
+              )
+            : (
+            <button
+              onClick={openCollaboration}
+              className="flex py-1 px-2 bg-[#111827] rounded-sm border-b-2 border-white hover:border-blue-500 duration-300"
+            >
+              Open Communication
+            </button>
+              )}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
