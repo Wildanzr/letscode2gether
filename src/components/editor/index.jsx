@@ -16,11 +16,8 @@ const Editor = () => {
   const { setLanguage, setTheme } = editorState
 
   const handleLanguageChange = async (value) => {
-    console.log('theme...', value)
-    const theme = value
-
     setTheme(value)
-    await defineTheme(theme)
+    await defineTheme(value)
   }
 
   // Change theme
@@ -28,54 +25,6 @@ const Editor = () => {
     themeList.forEach(async (theme) => {
       await defineTheme(theme)
     })
-    // defineTheme('active4d')
-    // defineTheme('all-hallows-eve')
-    // defineTheme('amy')
-    // defineTheme('birds-of-paradise')
-    // defineTheme('blackboard')
-    // defineTheme('brilliance-black')
-    // defineTheme('brilliance-dull')
-    // defineTheme('chrome-devtools')
-    // defineTheme('clouds-midnight')
-    // defineTheme('clouds')
-    // defineTheme('cobalt')
-    // defineTheme('dawn')
-    // defineTheme('dreamweaver')
-    // defineTheme('eiffel')
-    // defineTheme('espresso-libre')
-    // defineTheme('github')
-    // defineTheme('idle')
-    // defineTheme('katzenmilch')
-    // defineTheme('kuroir-theme')
-    // defineTheme('lazy')
-    // defineTheme('magicwb--amiga-')
-    // defineTheme('merbivore-soft')
-    // defineTheme('merbivore')
-    // defineTheme('monokai-bright')
-    // defineTheme('monokai')
-    // defineTheme('night-owl')
-    // defineTheme('oceanic-next')
-    // defineTheme('pastels-on-dark')
-    // defineTheme('slush-and-poppies')
-    // defineTheme('solarized-dark')
-    // defineTheme('solarized-light')
-    // defineTheme('spacecadet')
-    // defineTheme('sunburst')
-    // defineTheme('textmate--mac-classic-')
-    // defineTheme('tomorrow-night-blue')
-    // defineTheme('tomorrow-night-bright')
-    // defineTheme('tomorrow-night-eighties')
-    // defineTheme('tomorrow-night')
-    // defineTheme('tomorrow')
-    // defineTheme('twilight')
-    // defineTheme('upstream-sunburst')
-    // defineTheme('vibrant-ink')
-    // defineTheme('xcode-default')
-    // defineTheme('zenburnesque')
-    // defineTheme('iplastic')
-    // defineTheme('idlefingers')
-    // defineTheme('krtheme')
-    // defineTheme('monoindustrial')
   }, [])
 
   return (

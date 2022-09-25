@@ -1,30 +1,35 @@
 import { Tabs } from 'antd'
 import Testcase from './Testcase'
 
-// import './result.css'
-
-const { TabPane } = Tabs
-
 const Result = () => {
   return (
     <div className={'flex w-full overflow-x-auto bg-[#1F2937]'}>
-      <Tabs type="card" className="w-full">
-        <TabPane tab="Testcase 1" key="1">
-          <Testcase />
-        </TabPane>
-        <TabPane tab="Testcase 2" key="2">
-          <Testcase />
-        </TabPane>
-        <TabPane tab="Testcase 3" key="3">
-          <Testcase />
-        </TabPane>
-        <TabPane tab="Testcase 4" key="4">
-          <Testcase />
-        </TabPane>
-        <TabPane tab="Testcase 5" key="5">
-          <Testcase />
-        </TabPane>
-      </Tabs>
+      <Tabs
+        type="card"
+        className="w-full"
+        items={[
+          {
+            key: '1',
+            label: 'Testcase 1',
+            children: <Testcase />
+          },
+          {
+            key: '2',
+            label: 'Testcase 2',
+            children: <Testcase />
+          },
+          {
+            key: '3',
+            label: 'Testcase 3',
+            children: <Testcase />
+          },
+          {
+            key: '4',
+            label: 'Testcase 4',
+            children: <Testcase />
+          }
+        ]}
+      />
     </div>
   )
 }
