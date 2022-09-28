@@ -1,9 +1,27 @@
-import { Tabs } from 'antd'
+import { useEffect, useState } from 'react'
+
 import Testcase from './Testcase'
+import Skeleton from './Skeleton'
+
+import { Tabs } from 'antd'
 
 const Result = () => {
+  const [delay, setDelay] = useState(3000)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDelay(0)
+    }, 3000)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
-    <div className={'flex w-full overflow-x-auto bg-[#1F2937]'}>
+    delay
+      ? (
+      <Skeleton />
+        )
+      : (
+      <div className={'flex w-full overflow-x-auto bg-[#1F2937]'}>
       <Tabs
         type="card"
         className="w-full"
@@ -31,6 +49,7 @@ const Result = () => {
         ]}
       />
     </div>
+        )
   )
 }
 

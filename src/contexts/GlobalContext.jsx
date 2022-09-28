@@ -9,6 +9,7 @@ export const GlobalProvider = ({ children }) => {
 
   // Editor State
   const [theme, setTheme] = useState('vs')
+  const [run, setRun] = useState(false)
 
   // Export global state
   const globalState = {
@@ -21,7 +22,9 @@ export const GlobalProvider = ({ children }) => {
   // Export editor state
   const editorState = {
     theme,
-    setTheme
+    setTheme,
+    run,
+    setRun
   }
 
   return (
