@@ -3,8 +3,8 @@ import SampleCase from './SampleCase'
 
 const Problem = () => {
   return (
-    <div className="flex flex-col w-full h-full gap-4">
-      <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full h-full space-y-4">
+      <div className="flex flex-col w-full bg-gray-600 p-2">
         <h4 className="mb-0 text-lg lg:text-2xl font-semibold text-white">
           Program Mengeja Angka 1 Hingga 100
         </h4>
@@ -13,8 +13,8 @@ const Problem = () => {
         </p>
       </div>
 
-      <div className="flex flex-col w-full">
-        <p className="text-base text-justify text-white">
+      <div className="flex flex-col w-full bg-gray-600 p-2">
+        <p className="text-sm text-justify text-white mb-0">
           Andri memiliki seorang adik berumur 4 tahun. Pada usia tersebut
           adiknya mulai belajar untuk mengeja sebuah kata. Melihat hal itu Andri
           ingin membantu adiknya untuk belajar mengeja, Andri menggunakan
@@ -26,10 +26,17 @@ const Problem = () => {
           tersebut !!
         </p>
       </div>
+      <div className="flex flex-col w-full bg-gray-600 p-2">
+        <ProblemSpecification title="Constraints" content="0 <= angka <= 100" />
+      </div>
 
-      <ProblemSpecification title="Constraints" content="0 <= angka <= 100" />
-      <ProblemSpecification title="Input Format" content="angka" />
-      <ProblemSpecification title="Output Format" content="ejaan angka" />
+      <div className="flex flex-col w-full bg-gray-600 p-2">
+        <ProblemSpecification title="Input Format" content="angka" />
+      </div>
+
+      <div className="flex flex-col w-full bg-gray-600 p-2">
+        <ProblemSpecification title="Output Format" content="ejaan angka" />
+      </div>
 
       <SampleCase title="Sample Case 1" input="13" output="Tiga Belas" />
       <SampleCase title="Sample Case 2" input="45" output="Empat Puluh Lima" />
