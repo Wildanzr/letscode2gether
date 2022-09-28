@@ -8,7 +8,6 @@ export const GlobalProvider = ({ children }) => {
   const [colSideContent, setColSideContent] = useState('')
 
   // Editor State
-  const [language, setLanguage] = useState('63')
   const [theme, setTheme] = useState('vs')
 
   // Export global state
@@ -21,15 +20,13 @@ export const GlobalProvider = ({ children }) => {
 
   // Export editor state
   const editorState = {
-    language,
-    setLanguage,
     theme,
     setTheme
   }
 
   return (
     <GlobalContext.Provider value={{ globalState, editorState }}>
-        {children}
+      {children}
     </GlobalContext.Provider>
   )
 }

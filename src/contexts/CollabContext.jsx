@@ -8,7 +8,8 @@ export const CollabProvider = ({ children }) => {
   // Collab State
   const [driver, setDriver] = useState('Wildanzr')
   const [navigator, setNavigator] = useState('Azmi')
-  const [language, setLanguage] = useState('63')
+  const [language, setLanguage] = useState(63)
+  const [code, setCode] = useState('console.log("Hello world")')
 
   // Submissions State
   const [runConfig, setRunConfig] = useState({
@@ -95,7 +96,9 @@ export const CollabProvider = ({ children }) => {
     runConfig,
     setRunConfig,
     submitConfig,
-    setSubmitConfig
+    setSubmitConfig,
+    code,
+    setCode
   }
 
   // Export submission functions
