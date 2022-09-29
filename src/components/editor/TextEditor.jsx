@@ -23,7 +23,7 @@ const TextEditor = () => {
     // Todo save current code to db with name of language
 
     // Save code to state
-    console.log('change', value)
+    // console.log('change', value)
     setCode(value)
   }
 

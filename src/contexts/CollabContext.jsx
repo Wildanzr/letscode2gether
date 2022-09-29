@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react'
-import { encode, decode } from 'js-base64'
+import { decode } from 'js-base64'
 import axios from 'axios'
 
 const CollabContext = createContext()
@@ -11,43 +11,25 @@ export const CollabProvider = ({ children }) => {
   const [language, setLanguage] = useState(63)
   const [code, setCode] = useState('console.log("Hello world")')
 
-  // Submissions State
-  const [runConfig, setRunConfig] = useState({
-    language_id: '63',
-    source_code: encode("console.log('Hello World')"),
-    stdin: encode('Hello World')
-  })
-  const [submitConfig, setSubmitConfig] = useState({
-    language_id: '63',
-    source_code: encode("console.log('Hello World')"),
-    stdin: encode('Hello World'),
-    expected_output: encode('Hello World')
-  })
-
   // Submission Functions
-  const submission = async (mode) => {
+  const submission = async (mode, config) => {
     const options = {
       method: 'POST',
       url: import.meta.env.VITE_RAPID_API_URL,
-      params: { base64_encoded: 'true', fields: '*' }
+      params: { base64_encoded: 'true', fields: '*' },
+      data: config
     }
 
-    if (mode === 'run') {
-      options.data = runConfig
-    } else if (mode === 'submit') {
-      options.data = submitConfig
-    }
-    console.log(mode)
-
-    await axios.request(options).then(res => {
+    await axios.request(options).then(async (res) => {
       console.log(res.data)
-      checkStatus(res.data.token)
+      await checkStatus(res.data.token)
     }).catch(function (error) {
       console.error(error)
     })
   }
 
   const checkStatus = async (token) => {
+    console.log('token', token)
     const options = {
       method: 'GET',
       url: import.meta.env.VITE_RAPID_API_URL + '/' + token,
@@ -93,10 +75,6 @@ export const CollabProvider = ({ children }) => {
     setNavigator,
     language,
     setLanguage,
-    runConfig,
-    setRunConfig,
-    submitConfig,
-    setSubmitConfig,
     code,
     setCode
   }
