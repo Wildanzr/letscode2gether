@@ -1,22 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useCollab } from '../../contexts/CollabContext'
 
 import Testcase from './Testcase'
 import Skeleton from './Skeleton'
 
 import { Tabs } from 'antd'
+import { decode } from 'js-base64'
 
 const Result = () => {
-  const [delay, setDelay] = useState(3000)
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDelay(0)
-    }, 3000)
-    return () => clearTimeout(timer)
-  }, [])
+  // Collab States
+  const { problemStates } = useCollab()
+  const { sampleTestCase, loading, result } = problemStates
 
   return (
-    delay
+    loading
       ? (
       <Skeleton />
         )
@@ -25,28 +21,19 @@ const Result = () => {
       <Tabs
         type="card"
         className="w-full"
-        items={[
-          {
-            key: '1',
-            label: 'Testcase 1',
-            children: <Testcase />
-          },
-          {
-            key: '2',
-            label: 'Testcase 2',
-            children: <Testcase />
-          },
-          {
-            key: '3',
-            label: 'Testcase 3',
-            children: <Testcase />
-          },
-          {
-            key: '4',
-            label: 'Testcase 4',
-            children: <Testcase />
-          }
-        ]}
+        items={sampleTestCase.map((item, index) => ({
+          key: index + 1,
+          label: `Testcase ${index + 1}`,
+          children: <Testcase
+            input={item.input}
+            output={decode(result[index].stdout)}
+            expected={item.expected}
+            key={`testcase-${index}`}
+            status={result[index].status.description}
+            memory={result[index].memory}
+            time={result[index].time}
+            />
+        }))}
       />
     </div>
         )
