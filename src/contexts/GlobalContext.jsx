@@ -11,6 +11,7 @@ export const GlobalProvider = ({ children }) => {
   const [theme, setTheme] = useState('vs')
   const [run, setRun] = useState(false)
   const [showInput, setShowInput] = useState(false)
+  const [customInput, setCustomInput] = useState(false)
 
   // Export global state
   const globalState = {
@@ -27,7 +28,9 @@ export const GlobalProvider = ({ children }) => {
     run,
     setRun,
     showInput,
-    setShowInput
+    setShowInput,
+    customInput,
+    setCustomInput
   }
 
   return (

@@ -11,7 +11,7 @@ import { encode } from 'js-base64'
 const Runner = () => {
   // Global States
   const { editorState } = useGlobalContext()
-  const { setRun, showInput, setShowInput } = editorState
+  const { setRun, showInput, setShowInput, setCustomInput } = editorState
 
   // Collab States
   const { collabStates, collabFunctions, problemStates } = useCollab()
@@ -69,7 +69,8 @@ const Runner = () => {
     }
 
     console.log(config)
-    await submission(mode, config, showInput ? 'batch' : 'single')
+    await submission(config, showInput ? 'single' : 'batch')
+    setCustomInput(showInput)
   }
 
   return (

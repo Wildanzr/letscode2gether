@@ -14,6 +14,7 @@ export const CollabProvider = ({ children }) => {
   const [problem, setProblem] = useState('')
   const [result, setResult] = useState([])
   const [loading, setLoading] = useState(false)
+  const [runMode, setRunMode] = useState(null)
   const [sampleTestCase, setSampleTestCase] = useState([
     {
       input: '13',
@@ -51,53 +52,66 @@ export const CollabProvider = ({ children }) => {
     }
   ])
 
+  // Custom sleep function
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
   // Submission Functions
-  const submission = async (mode, config, type) => {
-    // Set loading to true
+  const submission = async (config, mode) => {
+    // Set loading
     setLoading(true)
-    const url = type === 'single'
-      ? `${import.meta.env.VITE_RAPID_API_URL}/batch`
-      : import.meta.env.VITE_RAPID_API_URL
 
-    let tokens = []
+    // Define API URL
+    const url = mode === 'single'
+      ? import.meta.env.VITE_RAPID_API_URL
+      : `${import.meta.env.VITE_RAPID_API_URL}/batch`
 
+    // Define API Payload
     const options = {
       method: 'POST',
       url,
       params: { base64_encoded: 'true', fields: '*' },
       data: config
     }
+
+    // Collet token results
+    let tokens = []
     try {
       const res = await axios.request(options)
-      if (type === 'single') {
-        tokens = res.data.map((data) => data.token)
-      } else {
+      if (mode === 'single') {
         tokens.push(res.data.token)
+      } else {
+        tokens = res.data.map((data) => data.token)
       }
 
+      // Temporary result
       const tempResults = []
-
-      const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
-
-      // Iterate through tokens for checkStatus, then console the result
+      // Iterate through tokens for checkStatus
       for (const token of tokens) {
         let tmpRes = {
           statusId: 1,
           data: null
         }
+
+        // Check if status is still processing or in queue
         while (tmpRes.statusId === 1 || tmpRes.statusId === 2) {
           const res = await checkStatus(token)
           tmpRes = res
           sleep(2000)
         }
+
+        // Push result to tempResults
         tempResults.push(tmpRes.data)
       }
+
+      // Set result and close loading
       setResult(tempResults)
       setLoading(false)
+      setRunMode(mode)
       console.log('result', tempResults)
     } catch (error) {
       console.error(error)
       setLoading(false)
+      setRunMode(mode)
     }
   }
 
@@ -115,9 +129,7 @@ export const CollabProvider = ({ children }) => {
       const response = await axios.request(options)
       const statusId = response.data.status.id
 
-      // Processed - we have a result
       if (statusId === 1 || statusId === 2) {
-        // still processing
         return {
           statusId,
           data: null
@@ -134,8 +146,6 @@ export const CollabProvider = ({ children }) => {
         statusId: 13,
         data: null
       }
-      // setProcessing(false)
-      // showErrorToast()
     }
   }
 
@@ -166,7 +176,9 @@ export const CollabProvider = ({ children }) => {
     testCase,
     setTestCase,
     loading,
-    result
+    result,
+    runMode,
+    setRunMode
   }
 
   return (
