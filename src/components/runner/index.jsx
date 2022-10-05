@@ -10,19 +10,20 @@ import { encode } from 'js-base64'
 
 const Runner = () => {
   // Global States
-  const { editorState } = useGlobalContext()
+  const { editorState, globalFunctions } = useGlobalContext()
   const { setRun, showInput, setShowInput, setCustomInput } = editorState
+  const { mySwal } = globalFunctions
 
   // Collab States
   const { collabStates, collabFunctions, problemStates } = useCollab()
   const { code, language } = collabStates
   const { submission } = collabFunctions
-  const { sampleTestCase, testCase } = problemStates
+  const { sampleTestCase, testCase, btnDisabled } = problemStates
 
   // Local States
   const [input, setInput] = useState('')
 
-  const runCode = async (mode) => {
+  const runCode = async (mode, type) => {
     let config = {}
     if (mode === 'run') {
       if (showInput) {
@@ -68,9 +69,30 @@ const Runner = () => {
       }
     }
 
-    console.log(config)
+    // console.log(config)
+    console.log(type)
     await submission(config, showInput ? 'single' : 'batch')
     setCustomInput(showInput)
+  }
+
+  const submitDialog = () => {
+    mySwal.fire({
+      title: 'Submit Code?',
+      text: 'Are you sure you want to submit your code?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, submit it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log('Yes submit')
+        runCode('submit', 'submission')
+        setRun(true)
+      } else {
+        console.log('No cancel')
+      }
+    })
   }
 
   return (
@@ -81,20 +103,21 @@ const Runner = () => {
         <CustomInput value={showInput} change={setShowInput} />
         <div className="flex flex-row items-center justify-start space-x-4">
           <button
+            disabled={btnDisabled}
             onClick={() => {
-              runCode('run')
+              runCode('run', 'run')
               setRun(true)
             }}
-            className="flex py-1 px-1 lg:px-2 justify-center font-bold rounded-sm border-2 border-white hover:border-blue-500 duration-300"
+            className={`flex py-1 px-1 lg:px-2 justify-center font-bold rounded-sm border-2 border-white hover:border-blue-500 duration-300 ${btnDisabled ? 'border-gray-300 text-gray-300 hover:border-gray-300' : ''}`}
           >
             RUN CODE
           </button>
           <button
+            disabled={btnDisabled}
             onClick={() => {
-              runCode('submit')
-              setRun(true)
+              submitDialog()
             }}
-            className="flex py-1 px-1 lg:px-2 justify-center bg-[#111827] font-bold rounded-sm border-b-2 border-white hover:border-blue-500 duration-300"
+            className={`flex py-1 px-1 lg:px-2 justify-center bg-[#111827] font-bold rounded-sm border-b-2 border-white hover:border-blue-500 duration-300 ${btnDisabled ? 'border-gray-300 text-gray-300 hover:border-gray-300' : ''}`}
           >
             SUBMIT CODE
           </button>

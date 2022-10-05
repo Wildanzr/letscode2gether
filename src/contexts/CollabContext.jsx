@@ -9,6 +9,7 @@ export const CollabProvider = ({ children }) => {
   const [navigator, setNavigator] = useState('Azmi')
   const [language, setLanguage] = useState(63)
   const [code, setCode] = useState('console.log("Hello world")')
+  const [btnDisabled, setBtnDisabled] = useState(false)
 
   // Problem and Solution State
   const [problem, setProblem] = useState('')
@@ -57,8 +58,9 @@ export const CollabProvider = ({ children }) => {
 
   // Submission Functions
   const submission = async (config, mode) => {
-    // Set loading
+    // Set loading and disable button
     setLoading(true)
+    setBtnDisabled(true)
 
     // Define API URL
     const url = mode === 'single'
@@ -106,11 +108,13 @@ export const CollabProvider = ({ children }) => {
       // Set result and close loading
       setResult(tempResults)
       setLoading(false)
+      setBtnDisabled(false)
       setRunMode(mode)
       console.log('result', tempResults)
     } catch (error) {
       console.error(error)
       setLoading(false)
+      setBtnDisabled(false)
       setRunMode(mode)
     }
   }
@@ -178,7 +182,9 @@ export const CollabProvider = ({ children }) => {
     loading,
     result,
     runMode,
-    setRunMode
+    setRunMode,
+    btnDisabled,
+    setBtnDisabled
   }
 
   return (

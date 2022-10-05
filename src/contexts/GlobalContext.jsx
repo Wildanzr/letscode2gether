@@ -1,11 +1,17 @@
 import { createContext, useContext, useState } from 'react'
 
+import Swal from 'sweetalert2/dist/sweetalert2.all'
+import withReactContent from 'sweetalert2-react-content'
+
 const GlobalContext = createContext()
 
 export const GlobalProvider = ({ children }) => {
   // Global state
   const [colHide, setColHide] = useState(false)
   const [colSideContent, setColSideContent] = useState('')
+
+  // Global Functions
+  const mySwal = withReactContent(Swal)
 
   // Editor State
   const [theme, setTheme] = useState('vs')
@@ -21,6 +27,11 @@ export const GlobalProvider = ({ children }) => {
     setColSideContent
   }
 
+  // Export global functions
+  const globalFunctions = {
+    mySwal
+  }
+
   // Export editor state
   const editorState = {
     theme,
@@ -34,7 +45,7 @@ export const GlobalProvider = ({ children }) => {
   }
 
   return (
-    <GlobalContext.Provider value={{ globalState, editorState }}>
+    <GlobalContext.Provider value={{ globalState, globalFunctions, editorState }}>
       {children}
     </GlobalContext.Provider>
   )
