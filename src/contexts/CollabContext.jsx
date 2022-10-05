@@ -1,9 +1,16 @@
 import { createContext, useContext, useState } from 'react'
+
+import { useGlobalContext } from './GlobalContext'
+
 import axios from 'axios'
 
 const CollabContext = createContext()
 
 export const CollabProvider = ({ children }) => {
+  // Global States
+  const { globalState } = useGlobalContext()
+  const { setColHide, setColSideContent } = globalState
+
   // Collab State
   const [driver, setDriver] = useState('Wildanzr')
   const [navigator, setNavigator] = useState('Azmi')
@@ -57,10 +64,14 @@ export const CollabProvider = ({ children }) => {
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
   // Submission Functions
-  const submission = async (config, mode) => {
-    // Set loading and disable button
-    setLoading(true)
+  const submission = async (config, mode, type) => {
+    // Disable button
     setBtnDisabled(true)
+
+    // Set loading
+    if (type === 'run') {
+      setLoading(true)
+    }
 
     // Define API URL
     const url = mode === 'single'
@@ -105,11 +116,21 @@ export const CollabProvider = ({ children }) => {
         tempResults.push(tmpRes.data)
       }
 
-      // Set result and close loading
-      setResult(tempResults)
-      setLoading(false)
+      // Set result
+      if (type === 'run') {
+        setResult(tempResults)
+
+        // Set loading and mode
+        setLoading(false)
+        setRunMode(mode)
+      } else {
+        setColHide(true)
+        setColSideContent('submissions')
+      }
+
+      // Enable button after submission
       setBtnDisabled(false)
-      setRunMode(mode)
+
       console.log('result', tempResults)
     } catch (error) {
       console.error(error)

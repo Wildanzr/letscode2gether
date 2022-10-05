@@ -70,8 +70,9 @@ const Runner = () => {
     }
 
     // console.log(config)
-    console.log(type)
-    await submission(config, showInput ? 'single' : 'batch')
+    // console.log(type)
+    const runMode = type === 'submission' ? 'batch' : showInput ? 'single' : 'batch'
+    await submission(config, runMode, type)
     setCustomInput(showInput)
   }
 
@@ -86,11 +87,8 @@ const Runner = () => {
       reverseButtons: false
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log('Yes submit')
         runCode('submit', 'submission')
         setRun(true)
-      } else {
-        console.log('No cancel')
       }
     })
   }
