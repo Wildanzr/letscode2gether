@@ -1,15 +1,29 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 
-import { useGlobalContext } from './GlobalContext'
+import { useGlobal } from './GlobalContext'
 
 import axios from 'axios'
+import { io } from 'socket.io-client'
 
 const CollabContext = createContext()
 
 export const CollabProvider = ({ children }) => {
   // Global States
-  const { globalState } = useGlobalContext()
+  const { globalState } = useGlobal()
   const { setColHide, setColSideContent } = globalState
+
+  // Socket State
+  const [socket, setSocket] = useState({
+    on: () => {},
+    off: () => {},
+    emit: () => {}
+  })
+
+  // Connect to Socket Server
+  useEffect(() => {
+    const socket = io(import.meta.env.VITE_SOCKET_HOST)
+    setSocket(socket)
+  }, [])
 
   // Collab State
   const [driver, setDriver] = useState('Wildanzr')
@@ -183,7 +197,8 @@ export const CollabProvider = ({ children }) => {
     language,
     setLanguage,
     code,
-    setCode
+    setCode,
+    socket
   }
 
   // Export submission functions

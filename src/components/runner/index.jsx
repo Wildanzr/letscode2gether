@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { useCollab } from '../../contexts/CollabContext'
-import { useGlobalContext } from '../../contexts/GlobalContext'
+import { useGlobal } from '../../contexts/GlobalContext'
 
 import CustomInput from './CustomInput'
 import InputArea from './InputArea'
@@ -10,7 +10,7 @@ import { encode } from 'js-base64'
 
 const Runner = () => {
   // Global States
-  const { editorState, globalFunctions } = useGlobalContext()
+  const { editorState, globalFunctions } = useGlobal()
   const { setRun, showInput, setShowInput, setCustomInput } = editorState
   const { mySwal } = globalFunctions
 

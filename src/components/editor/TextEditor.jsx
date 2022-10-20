@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react'
 
-import { languageOptions } from '../../constants/languageOptions'
-import { useGlobalContext } from '../../contexts/GlobalContext'
+import { useGlobal } from '../../contexts/GlobalContext'
 import { useCollab } from '../../contexts/CollabContext'
+
+import { languageOptions } from '../../constants/languageOptions'
 
 import Editor from '@monaco-editor/react'
 
 const TextEditor = () => {
   // Global States
-  const { editorState } = useGlobalContext()
+  const { editorState } = useGlobal()
   const { theme } = editorState
 
   // Collab States
   const { collabStates } = useCollab()
-  const { language, code, setCode } = collabStates
+  const { language, code, setCode, socket } = collabStates
 
   // Local state
   const [langValue, setLangValue] = useState('javascript')
@@ -22,10 +23,28 @@ const TextEditor = () => {
   const handleCodeChange = (value) => {
     // Todo save current code to db with name of language
 
-    // Save code to state
-    // console.log('change', value)
+    socket.emit('req_mvp_code', { code: value, room: 'mvp-1' })
     setCode(value)
   }
+
+  // Websocket Listener
+  useEffect(() => {
+    const handleCode = (res) => {
+      setCode(res.code)
+    }
+
+    // Listeners
+    socket.on('res_mvp_code', handleCode)
+    // Join room
+    socket.on('connect', () => {
+      socket.emit('req_mvp_join', { room: 'mvp-1' })
+    })
+
+    // Unlisteners
+    return () => {
+      socket.off('res_mvp_code', handleCode)
+    }
+  }, [socket])
 
   // Monitor language change, then set intellisense to the language
   useEffect(() => {

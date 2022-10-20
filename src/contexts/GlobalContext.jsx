@@ -51,4 +51,4 @@ export const GlobalProvider = ({ children }) => {
   )
 }
 
-export const useGlobalContext = () => useContext(GlobalContext)
+export const useGlobal = () => useContext(GlobalContext)

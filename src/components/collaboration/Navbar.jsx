@@ -1,7 +1,7 @@
-import { useGlobalContext } from '../../contexts/GlobalContext'
+import { useGlobal } from '../../contexts/GlobalContext'
 
 const Navbar = () => {
-  const { globalState } = useGlobalContext()
+  const { globalState } = useGlobal()
 
   const { colHide, setColHide, colSideContent, setColSideContent } = globalState
 

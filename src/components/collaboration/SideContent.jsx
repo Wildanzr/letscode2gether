@@ -1,9 +1,9 @@
-import { useGlobalContext } from '../../contexts/GlobalContext'
+import { useGlobal } from '../../contexts/GlobalContext'
 
 import { Problem, Submission, Leaderboard } from '../sideContent'
 
 const SideContent = () => {
-  const { globalState } = useGlobalContext()
+  const { globalState } = useGlobal()
 
   const { colHide, colSideContent } = globalState
 

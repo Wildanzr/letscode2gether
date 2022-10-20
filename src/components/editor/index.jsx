@@ -4,7 +4,7 @@ import Dropdown from './Dropdown'
 import TextEditor from './TextEditor'
 
 import { languageOptions } from '../../constants/languageOptions'
-import { useGlobalContext } from '../../contexts/GlobalContext'
+import { useGlobal } from '../../contexts/GlobalContext'
 import { useCollab } from '../../contexts/CollabContext'
 
 import { themeList } from '../../constants/themeList'
@@ -13,7 +13,7 @@ import { themeDropDown } from '../../constants/themeDropdown'
 
 const Editor = () => {
   // Global States
-  const { editorState } = useGlobalContext()
+  const { editorState } = useGlobal()
   const { setTheme } = editorState
 
   // Collab States

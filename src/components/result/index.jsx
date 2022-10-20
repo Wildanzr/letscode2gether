@@ -1,4 +1,4 @@
-import { useGlobalContext } from '../../contexts/GlobalContext'
+import { useGlobal } from '../../contexts/GlobalContext'
 import { useCollab } from '../../contexts/CollabContext'
 
 import Testcase from './Testcase'
@@ -9,7 +9,7 @@ import { decode } from 'js-base64'
 
 const Result = () => {
   // Global States
-  const { editorState } = useGlobalContext()
+  const { editorState } = useGlobal()
   const { customInput } = editorState
 
   // Collab States
