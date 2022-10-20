@@ -5,9 +5,9 @@ import { AuthProvider } from './contexts/AuthContext'
 import { GlobalProvider } from './contexts/GlobalContext'
 import { CollabProvider } from './contexts/CollabContext'
 
-import App from './App'
-import './index.css'
+import AppRoutes from './routes'
 
+import './index.css'
 import 'antd/dist/antd.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <AuthProvider>
       <GlobalProvider>
         <CollabProvider>
-          <App />
+          <AppRoutes />
         </CollabProvider>
       </GlobalProvider>
     </AuthProvider>
