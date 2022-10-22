@@ -4,16 +4,21 @@ import Dropdown from './Dropdown'
 import TextEditor from './TextEditor'
 
 import { languageOptions } from '../../constants/languageOptions'
-import { useGlobalContext } from '../../contexts/GlobalContext'
+import { useGlobal } from '../../contexts/GlobalContext'
+import { useCollab } from '../../contexts/CollabContext'
 
 import { themeList } from '../../constants/themeList'
 import { defineTheme } from '../../libs/defineTheme'
 import { themeDropDown } from '../../constants/themeDropdown'
 
 const Editor = () => {
-  // Get global state from ContextProvider
-  const { editorState } = useGlobalContext()
-  const { setLanguage, setTheme } = editorState
+  // Global States
+  const { editorState } = useGlobal()
+  const { setTheme } = editorState
+
+  // Collab States
+  const { collabStates } = useCollab()
+  const { setLanguage } = collabStates
 
   const handleLanguageChange = async (value) => {
     setTheme(value)
