@@ -1,1 +1,1 @@
-export { default as Collab } from './Collab'
+export { default as CollabPage } from './CollabPage'

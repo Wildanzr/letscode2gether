@@ -1,12 +1,12 @@
 import { useGlobal } from '../../contexts/GlobalContext'
 
 import { Navbar, RoomInfo, SideContent } from '../../components/collaboration'
-import { Footer } from './../../components/footer'
-import Editor from './../../components/editor'
-import Runner from './../../components/runner'
-import Result from './../../components/result'
+import { Footer } from '../../components/footer'
+import Editor from '../../components/editor'
+import Runner from '../../components/runner'
+import Result from '../../components/result'
 
-const Collab = () => {
+const CollabPage = () => {
   // Global States
   const { globalState, editorState } = useGlobal()
   const { colHide } = globalState
@@ -33,4 +33,4 @@ const Collab = () => {
   )
 }
 
-export default Collab
+export default CollabPage
