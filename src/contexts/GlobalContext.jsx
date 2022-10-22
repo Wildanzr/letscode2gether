@@ -11,7 +11,7 @@ export const GlobalProvider = ({ children }) => {
   const [colSideContent, setColSideContent] = useState('')
   const [tabs, setTabs] = useState(0)
   const [isOn, setIsOn] = useState(false)
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(true)
   const [paths] = useState([
     {
       to: '/learning-journey',
