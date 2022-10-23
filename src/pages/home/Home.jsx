@@ -4,6 +4,7 @@ import Compile from '../../assets/compile.svg'
 
 import { Navbar, Footer } from '../../layout'
 
+import { Link } from 'react-router-dom'
 import { RiArrowRightSLine } from 'react-icons/ri'
 
 const HomePage = () => {
@@ -28,9 +29,9 @@ const HomePage = () => {
             <p className='hidden lg:flex font-ubuntu text-base lg:text-lg text-center'>
               LetsCode is the best platform to help you learn programming, <br /> improve problem solving and collaborative skills.
             </p>
-            <button className='flex flex-row items-center space-x-4 px-10 py-3 rounded-full font-ubuntu font-medium text-lg bg-easy'>
+            <Link to='/collab' className='flex flex-row items-center space-x-4 px-10 py-3 rounded-full font-ubuntu font-medium text-lg text-snow hover:text-snow bg-easy'>
               Get Started <RiArrowRightSLine className='w-6 h-6' />
-            </button>
+            </Link>
           </div>
         </div>
       </div>

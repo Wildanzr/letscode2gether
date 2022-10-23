@@ -30,7 +30,7 @@ const ChallengePage = () => {
     },
     {
       value: 'solve',
-      label: 'Solve'
+      label: 'Waiting to Solve'
     }
   ]
 
@@ -65,8 +65,6 @@ const ChallengePage = () => {
               skills? Or you wanna develop problem solving skills? We have many
               problems here ready to solve here. Try me if you dare!
             </p>
-
-            <div className="flex w-full"></div>
           </div>
         </div>
       </div>
