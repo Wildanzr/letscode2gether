@@ -8,7 +8,7 @@ import { RiArrowRightSLine } from 'react-icons/ri'
 
 const HomePage = () => {
   return (
-    <div className="flex flex-col w-full space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
+    <div className="flex flex-col w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar />
 
       {/* Info 1 */}
@@ -36,7 +36,7 @@ const HomePage = () => {
       </div>
 
       {/* Info 2 */}
-      <div className="flex px-5 flex-col lg:flex-row-reverse w-full items-center justify-center lg:justify-between">
+      <div className="flex px-5 flex-col lg:flex-row-reverse w-full items-center justify-center lg:justify-around">
         <div className="flex w-full lg:w-1/2 items-center justify-center">
           <img src={Collaborate} className="flex w-[60%]" />
         </div>
@@ -47,10 +47,10 @@ const HomePage = () => {
               Together more easier
             </p>
             <p className='flex lg:hidden font-ubuntu text-base lg:text-lg text-center'>
-              Don`&apos;t think too hard! Invite your friends to solve problems together. We provide a text editor platform that can be used to collaborate anywhere and anytime.
+              Don&apos;t think too hard! Invite your friends to solve problems together. We provide a text editor platform that can be used to collaborate anywhere and anytime.
             </p>
             <p className='hidden lg:flex font-ubuntu text-base lg:text-lg text-center'>
-              Don`&apos;t think too hard! Invite your friends to solve problems together. <br /> We provide a text editor platform that can be used to <br /> collaborate anywhere and anytime.
+              Don&apos;t think too hard! Invite your friends to solve problems together. <br /> We provide a text editor platform that can be used to <br /> collaborate anywhere and anytime.
             </p>
           </div>
         </div>
