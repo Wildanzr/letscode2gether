@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import Result from './Result'
-import { Skeleton } from 'antd'
 
 import axios from 'axios'
 
@@ -11,14 +10,25 @@ const Testcase = (props) => {
 
   // Local States
   const [result, setResult] = useState({
-    statusId: 1,
-    data: null
+    statusId: 2,
+    data: {
+      stdin: undefined,
+      expected_output: undefined,
+      stdout: undefined,
+      status: {
+        statusId: undefined,
+        description: undefined
+      },
+      time: undefined,
+      memory: undefined,
+      statusId: undefined
+    }
   })
   const [once, setOnce] = useState(false)
 
   // Check token
   const checkToken = async (token) => {
-    console.log('Checking token...')
+    // console.log('Checking token...')
     let tempRes = {
       statusId: 1,
       data: null
@@ -26,7 +36,7 @@ const Testcase = (props) => {
 
     while (tempRes.statusId === 1 || tempRes.statusId === 2) {
       const res = await getSubmission(token)
-      console.log(res)
+      // console.log(res)
       tempRes = res
     }
 
@@ -40,7 +50,7 @@ const Testcase = (props) => {
       url: import.meta.env.VITE_RAPID_API_URL + '/' + token,
       params: {
         base64_encoded: 'true',
-        fields: 'expected_output,language,memory,status,stderr,stdin,stdout,time'
+        fields: 'compile_output,expected_output,language,memory,status,stderr,stdin,stdout,time'
       }
     }
     try {
@@ -74,13 +84,7 @@ const Testcase = (props) => {
   }
 
   return (
-    <>
-      {
-        result.data === null
-          ? (<Skeleton />)
-          : (<Result result={result} />)
-      }
-    </>
+    <Result result={result} />
   )
 }
 

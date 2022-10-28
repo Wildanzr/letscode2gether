@@ -31,7 +31,8 @@ module.exports = {
       cyan: colors.cyan
     },
     fontFamily: {
-      ubuntu: ['Ubuntu', 'sans-serif']
+      ubuntu: ['Ubuntu', 'sans-serif'],
+      code: ['Source Code Pro', 'monospace']
     }
   },
   darkMode: 'class',
