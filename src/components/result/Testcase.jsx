@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import Result from './Result'
 import { Skeleton } from 'antd'
@@ -20,12 +19,18 @@ const Testcase = (props) => {
   // Check token
   const checkToken = async (token) => {
     console.log('Checking token...')
-    while (result.statusId === 1 || result.satatusId === 2) {
-      const res = await getSubmission(token)
-
-      setResult(res)
-      sleep(1000)
+    let tempRes = {
+      statusId: 1,
+      data: null
     }
+
+    while (tempRes.statusId === 1 || tempRes.statusId === 2) {
+      const res = await getSubmission(token)
+      console.log(res)
+      tempRes = res
+    }
+
+    setResult(tempRes)
   }
 
   // Get Submission Result
@@ -61,14 +66,6 @@ const Testcase = (props) => {
       }
     }
   }
-
-  // Custom sleep function
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
-
-  // // Get submission result
-  // useEffect(() => {
-  //   checkToken(token)
-  // }, [])
 
   // Call checkToken once only without useEffect
   if (!once) {
