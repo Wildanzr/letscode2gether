@@ -18,6 +18,7 @@ module.exports = {
       medium: '#EAB308',
       hard: '#DC2626',
       success: '#16A34A',
+      green: colors.green,
       black: colors.black,
       white: colors.white,
       gray: colors.gray,

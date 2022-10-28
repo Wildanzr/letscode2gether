@@ -74,9 +74,6 @@ export const CollabProvider = ({ children }) => {
     }
   ])
 
-  // Custom sleep function
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
-
   // Submission Functions
   const submission = async (config, mode, type) => {
     // Disable button
@@ -110,29 +107,9 @@ export const CollabProvider = ({ children }) => {
         tokens = res.data.map((data) => data.token)
       }
 
-      // Temporary result
-      const tempResults = []
-      // Iterate through tokens for checkStatus
-      for (const token of tokens) {
-        let tmpRes = {
-          statusId: 1,
-          data: null
-        }
-
-        // Check if status is still processing or in queue
-        while (tmpRes.statusId === 1 || tmpRes.statusId === 2) {
-          const res = await checkStatus(token)
-          tmpRes = res
-          sleep(2000)
-        }
-
-        // Push result to tempResults
-        tempResults.push(tmpRes.data)
-      }
-
       // Set result
       if (type === 'run') {
-        setResult(tempResults)
+        setResult(tokens)
 
         // Set loading and mode
         setLoading(false)
@@ -144,8 +121,6 @@ export const CollabProvider = ({ children }) => {
 
       // Enable button after submission
       setBtnDisabled(false)
-
-      console.log('result', tempResults)
     } catch (error) {
       console.error(error)
       setLoading(false)
@@ -158,7 +133,10 @@ export const CollabProvider = ({ children }) => {
     const options = {
       method: 'GET',
       url: import.meta.env.VITE_RAPID_API_URL + '/' + token,
-      params: { base64_encoded: 'true', fields: '*' },
+      params: {
+        base64_encoded: 'true',
+        fields: 'expected_output,language,memory,status,stderr,stdin,stdout,time'
+      },
       headers: {
         'X-RapidAPI-Host': import.meta.env.VITE_RAPID_API_HOST,
         'X-RapidAPI-Key': import.meta.env.VITE_RAPID_API_KEY

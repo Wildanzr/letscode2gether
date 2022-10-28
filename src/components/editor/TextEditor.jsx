@@ -27,6 +27,11 @@ const TextEditor = () => {
     setCode(value)
   }
 
+  // First time join room
+  useEffect(() => {
+    socket.emit('req_mvp_join', { room: 'mvp-1' })
+  }, [])
+
   // Websocket Listener
   useEffect(() => {
     const handleCode = (res) => {
