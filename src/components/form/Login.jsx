@@ -1,15 +1,95 @@
+import { useGlobal } from '../../contexts/GlobalContext'
+import { useAuth } from '../../contexts/AuthContext'
+import api from '../../api'
+
 import { Form, Input, Checkbox } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 // Destructure
 const { Item } = Form
 
 const Login = () => {
+  // Global Functions
+  const { globalState, globalFunctions } = useGlobal()
+  const { setTabs } = globalState
+  const { mySwal } = globalFunctions
+
+  // Auth Functions
+  const { authStates, authFunctions } = useAuth()
+  const { setIsAuthenticated, setJwtToken } = authStates
+  const { fetchUser } = authFunctions
+
+  // useForm
   const [form] = Form.useForm()
 
+  // Navigor
+  const navigate = useNavigate()
+
   // Finish Success
-  const onFinish = (values) => {
-    console.log(values)
+  const onFinish = async (values) => {
+    const payload = {
+      username: values.username,
+      password: values.password,
+      remember: values.remember === undefined ? false : values.remember
+    }
+
+    // Show loading
+    mySwal.fire({
+      title: 'Login you in...',
+      allowOutsideClick: true,
+      backdrop: true,
+      allowEscapeKey: true,
+      showConfirmButton: false,
+      didOpen: () => {
+        mySwal.showLoading()
+      }
+    })
+
+    // Login
+    try {
+      const { data } = await api.post('/auth/login', payload)
+      // console.log(data)
+
+      // Set Cookies
+      Cookies.set('jwtToken', data.data.accessToken, {
+        expires: values.remember ? 7 : 1
+      })
+
+      // Set jwtToken to state
+      setJwtToken(data.data.accessToken)
+      setIsAuthenticated(true)
+
+      // Fetch user data
+      await fetchUser()
+
+      mySwal.fire({
+        icon: 'success',
+        title: 'Login Success',
+        text: data.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 4000,
+        showConfirmButton: false
+      }).then(() => {
+        setTabs(1)
+        navigate('/learning-journey')
+      })
+    } catch (error) {
+      console.log(error)
+      // Show error message
+      mySwal.fire({
+        icon: 'error',
+        title: 'Oops, There is an error',
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        text: error.response.data.message,
+        timer: 3000,
+        showConfirmButton: false
+      })
+    }
   }
 
   // Finish Error
