@@ -1,15 +1,68 @@
+import { useGlobal } from '../../contexts/GlobalContext'
+import api from '../../api'
+
 import { Form, Input } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 // Destructure
 const { Item } = Form
 
 const Forgot = () => {
+  // Global Functions
+  const { globalFunctions, globalState } = useGlobal()
+  const { mySwal } = globalFunctions
+  const { setTabs } = globalState
+
+  // useForm
   const [form] = Form.useForm()
 
+  // Navigator
+  const navigate = useNavigate()
+
   // Finish Success
-  const onFinish = (values) => {
-    console.log(values)
+  const onFinish = async (values) => {
+    // Show loading
+    mySwal.fire({
+      title: 'Validating your email...',
+      allowOutsideClick: true,
+      backdrop: true,
+      allowEscapeKey: true,
+      showConfirmButton: false,
+      didOpen: () => {
+        mySwal.showLoading()
+      }
+    })
+
+    // Forgot
+    try {
+      const { data } = await api.post('/auth/forgot-password', values)
+
+      mySwal.fire({
+        icon: 'success',
+        title: 'Done',
+        text: data.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 4000,
+        showConfirmButton: false
+      }).then(() => {
+        setTabs(0)
+        navigate('/auth/login')
+      })
+    } catch (error) {
+      // console.log(error)
+      mySwal.fire({
+        icon: 'error',
+        title: 'Oops, There is an error',
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        text: error.response.data.message,
+        timer: 3000,
+        showConfirmButton: false
+      })
+    }
   }
 
   // Finish Error

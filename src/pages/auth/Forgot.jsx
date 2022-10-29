@@ -7,6 +7,7 @@ const ForgotPage = () => {
       <Navbar />
       <div className="flex flex-col items-center w-2/3 lg:w-1/3 justify-center">
         <p className='text-2xl lg:text-4xl text-center font-ubuntu'>Forgot Account?</p>
+        <p className='text-base lg:text-sm text-center font-ubuntu'>Enter your email address and we&apos;ll send you a link to reset your password.</p>
         <Forgot />
       </div>
       <Footer />
