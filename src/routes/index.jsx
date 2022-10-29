@@ -6,7 +6,7 @@ import { JourneyPage } from '../pages/journey'
 import { ChallengePage } from '../pages/challenge'
 import { CompetePage } from '../pages/compete'
 import { LeaderboardPage } from '../pages/leaderboard'
-import { LoginPage, ForgotPage, RegisterPage, ResetPage } from '../pages/auth'
+import { LoginPage, ForgotPage, RegisterPage, ResetPage, ActivatePage } from '../pages/auth'
 import { NotFound } from '../pages/notfound'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -39,6 +39,7 @@ const AppRoutes = () => {
                 <Route path="forgot" element={<ForgotPage />} />
                 <Route path="register" element={<RegisterPage />} />
                 <Route path="reset" element={<ResetPage />} />
+                <Route path="activate" element={<ActivatePage />} />
                 <Route path="*" element={<NotFound />} />
                 <Route index element={<LoginPage />} />
             </Route>

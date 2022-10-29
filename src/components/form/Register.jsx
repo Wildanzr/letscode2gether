@@ -1,19 +1,79 @@
 /* eslint-disable prefer-promise-reject-errors */
+import { useGlobal } from '../../contexts/GlobalContext'
+import api from '../../api'
+
+import { useNavigate, Link } from 'react-router-dom'
 import { Form, Input, Select, DatePicker } from 'antd'
-import { Link } from 'react-router-dom'
 
 // Destructure
 const { Item } = Form
 const { Option } = Select
 
 const Register = () => {
+  // Global Functions
+  const { globalFunctions, globalState } = useGlobal()
+  const { mySwal } = globalFunctions
+  const { setTabs } = globalState
+
+  // Navigator
+  const navigate = useNavigate()
+
+  // useForm
   const [form] = Form.useForm()
 
+  // Custom Date Format
   const dateFormat = 'YYYY/MM/DD'
 
   // Finish Success
-  const onFinish = (values) => {
-    console.log(values)
+  const onFinish = async (values) => {
+    const payload = {
+      ...values,
+      role: 0
+    }
+
+    // Show loading
+    mySwal.fire({
+      title: 'Registering you in...',
+      allowOutsideClick: true,
+      backdrop: true,
+      allowEscapeKey: true,
+      showConfirmButton: false,
+      didOpen: () => {
+        mySwal.showLoading()
+      }
+    })
+
+    // Register
+    try {
+      const { data } = await api.post('/auth/register', payload)
+
+      mySwal.fire({
+        icon: 'success',
+        title: 'Register Success',
+        text: data.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 4000,
+        showConfirmButton: false
+      }).then(() => {
+        setTabs(0)
+        navigate('/')
+      })
+    } catch (error) {
+      console.log(error)
+      // Show error message
+      mySwal.fire({
+        icon: 'error',
+        title: 'Oops, There is an error',
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        text: error.message,
+        timer: 3000,
+        showConfirmButton: false
+      })
+    }
   }
 
   // Finish Error
@@ -83,6 +143,10 @@ const Register = () => {
           {
             max: 20,
             message: 'Username must be at most 20 characters'
+          },
+          {
+            pattern: /^[a-z0-9]+$/,
+            message: 'Username must be lowercase and contain only letters and numbers'
           }
         ]}
       >
@@ -98,7 +162,7 @@ const Register = () => {
           }
         ]}
       >
-        <Select placeholder="Gender">
+        <Select placeholder="Sex">
           <Option value={true}>Male</Option>
           <Option value={false}>Female</Option>
         </Select>
