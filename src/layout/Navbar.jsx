@@ -11,16 +11,21 @@ import {
   RiMenuFill,
   RiCloseFill
 } from 'react-icons/ri'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 const Navbar = () => {
   // Global States
-  const { globalState } = useGlobal()
+  const { globalState, globalFunctions } = useGlobal()
   const { tabs, setTabs, paths, toggle, setToggle } = globalState
+  const { mySwal } = globalFunctions
 
   // Auth States
   const { authStates } = useAuth()
-  const { user } = authStates
+  const { user, setUser, setIsAuthenticated } = authStates
+
+  // Navigator
+  const navigate = useNavigate()
 
   // Motion Configuration
   const spring = {
@@ -32,6 +37,47 @@ const Navbar = () => {
   const handleClickMobile = (no) => {
     setTabs(no)
     setToggle(!toggle)
+  }
+
+  //   Logout function
+  const handleLogout = () => {
+    // Remove jwtToken from cookies
+    Cookies.remove('jwtToken')
+
+    // Set isAuthenticated to false
+    setIsAuthenticated(false)
+    setUser(null)
+
+    // Redirect to home
+    navigate('/')
+  }
+
+  // Dialog logout
+  const dialogLogout = () => {
+    mySwal.fire({
+      title: 'Are you sure?',
+      text: 'You will be logged out!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, logout!',
+      cancelButtonText: 'No, stay!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // show loading 2 second
+        mySwal.fire({
+          title: 'See you again!',
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: () => {
+            mySwal.showLoading()
+          }
+        }).then(() => {
+          handleLogout()
+        })
+      }
+    })
   }
 
   return (
@@ -90,7 +136,7 @@ const Navbar = () => {
           <DarkSwitch />
           {user
             ? (
-            <Profile />
+            <Profile user={user} dialogLogout={dialogLogout} />
               )
             : (
             <>
@@ -136,25 +182,60 @@ const Navbar = () => {
           </Link>
         ))}
 
-        <Link
-          to={'/auth/login'}
-          onClick={() => handleClickMobile(6)}
-          className={
-            'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
-          }
-        >
-          Login
-        </Link>
+        {user
+          ? (
+          <>
+            <Link
+              to={'/auth/profile'}
+              className={
+                'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
+              }
+            >
+              Profile
+            </Link>
 
-        <Link
-          to={'/auth/register'}
-          onClick={() => handleClickMobile(6)}
-          className={
-            'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
-          }
-        >
-          Register
-        </Link>
+            <Link
+              to={'/auth/setting'}
+              className={
+                'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
+              }
+            >
+              Setting
+            </Link>
+
+            <div
+              onClick={dialogLogout}
+              className={
+                'w-full text-hard text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
+              }
+            >
+              Logout
+            </div>
+          </>
+            )
+          : (
+          <>
+            <Link
+              to={'/auth/login'}
+              onClick={() => handleClickMobile(6)}
+              className={
+                'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
+              }
+            >
+              Login
+            </Link>
+
+            <Link
+              to={'/auth/register'}
+              onClick={() => handleClickMobile(6)}
+              className={
+                'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
+              }
+            >
+              Register
+            </Link>
+          </>
+            )}
       </div>
     </div>
   )

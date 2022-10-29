@@ -1,60 +1,20 @@
 import { useState } from 'react'
-import { useGlobal } from '../contexts/GlobalContext'
-import { useAuth } from '../contexts/AuthContext'
 
-import { Link, useNavigate } from 'react-router-dom'
-import Cookies from 'js-cookie'
+import { Link } from 'react-router-dom'
 import {
   RiShieldUserLine,
   RiSettings3Line,
   RiLogoutBoxRLine
 } from 'react-icons/ri'
 
-const Profile = () => {
-  // Auth States
-  const { authStates } = useAuth()
-  const { setUser, setIsAuthenticated } = authStates
+const Profile = (props) => {
+  // Destructure props
+  const { dialogLogout, user } = props
 
-  // Global Functions
-  const { globalFunctions } = useGlobal()
-  const { mySwal } = globalFunctions
-
-  // Navigator
-  const navigate = useNavigate()
+  const { username, avatar } = user
 
   // Local States
   const [visible, setVisible] = useState(false)
-
-  //   Logout function
-  const handleLogout = () => {
-    // Remove jwtToken from cookies
-    Cookies.remove('jwtToken')
-
-    // Set isAuthenticated to false
-    setIsAuthenticated(false)
-    setUser(null)
-
-    // Redirect to home
-    navigate('/')
-  }
-
-  // Dialog logout
-  const dialogLogout = () => {
-    mySwal.fire({
-      title: 'Are you sure?',
-      text: 'You will be logged out!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, logout!',
-      cancelButtonText: 'No, stay!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        handleLogout()
-      }
-    })
-  }
 
   return (
     <div className="font-ubuntu text-main dark:text-snow duration-300 ease-in-out">
@@ -64,13 +24,13 @@ const Profile = () => {
       >
         <div className="flex flex-row items-center w-full space-x-4">
           <img
-            src="https://ui-avatars.com/api/?name=graita&size=300"
+            src={avatar}
             width={32}
             height={32}
             className="rounded-full"
           />
           {/* show name */}
-          <span className="text-base font-medium">Wildanzr</span>
+          <span className="text-base font-medium">{username}</span>
         </div>
       </button>
       {visible && (
