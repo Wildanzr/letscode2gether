@@ -9,7 +9,7 @@ const AuthContext = createContext()
 export const AuthProvider = ({ children }) => {
   const [jwtToken, setJwtToken] = useState(Cookies.get('jwtToken'))
   const [isAuthenticated, setIsAuthenticated] = useState(!!jwtToken)
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState(null)
 
   // fetch user data
   const fetchUser = async () => {
