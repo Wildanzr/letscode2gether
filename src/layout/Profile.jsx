@@ -13,8 +13,6 @@ const Profile = (props) => {
   const { dialogLogout, user } = props
   const { username, avatar } = user
 
-  console.log(user)
-
   // Local States
   const [visible, setVisible] = useState(false)
 
