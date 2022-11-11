@@ -4,14 +4,16 @@ import { Link } from 'react-router-dom'
 import {
   RiShieldUserLine,
   RiSettings3Line,
-  RiLogoutBoxRLine
+  RiLogoutBoxRLine,
+  RiDashboard3Line
 } from 'react-icons/ri'
 
 const Profile = (props) => {
   // Destructure props
   const { dialogLogout, user } = props
-
   const { username, avatar } = user
+
+  console.log(user)
 
   // Local States
   const [visible, setVisible] = useState(false)
@@ -36,6 +38,15 @@ const Profile = (props) => {
       {visible && (
         <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-3 bg-snow dark:bg-main space-y-3 divide-y-2 divide-main dark:divide-snow z-50">
           <div className="space-y-1">
+            {user.role === 2 && (
+              <Link
+                to="/admin/dashboard"
+                className="px-4 py-2 text-sm text-main dark:text-snow flex flex-row items-center space-x-2 hover:bg-gray-300 dark:hover:bg-gray-600"
+              >
+                <RiDashboard3Line className="text-lg" />
+                <span>Admin Dashboard</span>
+              </Link>
+            )}
             <Link
               to="/profile"
               className="px-4 py-2 text-sm text-main dark:text-snow flex flex-row items-center space-x-2 hover:bg-gray-300 dark:hover:bg-gray-600"

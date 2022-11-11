@@ -12,28 +12,6 @@ export const GlobalProvider = ({ children }) => {
   const [tabs, setTabs] = useState(0)
   const [isOn, setIsOn] = useState(false)
   const [toggle, setToggle] = useState(true)
-  const [paths] = useState([
-    {
-      to: '/learning-journey',
-      name: 'Learning Journey',
-      no: 1
-    },
-    {
-      to: '/challenges',
-      name: 'Challenge',
-      no: 2
-    },
-    {
-      to: '/competes',
-      name: 'Compete',
-      no: 3
-    },
-    {
-      to: '/leaderboards',
-      name: 'Leaderboard',
-      no: 4
-    }
-  ])
 
   // Global Functions
   const mySwal = withReactContent(Swal)
@@ -52,7 +30,6 @@ export const GlobalProvider = ({ children }) => {
     setColSideContent,
     tabs,
     setTabs,
-    paths,
     isOn,
     setIsOn,
     toggle,

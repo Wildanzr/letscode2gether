@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useGlobal } from '../contexts/GlobalContext'
 import { useAuth } from '../contexts/AuthContext'
 import Letscode from '../assets/letscode.svg'
@@ -17,12 +18,36 @@ import Cookies from 'js-cookie'
 const Navbar = () => {
   // Global States
   const { globalState, globalFunctions } = useGlobal()
-  const { tabs, setTabs, paths, toggle, setToggle } = globalState
+  const { tabs, setTabs, toggle, setToggle } = globalState
   const { mySwal } = globalFunctions
 
   // Auth States
   const { authStates } = useAuth()
   const { user, setUser, setIsAuthenticated } = authStates
+
+  // Local States
+  const [paths] = useState([
+    {
+      to: '/learning-journey',
+      name: 'Learning Journey',
+      no: 1
+    },
+    {
+      to: '/challenges',
+      name: 'Challenge',
+      no: 2
+    },
+    {
+      to: '/competes',
+      name: 'Compete',
+      no: 3
+    },
+    {
+      to: '/leaderboards',
+      name: 'Leaderboard',
+      no: 4
+    }
+  ])
 
   // Navigator
   const navigate = useNavigate()
