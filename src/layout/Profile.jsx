@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { useGlobal } from '../contexts/GlobalContext'
 
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import {
   RiShieldUserLine,
   RiSettings3Line,
@@ -12,6 +13,14 @@ const Profile = (props) => {
   // Destructure props
   const { dialogLogout, user } = props
   const { username, avatar } = user
+
+  // Global States
+  const { globalState } = useGlobal()
+  const { setTabs } = globalState
+
+  // Location
+  const location = useLocation()
+  const isAdmin = location.pathname.includes('admin')
 
   // Local States
   const [visible, setVisible] = useState(false)
@@ -38,11 +47,12 @@ const Profile = (props) => {
           <div className="space-y-1">
             {user.role === 2 && (
               <Link
-                to="/admin/dashboard"
+                to={isAdmin ? '/' : '/admin/dashboard'}
+                onClick={() => isAdmin ? setTabs(0) : setTabs(1)}
                 className="px-4 py-2 text-sm text-main dark:text-snow flex flex-row items-center space-x-2 hover:bg-gray-300 dark:hover:bg-gray-600"
               >
                 <RiDashboard3Line className="text-lg" />
-                <span>Admin Dashboard</span>
+                <span>{isAdmin ? 'User View' : 'Admin Dashboard'}</span>
               </Link>
             )}
             <Link

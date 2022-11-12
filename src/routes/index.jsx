@@ -7,7 +7,7 @@ import { ChallengePage } from '../pages/challenge'
 import { CompetePage } from '../pages/compete'
 import { LeaderboardPage } from '../pages/leaderboard'
 import { LoginPage, ForgotPage, RegisterPage, ResetPage, ActivatePage } from '../pages/auth'
-import { DashboardPage } from '../pages/admin'
+import { DashboardPage, ManageJourneyPage } from '../pages/admin'
 import { NotFound } from '../pages/notfound'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -48,6 +48,7 @@ const AppRoutes = () => {
             {/* Admin Route */}
             <Route path='/admin'>
                 <Route path="dashboard" element={<DashboardPage />} />
+                <Route path="manage/journeys" element={<ManageJourneyPage />} />
                 <Route path="*" element={<NotFound />} />
                 <Route index element={<NotFound />} />
             </Route>

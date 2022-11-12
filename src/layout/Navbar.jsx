@@ -12,7 +12,7 @@ import {
   RiMenuFill,
   RiCloseFill
 } from 'react-icons/ri'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
 const Navbar = () => {
@@ -25,29 +25,51 @@ const Navbar = () => {
   const { authStates } = useAuth()
   const { user, setUser, setIsAuthenticated } = authStates
 
+  // Location
+  const location = useLocation()
+  const isAdmin = location.pathname.includes('admin')
+
   // Local States
-  const [paths] = useState([
-    {
-      to: '/learning-journey',
-      name: 'Learning Journey',
-      no: 1
-    },
-    {
-      to: '/challenges',
-      name: 'Challenge',
-      no: 2
-    },
-    {
-      to: '/competes',
-      name: 'Compete',
-      no: 3
-    },
-    {
-      to: '/leaderboards',
-      name: 'Leaderboard',
-      no: 4
-    }
-  ])
+  const [paths] = useState(user !== null && user.role === 2 && isAdmin
+    ? [
+        {
+          to: '/admin/dashboard',
+          name: 'Dashboard',
+          no: 1
+        },
+        {
+          to: '/admin/manage/journeys',
+          name: 'Manage Learning Journey',
+          no: 2
+        },
+        {
+          to: '/admin/manage/challenges',
+          name: 'Manage Challenge',
+          no: 3
+        }
+      ]
+    : [
+        {
+          to: '/learning-journey',
+          name: 'Learning Journey',
+          no: 1
+        },
+        {
+          to: '/challenges',
+          name: 'Challenge',
+          no: 2
+        },
+        {
+          to: '/competes',
+          name: 'Compete',
+          no: 3
+        },
+        {
+          to: '/leaderboards',
+          name: 'Leaderboard',
+          no: 4
+        }
+      ])
 
   // Navigator
   const navigate = useNavigate()
