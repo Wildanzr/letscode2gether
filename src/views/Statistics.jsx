@@ -8,9 +8,9 @@ const Statistics = () => {
         <div className="flex flex-row w-full space-x-5">
             <StatDetail icon={1} title="Total Students" value="147" />
             <StatDetail icon={1} title="Total Teachers" value="14" />
-            <StatDetail icon={1} title="Total Problems" value="312" />
-            <StatDetail icon={1} title="Total Submissions" value="1892" />
-            <StatDetail icon={1} title="Total Competes" value="54" />
+            <StatDetail icon={2} title="Total Problems" value="312" />
+            <StatDetail icon={3} title="Total Submissions" value="1892" />
+            <StatDetail icon={4} title="Total Competes" value="54" />
         </div>
       </div>
     </div>
