@@ -1,16 +1,16 @@
 import { useState } from 'react'
 
-import { Link, useParams } from 'react-router-dom'
 import { BsPencil, BsTrash, BsPlus } from 'react-icons/bs'
+import { Link, useParams } from 'react-router-dom'
 
-const EditableSampleCase = (props) => {
+const EditableTestCaseDetail = (props) => {
   // Destructure props
-  const { sampleCases } = props
+  const { testCases } = props
 
   // useParams
   const { journeyId, problemId } = useParams()
 
-  // Local States
+  // Heading list
   const [headingList] = useState([
     {
       name: 'NO',
@@ -19,17 +19,12 @@ const EditableSampleCase = (props) => {
     },
     {
       name: 'INPUT',
-      wide: 15,
+      wide: 35,
       align: 'text-left'
     },
     {
       name: 'OUTPUT',
-      wide: 15,
-      align: 'text-left'
-    },
-    {
-      name: 'EXPLANATION',
-      wide: 45,
+      wide: 40,
       align: 'text-left'
     },
     {
@@ -55,10 +50,9 @@ const EditableSampleCase = (props) => {
           })}
         </tr>
       </thead>
-
       <tbody className="text-black text-xs font-light ">
-        {sampleCases.map((sample, index) => {
-          const { _id, input, output, explanation } = sample
+        {testCases.map((sample, index) => {
+          const { _id, input, output } = sample
 
           // split input with \n
           const inputSplit = input.split('\n')
@@ -77,11 +71,11 @@ const EditableSampleCase = (props) => {
               <td className="py-3 px-5 text-left overflow-clip">
                 <div className="flex items-center justify-start">
                   <div className="font-medium whitespace-nowrap">
-                    {inputSplit.map((input, index) => (
-                      <p key={index} className="mb-0 text-gray-600">
-                        {input}
-                      </p>
-                    ))}
+                    {
+                      inputSplit.map((input, index) => (
+                        <p key={index} className="mb-0 text-gray-600">{input}</p>
+                      ))
+                    }
                   </div>
                 </div>
               </td>
@@ -92,18 +86,10 @@ const EditableSampleCase = (props) => {
                   </div>
                 </div>
               </td>
-              <td className="py-3 px-5 text-left overflow-clip">
-                <div className="flex items-center justify-start">
-                  <div className="font-medium whitespace-nowrap">
-                    <span className="text-gray-600">{explanation}</span>
-                  </div>
-                </div>
-              </td>
-
-              <td className="py-3 px-5 text-left overflow-clip">
+              <td className="py-3 px-5 text-center overflow-clip">
                 <div className="flex flex-row space-x-4 items-center justify-center">
                   <Link
-                    to={`/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/${_id}/edit`}
+                    to={`/admin/manage/journeys/${journeyId}/problems/${problemId}/testcases/${_id}/edit`}
                     className="px-2 py-2 bg-medium rounded-lg"
                   >
                     <BsPencil className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
@@ -131,21 +117,20 @@ const EditableSampleCase = (props) => {
           >
             <div className="py-2 flex flex-row items-center justify-center">
               <Link
-                to={`/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/create`}
+                to={`/admin/manage/journeys/${journeyId}/problems/${problemId}/testcases/create`}
                 className="flex flex-row space-x-2 w-full items-center justify-center"
               >
                 <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
                 <span className="text-base font-medium text-snow whitespace-nowrap">
-                  Add More Sample Case
+                  Add More Test Case
                 </span>
               </Link>
             </div>
           </td>
         </tr>
       </tfoot>
-
     </table>
   )
 }
 
-export default EditableSampleCase
+export default EditableTestCaseDetail

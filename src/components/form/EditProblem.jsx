@@ -1,19 +1,21 @@
 import { useState } from 'react'
 
 import { Form, Input, Select } from 'antd'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 // Destructure Antd Components
 const { Item } = Form
 const { TextArea } = Input
 
 const EditProblem = (props) => {
+  // Destructure props
+  const { children } = props
+
+  // useParams
+  const { journeyId } = useParams()
+
   // useForm
   const [form] = Form.useForm()
-
-  // useLocation
-  const { pathname } = useLocation()
-  const backLocation = pathname.split('/problems/')[0]
 
   // Local States
   const [otherFields] = useState([
@@ -168,11 +170,14 @@ const EditProblem = (props) => {
         )
       })}
 
+      {/* Sample cases and Test cases */}
+      {children}
+
       {/* Buttons */}
       <Item>
         <div className="flex flex-row space-x-4 w-full items-center justify-end">
           <Link
-            to={backLocation}
+            to={`/admin/manage/journeys/${journeyId}/edit`}
             className="px-4 py-2 mt-4 text-sm font-medium text-center font-ubuntu tracking-wider uppercase transition-colors transform border-2 text-main dark:text-snow border-main dark:border-snow dark:hover:border-easy hover:border-easy duration-300 ease-in-out"
           >
             Cancel

@@ -3,7 +3,10 @@ import { useState } from 'react'
 import { Navbar, Footer } from '../../layout'
 import { Breadcrumb } from '../../components/breadcrumb'
 import { EditProblem } from '../../components/form'
-import { EditableSampleCase } from '../../components/table'
+import {
+  EditableSampleCase,
+  EditableTestCaseDetail
+} from '../../components/table'
 
 import { useParams } from 'react-router-dom'
 
@@ -31,12 +34,14 @@ const EditProblemPage = () => {
   // eslint-disable-next-line no-unused-vars
   const [sampleCases] = useState([
     {
+      _id: '1',
       input: '5\n1 2 3 4 5',
       output: '2 1 4 3 5',
       explanation:
         'The output array is 2, 1, 4, 3, 5. If we look at the array, it is clearly in wave like array. We can verify that every even element is greater than its adjacent odd elements.'
     },
     {
+      _id: '2',
       input: '6\n1 2 3 4 5 6',
       output: '2 1 4 3 6 5',
       explanation: null
@@ -44,10 +49,12 @@ const EditProblemPage = () => {
   ])
   const [testCases] = useState([
     {
+      _id: '1',
       input: '5\n1 2 3 4 5',
       output: '2 1 4 3 5'
     },
     {
+      _id: '2',
       input: '6\n1 2 3 4 5 6',
       output: '2 1 4 3 6 5'
     }
@@ -65,11 +72,23 @@ const EditProblemPage = () => {
         </div>
 
         {/* Edit Problem */}
-        <div className="flex flex-col space-y-4 w-full font-ubuntu">
-          <EditProblem />
-        </div>
+        <EditProblem>
+          <div className="flex flex-col space-y-4 w-full font-ubuntu">
+            <div className="flex flex-col w-full space-y-2">
+              <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
+                Sample Cases
+              </p>
+              <EditableSampleCase sampleCases={sampleCases} />
+            </div>
 
-        <EditableSampleCase sampleCases={sampleCases} />
+            <div className="flex flex-col w-full space-y-2">
+              <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
+                Test Cases
+              </p>
+              <EditableTestCaseDetail testCases={testCases} />
+            </div>
+          </div>
+        </EditProblem>
       </div>
       <Footer />
     </div>
