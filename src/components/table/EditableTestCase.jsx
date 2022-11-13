@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { BsPencil, BsTrash, BsPlus } from 'react-icons/bs'
 import { Link, useParams } from 'react-router-dom'
 
-const EditableTestCaseDetail = (props) => {
+const EditableTestCase = (props) => {
   // Destructure props
   const { testCases } = props
 
@@ -19,18 +19,18 @@ const EditableTestCaseDetail = (props) => {
     },
     {
       name: 'INPUT',
-      wide: 35,
+      wide: 15,
       align: 'text-left'
     },
     {
       name: 'OUTPUT',
-      wide: 40,
+      wide: 15,
       align: 'text-left'
     },
     {
       name: 'ACTIONS',
       wide: 20,
-      align: 'text-center'
+      align: 'text-right'
     }
   ])
   return (
@@ -87,7 +87,7 @@ const EditableTestCaseDetail = (props) => {
                 </div>
               </td>
               <td className="py-3 px-5 text-center overflow-clip">
-                <div className="flex flex-row space-x-4 items-center justify-center">
+                <div className="flex flex-row space-x-4 items-center justify-end">
                   <Link
                     to={`/admin/manage/journeys/${journeyId}/problems/${problemId}/testcases/${_id}/edit`}
                     className="px-2 py-2 bg-medium rounded-lg"
@@ -133,4 +133,4 @@ const EditableTestCaseDetail = (props) => {
   )
 }
 
-export default EditableTestCaseDetail
+export default EditableTestCase

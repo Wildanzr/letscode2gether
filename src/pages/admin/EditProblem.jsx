@@ -5,7 +5,7 @@ import { Breadcrumb } from '../../components/breadcrumb'
 import { EditProblem } from '../../components/form'
 import {
   EditableSampleCase,
-  EditableTestCaseDetail
+  EditableTestCase
 } from '../../components/table'
 
 import { useParams } from 'react-router-dom'
@@ -85,7 +85,7 @@ const EditProblemPage = () => {
               <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
                 Test Cases
               </p>
-              <EditableTestCaseDetail testCases={testCases} />
+              <EditableTestCase testCases={testCases} />
             </div>
           </div>
         </EditProblem>

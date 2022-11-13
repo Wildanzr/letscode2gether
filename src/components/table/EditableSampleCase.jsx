@@ -35,7 +35,7 @@ const EditableSampleCase = (props) => {
     {
       name: 'ACTIONS',
       wide: 20,
-      align: 'text-center'
+      align: 'text-right'
     }
   ])
   return (
@@ -101,7 +101,7 @@ const EditableSampleCase = (props) => {
               </td>
 
               <td className="py-3 px-5 text-left overflow-clip">
-                <div className="flex flex-row space-x-4 items-center justify-center">
+                <div className="flex flex-row space-x-4 items-center justify-end">
                   <Link
                     to={`/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/${_id}/edit`}
                     className="px-2 py-2 bg-medium rounded-lg"

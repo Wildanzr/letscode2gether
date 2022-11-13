@@ -10,6 +10,6 @@ export { default as SampleCaseDetail } from './SampleCaseDetail'
 export { default as EditableSampleCase } from './EditableSampleCase'
 
 export { default as TestCaseDetail } from './TestCaseDetail'
-export { default as EditableTestCaseDetail } from './EditableTestCaseDetail'
+export { default as EditableTestCase } from './EditableTestCase'
 
 export { default as EditableListOfProblem } from './EditableListOfProblem'
