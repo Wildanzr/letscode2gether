@@ -69,7 +69,7 @@ const EditableListOfProblem = (props) => {
                   </Link>
 
                   <Link
-                    to={'pop/edit'}
+                    to={`problems/${_id}/edit`}
                     className="px-2 py-2 bg-medium rounded-lg"
                   >
                     <BsPencil className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
