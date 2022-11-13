@@ -11,7 +11,7 @@ const ManageJourneyPage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: 'List of Journeys',
+      name: 'List of Learning Journeys',
       target: '/admin/manage/journeys'
     }
   ])
@@ -19,18 +19,22 @@ const ManageJourneyPage = () => {
   // eslint-disable-next-line no-unused-vars
   const [journeys, setJourneys] = useState([
     {
+      _id: '1',
       name: 'Section 1 - Input Output',
       totalProblems: 3
     },
     {
+      _id: '2',
       name: 'Section 2 - Basic Operators',
       totalProblems: 4
     },
     {
+      _id: '3',
       name: 'Section 3 - Conditional Statements',
       totalProblems: 5
     },
     {
+      _id: '4',
       name: 'Section 4 - Loops',
       totalProblems: 5
     }
