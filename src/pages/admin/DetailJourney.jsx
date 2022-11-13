@@ -10,7 +10,6 @@ import { useParams } from 'react-router-dom'
 const DetailJourneyPage = () => {
   // useParams
   const { journeyId } = useParams()
-  console.log(journeyId)
 
   // Breadcrumb paths
   const [paths] = useState([

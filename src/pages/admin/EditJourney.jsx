@@ -27,14 +27,17 @@ const EditJourneyPage = () => {
   // eslint-disable-next-line no-unused-vars
   const [problems, setProblems] = useState([
     {
+      _id: 1,
       name: 'Hello World',
       difficulty: 1
     },
     {
+      _id: 2,
       name: 'Greeting Morning',
       difficulty: 2
     },
     {
+      _id: 3,
       name: 'Let Me Introduce MySelf',
       difficulty: 3
     }

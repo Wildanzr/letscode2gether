@@ -24,7 +24,7 @@ const EditableListOfProblem = (props) => {
       </thead>
       <tbody className="text-black text-xs font-light">
         {problems.map((problem, index) => {
-          const { name, difficulty } = problem
+          const { _id, name, difficulty } = problem
           return (
             <tr
               key={index}
@@ -62,7 +62,7 @@ const EditableListOfProblem = (props) => {
               <td className="py-3 px-5 text-left overflow-clip">
                 <div className="flex flex-row space-x-4 items-center justify-center">
                   <Link
-                    to={'problems/test'}
+                    to={`problems/${_id}`}
                     className="px-2 py-2 bg-easy rounded-lg"
                   >
                     <BsEye className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />

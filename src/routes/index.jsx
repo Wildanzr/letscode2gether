@@ -51,6 +51,7 @@ const AppRoutes = () => {
                 <Route path="manage/journeys" element={<ManageJourneyPage />} />
                 <Route path="manage/journeys/:journeyId" element={<DetailJourneyPage />} />
                 <Route path="manage/journeys/:journeyId/edit" element={<EditJourneyPage />} />
+                <Route path="manage/journeys/:journeyId/edit/problems/:problemId" element={<DetailProblemPage />} />
                 <Route path="manage/journeys/:journeyId/problems/:problemId" element={<DetailProblemPage />} />
                 <Route path="*" element={<NotFound />} />
                 <Route index element={<NotFound />} />

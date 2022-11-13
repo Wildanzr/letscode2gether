@@ -5,31 +5,52 @@ import { Breadcrumb } from '../../components/breadcrumb'
 import { Description } from '../../components/other'
 import { SampleCaseDetail, TestCaseDetail } from '../../components/table'
 
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 
 const DetailProblemPage = () => {
   // useParams
   const { journeyId, problemId } = useParams()
 
+  // useLocation
+  const { pathname } = useLocation()
+  const isInEditPage = pathname.includes('edit')
+
   // Breadcrumb paths
-  const [paths] = useState([
-    {
-      name: 'List of Learning Journeys',
-      target: '/admin/manage/journeys'
-    },
-    {
-      name: 'Detail Learning Journey',
-      target: `/admin/manage/journeys/${journeyId}`
-    },
-    {
-      name: 'Detail Problem',
-      target: `/admin/manage/journeys/${journeyId}/problems/${problemId}`
-    }
-  ])
+  const [paths] = useState(
+    isInEditPage
+      ? [
+          {
+            name: 'List of Learning Journeys',
+            target: '/admin/manage/journeys'
+          },
+          {
+            name: 'Edit Learning Journey',
+            target: `/admin/manage/journeys/${journeyId}/edit`
+          },
+          {
+            name: 'Detail Problem',
+            target: `/admin/manage/journeys/${journeyId}/edit/problems/${problemId}`
+          }
+        ]
+      : [
+          {
+            name: 'List of Learning Journeys',
+            target: '/admin/manage/journeys'
+          },
+          {
+            name: 'Detail Learning Journey',
+            target: `/admin/manage/journeys/${journeyId}`
+          },
+          {
+            name: 'Detail Problem',
+            target: `/admin/manage/journeys/${journeyId}/problems/${problemId}`
+          }
+        ]
+  )
 
   // eslint-disable-next-line no-unused-vars
   const [problemDetail, setProblemDetail] = useState({
-    name: 'Wave Sort',
+    title: 'Wave Sort',
     description: 'Given an array of integers, sort the array into a wave like array and return it, In other words, arrange the elements into a sequence such that a1 >= a2 <= a3 >= a4 <= a5....',
     difficulty: 1,
     constraints: '1 <= N <= 10^5',
@@ -73,8 +94,8 @@ const DetailProblemPage = () => {
         {/* Detail of Problem */}
         <div className="flex flex-col space-y-4 w-full font-ubuntu">
             <Description
-                title="Name"
-                value={problemDetail.name}
+                title="Title"
+                value={problemDetail.title}
             />
             <Description
                 title="Description"
