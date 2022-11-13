@@ -29,21 +29,27 @@ const EditProblemPage = () => {
 
   // Local states
   // eslint-disable-next-line no-unused-vars
-  const [problems, setProblems] = useState([
+  const [sampleCases] = useState([
     {
-      _id: 1,
-      name: 'Hello World',
-      difficulty: 1
+      input: '5\n1 2 3 4 5',
+      output: '2 1 4 3 5',
+      explanation:
+        'The output array is 2, 1, 4, 3, 5. If we look at the array, it is clearly in wave like array. We can verify that every even element is greater than its adjacent odd elements.'
     },
     {
-      _id: 2,
-      name: 'Greeting Morning',
-      difficulty: 2
+      input: '6\n1 2 3 4 5 6',
+      output: '2 1 4 3 6 5',
+      explanation: null
+    }
+  ])
+  const [testCases] = useState([
+    {
+      input: '5\n1 2 3 4 5',
+      output: '2 1 4 3 5'
     },
     {
-      _id: 3,
-      name: 'Let Me Introduce MySelf',
-      difficulty: 3
+      input: '6\n1 2 3 4 5 6',
+      output: '2 1 4 3 6 5'
     }
   ])
   return (
@@ -63,7 +69,7 @@ const EditProblemPage = () => {
           <EditProblem />
         </div>
 
-        <EditableSampleCase />
+        <EditableSampleCase sampleCases={sampleCases} />
       </div>
       <Footer />
     </div>
