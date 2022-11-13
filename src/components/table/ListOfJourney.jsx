@@ -58,9 +58,12 @@ const ListOfJourney = (props) => {
                   <BsEye className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
                 </Link>
 
-                <button className="px-2 py-2 bg-medium rounded-lg">
+                <Link
+                  to={`${journey._id}/edit`}
+                  className="px-2 py-2 bg-medium rounded-lg"
+                >
                   <BsPencil className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
-                </button>
+                </Link>
 
                 <button className="px-2 py-2 bg-hard rounded-lg">
                   <BsTrash className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />

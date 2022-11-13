@@ -7,7 +7,7 @@ import { ChallengePage } from '../pages/challenge'
 import { CompetePage } from '../pages/compete'
 import { LeaderboardPage } from '../pages/leaderboard'
 import { LoginPage, ForgotPage, RegisterPage, ResetPage, ActivatePage } from '../pages/auth'
-import { DashboardPage, ManageJourneyPage, DetailJourneyPage, DetailProblemPage } from '../pages/admin'
+import { DashboardPage, ManageJourneyPage, DetailJourneyPage, DetailProblemPage, EditJourneyPage } from '../pages/admin'
 import { NotFound } from '../pages/notfound'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -50,6 +50,7 @@ const AppRoutes = () => {
                 <Route path="dashboard" element={<DashboardPage />} />
                 <Route path="manage/journeys" element={<ManageJourneyPage />} />
                 <Route path="manage/journeys/:journeyId" element={<DetailJourneyPage />} />
+                <Route path="manage/journeys/:journeyId/edit" element={<EditJourneyPage />} />
                 <Route path="manage/journeys/:journeyId/problems/:problemId" element={<DetailProblemPage />} />
                 <Route path="*" element={<NotFound />} />
                 <Route index element={<NotFound />} />
