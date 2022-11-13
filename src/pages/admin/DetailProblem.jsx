@@ -5,19 +5,19 @@ import { Breadcrumb } from '../../components/breadcrumb'
 import { Description } from '../../components/other'
 import { SampleCaseDetail, TestCaseDetail } from '../../components/table'
 
-import { useParams, useLocation } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 
 const DetailProblemPage = () => {
   // useParams
   const { journeyId, problemId } = useParams()
 
-  // useLocation
-  const { pathname } = useLocation()
-  const isInEditPage = pathname.includes('edit')
+  // useSearchParams
+  const [searchParams] = useSearchParams()
+  const origin = searchParams.get('origin')
 
   // Breadcrumb paths
   const [paths] = useState(
-    isInEditPage
+    origin === 'edit'
       ? [
           {
             name: 'List of Learning Journeys',
@@ -29,7 +29,7 @@ const DetailProblemPage = () => {
           },
           {
             name: 'Detail Problem',
-            target: `/admin/manage/journeys/${journeyId}/edit/problems/${problemId}`
+            target: `/admin/manage/journeys/${journeyId}/problems/${problemId}?origin=edit`
           }
         ]
       : [
@@ -43,7 +43,7 @@ const DetailProblemPage = () => {
           },
           {
             name: 'Detail Problem',
-            target: `/admin/manage/journeys/${journeyId}/problems/${problemId}`
+            target: `/admin/manage/journeys/${journeyId}/problems/${problemId}?origin=detail`
           }
         ]
   )

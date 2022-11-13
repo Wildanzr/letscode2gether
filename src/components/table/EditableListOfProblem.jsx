@@ -1,8 +1,12 @@
 import { BsEye, BsPencil, BsTrash, BsPlus } from 'react-icons/bs'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const EditableListOfProblem = (props) => {
+  // Destructure props
   const { problems } = props
+
+  // useParams
+  const { journeyId } = useParams()
 
   return (
     <table className="w-full table-auto shadow-xl">
@@ -62,7 +66,7 @@ const EditableListOfProblem = (props) => {
               <td className="py-3 px-5 text-left overflow-clip">
                 <div className="flex flex-row space-x-4 items-center justify-center">
                   <Link
-                    to={`problems/${_id}`}
+                    to={`/admin/manage/journeys/${journeyId}/problems/${_id}?origin=edit`}
                     className="px-2 py-2 bg-easy rounded-lg"
                   >
                     <BsEye className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />

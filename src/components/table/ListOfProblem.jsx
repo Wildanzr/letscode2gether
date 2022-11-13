@@ -48,7 +48,7 @@ const ListOfProblem = (props) => {
             <td className="py-3 px-5 text-left overflow-clip">
               <div className="flex flex-row space-x-4 items-center justify-center">
                 <Link
-                 to={'problems/test'}
+                 to={'problems/test?origin=detail'}
                  className="px-2 py-2 bg-easy rounded-lg"
                 >
                   <BsEye className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />

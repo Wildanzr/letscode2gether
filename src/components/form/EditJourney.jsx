@@ -40,51 +40,57 @@ const EditJourney = (props) => {
       onFinishFailed={onFinishFailed}
       className="flex flex-col w-full duration-300 ease-in-out"
     >
-      <Item
-        name="name"
-        rules={[
-          {
-            required: true,
-            message: 'Please input name of journey!'
-          },
-          {
-            max: 255,
-            message: 'Name must be at most 255 characters'
-          }
-        ]}
-      >
-        <div className="flex flex-row w-full items-start justify-start">
-          <div className="flex w-1/4">
-            <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-              Name
-            </p>
-          </div>
-          <div className="flex w-3/4">
+      {/* Name */}
+      <div className="flex flex-row w-full items-start justify-start">
+        <div className="flex w-1/4">
+          <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
+            Name
+          </p>
+        </div>
+        <div className="flex w-3/4">
+          <Item
+            name="name"
+            className="w-full"
+            rules={[
+              {
+                required: true,
+                message: 'Please input name of journey!'
+              },
+              {
+                max: 255,
+                message: 'Name must be at most 255 characters'
+              }
+            ]}
+          >
             <Input placeholder="Name of Learning Journey" />
-          </div>
+          </Item>
         </div>
-      </Item>
-      <Item
-        name="description"
-        rules={[
-          {
-            required: true,
-            message: 'Please input description of journey!'
-          }
-        ]}
-      >
-        <div className="flex flex-row w-full items-start justify-start">
-          <div className="flex w-1/4">
-            <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-              Description
-            </p>
-          </div>
-          <div className="flex w-3/4">
-            <TextArea rows={5} placeholder="Description of Learning Journey" />
-          </div>
-        </div>
-      </Item>
+      </div>
 
+      {/* Description */}
+      <div className="flex flex-row w-full items-start justify-start">
+        <div className="flex w-1/4">
+          <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
+            Description
+          </p>
+        </div>
+        <div className="flex w-3/4">
+          <Item
+            name="description"
+            className="w-full"
+            rules={[
+              {
+                required: true,
+                message: 'Please input description of journey!'
+              }
+            ]}
+          >
+            <TextArea rows={5} placeholder="Description of Learning Journey" />
+          </Item>
+        </div>
+      </div>
+
+      {/* Language Allowed */}
       <div className="flex flex-row w-full items-start justify-start">
         <div className="flex w-1/4">
           <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
@@ -123,6 +129,7 @@ const EditJourney = (props) => {
         </div>
       </div>
 
+      {/* Problem List */}
       <div className="flex flex-col w-full">
         <p className="font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
           Problems
@@ -130,10 +137,11 @@ const EditJourney = (props) => {
         {children}
       </div>
 
+      {/* Buttons */}
       <Item>
         <div className="flex flex-row space-x-4 w-full items-center justify-end">
           <Link
-            to={-1}
+            to="/admin/manage/journeys"
             className="px-4 py-2 mt-4 text-sm font-medium text-center font-ubuntu tracking-wider uppercase transition-colors transform border-2 text-main dark:text-snow border-main dark:border-snow dark:hover:border-easy hover:border-easy duration-300 ease-in-out"
           >
             Cancel

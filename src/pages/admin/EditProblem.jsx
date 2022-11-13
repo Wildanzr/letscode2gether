@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Navbar, Footer } from '../../layout'
 import { Breadcrumb } from '../../components/breadcrumb'
 import { EditProblem } from '../../components/form'
+import { EditableSampleCase } from '../../components/table'
 
 import { useParams } from 'react-router-dom'
 
@@ -61,6 +62,8 @@ const EditProblemPage = () => {
         <div className="flex flex-col space-y-4 w-full font-ubuntu">
           <EditProblem />
         </div>
+
+        <EditableSampleCase />
       </div>
       <Footer />
     </div>
