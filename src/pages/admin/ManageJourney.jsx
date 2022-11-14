@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
+import api from '../../api'
 import { Navbar, Footer } from '../../layout'
 import { Breadcrumb } from '../../components/breadcrumb'
 import { ListOfJourney } from '../../components/table'
 
+import Cookies from 'js-cookie'
 import { RiSearchLine } from 'react-icons/ri'
 import { Input, Pagination } from 'antd'
 
@@ -17,32 +19,31 @@ const ManageJourneyPage = () => {
   ])
 
   // eslint-disable-next-line no-unused-vars
-  const [journeys, setJourneys] = useState([
-    {
-      _id: '1',
-      name: 'Section 1 - Input Output',
-      totalProblems: 3
-    },
-    {
-      _id: '2',
-      name: 'Section 2 - Basic Operators',
-      totalProblems: 4
-    },
-    {
-      _id: '3',
-      name: 'Section 3 - Conditional Statements',
-      totalProblems: 5
-    },
-    {
-      _id: '4',
-      name: 'Section 4 - Loops',
-      totalProblems: 5
-    }
-  ])
+  const [journeys, setJourneys] = useState(null)
 
   const onShowSizeChange = (current, pageSize) => {
     console.log(current, pageSize)
   }
+
+  const fetchJourneys = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+    try {
+      const { data } = await api.get('/competes?page=1&limit=10&isLearnPath=true', config)
+      // console.log(data)
+      setJourneys(data.data.competes)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Initial fetch journey
+  useEffect(() => {
+    fetchJourneys()
+  }, [])
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar>
@@ -96,7 +97,11 @@ const ManageJourneyPage = () => {
             </span>
             <div className="flex flex-col pb-4 overflow-y-auto">
               <div className="flex w-full">
-                <ListOfJourney journeys={journeys} />
+                {
+                  journeys === null
+                    ? <ListOfJourney journeys={null} />
+                    : <ListOfJourney journeys={journeys} />
+                }
               </div>
             </div>
           </div>

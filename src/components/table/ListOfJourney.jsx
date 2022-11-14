@@ -1,6 +1,8 @@
 import { BsEye, BsPencil, BsTrash, BsPlus } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 
+import { Spin } from 'antd'
+
 const ListOfJourney = (props) => {
   const { journeys } = props
 
@@ -23,64 +25,110 @@ const ListOfJourney = (props) => {
         </tr>
       </thead>
       <tbody className="text-black text-xs font-light ">
-        {journeys.map((journey, index) => (
-          <tr
-            key={index}
-            className="border-b border-gray-200 bg-gray-50 hover:bg-gray-300"
-          >
+        {journeys === null
+          ? (
+          <tr className="border-b border-gray-200 bg-gray-50 hover:bg-gray-300">
             <td className="py-3 px-5 text-left overflow-clip">
               <div className="flex items-center justify-start">
                 <div className="font-medium whitespace-nowrap">
-                  <span className="ml-3 text-gray-600">{index + 1}</span>
+                  <Spin size="small" />
                 </div>
               </div>
             </td>
             <td className="py-3 px-5 text-left overflow-clip">
               <div className="flex items-center justify-start">
                 <div className="font-medium whitespace-nowrap">
-                  <span className="text-gray-600">{journey.name}</span>
+                  <Spin size="small" />
                 </div>
               </div>
             </td>
             <td className="py-3 px-5 text-left overflow-clip">
               <div className="flex items-center justify-center">
                 <div className="font-medium whitespace-nowrap">
-                  <span className="text-gray-600">{journey.totalProblems}</span>
+                  <Spin size="small" />
                 </div>
               </div>
             </td>
             <td className="py-3 px-5 text-left overflow-clip">
               <div className="flex flex-row space-x-4 items-center justify-center">
-                <Link
-                 to={`${journey._id}`}
-                 className="px-2 py-2 bg-easy rounded-lg"
-                >
-                  <BsEye className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
-                </Link>
-
-                <Link
-                  to={`${journey._id}/edit`}
-                  className="px-2 py-2 bg-medium rounded-lg"
-                >
-                  <BsPencil className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
-                </Link>
-
-                <button className="px-2 py-2 bg-hard rounded-lg">
-                  <BsTrash className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
-                </button>
+                <Spin size="small" />
               </div>
             </td>
           </tr>
-        ))}
+            )
+          : (
+              journeys.map((journey, index) => {
+                const { _id, name, problems } = journey
+                return (
+              <tr
+                key={index}
+                className="border-b border-gray-200 bg-gray-50 hover:bg-gray-300"
+              >
+                <td className="py-3 px-5 text-left overflow-clip">
+                  <div className="flex items-center justify-start">
+                    <div className="font-medium whitespace-nowrap">
+                      <span className="ml-3 text-gray-600">{index + 1}</span>
+                    </div>
+                  </div>
+                </td>
+                <td className="py-3 px-5 text-left overflow-clip">
+                  <div className="flex items-center justify-start">
+                    <div className="font-medium whitespace-nowrap">
+                      <span className="text-gray-600">{name}</span>
+                    </div>
+                  </div>
+                </td>
+                <td className="py-3 px-5 text-left overflow-clip">
+                  <div className="flex items-center justify-center">
+                    <div className="font-medium whitespace-nowrap">
+                      <span className="text-gray-600">
+                        {problems.length}
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td className="py-3 px-5 text-left overflow-clip">
+                  <div className="flex flex-row space-x-4 items-center justify-center">
+                    <Link
+                      to={`${_id}`}
+                      className="px-2 py-2 bg-easy rounded-lg"
+                    >
+                      <BsEye className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
+                    </Link>
+
+                    <Link
+                      to={`${_id}/edit`}
+                      className="px-2 py-2 bg-medium rounded-lg"
+                    >
+                      <BsPencil className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
+                    </Link>
+
+                    <button className="px-2 py-2 bg-hard rounded-lg">
+                      <BsTrash className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+                )
+              })
+            )}
       </tbody>
       <tfoot>
         {/* Button for add more learning journey */}
         <tr>
-          <td colSpan="4" className="bg-easy hover:bg-blue-600 duration-300 ease-in-out">
+          <td
+            colSpan="4"
+            className="bg-easy hover:bg-blue-600 duration-300 ease-in-out"
+          >
             <div className="py-2 flex flex-row items-center justify-center">
-              <Link to='/admin/manage/journeys/create' className="flex flex-row space-x-2 w-full items-center justify-center">
+              <Link
+                to="/admin/manage/journeys/create"
+                className="flex flex-row space-x-2 w-full items-center justify-center"
+              >
                 <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
-                <span className='text-base font-medium text-snow whitespace-nowrap'>Add More Learning Journey</span>
+                <span className="text-base font-medium text-snow whitespace-nowrap">
+                  Add More Learning Journey
+                </span>
               </Link>
             </div>
           </td>
