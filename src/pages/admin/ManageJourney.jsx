@@ -45,55 +45,64 @@ const ManageJourneyPage = () => {
   }
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
-      <Navbar />
-      <div className="flex flex-col w-11/12 space-y-6">
-
-        {/* Header and Breadcrumb */}
-        <div className="flex flex-col w-full">
-          <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-            Learning Journey
-          </h3>
-          <Breadcrumb paths={paths} />
-        </div>
-
-        {/* Search */}
-        <div className="flex flex-col m-0 space-y-5 lg:pt-0 w-full items-center justify-between">
-          <div className="w-full hidden lg:flex">
-            <Input placeholder="Search Learning Journey" prefix={<RiSearchLine />} />
+      <Navbar>
+        <div className="flex flex-col w-11/12 space-y-6">
+          {/* Header and Breadcrumb */}
+          <div className="flex flex-col w-full">
+            <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
+              Learning Journey
+            </h3>
+            <Breadcrumb paths={paths} />
           </div>
 
-          <div className="w-full hidden flex-row justify-end lg:flex">
-            <Pagination
-              onShowSizeChange={onShowSizeChange}
-              defaultCurrent={3}
-              total={20}
-            />
+          {/* Search */}
+          <div className="flex flex-col m-0 space-y-5 lg:pt-0 w-full items-center justify-between">
+            <div className="w-full hidden lg:flex">
+              <Input
+                placeholder="Search Learning Journey"
+                prefix={<RiSearchLine />}
+              />
+            </div>
+
+            <div className="w-full hidden flex-row justify-end lg:flex">
+              <Pagination
+                onShowSizeChange={onShowSizeChange}
+                defaultCurrent={3}
+                total={20}
+              />
+            </div>
+
+            <div className="flex flex-row lg:hidden w-full space-x-5">
+              <Input
+                placeholder="Search Learning Journey"
+                prefix={<RiSearchLine />}
+              />
+            </div>
+
+            <div className="w-full flex flex-row justify-center lg:hidden">
+              <Pagination
+                onShowSizeChange={onShowSizeChange}
+                defaultCurrent={3}
+                total={20}
+              />
+            </div>
           </div>
 
-          <div className="flex flex-row lg:hidden w-full space-x-5">
-            <Input placeholder="Search Learning Journey" prefix={<RiSearchLine />} />
-          </div>
-
-          <div className="w-full flex flex-row justify-center lg:hidden">
-            <Pagination
-              onShowSizeChange={onShowSizeChange}
-              defaultCurrent={3}
-              total={20}
-            />
-          </div>
-        </div>
-
-        {/* Learning Journey Data */}
-        <div className="flex flex-col w-full space-y-2 overflow-y-auto">
-          <span className='text-xs font-ubuntu font-light text-main dark:text-snow duration-300 ease-in-out'>* Learning journey was sorted by name, make sure it was sequence by their name.</span>
-          <div className="flex flex-col pb-4 overflow-y-auto">
-            <div className="flex w-full">
-              <ListOfJourney journeys={journeys} />
+          {/* Learning Journey Data */}
+          <div className="flex flex-col w-full space-y-2 overflow-y-auto">
+            <span className="text-xs font-ubuntu font-light text-main dark:text-snow duration-300 ease-in-out">
+              * Learning journey was sorted by name, make sure it was sequence
+              by their name.
+            </span>
+            <div className="flex flex-col pb-4 overflow-y-auto">
+              <div className="flex w-full">
+                <ListOfJourney journeys={journeys} />
+              </div>
             </div>
           </div>
         </div>
+      </Navbar>
 
-      </div>
       <Footer />
     </div>
   )

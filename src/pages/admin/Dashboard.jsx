@@ -47,29 +47,34 @@ const DashboardPage = () => {
     }
   ])
   return (
-    <div className='flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out'>
-      <Navbar />
-      <div className="flex flex-col w-11/12 space-y-6">
-        <Statistics />
+    <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
+      <Navbar>
+        <div className="flex flex-col w-11/12 space-y-6">
+          <Statistics />
 
-        <div className="flex flex-col space-y-4">
-          <h3 className='mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out'>Popular Competes</h3>
-          <div className="flex flex-col py-4 overflow-y-auto">
-            <div className="flex w-full">
-              <PopularCompete competes={competes} />
+          <div className="flex flex-col space-y-4">
+            <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
+              Popular Competes
+            </h3>
+            <div className="flex flex-col py-4 overflow-y-auto">
+              <div className="flex w-full">
+                <PopularCompete competes={competes} />
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col space-y-4">
+            <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
+              Popular Competes
+            </h3>
+            <div className="flex flex-col py-4 overflow-y-auto">
+              <div className="flex w-full">
+                <PopularProblem problems={problems} />
+              </div>
             </div>
           </div>
         </div>
-
-        <div className="flex flex-col space-y-4">
-          <h3 className='mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out'>Popular Competes</h3>
-          <div className="flex flex-col py-4 overflow-y-auto">
-            <div className="flex w-full">
-              <PopularProblem problems={problems} />
-            </div>
-          </div>
-        </div>
-      </div>
+      </Navbar>
       <Footer />
     </div>
   )

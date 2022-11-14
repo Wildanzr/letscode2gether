@@ -3,10 +3,7 @@ import { useState } from 'react'
 import { Navbar, Footer } from '../../layout'
 import { Breadcrumb } from '../../components/breadcrumb'
 import { EditProblem } from '../../components/form'
-import {
-  EditableSampleCase,
-  EditableTestCase
-} from '../../components/table'
+import { EditableSampleCase, EditableTestCase } from '../../components/table'
 
 import { useParams } from 'react-router-dom'
 
@@ -61,35 +58,36 @@ const EditProblemPage = () => {
   ])
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
-      <Navbar />
-      <div className="flex flex-col w-11/12 space-y-6">
-        {/* Header and Breadcrumb */}
-        <div className="flex flex-col w-full">
-          <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-            Learning Journey
-          </h3>
-          <Breadcrumb paths={paths} />
-        </div>
-
-        {/* Edit Problem */}
-        <EditProblem>
-          <div className="flex flex-col space-y-4 w-full font-ubuntu">
-            <div className="flex flex-col w-full space-y-2">
-              <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-                Sample Cases
-              </p>
-              <EditableSampleCase sampleCases={sampleCases} />
-            </div>
-
-            <div className="flex flex-col w-full space-y-2">
-              <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-                Test Cases
-              </p>
-              <EditableTestCase testCases={testCases} />
-            </div>
+      <Navbar>
+        <div className="flex flex-col w-11/12 space-y-6">
+          {/* Header and Breadcrumb */}
+          <div className="flex flex-col w-full">
+            <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
+              Learning Journey
+            </h3>
+            <Breadcrumb paths={paths} />
           </div>
-        </EditProblem>
-      </div>
+
+          {/* Edit Problem */}
+          <EditProblem>
+            <div className="flex flex-col space-y-4 w-full font-ubuntu">
+              <div className="flex flex-col w-full space-y-2">
+                <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
+                  Sample Cases
+                </p>
+                <EditableSampleCase sampleCases={sampleCases} />
+              </div>
+
+              <div className="flex flex-col w-full space-y-2">
+                <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
+                  Test Cases
+                </p>
+                <EditableTestCase testCases={testCases} />
+              </div>
+            </div>
+          </EditProblem>
+        </div>
+      </Navbar>
       <Footer />
     </div>
   )
