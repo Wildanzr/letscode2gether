@@ -6,3 +6,5 @@ export { default as EditJourneyPage } from './EditJourney'
 
 export { default as DetailProblemPage } from './DetailProblem'
 export { default as EditProblemPage } from './EditProblem'
+
+export { default as CreateSampleCase } from './CreateSampleCase'

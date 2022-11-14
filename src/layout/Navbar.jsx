@@ -15,7 +15,10 @@ import {
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
-const Navbar = () => {
+const Navbar = (props) => {
+  // Destructure props
+  const { children } = props
+
   // Global States
   const { globalState, globalFunctions } = useGlobal()
   const { tabs, setTabs, toggle, setToggle } = globalState
@@ -128,7 +131,8 @@ const Navbar = () => {
   }
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col space-y-4 w-full items-center justify-center">
+
       {/* Basic Navbar */}
       <div className="flex flex-row w-full px-5 py-2 bg-snow dark:bg-main ease-in-out items-center justify-between duration-300">
         {/* Hide if the screen lg */}
@@ -284,6 +288,9 @@ const Navbar = () => {
           </>
             )}
       </div>
+
+      {/* Children */}
+      {children}
     </div>
   )
 }
