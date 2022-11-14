@@ -1,21 +1,21 @@
 import { useState } from 'react'
 
 import { Form, Input, Select } from 'antd'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 
 // Destructure Antd Components
 const { Item } = Form
 const { TextArea } = Input
 
-const EditProblem = (props) => {
-  // Destructure props
-  const { children } = props
-
+const AddProblem = () => {
   // useParams
   const { journeyId } = useParams()
 
   // useForm
   const [form] = Form.useForm()
+
+  // Navigator
+  const navigate = useNavigate()
 
   // Local States
   const [otherFields] = useState([
@@ -41,12 +41,15 @@ const EditProblem = (props) => {
   // Finish Success
   const onFinish = (values) => {
     console.log(values)
+
+    // Navigate to edit problelm
+    navigate(`/admin/manage/journeys/${journeyId}/problems/1/edit`)
   }
 
   return (
     <Form
       form={form}
-      name="editProblem"
+      name="addProblem"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       className="flex flex-col w-full duration-300 ease-in-out"
@@ -170,9 +173,6 @@ const EditProblem = (props) => {
         )
       })}
 
-      {/* Sample cases and Test cases */}
-      {children}
-
       {/* Buttons */}
       <Item>
         <div className="flex flex-row space-x-4 w-full items-center justify-end">
@@ -196,4 +196,4 @@ const EditProblem = (props) => {
   )
 }
 
-export default EditProblem
+export default AddProblem

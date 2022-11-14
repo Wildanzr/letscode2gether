@@ -19,7 +19,8 @@ import {
   CreateTestCasePage,
   EditSampleCasePage,
   EditTestCasePage,
-  CreateJourneyPage
+  CreateJourneyPage,
+  CreateProblemPage
 } from '../pages/admin'
 import { NotFound } from '../pages/notfound'
 
@@ -91,9 +92,10 @@ const RouteList = () => {
             <Route path='/admin'>
                 <Route path="dashboard" element={<DashboardPage />} />
                 <Route path="manage/journeys" element={<ManageJourneyPage />} />
-                <Route path="manage/journeys/:journeyId" element={<DetailJourneyPage />} />
                 <Route path="manage/journeys/create" element={<CreateJourneyPage />} />
+                <Route path="manage/journeys/:journeyId" element={<DetailJourneyPage />} />
                 <Route path="manage/journeys/:journeyId/edit" element={<EditJourneyPage />} />
+                <Route path="manage/journeys/:journeyId/problems/create" element={<CreateProblemPage />} />
                 <Route path="manage/journeys/:journeyId/problems/:problemId" element={<DetailProblemPage />} />
                 <Route path="manage/journeys/:journeyId/problems/:problemId/edit" element={<EditProblemPage />} />
                 <Route path="manage/journeys/:journeyId/problems/:problemId/samplecases/create" element={<CreateSampleCasePage />} />

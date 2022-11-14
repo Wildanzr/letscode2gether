@@ -23,7 +23,7 @@ const EditProblemPage = () => {
     },
     {
       name: 'Edit Problem',
-      target: `/admin/manage/journeys/${journeyId}/edit/problems/${problemId}/edit`
+      target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
     }
   ])
 
