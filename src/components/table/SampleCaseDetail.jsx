@@ -18,7 +18,7 @@ const SampleCaseDetail = (props) => {
           </th>
         </tr>
       </thead>
-      <tbody className="text-black text-xs font-light ">
+      <tbody className="text-black text-xs font-light font-code">
         {sampleCases.map((sample, index) => {
           const { input, output, explanation } = sample
 
@@ -56,7 +56,7 @@ const SampleCaseDetail = (props) => {
               </td>
               <td className="py-3 px-5 text-left overflow-clip">
                 <div className="flex items-center justify-start">
-                  <div className="font-medium whitespace-nowrap">
+                  <div className="font-medium">
                     <span className="text-gray-600">{explanation}</span>
                   </div>
                 </div>

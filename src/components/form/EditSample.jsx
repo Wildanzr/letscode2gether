@@ -56,7 +56,11 @@ const AddSample = () => {
               }
             ]}
           >
-            <Input placeholder="Input of sample case" />
+            <TextArea
+              rows={5}
+              placeholder="Input of sample case"
+              className='font-code'
+              />
           </Item>
         </div>
       </div>
@@ -83,7 +87,11 @@ const AddSample = () => {
               }
             ]}
           >
-            <Input placeholder="Output of sample case" />
+            <TextArea
+              rows={5}
+              placeholder="Output of sample case"
+              className='font-code'
+              />
           </Item>
         </div>
       </div>
@@ -108,7 +116,7 @@ const AddSample = () => {
             <TextArea
               rows={5}
               placeholder="Explanation of sample case"
-              className="w-full"
+              className="w-full font-code"
             />
           </Item>
         </div>

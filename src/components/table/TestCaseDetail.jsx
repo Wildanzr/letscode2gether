@@ -15,7 +15,7 @@ const TestCaseDetail = (props) => {
           </th>
         </tr>
       </thead>
-      <tbody className="text-black text-xs font-light ">
+      <tbody className="text-black text-xs font-light font-code">
         {testCases.map((sample, index) => {
           const { input, output } = sample
 

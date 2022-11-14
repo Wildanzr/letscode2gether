@@ -2,6 +2,7 @@ import { Form, Input } from 'antd'
 import { Link, useParams } from 'react-router-dom'
 
 const { Item } = Form
+const { TextArea } = Input
 
 const AddSample = () => {
   // useForm
@@ -54,7 +55,11 @@ const AddSample = () => {
               }
             ]}
           >
-            <Input placeholder="Input of test case" />
+            <TextArea
+              rows={5}
+              placeholder="Input of sample case"
+              className='font-code'
+              />
           </Item>
         </div>
       </div>
@@ -81,7 +86,11 @@ const AddSample = () => {
               }
             ]}
           >
-            <Input placeholder="Output of test case" />
+            <TextArea
+              rows={5}
+              placeholder="Output of sample case"
+              className='font-code'
+              />
           </Item>
         </div>
       </div>

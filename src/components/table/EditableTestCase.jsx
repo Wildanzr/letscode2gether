@@ -50,7 +50,7 @@ const EditableTestCase = (props) => {
           })}
         </tr>
       </thead>
-      <tbody className="text-black text-xs font-light ">
+      <tbody className="text-black text-xs font-light font-code">
         {testCases.map((sample, index) => {
           const { _id, input, output } = sample
 
