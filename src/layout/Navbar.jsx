@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useGlobal } from '../contexts/GlobalContext'
 import { useAuth } from '../contexts/AuthContext'
 import Letscode from '../assets/letscode.svg'
@@ -33,46 +33,48 @@ const Navbar = (props) => {
   const isAdmin = location.pathname.includes('admin')
 
   // Local States
-  const [paths] = useState(user !== null && user.role === 2 && isAdmin
-    ? [
-        {
-          to: '/admin/dashboard',
-          name: 'Dashboard',
-          no: 1
-        },
-        {
-          to: '/admin/manage/journeys',
-          name: 'Manage Learning Journey',
-          no: 2
-        },
-        {
-          to: '/admin/manage/challenges',
-          name: 'Manage Challenge',
-          no: 3
-        }
-      ]
-    : [
-        {
-          to: '/learning-journey',
-          name: 'Learning Journey',
-          no: 1
-        },
-        {
-          to: '/challenges',
-          name: 'Challenge',
-          no: 2
-        },
-        {
-          to: '/competes',
-          name: 'Compete',
-          no: 3
-        },
-        {
-          to: '/leaderboards',
-          name: 'Leaderboard',
-          no: 4
-        }
-      ])
+  const [paths, setPaths] = useState(
+    user !== null && user.role === 2 && isAdmin
+      ? [
+          {
+            to: '/admin/dashboard',
+            name: 'Dashboard',
+            no: 1
+          },
+          {
+            to: '/admin/manage/journeys',
+            name: 'Manage Learning Journey',
+            no: 2
+          },
+          {
+            to: '/admin/manage/challenges',
+            name: 'Manage Challenge',
+            no: 3
+          }
+        ]
+      : [
+          {
+            to: '/learning-journey',
+            name: 'Learning Journey',
+            no: 1
+          },
+          {
+            to: '/challenges',
+            name: 'Challenge',
+            no: 2
+          },
+          {
+            to: '/competes',
+            name: 'Compete',
+            no: 3
+          },
+          {
+            to: '/leaderboards',
+            name: 'Leaderboard',
+            no: 4
+          }
+        ]
+  )
 
   // Navigator
   const navigate = useNavigate()
@@ -104,35 +106,84 @@ const Navbar = (props) => {
 
   // Dialog logout
   const dialogLogout = () => {
-    mySwal.fire({
-      title: 'Are you sure?',
-      text: 'You will be logged out!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, logout!',
-      cancelButtonText: 'No, stay!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // show loading 2 second
-        mySwal.fire({
-          title: 'See you again!',
-          timer: 2000,
-          timerProgressBar: true,
-          didOpen: () => {
-            mySwal.showLoading()
-          }
-        }).then(() => {
-          handleLogout()
-        })
-      }
-    })
+    mySwal
+      .fire({
+        title: 'Are you sure?',
+        text: 'You will be logged out!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, logout!',
+        cancelButtonText: 'No, stay!'
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // show loading 2 second
+          mySwal
+            .fire({
+              title: 'See you again!',
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: () => {
+                mySwal.showLoading()
+              }
+            })
+            .then(() => {
+              handleLogout()
+            })
+        }
+      })
   }
+
+  // Monitor user changes
+  useEffect(() => {
+    setPaths(
+      user !== null && user.role === 2 && isAdmin
+        ? [
+            {
+              to: '/admin/dashboard',
+              name: 'Dashboard',
+              no: 1
+            },
+            {
+              to: '/admin/manage/journeys',
+              name: 'Manage Learning Journey',
+              no: 2
+            },
+            {
+              to: '/admin/manage/challenges',
+              name: 'Manage Challenge',
+              no: 3
+            }
+          ]
+        : [
+            {
+              to: '/learning-journey',
+              name: 'Learning Journey',
+              no: 1
+            },
+            {
+              to: '/challenges',
+              name: 'Challenge',
+              no: 2
+            },
+            {
+              to: '/competes',
+              name: 'Compete',
+              no: 3
+            },
+            {
+              to: '/leaderboards',
+              name: 'Leaderboard',
+              no: 4
+            }
+          ]
+    )
+  }, [user])
 
   return (
     <div className="flex flex-col space-y-4 w-full items-center justify-center">
-
       {/* Basic Navbar */}
       <div className="flex flex-row w-full px-5 py-2 bg-snow dark:bg-main ease-in-out items-center justify-between duration-300">
         {/* Hide if the screen lg */}
