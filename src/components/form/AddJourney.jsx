@@ -1,5 +1,9 @@
+import { useGlobal } from '../../contexts/GlobalContext'
 import { languageOptions } from '../../constants/languageOptions'
 
+import api from '../../api'
+
+import Cookies from 'js-cookie'
 import { Form, Input, Select } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -15,17 +19,74 @@ const AddJourney = () => {
   // Navigator
   const navigate = useNavigate()
 
+  // Global Functions
+  const { globalFunctions } = useGlobal()
+  const { mySwal } = globalFunctions
+
   // Finish Error
   const onFinishFailed = (errorInfo) => {
     console.log(errorInfo)
   }
 
   // Finish Success
-  const onFinish = (values) => {
-    console.log(values)
+  const onFinish = async (values) => {
+    // Show loading
+    mySwal.fire({
+      title: 'Creating Learning Journey...',
+      allowEscapeKey: true,
+      allowOutsideClick: true,
+      didOpen: () => {
+        mySwal.showLoading()
+      }
+    })
 
-    // Navigate to Edit Journey
-    navigate('/admin/manage/journeys/1/edit')
+    const payload = {
+      name: values.name,
+      description: values.description,
+      languageAllowed: values.languageAllowed,
+      start: null,
+      end: null,
+      isLearnPath: true
+    }
+
+    // Configuration
+    const config = {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+
+    try {
+      const { data } = await api.post('/competes', payload, config)
+      console.log(data)
+
+      // Show success
+      mySwal.fire({
+        icon: 'success',
+        title: 'Learning Journey created successfully',
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 2000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      }).then(() => {
+        navigate(`/admin/manage/journeys/${data.data.compete._id}/edit`)
+      })
+
+      // Navigate to Edit Journey
+    } catch (error) {
+      console.log(error)
+      mySwal.fire({
+        icon: 'error',
+        title: error.response.data.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false
+      })
+    }
   }
 
   const options = languageOptions.map((lang) => {

@@ -70,7 +70,7 @@ const Login = () => {
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
-        timer: 4000,
+        timer: 2000,
         showConfirmButton: false
       }).then(() => {
         setTabs(1)
@@ -81,7 +81,7 @@ const Login = () => {
       // Show error message
       mySwal.fire({
         icon: 'error',
-        title: 'Oops, There is an error',
+        title: error.response.message,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
