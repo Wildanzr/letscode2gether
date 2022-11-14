@@ -8,3 +8,6 @@ export { default as EditProblem } from './EditProblem'
 
 export { default as AddSample } from './AddSample'
 export { default as AddTest } from './AddTest'
+
+export { default as EditSample } from './EditSample'
+export { default as EditTest } from './EditTest'

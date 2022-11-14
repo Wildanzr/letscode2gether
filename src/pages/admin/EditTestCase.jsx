@@ -2,13 +2,13 @@ import { useState } from 'react'
 
 import { Navbar, Footer } from '../../layout'
 import { Breadcrumb } from '../../components/breadcrumb'
-import { AddSample } from '../../components/form'
+import { EditTest } from '../../components/form'
 
 import { useParams } from 'react-router-dom'
 
-const CreateSampleCasePage = () => {
+const EditTestCasePage = () => {
   // useParams
-  const { journeyId, problemId } = useParams()
+  const { journeyId, problemId, testId } = useParams()
 
   // Breadcrumb paths
   const [paths] = useState([
@@ -25,8 +25,8 @@ const CreateSampleCasePage = () => {
       target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
     },
     {
-      name: 'Add Sample Case',
-      target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/create`
+      name: 'Edit Test Case',
+      target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/testcases/${testId}/edit`
     }
   ])
 
@@ -42,8 +42,8 @@ const CreateSampleCasePage = () => {
             <Breadcrumb paths={paths} />
           </div>
 
-          {/* Add Sample Case */}
-          <AddSample />
+          {/* Edit Test Case */}
+          <EditTest />
         </div>
       </Navbar>
 
@@ -52,4 +52,4 @@ const CreateSampleCasePage = () => {
   )
 }
 
-export default CreateSampleCasePage
+export default EditTestCasePage

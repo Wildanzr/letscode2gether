@@ -14,8 +14,10 @@ import {
   DetailProblemPage,
   EditJourneyPage,
   EditProblemPage,
-  CreateSampleCase,
-  CreateTestCase
+  CreateSampleCasePage,
+  CreateTestCasePage,
+  EditSampleCasePage,
+  EditTestCasePage
 } from '../pages/admin'
 import { NotFound } from '../pages/notfound'
 
@@ -62,8 +64,10 @@ const AppRoutes = () => {
                 <Route path="manage/journeys/:journeyId/edit" element={<EditJourneyPage />} />
                 <Route path="manage/journeys/:journeyId/problems/:problemId" element={<DetailProblemPage />} />
                 <Route path="manage/journeys/:journeyId/problems/:problemId/edit" element={<EditProblemPage />} />
-                <Route path="manage/journeys/:journeyId/problems/:problemId/samplecases/create" element={<CreateSampleCase />} />
-                <Route path="manage/journeys/:journeyId/problems/:problemId/testcases/create" element={<CreateTestCase />} />
+                <Route path="manage/journeys/:journeyId/problems/:problemId/samplecases/create" element={<CreateSampleCasePage />} />
+                <Route path="manage/journeys/:journeyId/problems/:problemId/samplecases/:sampleId/edit" element={<EditSampleCasePage />} />
+                <Route path="manage/journeys/:journeyId/problems/:problemId/testcases/create" element={<CreateTestCasePage />} />
+                <Route path="manage/journeys/:journeyId/problems/:problemId/testcases/:testId/edit" element={<EditTestCasePage />} />
                 <Route path="*" element={<NotFound />} />
                 <Route index element={<NotFound />} />
             </Route>

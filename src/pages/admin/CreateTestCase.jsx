@@ -6,7 +6,7 @@ import { AddTest } from '../../components/form'
 
 import { useParams } from 'react-router-dom'
 
-const CreateTestCase = () => {
+const CreateTestCasePage = () => {
   // useParams
   const { journeyId, problemId } = useParams()
 
@@ -52,4 +52,4 @@ const CreateTestCase = () => {
   )
 }
 
-export default CreateTestCase
+export default CreateTestCasePage
