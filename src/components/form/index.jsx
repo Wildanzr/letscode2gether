@@ -4,6 +4,8 @@ export { default as Forgot } from './Forgot'
 export { default as Reset } from './Reset'
 
 export { default as EditJourney } from './EditJourney'
+export { default as AddJourney } from './AddJourney'
+
 export { default as EditProblem } from './EditProblem'
 
 export { default as AddSample } from './AddSample'

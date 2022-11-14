@@ -78,10 +78,10 @@ const ListOfJourney = (props) => {
         <tr>
           <td colSpan="4" className="bg-easy hover:bg-blue-600 duration-300 ease-in-out">
             <div className="py-2 flex flex-row items-center justify-center">
-              <button className="flex flex-row space-x-2 w-full items-center justify-center">
+              <Link to='/admin/manage/journeys/create' className="flex flex-row space-x-2 w-full items-center justify-center">
                 <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
                 <span className='text-base font-medium text-snow whitespace-nowrap'>Add More Learning Journey</span>
-              </button>
+              </Link>
             </div>
           </td>
         </tr>

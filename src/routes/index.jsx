@@ -18,7 +18,8 @@ import {
   CreateSampleCasePage,
   CreateTestCasePage,
   EditSampleCasePage,
-  EditTestCasePage
+  EditTestCasePage,
+  CreateJourneyPage
 } from '../pages/admin'
 import { NotFound } from '../pages/notfound'
 
@@ -51,7 +52,6 @@ const RouteList = () => {
 
   // useLocation
   const { pathname } = useLocation()
-  console.log(pathname)
 
   // Monitor pathname
   useEffect(() => {
@@ -92,6 +92,7 @@ const RouteList = () => {
                 <Route path="dashboard" element={<DashboardPage />} />
                 <Route path="manage/journeys" element={<ManageJourneyPage />} />
                 <Route path="manage/journeys/:journeyId" element={<DetailJourneyPage />} />
+                <Route path="manage/journeys/create" element={<CreateJourneyPage />} />
                 <Route path="manage/journeys/:journeyId/edit" element={<EditJourneyPage />} />
                 <Route path="manage/journeys/:journeyId/problems/:problemId" element={<DetailProblemPage />} />
                 <Route path="manage/journeys/:journeyId/problems/:problemId/edit" element={<EditProblemPage />} />
