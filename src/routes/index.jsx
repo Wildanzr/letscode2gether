@@ -7,7 +7,16 @@ import { ChallengePage } from '../pages/challenge'
 import { CompetePage } from '../pages/compete'
 import { LeaderboardPage } from '../pages/leaderboard'
 import { LoginPage, ForgotPage, RegisterPage, ResetPage, ActivatePage } from '../pages/auth'
-import { DashboardPage, ManageJourneyPage, DetailJourneyPage, DetailProblemPage, EditJourneyPage, EditProblemPage, CreateSampleCase } from '../pages/admin'
+import {
+  DashboardPage,
+  ManageJourneyPage,
+  DetailJourneyPage,
+  DetailProblemPage,
+  EditJourneyPage,
+  EditProblemPage,
+  CreateSampleCase,
+  CreateTestCase
+} from '../pages/admin'
 import { NotFound } from '../pages/notfound'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -54,6 +63,7 @@ const AppRoutes = () => {
                 <Route path="manage/journeys/:journeyId/problems/:problemId" element={<DetailProblemPage />} />
                 <Route path="manage/journeys/:journeyId/problems/:problemId/edit" element={<EditProblemPage />} />
                 <Route path="manage/journeys/:journeyId/problems/:problemId/samplecases/create" element={<CreateSampleCase />} />
+                <Route path="manage/journeys/:journeyId/problems/:problemId/testcases/create" element={<CreateTestCase />} />
                 <Route path="*" element={<NotFound />} />
                 <Route index element={<NotFound />} />
             </Route>

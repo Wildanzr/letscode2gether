@@ -2,9 +2,8 @@ import { Form, Input } from 'antd'
 import { Link, useParams } from 'react-router-dom'
 
 const { Item } = Form
-const { TextArea } = Input
 
-const AddSample = () => {
+const AddTest = () => {
   // useForm
   const [form] = Form.useForm()
 
@@ -24,7 +23,7 @@ const AddSample = () => {
   return (
     <Form
       form={form}
-      name="addSample"
+      name="addTest"
       className="flex flex-col w-full"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
@@ -83,32 +82,6 @@ const AddSample = () => {
         </div>
       </div>
 
-      {/* Explanation */}
-      <div className="flex flex-row w-full items-start justify-start">
-        <div className="flex w-1/4">
-          <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-            Explanation
-          </p>
-        </div>
-        <div className="flex w-3/4">
-          <Item
-            name="explanation"
-            className="w-full"
-            rules={[
-              {
-                required: false
-              }
-            ]}
-          >
-            <TextArea
-              rows={5}
-              placeholder="Explanation of sample case"
-              className="w-full"
-            />
-          </Item>
-        </div>
-      </div>
-
       {/* Buttons */}
       <Item>
         <div className="flex flex-row space-x-4 w-full items-center justify-end">
@@ -131,4 +104,4 @@ const AddSample = () => {
   )
 }
 
-export default AddSample
+export default AddTest

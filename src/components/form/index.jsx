@@ -7,3 +7,4 @@ export { default as EditJourney } from './EditJourney'
 export { default as EditProblem } from './EditProblem'
 
 export { default as AddSample } from './AddSample'
+export { default as AddTest } from './AddTest'
