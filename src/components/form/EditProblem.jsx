@@ -1,6 +1,11 @@
 import { useState } from 'react'
+import { useGlobal } from '../../contexts/GlobalContext'
+
+import api from '../../api'
+
+import Cookies from 'js-cookie'
 import { Form, Input, Select, Skeleton } from 'antd'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 
 // Destructure Antd Components
 const { Item } = Form
@@ -11,10 +16,17 @@ const EditProblem = (props) => {
   const { children, problemDetail } = props
 
   // useParams
-  const { journeyId } = useParams()
+  const { journeyId, problemId } = useParams()
+
+  // Navigator
+  const navigate = useNavigate()
 
   // useForm
   const [form] = Form.useForm()
+
+  // Global Functions
+  const { globalFunctions } = useGlobal()
+  const { mySwal } = globalFunctions
 
   // Local States
   const [otherFields] = useState([
@@ -38,8 +50,52 @@ const EditProblem = (props) => {
   }
 
   // Finish Success
-  const onFinish = (values) => {
-    console.log(values)
+  const onFinish = async (payload) => {
+    // Show loading
+    mySwal.fire({
+      title: 'Updating Problem...',
+      allowEscapeKey: true,
+      allowOutsideClick: true,
+      didOpen: () => {
+        mySwal.showLoading()
+      }
+    })
+
+    // Configuration
+    const config = {
+      headers: {
+        authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+
+    try {
+      await api.put(`/problems/${problemId}`, payload, config)
+
+      // Show success
+      mySwal.fire({
+        icon: 'success',
+        title: 'Update problem successfully',
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 2000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      }).then(() => {
+        navigate(`/admin/manage/journeys/${journeyId}/edit`)
+      })
+    } catch (error) {
+      console.log(error)
+      mySwal.fire({
+        icon: 'error',
+        title: error.response.data.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false
+      })
+    }
   }
 
   return (
