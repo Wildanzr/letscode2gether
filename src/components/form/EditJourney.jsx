@@ -63,10 +63,17 @@ const EditJourney = (props) => {
       }
     }
 
+    // Filter languageOptions based on selected
+    const selected = payload.languageAllowed
+    const languageAllowed = languageOptions
+      .filter(lang => selected.includes(lang.label))
+      .map(lang => lang.id)
+
     // Modify payload
     payload.start = null
     payload.end = null
     payload.isLearnPath = true
+    payload.languageAllowed = languageAllowed
 
     try {
       const res = await api.put(`/competes/${journeyId}`, payload, config)
@@ -110,7 +117,17 @@ const EditJourney = (props) => {
 
     try {
       const { data } = await api.get(`/competes/${journeyId}`, config)
-      setJourneyDetails(data.data.compete)
+      const { compete } = data.data
+
+      // Transform languageAllowed
+      const selected = compete.languageAllowed
+      const languageAllowed = languageOptions
+        .filter(lang => selected.includes(lang.id))
+        .map(lang => lang.label)
+
+      setJourneyDetails({
+        ...compete, languageAllowed
+      })
     } catch (error) {
       console.log(error)
     }
