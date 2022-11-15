@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const ListOfProblem = (props) => {
   return (
-    <table className="w-full table-auto shadow-xl">
+    <table className="w-full table-auto shadow-md">
       <thead>
         <tr className="bg-gray-600 text-white uppercase text-sm leading-normal">
           <th className="py-3 px-5 w-[5%] text-left overflow-clip whitespace-nowrap">

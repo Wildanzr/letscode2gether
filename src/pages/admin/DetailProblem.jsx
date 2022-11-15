@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
+import api from '../../api'
 import { Navbar, Footer } from '../../layout'
 import { Breadcrumb } from '../../components/breadcrumb'
 import { Description } from '../../components/other'
 import { SampleCaseDetail, TestCaseDetail } from '../../components/table'
 
+import Cookies from 'js-cookie'
+import { Skeleton } from 'antd'
 import { useParams, useSearchParams } from 'react-router-dom'
 
 const DetailProblemPage = () => {
@@ -49,39 +52,35 @@ const DetailProblemPage = () => {
   )
 
   // eslint-disable-next-line no-unused-vars
-  const [problemDetail, setProblemDetail] = useState({
-    title: 'Wave Sort',
-    description:
-      'Given an array of integers, sort the array into a wave like array and return it, In other words, arrange the elements into a sequence such that a1 >= a2 <= a3 >= a4 <= a5....',
-    difficulty: 1,
-    constraints: '1 <= N <= 10^5',
-    inputFormat:
-      'First line contains an integer N. Second line contains N space separated integers.',
-    outputFormat: 'Output the array in wave like array.',
-    sampleCases: [
-      {
-        input: '5\n1 2 3 4 5',
-        output: '2 1 4 3 5',
-        explanation:
-          'The output array is 2, 1, 4, 3, 5. If we look at the array, it is clearly in wave like array. We can verify that every even element is greater than its adjacent odd elements.'
-      },
-      {
-        input: '6\n1 2 3 4 5 6',
-        output: '2 1 4 3 6 5',
-        explanation: null
+  const [problemDetail, setProblemDetail] = useState(null)
+  const [sampleCases, setSampleCases] = useState(null)
+  const [testCases, setTestCases] = useState(null)
+
+  // Get problem detail
+  const getProblemDetail = async () => {
+    // Configuration
+    const config = {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('jwtToken')}`
       }
-    ],
-    testCases: [
-      {
-        input: '5\n1 2 3 4 5',
-        output: '2 1 4 3 5'
-      },
-      {
-        input: '6\n1 2 3 4 5 6',
-        output: '2 1 4 3 6 5'
-      }
-    ]
-  })
+    }
+
+    // Get problem detail
+    try {
+      const { data } = await api.get(`/problems/${problemId}`, config)
+      // console.log(data.data.problem)
+      setProblemDetail(data.data.problem)
+      setSampleCases(data.data.problem.sampleCases)
+      setTestCases(data.data.problem.testCases)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Initial get problem detail
+  useEffect(() => {
+    getProblemDetail()
+  }, [])
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar>
@@ -95,47 +94,53 @@ const DetailProblemPage = () => {
           </div>
 
           {/* Detail of Problem */}
-          <div className="flex flex-col space-y-4 w-full font-ubuntu">
-            <Description title="Title" value={problemDetail.title} />
-            <Description
-              title="Description"
-              value={problemDetail.description}
-            />
-            <Description
-              title="Constraints"
-              value={problemDetail.constraints}
-            />
-            <Description
-              title="Input Format"
-              value={problemDetail.inputFormat}
-            />
-            <Description
-              title="Output Format"
-              value={problemDetail.outputFormat}
-            />
+          {problemDetail
+            ? (
+              <div className="flex flex-col space-y-4 w-full font-ubuntu">
+                <Description title="Title" value={problemDetail.title} />
+                <Description title="Description" value={problemDetail.description} />
+                <Description title="Constraints" value={problemDetail.constraint} />
+                <Description
+                  title="Difficulty"
+                  value={
+                    problemDetail.difficulty === 1
+                      ? <span className='font-medium text-success'>Easy</span>
+                      : problemDetail.difficulty === 2
+                        ? <span className='font-medium text-medium'>Medium</span>
+                        : <span className='font-medium text-hard'>Hard</span>
+                  }
+                />
+                <Description title="Input Format" value={problemDetail.inputFormat} />
+                <Description title="Output Format" value={problemDetail.outputFormat} />
+                <Description title="Sample Cases" value={null} />
 
-            <Description title="Sample Cases" value={null} />
+                {/* Problem Sample Cases */}
+                <div className="flex flex-col w-full space-y-2 overflow-y-auto">
+                  <div className="flex flex-col pb-4 overflow-y-auto">
+                    <div className="flex w-full">
+                      <SampleCaseDetail sampleCases={sampleCases} />
+                    </div>
+                  </div>
+                </div>
 
-            {/* Problem Sample Cases */}
-            <div className="flex flex-col w-full space-y-2 overflow-y-auto">
-              <div className="flex flex-col pb-4 overflow-y-auto">
-                <div className="flex w-full">
-                  <SampleCaseDetail sampleCases={problemDetail.sampleCases} />
+                <Description title="Test Cases" value={null} />
+
+                {/* Problem Test Cases */}
+                <div className="flex flex-col w-full space-y-2 overflow-y-auto">
+                  <div className="flex flex-col pb-4 overflow-y-auto">
+                    <div className="flex w-full">
+                      <TestCaseDetail testCases={testCases} />
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+              )
+            : <Skeleton
+              active
+              paragraph={{ rows: 10 }}
+            />
+          }
 
-            <Description title="Test Cases" value={null} />
-
-            {/* Problem Test Cases */}
-            <div className="flex flex-col w-full space-y-2 overflow-y-auto">
-              <div className="flex flex-col pb-4 overflow-y-auto">
-                <div className="flex w-full">
-                  <TestCaseDetail testCases={problemDetail.testCases} />
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </Navbar>
       <Footer />

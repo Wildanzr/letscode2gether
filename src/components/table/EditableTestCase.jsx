@@ -113,7 +113,7 @@ const EditableTestCase = (props) => {
     <>
       {testCases
         ? (
-        <table className="w-full table-auto shadow-xl">
+        <table className="w-full table-auto shadow-md">
           <thead>
             <tr className="bg-gray-600 text-white uppercase text-sm leading-normal">
               {headingList.map((heading, index) => {
