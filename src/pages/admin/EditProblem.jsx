@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
+import api from '../../api'
 import { Navbar, Footer } from '../../layout'
 import { Breadcrumb } from '../../components/breadcrumb'
 import { EditProblem } from '../../components/form'
 import { EditableSampleCase, EditableTestCase } from '../../components/table'
 
+import Cookies from 'js-cookie'
 import { useParams } from 'react-router-dom'
 
 const EditProblemPage = () => {
@@ -28,34 +30,35 @@ const EditProblemPage = () => {
   ])
 
   // Local states
-  // eslint-disable-next-line no-unused-vars
-  const [sampleCases] = useState([
-    {
-      _id: '1',
-      input: '5\n1 2 3 4 5',
-      output: '2 1 4 3 5',
-      explanation:
-        'The output array is 2, 1, 4, 3, 5. If we look at the array, it is clearly in wave like array. We can verify that every even element is greater than its adjacent odd elements.'
-    },
-    {
-      _id: '2',
-      input: '6\n1 2 3 4 5 6',
-      output: '2 1 4 3 6 5',
-      explanation: null
+  const [problemDetail, setProblemDetail] = useState(null)
+  const [sampleCases, setSampleCases] = useState(null)
+  const [testCases, setTestCases] = useState(null)
+
+  // Get problem detail
+  const getProblemDetail = async () => {
+    // Configuration
+    const config = {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
     }
-  ])
-  const [testCases] = useState([
-    {
-      _id: '1',
-      input: '5\n1 2 3 4 5',
-      output: '2 1 4 3 5'
-    },
-    {
-      _id: '2',
-      input: '6\n1 2 3 4 5 6',
-      output: '2 1 4 3 6 5'
+
+    // Get problem detail
+    try {
+      const { data } = await api.get(`/problems/${problemId}`, config)
+      // console.log(data.data.problem)
+      setProblemDetail(data.data.problem)
+      setSampleCases(data.data.problem.sampleCases)
+      setTestCases(data.data.problem.testCases)
+    } catch (error) {
+      console.log(error)
     }
-  ])
+  }
+
+  // Initial get problem detail
+  useEffect(() => {
+    getProblemDetail()
+  }, [])
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar>
@@ -69,7 +72,7 @@ const EditProblemPage = () => {
           </div>
 
           {/* Edit Problem */}
-          <EditProblem>
+          <EditProblem problemDetail={problemDetail} >
             <div className="flex flex-col space-y-4 w-full font-ubuntu">
               <div className="flex flex-col w-full space-y-2">
                 <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">

@@ -1,8 +1,4 @@
-import { useState, useEffect } from 'react'
-
-import api from '../../api'
-
-import Cookies from 'js-cookie'
+import { useState } from 'react'
 import { Form, Input, Select, Skeleton } from 'antd'
 import { Link, useParams } from 'react-router-dom'
 
@@ -12,16 +8,15 @@ const { TextArea } = Input
 
 const EditProblem = (props) => {
   // Destructure props
-  const { children } = props
+  const { children, problemDetail } = props
 
   // useParams
-  const { journeyId, problemId } = useParams()
+  const { journeyId } = useParams()
 
   // useForm
   const [form] = Form.useForm()
 
   // Local States
-  const [problemDetail, setProblemDetail] = useState(null)
   const [otherFields] = useState([
     {
       name: 'constraint',
@@ -46,30 +41,6 @@ const EditProblem = (props) => {
   const onFinish = (values) => {
     console.log(values)
   }
-
-  // Get problem detail
-  const getProblemDetail = async () => {
-    // Configuration
-    const config = {
-      headers: {
-        Authorization: `Bearer ${Cookies.get('jwtToken')}`
-      }
-    }
-
-    // Get problem detail
-    try {
-      const { data } = await api.get(`/problems/${problemId}`, config)
-      // console.log(data)
-      setProblemDetail(data.data.problem)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  // Initial get problem detail
-  useEffect(() => {
-    getProblemDetail()
-  }, [])
 
   return (
     <>
