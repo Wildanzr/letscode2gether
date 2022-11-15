@@ -1,15 +1,23 @@
 import { useState } from 'react'
+import { useGlobal } from '../../contexts/GlobalContext'
 
+import api from '../../api'
+
+import Cookies from 'js-cookie'
 import { Skeleton } from 'antd'
 import { Link, useParams } from 'react-router-dom'
 import { BsPencil, BsTrash, BsPlus } from 'react-icons/bs'
 
 const EditableSampleCase = (props) => {
   // Destructure props
-  const { sampleCases } = props
+  const { sampleCases, setFetch } = props
 
   // useParams
   const { journeyId, problemId } = useParams()
+
+  // Global Functions
+  const { globalFunctions } = useGlobal()
+  const { mySwal } = globalFunctions
 
   // Local States
   const [headingList] = useState([
@@ -39,6 +47,74 @@ const EditableSampleCase = (props) => {
       align: 'text-right'
     }
   ])
+
+  // Delete sample case
+  const deleteSampleCase = async (sampleId) => {
+    // Show loading
+    mySwal.fire({
+      title: 'Deleting Sample Case...',
+      allowEscapeKey: true,
+      allowOutsideClick: true,
+      didOpen: () => {
+        mySwal.showLoading()
+      }
+    })
+
+    // Configuration
+    const config = {
+      headers: {
+        authorization: Cookies.get('jwtToken')
+      }
+    }
+
+    // Delete Sample Case
+    try {
+      await api.delete(`/problems/${problemId}/sample-cases/${sampleId}`, config)
+
+      // Show success
+      mySwal.fire({
+        icon: 'success',
+        title: 'Delete sample case successfully',
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 2000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      }).then(() => setFetch(true))
+    } catch (error) {
+      console.log(error)
+      mySwal.fire({
+        icon: 'error',
+        title: error.response.data.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false
+      })
+    }
+  }
+
+  // Dialog for delete sample case
+  const dialogDeleteSampleCase = (sampleId) => {
+    mySwal.fire({
+      icon: 'warning',
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this sample case!',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: '#d33',
+      cancelButtonText: 'No, keep it',
+      cancelButtonColor: '#3085d6',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteSampleCase(sampleId)
+      }
+    })
+  }
+
   return (
     <>
       {sampleCases
@@ -124,7 +200,7 @@ const EditableSampleCase = (props) => {
                         </Link>
 
                         <div
-                          onClick={() => console.log('delete')}
+                          onClick={() => dialogDeleteSampleCase(_id)}
                           className="px-2 py-2 bg-hard rounded-lg cursor-pointer"
                         >
                           <BsTrash className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />

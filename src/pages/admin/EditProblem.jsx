@@ -33,6 +33,7 @@ const EditProblemPage = () => {
   const [problemDetail, setProblemDetail] = useState(null)
   const [sampleCases, setSampleCases] = useState(null)
   const [testCases, setTestCases] = useState(null)
+  const [fetch, setFetch] = useState(true)
 
   // Get problem detail
   const getProblemDetail = async () => {
@@ -57,8 +58,11 @@ const EditProblemPage = () => {
 
   // Initial get problem detail
   useEffect(() => {
-    getProblemDetail()
-  }, [])
+    if (fetch) {
+      getProblemDetail()
+      setFetch(false)
+    }
+  }, [fetch])
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar>
@@ -72,20 +76,20 @@ const EditProblemPage = () => {
           </div>
 
           {/* Edit Problem */}
-          <EditProblem problemDetail={problemDetail} >
+          <EditProblem problemDetail={problemDetail} setFetch={setFetch}>
             <div className="flex flex-col space-y-4 w-full font-ubuntu">
               <div className="flex flex-col w-full space-y-2">
                 <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
                   Sample Cases
                 </p>
-                <EditableSampleCase sampleCases={sampleCases} />
+                <EditableSampleCase sampleCases={sampleCases} setFetch={setFetch} />
               </div>
 
               <div className="flex flex-col w-full space-y-2">
                 <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
                   Test Cases
                 </p>
-                <EditableTestCase testCases={testCases} />
+                <EditableTestCase testCases={testCases} setFetch={setFetch}/>
               </div>
             </div>
           </EditProblem>
