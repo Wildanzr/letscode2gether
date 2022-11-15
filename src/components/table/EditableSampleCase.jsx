@@ -69,6 +69,7 @@ const EditableSampleCase = (props) => {
 
                     // split input with \n
                     const inputSplit = input.split('\n')
+                    const outputSplit = output.split('\n')
                     return (
                   <tr
                     key={index}
@@ -97,7 +98,11 @@ const EditableSampleCase = (props) => {
                     <td className="py-3 px-5 text-left overflow-clip">
                       <div className="flex items-center justify-start">
                         <div className="font-medium whitespace-nowrap">
-                          <span className="text-gray-600">{output}</span>
+                          {outputSplit.map((output, index) => (
+                            <p key={index} className="mb-0 text-gray-600">
+                              {output}
+                            </p>
+                          ))}
                         </div>
                       </div>
                     </td>
