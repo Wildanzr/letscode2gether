@@ -81,11 +81,10 @@ const Login = () => {
       // Show error message
       mySwal.fire({
         icon: 'error',
-        title: error.response.message,
+        title: error.response.data.message,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
-        text: error.response.data.message,
         timer: 3000,
         showConfirmButton: false
       })

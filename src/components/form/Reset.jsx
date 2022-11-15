@@ -49,22 +49,20 @@ const Reset = (props) => {
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
-        timer: 4000,
+        timer: 2000,
         showConfirmButton: false
       }).then(() => {
         setTabs(5)
         navigate('/auth/login')
       })
     } catch (error) {
-      // console.log(error)
-      // Show error message
+      console.log(error)
       mySwal.fire({
         icon: 'error',
-        title: 'Oops, There is an error',
+        title: error.response.data.message,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
-        text: error.response.data.message,
         timer: 3000,
         showConfirmButton: false
       })
