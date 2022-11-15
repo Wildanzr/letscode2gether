@@ -5,7 +5,7 @@ import api from '../../api'
 import Cookies from 'js-cookie'
 import { BsEye, BsPencil, BsTrash, BsPlus } from 'react-icons/bs'
 import { Link, useParams } from 'react-router-dom'
-import { Spin } from 'antd'
+import { Spin, Tag } from 'antd'
 
 const EditableListOfProblem = (props) => {
   // useParams
@@ -24,9 +24,9 @@ const EditableListOfProblem = (props) => {
     }
 
     try {
-      const { data } = await api.get(`/competes/${journeyId}`, config)
+      const { data } = await api.get(`/competes/${journeyId}/problems`, config)
       // console.log(data)
-      setProblems(data.data.compete.problems)
+      setProblems(data.data.problems)
     } catch (error) {
       console.log(error)
     }
@@ -47,7 +47,7 @@ const EditableListOfProblem = (props) => {
           <th className="py-3 px-5 w-[45%] text-left overflow-clip whitespace-nowrap">
             NAME
           </th>
-          <th className="py-3 px-5 w-[10%] text-right overflow-clip whitespace-nowrap">
+          <th className="py-3 px-5 w-[10%] text-center overflow-clip whitespace-nowrap">
             DIFFICULTY
           </th>
           <th className="py-3 px-5 w-[40%] text-center overflow-clip whitespace-nowrap">
@@ -89,7 +89,8 @@ const EditableListOfProblem = (props) => {
             )
           : (
               problems.map((problem, index) => {
-                const { _id, name, difficulty } = problem
+                const { problemId } = problem
+                const { _id, title, difficulty } = problemId
                 return (
               <tr
                 key={index}
@@ -105,7 +106,7 @@ const EditableListOfProblem = (props) => {
                 <td className="py-3 px-5 text-left overflow-clip">
                   <div className="flex items-center justify-start">
                     <div className="font-medium whitespace-nowrap">
-                      <span className="text-gray-600">{name}</span>
+                      <span className="text-gray-600">{title}</span>
                     </div>
                   </div>
                 </td>
@@ -113,13 +114,13 @@ const EditableListOfProblem = (props) => {
                   <div className="flex items-center justify-center">
                     <div className="font-medium whitespace-nowrap">
                       {difficulty === 1 && (
-                        <span className="text-gray-600">EASY</span>
+                        <Tag color="#16A34A">Easy</Tag>
                       )}
                       {difficulty === 2 && (
-                        <span className="text-gray-600">MEDIUM</span>
+                        <Tag color="#EAB308">Medium</Tag>
                       )}
                       {difficulty === 3 && (
-                        <span className="text-gray-600">HARD</span>
+                        <Tag color="#DC2626">Hard</Tag>
                       )}
                     </div>
                   </div>

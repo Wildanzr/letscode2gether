@@ -37,7 +37,7 @@ const EditJourneyPage = () => {
 
           {/* Detail of Journey */}
           <div className="flex flex-col space-y-4 w-full font-ubuntu">
-            <EditJourney journeyId={journeyId}>
+            <EditJourney>
               {/* List of Problems */}
               <div className="flex flex-col w-full space-y-2 overflow-y-auto">
                 <div className="flex flex-col pb-4 overflow-y-auto">

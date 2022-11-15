@@ -59,7 +59,7 @@ const EditProblem = (props) => {
     // Get problem detail
     try {
       const { data } = await api.get(`/problems/${problemId}`, config)
-      console.log(data)
+      // console.log(data)
       setProblemDetail(data.data.problem)
     } catch (error) {
       console.log(error)
