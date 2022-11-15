@@ -18,8 +18,8 @@ const ManageJourneyPage = () => {
     }
   ])
 
-  // eslint-disable-next-line no-unused-vars
   const [journeys, setJourneys] = useState(null)
+  const [fetch, setFetch] = useState(true)
 
   const onShowSizeChange = (current, pageSize) => {
     console.log(current, pageSize)
@@ -42,8 +42,11 @@ const ManageJourneyPage = () => {
 
   // Initial fetch journey
   useEffect(() => {
-    fetchJourneys()
-  }, [])
+    if (fetch) {
+      fetchJourneys()
+      setFetch(false)
+    }
+  }, [fetch])
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar>
@@ -99,8 +102,8 @@ const ManageJourneyPage = () => {
               <div className="flex w-full">
                 {
                   journeys === null
-                    ? <ListOfJourney journeys={null} />
-                    : <ListOfJourney journeys={journeys} />
+                    ? <ListOfJourney journeys={null} setFetch={setFetch} />
+                    : <ListOfJourney journeys={journeys} setFetch={setFetch} />
                 }
               </div>
             </div>

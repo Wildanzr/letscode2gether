@@ -1,27 +1,122 @@
-import { BsEye, BsPencil, BsTrash, BsPlus } from 'react-icons/bs'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { useGlobal } from '../../contexts/GlobalContext'
 
+import api from '../../api'
+
+import Cookies from 'js-cookie'
 import { Spin } from 'antd'
+import { Link } from 'react-router-dom'
+import { BsEye, BsPencil, BsTrash, BsPlus } from 'react-icons/bs'
 
 const ListOfJourney = (props) => {
-  const { journeys } = props
+  const { journeys, setFetch } = props
+
+  // Global functions
+  const { globalFunctions } = useGlobal()
+  const { mySwal } = globalFunctions
+
+  // Local states
+  const [headingList] = useState([
+    {
+      name: 'NO',
+      wide: 5,
+      align: 'text-left'
+    },
+    {
+      name: 'NAME',
+      wide: 75,
+      align: 'text-left'
+    },
+    {
+      name: 'TOTAL PROBLEM',
+      wide: 10,
+      align: 'text-center'
+    },
+    {
+      name: 'ACTIONS',
+      wide: 10,
+      align: 'text-center'
+    }
+  ])
+
+  // Delete journey
+  const deleteJourney = async (journeyId) => {
+    // Show loading
+    mySwal.fire({
+      title: 'Creating Problem...',
+      allowEscapeKey: true,
+      allowOutsideClick: true,
+      didOpen: () => {
+        mySwal.showLoading()
+      }
+    })
+
+    // Configuration
+    const config = {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+
+    try {
+      await api.delete(`/competes/${journeyId}`, config)
+
+      // Show success
+      mySwal.fire({
+        icon: 'success',
+        title: 'Journey has been deleted',
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 2000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      }).then(() => setFetch(true))
+    } catch (error) {
+      console.log(error)
+      mySwal.fire({
+        icon: 'error',
+        title: error.response.data.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false
+      })
+    }
+  }
+
+  // Dialog delete journey
+  const dialogDeleteJourney = (journeyId) => {
+    mySwal.fire({
+      icon: 'warning',
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this learning journey!',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: '#d33',
+      cancelButtonText: 'No, keep it',
+      cancelButtonColor: '#3085d6',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteJourney(journeyId)
+      }
+    })
+  }
 
   return (
     <table className="w-full table-auto shadow-md">
       <thead>
         <tr className="bg-gray-600 text-white uppercase text-sm leading-normal">
-          <th className="py-3 px-5 w-[5%] text-left overflow-clip whitespace-nowrap">
-            NO
-          </th>
-          <th className="py-3 px-5 w-[45%] text-left overflow-clip whitespace-nowrap">
-            NAME
-          </th>
-          <th className="py-3 px-5 w-[10%] text-right overflow-clip whitespace-nowrap">
-            TOTAL PROBLEMS
-          </th>
-          <th className="py-3 px-5 w-[40%] text-center overflow-clip whitespace-nowrap">
-            ACTIONS
-          </th>
+          {headingList.map((heading, index) => (
+            <th
+              key={index}
+              className={`py-3 px-5 w-[${heading.wide}%] ${heading.align} overflow-clip whitespace-nowrap`}
+            >
+              {heading.name}
+            </th>
+          ))}
         </tr>
       </thead>
       <tbody className="text-black text-xs font-light ">
@@ -103,9 +198,9 @@ const ListOfJourney = (props) => {
                       <BsPencil className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
                     </Link>
 
-                    <button className="px-2 py-2 bg-hard rounded-lg">
+                    <div className="px-2 py-2 bg-hard rounded-lg cursor-pointer" onClick={() => dialogDeleteJourney(_id)}>
                       <BsTrash className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
-                    </button>
+                    </div>
                   </div>
                 </td>
               </tr>
