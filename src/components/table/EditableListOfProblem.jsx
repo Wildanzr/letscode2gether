@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useGlobal } from '../../contexts/GlobalContext'
 
 import api from '../../api'
 
@@ -13,6 +14,38 @@ const EditableListOfProblem = (props) => {
 
   // Local States
   const [problems, setProblems] = useState([])
+  const [fetch, setFetch] = useState(true)
+  const [headingList] = useState([
+    {
+      name: 'NO',
+      wide: 5,
+      align: 'text-left'
+    },
+    {
+      name: 'NAME',
+      wide: 45,
+      align: 'text-left'
+    },
+    {
+      name: 'MAX POINT',
+      wide: 15,
+      align: 'text-center'
+    },
+    {
+      name: 'DIFFICULTY',
+      wide: 15,
+      align: 'text-center'
+    },
+    {
+      name: 'ACTIONS',
+      wide: 20,
+      align: 'text-right'
+    }
+  ])
+
+  // Global Functions
+  const { globalFunctions } = useGlobal()
+  const { mySwal } = globalFunctions
 
   // Get compete problems
   const getCompeteProblems = async () => {
@@ -25,34 +58,95 @@ const EditableListOfProblem = (props) => {
 
     try {
       const { data } = await api.get(`/competes/${journeyId}/problems`, config)
-      // console.log(data)
+      // console.table(data.data.problems)
       setProblems(data.data.problems)
     } catch (error) {
       console.log(error)
     }
   }
 
+  // Delete problem
+  const deleteProblem = async (problemId) => {
+    // Show loading
+    mySwal.fire({
+      title: 'Deleting Problem...',
+      allowEscapeKey: true,
+      allowOutsideClick: true,
+      didOpen: () => mySwal.showLoading()
+    })
+
+    // Configuration
+    const config = {
+      headers: {
+        authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+
+    try {
+      await api.delete(`/competes/${journeyId}/problems/${problemId}`, config)
+      setFetch(true)
+
+      // Show success
+      mySwal.fire({
+        icon: 'success',
+        title: 'Delete problem success',
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 2000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      })
+    } catch (error) {
+      console.log(error)
+      mySwal.fire({
+        icon: 'error',
+        title: error.response.data.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false
+      })
+    }
+  }
+
+  // Dialog delete problem
+  const dialogDeleteProblem = (problemId) => {
+    mySwal.fire({
+      icon: 'warning',
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this problem!',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: '#d33',
+      cancelButtonText: 'No, keep it',
+      cancelButtonColor: '#3085d6',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteProblem(problemId)
+      }
+    })
+  }
+
   // Initial get compete problems
   useEffect(() => {
-    getCompeteProblems()
-  }, [])
+    if (fetch) {
+      getCompeteProblems()
+      setFetch(false)
+    }
+  }, [fetch])
 
   return (
     <table className="w-full table-auto shadow-md">
       <thead>
         <tr className="bg-gray-600 text-white uppercase text-sm leading-normal">
-          <th className="py-3 px-5 w-[5%] text-left overflow-clip whitespace-nowrap">
-            NO
-          </th>
-          <th className="py-3 px-5 w-[45%] text-left overflow-clip whitespace-nowrap">
-            NAME
-          </th>
-          <th className="py-3 px-5 w-[10%] text-center overflow-clip whitespace-nowrap">
-            DIFFICULTY
-          </th>
-          <th className="py-3 px-5 w-[40%] text-center overflow-clip whitespace-nowrap">
-            ACTIONS
-          </th>
+          {headingList.map((heading, index) => (
+            <th key={index} className={`py-3 px-5 w-[${heading.wide}%] ${heading.align} overflow-clip whitespace-nowrap`}>
+              {heading.name}
+            </th>
+          ))}
         </tr>
       </thead>
       <tbody className="text-black text-xs font-light">
@@ -89,7 +183,7 @@ const EditableListOfProblem = (props) => {
             )
           : (
               problems.map((problem, index) => {
-                const { problemId } = problem
+                const { _id: competeId, problemId, maxPoint } = problem
                 const { _id, title, difficulty } = problemId
                 return (
               <tr
@@ -113,6 +207,13 @@ const EditableListOfProblem = (props) => {
                 <td className="py-3 px-5 text-left overflow-clip">
                   <div className="flex items-center justify-center">
                     <div className="font-medium whitespace-nowrap">
+                      <span className="text-gray-600">{maxPoint}</span>
+                    </div>
+                  </div>
+                </td>
+                <td className="py-3 px-5 text-left overflow-clip">
+                  <div className="flex items-center justify-center">
+                    <div className="font-medium whitespace-nowrap">
                       {difficulty === 1 && (
                         <Tag color="#16A34A">Easy</Tag>
                       )}
@@ -126,7 +227,7 @@ const EditableListOfProblem = (props) => {
                   </div>
                 </td>
                 <td className="py-3 px-5 text-left overflow-clip">
-                  <div className="flex flex-row space-x-4 items-center justify-center">
+                  <div className="flex flex-row space-x-4 items-center justify-end">
                     <Link
                       to={`/admin/manage/journeys/${journeyId}/problems/${_id}?origin=edit`}
                       className="px-2 py-2 bg-easy rounded-lg"
@@ -142,7 +243,7 @@ const EditableListOfProblem = (props) => {
                     </Link>
 
                     <div
-                      onClick={() => console.log('delete')}
+                      onClick={() => dialogDeleteProblem(competeId)}
                       className="px-2 py-2 bg-hard rounded-lg cursor-pointer"
                     >
                       <BsTrash className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
@@ -158,7 +259,7 @@ const EditableListOfProblem = (props) => {
         {/* Button for add more learning journey */}
         <tr>
           <td
-            colSpan="4"
+            colSpan={5}
             className="bg-easy hover:bg-blue-600 duration-300 ease-in-out"
           >
             <div className="py-2 flex flex-row items-center justify-center">
