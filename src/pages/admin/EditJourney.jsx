@@ -23,25 +23,6 @@ const EditJourneyPage = () => {
     }
   ])
 
-  // Local states
-  // eslint-disable-next-line no-unused-vars
-  const [problems, setProblems] = useState([
-    {
-      _id: 1,
-      name: 'Hello World',
-      difficulty: 1
-    },
-    {
-      _id: 2,
-      name: 'Greeting Morning',
-      difficulty: 2
-    },
-    {
-      _id: 3,
-      name: 'Let Me Introduce MySelf',
-      difficulty: 3
-    }
-  ])
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar>
@@ -56,12 +37,12 @@ const EditJourneyPage = () => {
 
           {/* Detail of Journey */}
           <div className="flex flex-col space-y-4 w-full font-ubuntu">
-            <EditJourney>
+            <EditJourney journeyId={journeyId}>
               {/* List of Problems */}
               <div className="flex flex-col w-full space-y-2 overflow-y-auto">
                 <div className="flex flex-col pb-4 overflow-y-auto">
                   <div className="flex w-full">
-                    <EditableListOfProblem problems={problems} />
+                    <EditableListOfProblem />
                   </div>
                 </div>
               </div>

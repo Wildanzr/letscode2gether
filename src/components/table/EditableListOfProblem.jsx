@@ -1,12 +1,41 @@
+import { useState, useEffect } from 'react'
+
+import api from '../../api'
+
+import Cookies from 'js-cookie'
 import { BsEye, BsPencil, BsTrash, BsPlus } from 'react-icons/bs'
 import { Link, useParams } from 'react-router-dom'
+import { Spin } from 'antd'
 
 const EditableListOfProblem = (props) => {
-  // Destructure props
-  const { problems } = props
-
   // useParams
   const { journeyId } = useParams()
+
+  // Local States
+  const [problems, setProblems] = useState([])
+
+  // Get compete problems
+  const getCompeteProblems = async () => {
+    // Configuration
+    const config = {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+
+    try {
+      const { data } = await api.get(`/competes/${journeyId}`, config)
+      // console.log(data)
+      setProblems(data.data.compete.problems)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Initial get compete problems
+  useEffect(() => {
+    getCompeteProblems()
+  }, [])
 
   return (
     <table className="w-full table-auto shadow-xl">
@@ -27,69 +56,102 @@ const EditableListOfProblem = (props) => {
         </tr>
       </thead>
       <tbody className="text-black text-xs font-light">
-        {problems.map((problem, index) => {
-          const { _id, name, difficulty } = problem
-          return (
-            <tr
-              key={index}
-              className="border-b border-gray-200 bg-gray-50 hover:bg-gray-300"
-            >
-              <td className="py-3 px-5 text-left overflow-clip">
-                <div className="flex items-center justify-start">
-                  <div className="font-medium whitespace-nowrap">
-                    <span className="ml-3 text-gray-600">{index + 1}</span>
-                  </div>
+        {problems === null
+          ? (
+          <tr className="border-b border-gray-200 bg-gray-50 hover:bg-gray-300">
+            <td className="py-3 px-5 text-left overflow-clip">
+              <div className="flex items-center justify-start">
+                <div className="font-medium whitespace-nowrap">
+                  <Spin size="small" />
                 </div>
-              </td>
-              <td className="py-3 px-5 text-left overflow-clip">
-                <div className="flex items-center justify-start">
-                  <div className="font-medium whitespace-nowrap">
-                    <span className="text-gray-600">{name}</span>
-                  </div>
+              </div>
+            </td>
+            <td className="py-3 px-5 text-left overflow-clip">
+              <div className="flex items-center justify-start">
+                <div className="font-medium whitespace-nowrap">
+                  <Spin size="small" />
                 </div>
-              </td>
-              <td className="py-3 px-5 text-left overflow-clip">
-                <div className="flex items-center justify-center">
-                  <div className="font-medium whitespace-nowrap">
-                    {difficulty === 1 && (
-                      <span className="text-gray-600">EASY</span>
-                    )}
-                    {difficulty === 2 && (
-                      <span className="text-gray-600">MEDIUM</span>
-                    )}
-                    {difficulty === 3 && (
-                      <span className="text-gray-600">HARD</span>
-                    )}
-                  </div>
+              </div>
+            </td>
+            <td className="py-3 px-5 text-left overflow-clip">
+              <div className="flex items-center justify-center">
+                <div className="font-medium whitespace-nowrap">
+                  <Spin size="small" />
                 </div>
-              </td>
-              <td className="py-3 px-5 text-left overflow-clip">
-                <div className="flex flex-row space-x-4 items-center justify-center">
-                  <Link
-                    to={`/admin/manage/journeys/${journeyId}/problems/${_id}?origin=edit`}
-                    className="px-2 py-2 bg-easy rounded-lg"
-                  >
-                    <BsEye className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
-                  </Link>
+              </div>
+            </td>
+            <td className="py-3 px-5 text-left overflow-clip">
+              <div className="flex flex-row space-x-4 items-center justify-center">
+                <Spin size="small" />
+              </div>
+            </td>
+          </tr>
+            )
+          : (
+              problems.map((problem, index) => {
+                const { _id, name, difficulty } = problem
+                return (
+              <tr
+                key={index}
+                className="border-b border-gray-200 bg-gray-50 hover:bg-gray-300"
+              >
+                <td className="py-3 px-5 text-left overflow-clip">
+                  <div className="flex items-center justify-start">
+                    <div className="font-medium whitespace-nowrap">
+                      <span className="ml-3 text-gray-600">{index + 1}</span>
+                    </div>
+                  </div>
+                </td>
+                <td className="py-3 px-5 text-left overflow-clip">
+                  <div className="flex items-center justify-start">
+                    <div className="font-medium whitespace-nowrap">
+                      <span className="text-gray-600">{name}</span>
+                    </div>
+                  </div>
+                </td>
+                <td className="py-3 px-5 text-left overflow-clip">
+                  <div className="flex items-center justify-center">
+                    <div className="font-medium whitespace-nowrap">
+                      {difficulty === 1 && (
+                        <span className="text-gray-600">EASY</span>
+                      )}
+                      {difficulty === 2 && (
+                        <span className="text-gray-600">MEDIUM</span>
+                      )}
+                      {difficulty === 3 && (
+                        <span className="text-gray-600">HARD</span>
+                      )}
+                    </div>
+                  </div>
+                </td>
+                <td className="py-3 px-5 text-left overflow-clip">
+                  <div className="flex flex-row space-x-4 items-center justify-center">
+                    <Link
+                      to={`/admin/manage/journeys/${journeyId}/problems/${_id}?origin=edit`}
+                      className="px-2 py-2 bg-easy rounded-lg"
+                    >
+                      <BsEye className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
+                    </Link>
 
-                  <Link
-                    to={`/admin/manage/journeys/${journeyId}/problems/${_id}/edit`}
-                    className="px-2 py-2 bg-medium rounded-lg"
-                  >
-                    <BsPencil className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
-                  </Link>
+                    <Link
+                      to={`/admin/manage/journeys/${journeyId}/problems/${_id}/edit`}
+                      className="px-2 py-2 bg-medium rounded-lg"
+                    >
+                      <BsPencil className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
+                    </Link>
 
-                  <div
-                    onClick={() => console.log('delete')}
-                    className="px-2 py-2 bg-hard rounded-lg cursor-pointer"
-                  >
-                    <BsTrash className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
+                    <div
+                      onClick={() => console.log('delete')}
+                      className="px-2 py-2 bg-hard rounded-lg cursor-pointer"
+                    >
+                      <BsTrash className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
+                    </div>
                   </div>
-                </div>
-              </td>
-            </tr>
-          )
-        })}
+                </td>
+              </tr>
+                )
+              })
+            )}
       </tbody>
       <tfoot>
         {/* Button for add more learning journey */}
