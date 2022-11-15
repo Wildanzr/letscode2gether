@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
+import { useGlobal } from '../../contexts/GlobalContext'
 import { languageOptions } from '../../constants/languageOptions'
 
 import api from '../../api'
 
 import Cookies from 'js-cookie'
 import { Form, Input, Select, Skeleton } from 'antd'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 
 // Destructure Antd Components
 const { Item } = Form
@@ -22,6 +23,13 @@ const EditJourney = (props) => {
   // useForm
   const [form] = Form.useForm()
 
+  // Navigator
+  const navigate = useNavigate()
+
+  // Global Functions
+  const { globalFunctions } = useGlobal()
+  const { mySwal } = globalFunctions
+
   // Local States
   const [journeyDetails, setJourneyDetails] = useState(null)
 
@@ -31,8 +39,58 @@ const EditJourney = (props) => {
   }
 
   // Finish Success
-  const onFinish = (values) => {
-    console.log(values)
+  const onFinish = async (payload) => {
+    // Show loading
+    mySwal.fire({
+      title: 'Updating Journey...',
+      allowEscapeKey: true,
+      allowOutsideClick: true,
+      didOpen: () => {
+        mySwal.showLoading()
+      }
+    })
+
+    // Configuration
+    const config = {
+      headers: {
+        authorization: Cookies.get('jwtToken')
+      }
+    }
+
+    // Modify payload
+    payload.start = null
+    payload.end = null
+    payload.isLearnPath = true
+
+    try {
+      const res = await api.put(`/competes/${journeyId}`, payload, config)
+      console.log(res)
+
+      // Show success
+      mySwal.fire({
+        icon: 'success',
+        title: 'Update learning journey success!',
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 2000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      }).then(() => {
+        navigate('/admin/manage/journeys')
+      })
+    } catch (error) {
+      console.log(error)
+      mySwal.fire({
+        icon: 'error',
+        title: error.response.data.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false
+      })
+    }
   }
 
   // Map language options
@@ -169,14 +227,6 @@ const EditJourney = (props) => {
             </div>
           </div>
 
-          {/* Problem List */}
-          <div className="flex flex-col w-full">
-            <p className="font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-              Problems
-            </p>
-            {children}
-          </div>
-
           {/* Buttons */}
           <Item>
             <div className="flex flex-row space-x-4 w-full items-center justify-end">
@@ -195,6 +245,14 @@ const EditJourney = (props) => {
               </button>
             </div>
           </Item>
+
+          {/* Problem List */}
+          <div className="flex flex-col w-full">
+            <p className="font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
+              Problems
+            </p>
+            {children}
+          </div>
         </Form>
           )
         : (

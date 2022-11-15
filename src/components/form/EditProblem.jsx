@@ -236,9 +236,6 @@ const EditProblem = (props) => {
             )
           })}
 
-          {/* Sample cases and Test cases */}
-          {children}
-
           {/* Buttons */}
           <Item>
             <div className="flex flex-row space-x-4 w-full items-center justify-end">
@@ -257,6 +254,9 @@ const EditProblem = (props) => {
               </button>
             </div>
           </Item>
+
+          {/* Sample cases and Test cases */}
+          {children}
         </Form>
           )
         : (
