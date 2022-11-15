@@ -32,6 +32,12 @@ const EditJourney = (props) => {
 
   // Local States
   const [journeyDetails, setJourneyDetails] = useState(null)
+  const [options] = useState(languageOptions.map((lang) => {
+    return {
+      label: lang.label,
+      value: lang.label
+    }
+  }))
 
   // Finish Error
   const onFinishFailed = (errorInfo) => {
@@ -92,14 +98,6 @@ const EditJourney = (props) => {
       })
     }
   }
-
-  // Map language options
-  const options = languageOptions.map((lang) => {
-    return {
-      label: lang.label,
-      value: lang.id
-    }
-  })
 
   // Get compete detail
   const getCompeteDetail = async () => {
@@ -214,6 +212,7 @@ const EditJourney = (props) => {
                 <Select
                   mode="multiple"
                   placeholder="Select language allowed"
+                  showSearch={true}
                   allowClear={true}
                   className="w-full"
                 >

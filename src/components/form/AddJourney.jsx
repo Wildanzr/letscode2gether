@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { languageOptions } from '../../constants/languageOptions'
 
@@ -23,6 +24,14 @@ const AddJourney = () => {
   const { globalFunctions } = useGlobal()
   const { mySwal } = globalFunctions
 
+  // Local States
+  const [options] = useState(languageOptions.map((lang) => {
+    return {
+      label: lang.label,
+      value: lang.label
+    }
+  }))
+
   // Finish Error
   const onFinishFailed = (errorInfo) => {
     console.log(errorInfo)
@@ -40,14 +49,22 @@ const AddJourney = () => {
       }
     })
 
+    const selected = values.languageAllowed
+
+    // Filter languageOptions based on selected
+    const languageAllowed = languageOptions
+      .filter(lang => selected.includes(lang.label))
+      .map(lang => lang.id)
+
     const payload = {
       name: values.name,
       description: values.description,
-      languageAllowed: values.languageAllowed,
+      languageAllowed,
       start: null,
       end: null,
       isLearnPath: true
     }
+    console.log(payload)
 
     // Configuration
     const config = {
@@ -88,13 +105,6 @@ const AddJourney = () => {
       })
     }
   }
-
-  const options = languageOptions.map((lang) => {
-    return {
-      label: lang.label,
-      value: lang.id
-    }
-  })
 
   return (
     <Form
