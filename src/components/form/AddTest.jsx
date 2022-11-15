@@ -1,5 +1,10 @@
+import { useGlobal } from '../../contexts/GlobalContext'
+
+import api from '../../api'
+
+import Cookies from 'js-cookie'
 import { Form, Input } from 'antd'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 
 const { Item } = Form
 const { TextArea } = Input
@@ -11,9 +16,61 @@ const AddTest = () => {
   // useParams
   const { journeyId, problemId } = useParams()
 
+  // Navigator
+  const navigate = useNavigate()
+
+  // Global Functions
+  const { globalFunctions } = useGlobal()
+  const { mySwal } = globalFunctions
+
   // onFinish
-  const onFinish = (values) => {
-    console.log(values)
+  const onFinish = async (payload) => {
+    // Show loading
+    mySwal.fire({
+      title: 'Creating Test Case...',
+      allowEscapeKey: true,
+      allowOutsideClick: true,
+      didOpen: () => {
+        mySwal.showLoading()
+      }
+    })
+
+    // Configuration
+    const config = {
+      headers: {
+        authorization: Cookies.get('jwtToken')
+      }
+    }
+
+    // Create Sample Case
+    try {
+      await api.post(`/problems/${problemId}/test-cases`, payload, config)
+
+      // Show success
+      mySwal.fire({
+        icon: 'success',
+        title: 'Test case created successfully',
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 2000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      }).then(() => {
+        navigate(`/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`)
+      })
+    } catch (error) {
+      console.log(error)
+      mySwal.fire({
+        icon: 'error',
+        title: error.response.data.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false
+      })
+    }
   }
 
   // onFinishFailed
