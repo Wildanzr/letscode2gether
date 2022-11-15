@@ -28,8 +28,53 @@ const AddSample = () => {
   const [testCase, setTestCase] = useState(null)
 
   // onFinish
-  const onFinish = (values) => {
-    console.log(values)
+  const onFinish = async (payload) => {
+    // Show loading
+    mySwal.fire({
+      title: 'Updating Test Case...',
+      allowEscapeKey: true,
+      allowOutsideClick: true,
+      didOpen: () => {
+        mySwal.showLoading()
+      }
+    })
+
+    // Configuration
+    const config = {
+      headers: {
+        authorization: Cookies.get('jwtToken')
+      }
+    }
+
+    // Update Test Case
+    try {
+      await api.put(`/problems/${problemId}/test-cases/${testId}`, payload, config)
+
+      // Show success
+      mySwal.fire({
+        icon: 'success',
+        title: 'Update test case successfully',
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 2000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      }).then(() => {
+        navigate(`/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`)
+      })
+    } catch (error) {
+      console.log(error)
+      mySwal.fire({
+        icon: 'error',
+        title: error.response.data.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false
+      })
+    }
   }
 
   // onFinishFailed
