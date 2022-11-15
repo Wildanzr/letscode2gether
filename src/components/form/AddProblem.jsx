@@ -1,5 +1,9 @@
 import { useState } from 'react'
+import { useGlobal } from '../../contexts/GlobalContext'
 
+import api from '../../api'
+
+import Cookies from 'js-cookie'
 import { Form, Input, Select } from 'antd'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 
@@ -17,10 +21,14 @@ const AddProblem = () => {
   // Navigator
   const navigate = useNavigate()
 
+  // Global Functions
+  const { globalFunctions } = useGlobal()
+  const { mySwal } = globalFunctions
+
   // Local States
   const [otherFields] = useState([
     {
-      name: 'constraints',
+      name: 'constraint',
       placeholder: 'Constraints'
     },
     {
@@ -39,11 +47,63 @@ const AddProblem = () => {
   }
 
   // Finish Success
-  const onFinish = (values) => {
-    console.log(values)
+  const onFinish = async (payload) => {
+    // Show loading
+    mySwal.fire({
+      title: 'Creating Problem...',
+      allowEscapeKey: true,
+      allowOutsideClick: true,
+      didOpen: () => {
+        mySwal.showLoading()
+      }
+    })
 
-    // Navigate to edit problelm
-    navigate(`/admin/manage/journeys/${journeyId}/problems/1/edit`)
+    // Configuration
+    const config = {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+
+    // Create Problem
+    try {
+      const { data } = await api.post('/problems', payload, config)
+      // console.log(data)
+      const problemId = data.data.problem._id
+
+      payload = {
+        problemId,
+        maxPoint: 100
+      }
+
+      // Add Problem to Journey
+      await api.post(`/competes/${journeyId}/problems`, payload, config)
+
+      // Show success
+      mySwal.fire({
+        icon: 'success',
+        title: 'Problem created successfully',
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 2000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      }).then(() => {
+        navigate(`/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`)
+      })
+    } catch (error) {
+      console.log(error)
+      mySwal.fire({
+        icon: 'error',
+        title: error.response.data.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false
+      })
+    }
   }
 
   return (
