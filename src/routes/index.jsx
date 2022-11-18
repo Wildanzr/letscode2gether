@@ -3,7 +3,7 @@ import { useGlobal } from '../contexts/GlobalContext'
 
 import { CollabPage } from '../pages/collaboration'
 import { HomePage } from '../pages/home'
-import { JourneyPage } from '../pages/journey'
+import { JourneyPage, ProblemPage } from '../pages/journey'
 import { ChallengePage } from '../pages/challenge'
 import { CompetePage } from '../pages/compete'
 import { LeaderboardPage } from '../pages/leaderboard'
@@ -73,7 +73,12 @@ const RouteList = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-        <Route path="/learning-journey" element={<JourneyPage />} />
+
+        <Route path="/learning-journey">
+          <Route path='problems/:problemId' element={<ProblemPage />} />
+          <Route index element={<JourneyPage />} />
+        </Route>
+
         <Route path="/challenges" element={<ChallengePage />} />
         <Route path="/competes" element={<CompetePage />} />
         <Route path="/leaderboards" element={<LeaderboardPage />} />

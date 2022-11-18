@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const ProblemList = (props) => {
   // Destructure props
   const { problem } = props
@@ -19,9 +21,12 @@ const ProblemList = (props) => {
               </p>
             </div>
             <div className="flex w-2/6 space-x-6 justify-end lg:justify-start items-center">
-              <button className="w-4/6 py-2 bg-snow text-main rounded font-medium lg:font-bold" onClick={() => console.log(_id)}>
+              <Link
+                to={`problems/${_id}`}
+                className="w-4/6 py-2 bg-snow text-main text-center rounded font-medium lg:font-bold hover:text-main hover:dark:text-main"
+                >
                 Solve
-              </button>
+              </Link>
             </div>
           </div>
         </li>
