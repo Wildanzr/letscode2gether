@@ -42,7 +42,9 @@ const AddSample = () => {
       }
     }
 
-    // Create Sample Case
+    // Check payload
+    // if (payload.input === undefined) payload.input = ''
+    // if (payload.explanation === undefined) payload.explanation = ''
     try {
       await api.post(`/problems/${problemId}/sample-cases`, payload, config)
 
@@ -99,12 +101,8 @@ const AddSample = () => {
             className="w-full"
             rules={[
               {
-                required: true,
-                message: 'Please fill the input of sample case!'
-              },
-              {
-                max: 255,
-                message: 'Input must be at most 255 characters'
+                max: 1000,
+                message: 'Input must be at most 1000 characters'
               }
             ]}
           >
@@ -134,8 +132,8 @@ const AddSample = () => {
                 message: 'Please fill the output of sample case!'
               },
               {
-                max: 255,
-                message: 'Output must be at most 255 characters'
+                max: 1000,
+                message: 'Output must be at most 1000 characters'
               }
             ]}
           >

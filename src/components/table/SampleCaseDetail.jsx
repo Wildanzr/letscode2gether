@@ -31,7 +31,7 @@ const SampleCaseDetail = (props) => {
                 return (
               <tr
                 key={index}
-                className="border-b border-gray-200 bg-gray-50 hover:bg-gray-300"
+                className="border-b border-gray-200 bg-gray-100 hover:bg-white"
               >
                 <td className="py-3 px-5 text-left overflow-clip">
                   <div className="flex items-center justify-start">
@@ -74,7 +74,7 @@ const SampleCaseDetail = (props) => {
               })
             )
           : (
-          <tr className="border-b border-gray-200 bg-gray-50 hover:bg-gray-300">
+          <tr className="border-b border-gray-200 bg-gray-100 hover:bg-white">
             <td colSpan={5} className="py-3 px-5 text-left overflow-clip">
               <div className="flex items-center justify-center">
                 <div className="font-medium whitespace-nowrap">

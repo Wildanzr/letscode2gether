@@ -22,7 +22,7 @@ const PopularProblem = (props) => {
           {problems.map((problem, index) => {
             const successRate = Number(problem.rate).toFixed(2)
             return (
-                <tr key={index} className="border-b border-gray-200 bg-gray-50 hover:bg-gray-300">
+                <tr key={index} className="border-b border-gray-200 bg-gray-100 hover:bg-white">
                     <td className="py-3 px-5 text-left overflow-clip">
                         <div className="flex items-center justify-start">
                         <div className="font-medium whitespace-nowrap">

@@ -99,12 +99,8 @@ const AddTest = () => {
             className="w-full"
             rules={[
               {
-                required: true,
-                message: 'Please fill the input of sample case!'
-              },
-              {
-                max: 255,
-                message: 'Input must be at most 255 characters'
+                max: 1000,
+                message: 'Input must be at most 1000 characters'
               }
             ]}
           >
@@ -134,8 +130,8 @@ const AddTest = () => {
                 message: 'Please fill the output of sample case!'
               },
               {
-                max: 255,
-                message: 'Output must be at most 255 characters'
+                max: 1000,
+                message: 'Output must be at most 1000 characters'
               }
             ]}
           >
