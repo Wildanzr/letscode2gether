@@ -13,7 +13,7 @@ const ProblemPage = () => {
   const { run } = editorState
 
   return (
-    <div className="flex flex-col items-center justify-between w-full h-full bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
+    <div className="flex flex-col items-center justify-between w-full min-h-screen bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <MainNavbar>
         <main className="flex flex-col lg:flex-row w-full h-full bg-alternate items-center lg:items-start justify-start">
           <Navbar />
@@ -31,8 +31,8 @@ const ProblemPage = () => {
             </div>
           </div>
         </main>
-      </MainNavbar>
       <Footer />
+      </MainNavbar>
     </div>
   )
 }

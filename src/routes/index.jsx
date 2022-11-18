@@ -75,7 +75,7 @@ const RouteList = () => {
       <Route path="/" element={<HomePage />} />
 
         <Route path="/learning-journey">
-          <Route path='problems/:problemId' element={<ProblemPage />} />
+          <Route path='competes/:competeId/problems/:problemId' element={<ProblemPage />} />
           <Route index element={<JourneyPage />} />
         </Route>
 

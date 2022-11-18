@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom'
 
 const ProblemList = (props) => {
   // Destructure props
-  const { problem } = props
-  const { problemId } = problem
-  const { _id, title, difficulty } = problemId
+  const { problem, competeId } = props
+  const { problemId, _id } = problem
+  const { title, difficulty } = problemId
 
   return (
     <>
@@ -22,7 +22,7 @@ const ProblemList = (props) => {
             </div>
             <div className="flex w-2/6 space-x-6 justify-end lg:justify-start items-center">
               <Link
-                to={`problems/${_id}`}
+                to={`competes/${competeId}/problems/${_id}`}
                 className="w-4/6 py-2 bg-snow text-main text-center rounded font-medium lg:font-bold hover:text-main hover:dark:text-main"
                 >
                 Solve
