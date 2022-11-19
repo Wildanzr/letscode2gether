@@ -1,7 +1,7 @@
 import { useGlobal } from '../../contexts/GlobalContext'
 
-import { Navbar, RoomInfo, SideContent } from '../../components/collaboration'
-import { Footer } from '../../components/footer'
+import { Navbar as MainNavbar, Footer } from '../../layout'
+import { RoomInfo } from '../../components/collaboration'
 import Editor from '../../components/editor'
 import Runner from '../../components/runner'
 import Result from '../../components/result'
@@ -13,23 +13,25 @@ const CollabPage = () => {
   const { run } = editorState
 
   return (
-    <main className="flex flex-col lg:flex-row w-full h-screen bg-[#4B5563] items-center lg:items-start justify-start">
-      <Navbar />
-      <SideContent />
-      <div
-        className={`flex flex-col ${
-          colHide ? 'w-full lg:w-1/2 h-0 lg:h-full' : 'w-full h-full'
-        } justify-between overflow-auto transition-all ease-in-out duration-500 space-y-6`}
-      >
-        <div className="flex flex-col w-full items-start justify-start py-2 px-2 space-y-6">
-          <RoomInfo />
-          <Editor />
-          <Runner />
-          {run && <Result />}
-        </div>
-          <Footer />
-      </div>
-    </main>
+    <div className="flex flex-col items-center justify-between w-full min-h-screen bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
+      <MainNavbar>
+        <main className="flex flex-col lg:flex-row w-full h-full items-center lg:items-start justify-start bg-milk dark:bg-alternate duration-300 ease-in-out">
+          <div
+            className={`flex flex-col ${
+              colHide ? 'w-full lg:w-1/2 h-0 lg:h-full' : 'w-full h-full'
+            } justify-between overflow-auto transition-all ease-in-out duration-500 space-y-6`}
+          >
+            <div className="flex flex-col w-full h-full items-start justify-start pt-2 pb-10 px-2 space-y-6 bg-milk dark:bg-alternate duration-300 ease-in-out">
+              <RoomInfo />
+              <Editor />
+              <Runner />
+              {run && <Result />}
+            </div>
+          </div>
+        </main>
+      </MainNavbar>
+      <Footer />
+    </div>
   )
 }
 
