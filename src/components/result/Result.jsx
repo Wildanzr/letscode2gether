@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import React from 'react'
 import { useCollab } from '../../contexts/CollabContext'
+import { useGlobal } from '../../contexts/GlobalContext'
 
 import { decode } from 'js-base64'
 import { Spin } from 'antd'
@@ -10,6 +11,10 @@ const Result = (props) => {
   const { result } = props
   const { stdin, compile_output, expected_output, stdout, stderr, status, time, memory } = result.data
   const { statusId } = result
+
+  // Global States
+  const { globalState } = useGlobal()
+  const { isOnlyEditor } = globalState
 
   // Collab States
   const { problemStates } = useCollab()
@@ -39,14 +44,16 @@ const Result = (props) => {
           </div>
         </div>
 
-        {runMode === 'batch' && (
+        {runMode === 'batch' && !isOnlyEditor
+          ? (
           <div className="flex flex-col w-full space-y-2">
             <p className="font-semibold text-base mb-0">Excpected Output</p>
             <div className="w-full px-2 py-1 font-code text-base bg-white mb-0 text-black">
               {expected_output === undefined ? <Spin size='small'/> : expected_output === null ? 'Error' : decoder(expected_output) || 'No Output'}
             </div>
           </div>
-        )}
+            )
+          : null}
 
         {stderr && (
           <div className="flex flex-col w-full space-y-2">

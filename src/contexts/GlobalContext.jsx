@@ -21,6 +21,7 @@ export const GlobalProvider = ({ children }) => {
   const [run, setRun] = useState(false)
   const [showInput, setShowInput] = useState(false)
   const [customInput, setCustomInput] = useState(false)
+  const [isOnlyEditor, setIsOnlyEditor] = useState(false)
 
   // Export global state
   const globalState = {
@@ -33,7 +34,9 @@ export const GlobalProvider = ({ children }) => {
     isOn,
     setIsOn,
     toggle,
-    setToggle
+    setToggle,
+    isOnlyEditor,
+    setIsOnlyEditor
   }
 
   // Export global functions

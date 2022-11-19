@@ -6,19 +6,20 @@ import { useGlobal } from '../../contexts/GlobalContext'
 import CustomInput from './CustomInput'
 import InputArea from './InputArea'
 
+import axios from 'axios'
 import { encode } from 'js-base64'
 
 const Runner = () => {
   // Global States
-  const { editorState, globalFunctions } = useGlobal()
+  const { editorState, globalFunctions, globalState } = useGlobal()
   const { setRun, showInput, setShowInput, setCustomInput } = editorState
   const { mySwal } = globalFunctions
+  const { setColHide, setColSideContent, isOnlyEditor } = globalState
 
   // Collab States
-  const { collabStates, collabFunctions, problemStates } = useCollab()
+  const { collabStates, problemStates } = useCollab()
   const { code, language } = collabStates
-  const { submission } = collabFunctions
-  const { sampleTestCase, testCase, btnDisabled } = problemStates
+  const { sampleTestCase, testCase, btnDisabled, setBtnDisabled, setLoading, setResult, setRunMode, competeProblem } = problemStates
 
   // Local States
   const [input, setInput] = useState('')
@@ -35,16 +36,26 @@ const Runner = () => {
         }
       } else {
         // Todo : run code without input
-        config = {
-          submissions: sampleTestCase.map((sample) => {
-            return {
-              language_id: language,
-              source_code: encode(code),
-              stdin: encode(sample.input),
-              expected_output: encode(sample.expected)
+        config = competeProblem
+          ? {
+              submissions: competeProblem.sampleCases.map((sample) => {
+                return {
+                  language_id: language,
+                  source_code: encode(code),
+                  stdin: encode(sample.input),
+                  expected_output: encode(sample.output)
+                }
+              })
             }
-          })
-        }
+          : {
+              submissions: [
+                {
+                  language_id: language,
+                  stdin: encode(''),
+                  source_code: encode(code)
+                }
+              ]
+            }
       }
     } else {
       // Todo : submit code
@@ -69,7 +80,7 @@ const Runner = () => {
       }
     }
 
-    // console.log(config)
+    console.log(config)
     // console.log(type)
     const runMode = type === 'submission' ? 'batch' : showInput ? 'single' : 'batch'
     await submission(config, runMode, type)
@@ -93,6 +104,61 @@ const Runner = () => {
     })
   }
 
+  // Submission Functions
+  const submission = async (config, mode, type) => {
+    // Disable button
+    setBtnDisabled(true)
+
+    // Set loading
+    if (type === 'run') {
+      setLoading(true)
+    }
+
+    // Define API URL
+    const url = mode === 'single'
+      ? import.meta.env.VITE_RAPID_API_URL
+      : `${import.meta.env.VITE_RAPID_API_URL}/batch`
+
+    // Define API Payload
+    const options = {
+      method: 'POST',
+      url,
+      params: { base64_encoded: 'true', fields: '*' },
+      data: config
+    }
+
+    // Collet token results
+    let tokens = []
+    try {
+      const res = await axios.request(options)
+      if (mode === 'single') {
+        tokens.push(res.data.token)
+      } else {
+        tokens = res.data.map((data) => data.token)
+      }
+
+      // Set result
+      if (type === 'run') {
+        setResult(tokens)
+
+        // Set loading and mode
+        setLoading(false)
+        setRunMode(mode)
+      } else {
+        setColHide(true)
+        setColSideContent('submissions')
+      }
+
+      // Enable button after submission
+      setBtnDisabled(false)
+    } catch (error) {
+      console.error(error)
+      setLoading(false)
+      setBtnDisabled(false)
+      setRunMode(mode)
+    }
+  }
+
   return (
     <div className="flex flex-col w-full items-center space-y-4 text-main dark:text-snow">
       {showInput && <InputArea input={input} setInput={setInput} />}
@@ -110,7 +176,9 @@ const Runner = () => {
           >
             RUN CODE
           </button>
-          <button
+
+          {!isOnlyEditor && (
+            <button
             disabled={btnDisabled}
             onClick={() => {
               submitDialog()
@@ -119,6 +187,7 @@ const Runner = () => {
           >
             SUBMIT CODE
           </button>
+          )}
         </div>
       </div>
     </div>

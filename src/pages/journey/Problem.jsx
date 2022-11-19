@@ -18,7 +18,7 @@ const ProblemPage = () => {
 
   // Global States
   const { globalState, editorState } = useGlobal()
-  const { colHide } = globalState
+  const { colHide, setIsOnlyEditor } = globalState
   const { run } = editorState
 
   // Collab States
@@ -49,6 +49,7 @@ const ProblemPage = () => {
 
   // Initially get compete problem detail
   useEffect(() => {
+    setIsOnlyEditor(false)
     getCompeteProblemDetail()
   }, [])
 

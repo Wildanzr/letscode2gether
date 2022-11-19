@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 
 import { Navbar as MainNavbar, Footer } from '../../layout'
@@ -9,8 +10,13 @@ import Result from '../../components/result'
 const CollabPage = () => {
   // Global States
   const { globalState, editorState } = useGlobal()
-  const { colHide } = globalState
+  const { colHide, setIsOnlyEditor } = globalState
   const { run } = editorState
+
+  // Initially set isCollab to true
+  useEffect(() => {
+    setIsOnlyEditor(true)
+  }, [])
 
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">

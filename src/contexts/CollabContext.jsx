@@ -131,6 +131,7 @@ export const CollabProvider = ({ children }) => {
     }
   }
 
+  // Check Submission Result
   const checkStatus = async (token) => {
     const options = {
       method: 'GET',
@@ -196,7 +197,9 @@ export const CollabProvider = ({ children }) => {
     testCase,
     setTestCase,
     loading,
+    setLoading,
     result,
+    setResult,
     runMode,
     setRunMode,
     btnDisabled,

@@ -29,7 +29,7 @@ const Result = () => {
             items={result.map((item, index) => {
               return {
                 key: index + 1,
-                label: customInput ? 'Custom Input' : `Testcase ${index + 1}`,
+                label: customInput ? 'Custom Input' : `Sample Case ${index + 1}`,
                 children: <Testcase key={index} token={item} />
               }
             })}
