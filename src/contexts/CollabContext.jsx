@@ -33,6 +33,8 @@ export const CollabProvider = ({ children }) => {
   const [btnDisabled, setBtnDisabled] = useState(false)
 
   // Problem and Solution State
+  const [competeProblem, setCompeteProblem] = useState(null)
+  const [competeMaxPoint, setCompeteMaxPoint] = useState(0)
   const [problem, setProblem] = useState('')
   const [result, setResult] = useState([])
   const [loading, setLoading] = useState(false)
@@ -198,7 +200,11 @@ export const CollabProvider = ({ children }) => {
     runMode,
     setRunMode,
     btnDisabled,
-    setBtnDisabled
+    setBtnDisabled,
+    competeProblem,
+    setCompeteProblem,
+    competeMaxPoint,
+    setCompeteMaxPoint
   }
 
   return (

@@ -50,7 +50,7 @@ const JourneyList = (props) => {
             {problems
               ? (
                   problems.map((problem, index) => (
-                  <ProblemList key={index} competeId={_id} problem={problem} />
+                  <ProblemList key={index} problem={problem} />
                   ))
                 )
               : <ProblemListLoading />
