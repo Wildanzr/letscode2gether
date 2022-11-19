@@ -22,7 +22,7 @@ const Result = () => {
         <Skeleton />
           )
         : (
-        <div className={'flex w-full overflow-x-auto bg-[#1F2937]'}>
+        <div className={'flex w-full overflow-x-auto bg-snow dark:bg-main duration-300 ease-in-out'}>
           <Tabs
             type="card"
             className="w-full"

@@ -24,7 +24,7 @@ const Result = (props) => {
 
   const color = statusId === 1 || statusId === 2 ? 'text-yellow-400' : statusId === 3 ? 'text-green-400' : 'text-red-400'
   return (
-    <div className="flex flex-col px-2 py-2 space-y-4 text-white w-full">
+    <div className="flex flex-col px-2 py-2 space-y-4 w-full text-main dark:text-snow duration-300 ease-in-out">
         <div className="flex flex-col w-full space-y-2">
           <p className="font-semibold text-base mb-0">Input (stdin)</p>
           <div className={`w-full px-2 py-1 font-code text-base bg-white mb-0 ${stdin ? 'text-black' : 'text-gray-300'}`}>

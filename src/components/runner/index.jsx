@@ -94,7 +94,7 @@ const Runner = () => {
   }
 
   return (
-    <div className="flex flex-col w-full items-center space-y-4 text-white">
+    <div className="flex flex-col w-full items-center space-y-4 text-main dark:text-snow">
       {showInput && <InputArea input={input} setInput={setInput} />}
 
       <div className="flex flex-row w-full px-2 items-center justify-between">
@@ -106,7 +106,7 @@ const Runner = () => {
               runCode('run', 'run')
               setRun(true)
             }}
-            className={`flex py-1 px-1 lg:px-2 justify-center font-bold rounded-sm border-2 border-white hover:border-blue-500 duration-300 ${btnDisabled ? 'border-gray-300 text-gray-300 hover:border-gray-300' : ''}`}
+            className={`flex py-1 px-1 lg:px-2 justify-center font-bold font-code tracking-wider rounded-sm text-easy dark:text-snow border-2 border-easy dark:border-white hover:border-main hover:text-main dark:hover:border-blue-500 duration-300 ${btnDisabled ? 'border-gray-300 text-gray-300 hover:border-gray-300' : ''}`}
           >
             RUN CODE
           </button>
@@ -115,7 +115,7 @@ const Runner = () => {
             onClick={() => {
               submitDialog()
             }}
-            className={`flex py-1 px-1 lg:px-2 justify-center bg-[#111827] font-bold rounded-sm border-b-2 border-white hover:border-blue-500 duration-300 ${btnDisabled ? 'border-gray-300 text-gray-300 hover:border-gray-300' : ''}`}
+            className={`flex py-1 px-1 lg:px-2 justify-center font-bold font-code tracking-wider bg-easy dark:bg-main rounded-sm border-b-2 text-snow border-white hover:border-medium dark:hover:border-blue-500 duration-300 ${btnDisabled ? 'border-gray-300 text-gray-300 hover:border-gray-300' : ''}`}
           >
             SUBMIT CODE
           </button>

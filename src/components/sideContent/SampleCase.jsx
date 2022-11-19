@@ -3,7 +3,7 @@ import { Spin } from 'antd'
 const SampleCase = (props) => {
   const { title, input, output, explanation } = props
   return (
-    <div className="flex flex-col py-2 w-full text-base text-white">
+    <div className="flex flex-col py-2 w-full text-base">
       <p className="mb-0 font-bold">{title}</p>
 
       <p className="mb-0 text-sm">Input (stdin)</p>

@@ -52,8 +52,8 @@ const RoomInfo = () => {
   }
 
   return (
-    <div className="flex flex-row w-full max-h-full py-2 items-center justify-between">
-      <div className="flex flex-col text-white">
+    <div className="flex flex-row w-full max-h-full py-2 items-center justify-between text-main dark:text-snow duration-300 ease-in-out">
+      <div className="flex flex-col">
         <p className="m-0">
           Driver: Wildanzr
           <br />
@@ -78,7 +78,7 @@ const RoomInfo = () => {
             : (
             <button
                 onClick={openCollaboration}
-                className="flex py-2 px-2 bg-[#111827] rounded-sm border-b-2 text-white text-center border-white hover:border-blue-500 duration-300"
+                className="flex py-2 px-2 rounded-sm border-b-2 tracking-wide bg-easy dark:bg-main text-snow border-white hover:border-medium dark:hover:border-blue-500  duration-300"
               >
                 Open Communication
               </button>

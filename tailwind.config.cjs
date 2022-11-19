@@ -10,7 +10,8 @@ module.exports = {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
-      snow: '#F3F7F7',
+      snow: '#f2f4f7',
+      milk: '#DADDE7',
       main: '#111827',
       alternate: '#1F2937',
       floor: '#4B5563',

@@ -4,6 +4,7 @@ import ProblemSpecification from './ProblemSpecification'
 import SampleCase from './SampleCase'
 
 import { Spin } from 'antd'
+import { Link } from 'react-router-dom'
 
 const Problem = () => {
   // Collab States
@@ -11,18 +12,19 @@ const Problem = () => {
   const { competeProblem } = problemStates
 
   return (
-    <div className="flex flex-col w-full h-full space-y-4">
+    <div className="flex flex-col w-full h-full space-y-4 text-main dark:text-snow duration-300 ease-in-out">
       <div className="flex flex-col w-full p-2">
         {competeProblem
           ? (
             <>
-              <h4 className="mb-0 text-lg lg:text-2xl font-semibold text-white">
+              <h4 className="mb-0 text-lg lg:text-2xl font-semibold text-main dark:text-snow duration-300 ease-in-out">
                 {competeProblem.title}
               </h4>
-              <p className="mb-0 text-sm font-thin text-white">
-                Challenger: <span className="font-medium text-easy">
-                {competeProblem.challenger.username}
-                </span>
+              <p className="mb-0 text-sm font-thin">
+                Challenger:
+                <Link to={`/@/${competeProblem.challenger.username}`} className="ml-2 font-medium text-easy">
+                  {competeProblem.challenger.username}
+                </Link>
               </p>
             </>
             )
@@ -33,14 +35,14 @@ const Problem = () => {
       <div className="flex flex-col w-full p-2">
         {competeProblem
           ? (
-            <p className="text-sm text-justify text-white mb-0">
+            <p className="text-sm text-justify mb-0">
               {competeProblem.description}
             </p>
             )
           : <Spin size='small' />
         }
       </div>
-      <div className="flex flex-col w-full bg-floor p-2">
+      <div className="flex flex-col w-full p-2 bg-white text-black">
         <ProblemSpecification title="Constraints">
           {competeProblem
             ? <p className="mb-0">{competeProblem.constraint}</p>
@@ -49,7 +51,7 @@ const Problem = () => {
         </ProblemSpecification>
       </div>
 
-      <div className="flex flex-col w-full bg-floor p-2">
+      <div className="flex flex-col w-full p-2 bg-white text-black">
         <ProblemSpecification title="Input Format">
           {competeProblem
             ? <p className="mb-0">{competeProblem.inputFormat}</p>
@@ -58,7 +60,7 @@ const Problem = () => {
         </ProblemSpecification>
       </div>
 
-      <div className="flex flex-col w-full bg-floor p-2">
+      <div className="flex flex-col w-full p-2 bg-white text-black">
         <ProblemSpecification title="Output Format">
           {competeProblem
             ? <p className="mb-0">{competeProblem.outputFormat}</p>

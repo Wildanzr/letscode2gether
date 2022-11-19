@@ -8,7 +8,7 @@ const CustomInput = (props) => {
   }
   return (
     <Checkbox onChange={onChange} checked={value}>
-      <span className="text-white lg:text-lg">Custom Input</span>
+      <span className="text-main dark:text-snow lg:text-lg duration-300 ease-in-out">Custom Input</span>
     </Checkbox>
   )
 }
