@@ -8,7 +8,10 @@ const SampleCase = (props) => {
 
       <p className="mb-0 text-sm">Input (stdin)</p>
       <div className="my-1 px-2 py-2 font-code bg-white w-full text-sm text-black">
-        {input || <Spin size='small' />}
+        {input === ''
+          ? <span className='text-gray-300'>No input</span>
+          : input || <Spin size='small' />
+        }
       </div>
 
       <p className="mb-0 text-sm">Output (stdout)</p>
