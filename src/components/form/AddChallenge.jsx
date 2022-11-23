@@ -110,7 +110,7 @@ const AddChallenge = () => {
   return (
     <Form
       form={form}
-      name="addProblem"
+      name="addChallenge"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       className="flex flex-col w-full duration-300 ease-in-out"
