@@ -14,7 +14,7 @@ const AddTest = () => {
   const [form] = Form.useForm()
 
   // useParams
-  const { journeyId, problemId } = useParams()
+  const { journeyId, problemId, competeId, challengeId } = useParams()
 
   // Navigator
   const navigate = useNavigate()
@@ -44,7 +44,11 @@ const AddTest = () => {
 
     // Create Sample Case
     try {
-      await api.post(`/problems/${problemId}/test-cases`, payload, config)
+      const path = journeyId === undefined
+        ? `/problems/${challengeId}/test-cases`
+        : `/problems/${problemId}/test-cases`
+
+      await api.post(path, payload, config)
 
       // Show success
       mySwal.fire({
@@ -57,7 +61,11 @@ const AddTest = () => {
         showConfirmButton: false,
         timerProgressBar: true
       }).then(() => {
-        navigate(`/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`)
+        const path = journeyId === undefined
+          ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/edit`
+          : `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
+
+        navigate(path)
       })
     } catch (error) {
       console.log(error)
@@ -148,7 +156,11 @@ const AddTest = () => {
       <Item>
         <div className="flex flex-row space-x-4 w-full items-center justify-end">
           <Link
-            to={`/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`}
+            to={
+              journeyId === undefined
+                ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/edit`
+                : `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
+            }
             className="px-4 py-2 mt-4 text-sm font-medium text-center font-ubuntu tracking-wider uppercase transition-colors transform border-2 text-main dark:text-snow border-main dark:border-snow dark:hover:border-easy hover:border-easy duration-300 ease-in-out"
           >
             Cancel

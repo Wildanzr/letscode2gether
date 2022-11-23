@@ -68,7 +68,7 @@ const EditableListOfChallenge = (props) => {
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: 'Delete problem success',
+        title: 'Delete challenge success',
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -256,10 +256,20 @@ const EditableListOfChallenge = (props) => {
                 to={`/admin/manage/challenges/create?cpId=${cpId}`}
                 className="flex flex-row space-x-2 w-full items-center justify-center"
               >
-                <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
-                <span className="text-base font-medium text-snow whitespace-nowrap">
-                  Add More Challenge
-                </span>
+                {problems === null
+                  ? <Spin size="small" />
+                  : (
+                    <>
+                      <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
+                      <span className="text-base font-medium text-snow whitespace-nowrap">
+                        {problems.length === 0
+                          ? 'Add Challenge'
+                          : 'Add More Challenge'
+                        }
+                      </span>
+                    </>
+                    )
+                }
               </Link>
             </div>
           </td>

@@ -13,7 +13,7 @@ const EditableTestCase = (props) => {
   const { testCases, setFetch } = props
 
   // useParams
-  const { journeyId, problemId } = useParams()
+  const { journeyId, problemId, competeId, challengeId } = useParams()
 
   // Global Functions
   const { globalFunctions } = useGlobal()
@@ -64,7 +64,11 @@ const EditableTestCase = (props) => {
 
     // Delete Test Case
     try {
-      await api.delete(`/problems/${problemId}/test-cases/${testId}`, config)
+      const path = journeyId === undefined
+        ? `/problems/${challengeId}/test-cases/${testId}`
+        : `/problems/${problemId}/test-cases/${testId}`
+
+      await api.delete(path, config)
 
       // Show success
       mySwal.fire({
@@ -76,7 +80,9 @@ const EditableTestCase = (props) => {
         timer: 2000,
         showConfirmButton: false,
         timerProgressBar: true
-      }).then(() => setFetch(true))
+      }).then(() => {
+        setFetch(true)
+      })
     } catch (error) {
       console.log(error)
       mySwal.fire({
@@ -174,7 +180,11 @@ const EditableTestCase = (props) => {
                         <td className="py-3 px-5 text-center overflow-clip">
                           <div className="flex flex-row space-x-4 items-center justify-end">
                             <Link
-                              to={`/admin/manage/journeys/${journeyId}/problems/${problemId}/testcases/${_id}/edit`}
+                              to={
+                                journeyId === undefined
+                                  ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/testcases/${_id}/edit`
+                                  : `/admin/manage/journeys/${journeyId}/problems/${problemId}/testcases/${_id}/edit`
+                              }
                               className="px-2 py-2 bg-medium rounded-lg"
                             >
                               <BsPencil className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
@@ -217,7 +227,11 @@ const EditableTestCase = (props) => {
               >
                 <div className="py-2 flex flex-row items-center justify-center">
                   <Link
-                    to={`/admin/manage/journeys/${journeyId}/problems/${problemId}/testcases/create`}
+                    to={
+                      journeyId === undefined
+                        ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/testcases/create`
+                        : `/admin/manage/journeys/${journeyId}/problems/${problemId}/testcases/create`
+                    }
                     className="flex flex-row space-x-2 w-full items-center justify-center"
                   >
                     <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />

@@ -21,6 +21,7 @@ const ManageChallengePage = () => {
   const [competeId, setCompeteId] = useState(null)
   const [problems, setProblems] = useState(null)
   const [fetch, setFetch] = useState(true)
+  const [secondFetch, setSecondFetch] = useState(false)
   // const [defaultCurrent, setDefaultCurrent] = useState(1)
   // const [total, setTotal] = useState(10)
 
@@ -40,6 +41,7 @@ const ManageChallengePage = () => {
 
       const { competes } = data.data
       setCompeteId(competes[0]._id)
+      setSecondFetch(true)
     } catch (error) {
       console.log(error)
     }
@@ -74,10 +76,11 @@ const ManageChallengePage = () => {
 
   // Initial fetch challenge problems
   useEffect(() => {
-    if (competeId) {
+    if (secondFetch) {
       fetchChallengeProblems()
+      setSecondFetch(false)
     }
-  }, [competeId])
+  }, [secondFetch])
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar>

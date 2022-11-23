@@ -15,7 +15,7 @@ const AddSample = () => {
   const [form] = Form.useForm()
 
   // useParams
-  const { journeyId, problemId, testId } = useParams()
+  const { journeyId, problemId, competeId, challengeId, testId } = useParams()
 
   // Navigator
   const navigate = useNavigate()
@@ -48,7 +48,11 @@ const AddSample = () => {
 
     // Update Test Case
     try {
-      await api.put(`/problems/${problemId}/test-cases/${testId}`, payload, config)
+      const path = journeyId === undefined
+        ? `/problems/${challengeId}/test-cases/${testId}`
+        : `/problems/${problemId}/test-cases/${testId}`
+
+      await api.put(path, payload, config)
 
       // Show success
       mySwal.fire({
@@ -61,7 +65,11 @@ const AddSample = () => {
         showConfirmButton: false,
         timerProgressBar: true
       }).then(() => {
-        navigate(`/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`)
+        const path = journeyId === undefined
+          ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/edit`
+          : `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
+
+        navigate(path)
       })
     } catch (error) {
       console.log(error)
@@ -92,7 +100,11 @@ const AddSample = () => {
     }
 
     try {
-      const { data } = await api.get(`/problems/${problemId}/test-cases/${testId}`, config)
+      const path = journeyId === undefined
+        ? `/problems/${challengeId}/test-cases/${testId}`
+        : `/problems/${problemId}/test-cases/${testId}`
+
+      const { data } = await api.get(path, config)
 
       // console.log(data)
       setTestCase(data.data.testCase)
@@ -187,7 +199,11 @@ const AddSample = () => {
           <Item>
             <div className="flex flex-row space-x-4 w-full items-center justify-end">
               <Link
-                to={`/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`}
+                to={
+                  journeyId === undefined
+                    ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/edit`
+                    : `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
+                }
                 className="px-4 py-2 mt-4 text-sm font-medium text-center font-ubuntu tracking-wider uppercase transition-colors transform border-2 text-main dark:text-snow border-main dark:border-snow dark:hover:border-easy hover:border-easy duration-300 ease-in-out"
               >
                 Cancel
@@ -197,7 +213,7 @@ const AddSample = () => {
                 type="submit"
                 className="px-4 py-2 mt-4 text-sm font-medium text-center text-white font-ubuntu tracking-wider uppercase transition-colors duration-200 transform bg-easy hover:bg-blue-400 focus:outline-none focus:bg-blue-400"
               >
-                Create
+                Update
               </button>
             </div>
           </Item>
