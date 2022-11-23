@@ -21,7 +21,10 @@ import {
   EditTestCasePage,
   CreateJourneyPage,
   CreateProblemPage,
-  ManageChallengePage
+  ManageChallengePage,
+  CreateChallengePage,
+  DetailChallengePage,
+  EditChallengePage
 } from '../pages/admin'
 import { NotFound } from '../pages/notfound'
 
@@ -114,6 +117,9 @@ const RouteList = () => {
 
                   {/* Challenges */}
                   <Route path="challenges">
+                    <Route path="create" element={<CreateChallengePage />} />
+                    <Route path=":competeId/problems/:challengeId" element={<DetailChallengePage />} />
+                    <Route path=":competeId/problems/:challengeId/edit" element={<EditChallengePage />} />
                     <Route index element={<ManageChallengePage />} />
                   </Route>
 

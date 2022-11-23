@@ -22,8 +22,8 @@ const TestCaseDetail = (props) => {
                 const { input, output } = sample
 
                 // split input with \n
-                const inputSplit = input.split('\n')
-                const outputSplit = output.split('\n')
+                const inputSplit = input === null ? null : input.split('\n')
+                const outputSplit = output === null ? null : output.split('\n')
                 return (
                 <tr
                   key={index}
@@ -39,8 +39,9 @@ const TestCaseDetail = (props) => {
                   <td className="py-3 px-5 text-left overflow-clip">
                     <div className="flex items-center justify-start">
                       <div className="font-medium whitespace-nowrap">
-                        {
-                          inputSplit.map((input, index) => (
+                        {inputSplit === null
+                          ? <p className="mb-0 text-gray-300">No Input</p>
+                          : inputSplit.map((input, index) => (
                             <p key={index} className="mb-0 text-gray-600">{input}</p>
                           ))
                         }
@@ -50,11 +51,12 @@ const TestCaseDetail = (props) => {
                   <td className="py-3 px-5 text-left overflow-clip">
                     <div className="flex items-center justify-start">
                       <div className="font-medium whitespace-nowrap">
-                        {
-                          outputSplit.map((output, index) => (
+                      {outputSplit === null
+                        ? <p className="mb-0 text-gray-300">No Input</p>
+                        : outputSplit.map((output, index) => (
                             <p key={index} className="mb-0 text-gray-600">{output}</p>
-                          ))
-                        }
+                        ))
+                      }
                       </div>
                     </div>
                   </td>

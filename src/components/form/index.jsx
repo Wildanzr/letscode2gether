@@ -14,3 +14,5 @@ export { default as AddTest } from './AddTest'
 
 export { default as EditSample } from './EditSample'
 export { default as EditTest } from './EditTest'
+
+export { default as AddChallenge } from './AddChallenge'
