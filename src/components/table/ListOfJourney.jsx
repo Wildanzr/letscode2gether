@@ -152,60 +152,72 @@ const ListOfJourney = (props) => {
           </tr>
             )
           : (
-              journeys.map((journey, index) => {
-                const { _id, name, problems } = journey
-                return (
-              <tr
-                key={index}
-                className="border-b border-gray-200 bg-gray-50 hover:bg-gray-300"
-              >
-                <td className="py-3 px-5 text-left overflow-clip">
-                  <div className="flex items-center justify-start">
-                    <div className="font-medium whitespace-nowrap">
-                      <span className="ml-3 text-gray-600">{index + 1}</span>
+              journeys.length === 0
+                ? (
+                  <tr className="border-b border-gray-200 bg-gray-100 hover:bg-white">
+                    <td colSpan={5} className="py-3 px-5 text-left overflow-clip">
+                      <div className="flex items-center justify-center">
+                        <div className="font-medium whitespace-nowrap">
+                          <span className="ml-3 text-gray-600">No Journeys Found</span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  )
+                : journeys.map((journey, index) => {
+                  const { _id, name, problems } = journey
+                  return (
+                <tr
+                  key={index}
+                  className="border-b border-gray-200 bg-gray-50 hover:bg-gray-300"
+                >
+                  <td className="py-3 px-5 text-left overflow-clip">
+                    <div className="flex items-center justify-start">
+                      <div className="font-medium whitespace-nowrap">
+                        <span className="ml-3 text-gray-600">{index + 1}</span>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td className="py-3 px-5 text-left overflow-clip">
-                  <div className="flex items-center justify-start">
-                    <div className="font-medium whitespace-nowrap">
-                      <span className="text-gray-600">{name}</span>
+                  </td>
+                  <td className="py-3 px-5 text-left overflow-clip">
+                    <div className="flex items-center justify-start">
+                      <div className="font-medium whitespace-nowrap">
+                        <span className="text-gray-600">{name}</span>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td className="py-3 px-5 text-left overflow-clip">
-                  <div className="flex items-center justify-center">
-                    <div className="font-medium whitespace-nowrap">
-                      <span className="text-gray-600">
-                        {problems.length}
-                      </span>
+                  </td>
+                  <td className="py-3 px-5 text-left overflow-clip">
+                    <div className="flex items-center justify-center">
+                      <div className="font-medium whitespace-nowrap">
+                        <span className="text-gray-600">
+                          {problems.length}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td className="py-3 px-5 text-left overflow-clip">
-                  <div className="flex flex-row space-x-4 items-center justify-center">
-                    <Link
-                      to={`${_id}`}
-                      className="px-2 py-2 bg-easy rounded-lg"
-                    >
-                      <BsEye className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
-                    </Link>
+                  </td>
+                  <td className="py-3 px-5 text-left overflow-clip">
+                    <div className="flex flex-row space-x-4 items-center justify-center">
+                      <Link
+                        to={`${_id}`}
+                        className="px-2 py-2 bg-easy rounded-lg"
+                      >
+                        <BsEye className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
+                      </Link>
 
-                    <Link
-                      to={`${_id}/edit`}
-                      className="px-2 py-2 bg-medium rounded-lg"
-                    >
-                      <BsPencil className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
-                    </Link>
+                      <Link
+                        to={`${_id}/edit`}
+                        className="px-2 py-2 bg-medium rounded-lg"
+                      >
+                        <BsPencil className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
+                      </Link>
 
-                    <div className="px-2 py-2 bg-hard rounded-lg cursor-pointer" onClick={() => dialogDeleteJourney(_id)}>
-                      <BsTrash className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
+                      <div className="px-2 py-2 bg-hard rounded-lg cursor-pointer" onClick={() => dialogDeleteJourney(_id)}>
+                        <BsTrash className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-                )
-              })
+                  </td>
+                </tr>
+                  )
+                })
             )}
       </tbody>
       <tfoot>

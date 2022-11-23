@@ -4,10 +4,10 @@ import api from '../../api'
 import { Navbar, Footer } from '../../layout'
 import { Breadcrumb } from '../../components/breadcrumb'
 import { ListOfJourney } from '../../components/table'
+import { SearchDebounce } from '../../components/other'
 
 import Cookies from 'js-cookie'
-import { RiSearchLine } from 'react-icons/ri'
-import { Input, Pagination } from 'antd'
+import { Pagination } from 'antd'
 
 const ManageJourneyPage = () => {
   // Breadcrumb paths
@@ -61,11 +61,9 @@ const ManageJourneyPage = () => {
 
           {/* Search */}
           <div className="flex flex-col m-0 space-y-5 lg:pt-0 w-full items-center justify-between">
+
             <div className="w-full hidden lg:flex">
-              <Input
-                placeholder="Search Learning Journey"
-                prefix={<RiSearchLine />}
-              />
+              <SearchDebounce setJourneys={setJourneys} />
             </div>
 
             <div className="w-full hidden flex-row justify-end lg:flex">
@@ -77,10 +75,7 @@ const ManageJourneyPage = () => {
             </div>
 
             <div className="flex flex-row lg:hidden w-full space-x-5">
-              <Input
-                placeholder="Search Learning Journey"
-                prefix={<RiSearchLine />}
-              />
+              <SearchDebounce setJourneys={setJourneys} />
             </div>
 
             <div className="w-full flex flex-row justify-center lg:hidden">

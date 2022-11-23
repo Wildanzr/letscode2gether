@@ -18,6 +18,7 @@
     "framer-motion": "^7.6.1",
     "js-base64": "^3.7.2",
     "js-cookie": "^3.0.1",
+    "lodash.debounce": "^4.0.8",
     "moment": "^2.29.4",
     "monaco-themes": "^0.4.2",
     "react": "^18.2.0",
