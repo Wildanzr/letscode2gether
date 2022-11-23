@@ -8,9 +8,8 @@ import { Spin, Tag } from 'antd'
 import { Link } from 'react-router-dom'
 import { BsEye, BsPencil, BsTrash, BsPlus } from 'react-icons/bs'
 
-const ListOfChallenge = (props) => {
+const EditableListOfChallenge = (props) => {
   const { problems, cpId, setFetch } = props
-  console.log(problems)
 
   // Global functions
   const { globalFunctions } = useGlobal()
@@ -219,14 +218,14 @@ const ListOfChallenge = (props) => {
               <td className="py-3 px-5 text-left overflow-clip">
                 <div className="flex flex-row space-x-4 items-center justify-end">
                   <Link
-                    to={`/admin/manage/journeys/${cpId}/problems/${_id}?origin=edit`}
+                    to={`/admin/manage/challenges/${cpId}/problems/${_id}?origin=edit`}
                     className="px-2 py-2 bg-easy rounded-lg"
                   >
                     <BsEye className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
                   </Link>
 
                   <Link
-                    to={`/admin/manage/journeys/${cpId}/problems/${_id}/edit`}
+                    to={`/admin/manage/challenges/${cpId}/problems/${_id}/edit`}
                     className="px-2 py-2 bg-medium rounded-lg"
                   >
                     <BsPencil className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
@@ -254,7 +253,7 @@ const ListOfChallenge = (props) => {
           >
             <div className="py-2 flex flex-row items-center justify-center">
               <Link
-                to={`/admin/manage/journeys/${cpId}/problems/create`}
+                to={`/admin/manage/challenges/${cpId}/problems/create`}
                 className="flex flex-row space-x-2 w-full items-center justify-center"
               >
                 <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
@@ -270,4 +269,4 @@ const ListOfChallenge = (props) => {
   )
 }
 
-export default ListOfChallenge
+export default EditableListOfChallenge

@@ -14,4 +14,4 @@ export { default as EditableTestCase } from './EditableTestCase'
 
 export { default as EditableListOfProblem } from './EditableListOfProblem'
 
-export { default as ListOfChallenge } from './ListOfChallenge'
+export { default as EditableListOfChallenge } from './EditableListOfChallenge'

@@ -59,9 +59,9 @@ const RouteList = () => {
   useEffect(() => {
     const defineLocation = () => {
       // For Admin
-      if (pathname.includes('/dashboard')) setTabs(1)
-      else if (pathname.includes('/manage/journeys')) setTabs(2)
-      else if (pathname.includes('/manage/problems')) setTabs(3)
+      if (pathname.includes('/admin/dashboard')) setTabs(1)
+      else if (pathname.includes('/admin/manage/journeys')) setTabs(2)
+      else if (pathname.includes('/admin/manage/challenges')) setTabs(3)
 
       // For User
       else if (pathname.includes('/learning-journey')) setTabs(1)
