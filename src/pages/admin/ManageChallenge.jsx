@@ -3,29 +3,30 @@ import { useState, useEffect } from 'react'
 import api from '../../api'
 import { Navbar, Footer } from '../../layout'
 import { Breadcrumb } from '../../components/breadcrumb'
-import { ListOfJourney } from '../../components/table'
-import { SearchDebounce } from '../../components/other'
+// import { SearchDebounce } from '../../components/other'
+import { ListOfChallenge } from '../../components/table'
 
 import Cookies from 'js-cookie'
-import { Pagination } from 'antd'
+// import { Pagination } from 'antd'
 
-const ManageJourneyPage = () => {
+const ManageChallengePage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: 'List of Learning Journeys',
-      target: '/admin/manage/journeys'
+      name: 'List of Challenges',
+      target: '/admin/manage/challenges'
     }
   ])
 
-  const [journeys, setJourneys] = useState(null)
+  const [competeId, setCompeteId] = useState(null)
+  const [problems, setProblems] = useState(null)
   const [fetch, setFetch] = useState(true)
-  const [defaultCurrent, setDefaultCurrent] = useState(1)
-  const [total, setTotal] = useState(10)
+  // const [defaultCurrent, setDefaultCurrent] = useState(1)
+  // const [total, setTotal] = useState(10)
 
-  const onShowSizeChange = (current, pageSize) => {
-    console.log(current, pageSize)
-  }
+  // const onShowSizeChange = (current, pageSize) => {
+  //   console.log(current, pageSize)
+  // }
 
   const fetchJourneys = async () => {
     const config = {
@@ -34,27 +35,49 @@ const ManageJourneyPage = () => {
       }
     }
     try {
-      const { data } = await api.get('/competes?page=1&limit=10&isLearnPath=true', config)
+      const { data } = await api.get('/competes?page=1&limit=10&isChallenge=true', config)
       // console.log(data)
 
-      const { meta } = data
       const { competes } = data.data
-
-      setDefaultCurrent(parseInt(meta.page))
-      setTotal(parseInt(meta.total))
-      setJourneys(competes)
+      setCompeteId(competes[0]._id)
     } catch (error) {
       console.log(error)
     }
   }
 
-  // Initial fetch journey
+  const fetchChallengeProblems = async () => {
+    // Config
+    const config = {
+      headers: {
+        authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+
+    try {
+      const { data } = await api.get(`/competes/${competeId}/problems`, config)
+      // console.log(data)
+
+      const { problems } = data.data
+      setProblems(problems)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Initial fetch challenge journey
   useEffect(() => {
     if (fetch) {
       fetchJourneys()
       setFetch(false)
     }
   }, [fetch])
+
+  // Initial fetch challenge problems
+  useEffect(() => {
+    if (competeId) {
+      fetchChallengeProblems()
+    }
+  }, [competeId])
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar>
@@ -62,16 +85,16 @@ const ManageJourneyPage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              Learning Journey
+              Challenges
             </h3>
             <Breadcrumb paths={paths} />
           </div>
 
           {/* Search */}
-          <div className="flex flex-col m-0 space-y-5 lg:pt-0 w-full items-center justify-between">
+          {/* <div className="flex flex-col m-0 space-y-5 lg:pt-0 w-full items-center justify-between">
 
             <div className="w-full hidden lg:flex">
-              <SearchDebounce setJourneys={setJourneys} />
+              <SearchDebounce setJourneys={setChallenges} />
             </div>
 
             <div className="w-full hidden flex-row justify-end lg:flex">
@@ -83,7 +106,7 @@ const ManageJourneyPage = () => {
             </div>
 
             <div className="flex flex-row lg:hidden w-full space-x-5">
-              <SearchDebounce setJourneys={setJourneys} />
+              <SearchDebounce setJourneys={setChallenges} />
             </div>
 
             <div className="w-full flex flex-row justify-center lg:hidden">
@@ -93,21 +116,13 @@ const ManageJourneyPage = () => {
                 total={total}
               />
             </div>
-          </div>
+          </div> */}
 
-          {/* Learning Journey Data */}
+          {/* Challenges Data */}
           <div className="flex flex-col w-full space-y-2 overflow-y-auto">
-            <span className="text-xs font-ubuntu font-light text-main dark:text-snow duration-300 ease-in-out">
-              * Learning journey was sorted by name, make sure it was sequence
-              by their name.
-            </span>
             <div className="flex flex-col pb-4 overflow-y-auto">
               <div className="flex w-full">
-                {
-                  journeys === null
-                    ? <ListOfJourney journeys={null} setFetch={setFetch} />
-                    : <ListOfJourney journeys={journeys} setFetch={setFetch} />
-                }
+                <ListOfChallenge problems={problems} cpId={competeId} setFetch={setFetch}/>
               </div>
             </div>
           </div>
@@ -120,4 +135,4 @@ const ManageJourneyPage = () => {
   )
 }
 
-export default ManageJourneyPage
+export default ManageChallengePage

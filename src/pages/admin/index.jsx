@@ -13,3 +13,5 @@ export { default as CreateSampleCasePage } from './CreateSampleCase'
 export { default as CreateTestCasePage } from './CreateTestCase'
 export { default as EditSampleCasePage } from './EditSampleCase'
 export { default as EditTestCasePage } from './EditTestCase'
+
+export { default as ManageChallengePage } from './ManageChallenge'

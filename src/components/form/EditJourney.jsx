@@ -73,6 +73,7 @@ const EditJourney = (props) => {
     payload.start = null
     payload.end = null
     payload.isLearnPath = true
+    payload.isChallenge = false
     payload.languageAllowed = languageAllowed
 
     try {

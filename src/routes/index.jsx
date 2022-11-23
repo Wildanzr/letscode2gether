@@ -20,7 +20,8 @@ import {
   EditSampleCasePage,
   EditTestCasePage,
   CreateJourneyPage,
-  CreateProblemPage
+  CreateProblemPage,
+  ManageChallengePage
 } from '../pages/admin'
 import { NotFound } from '../pages/notfound'
 
@@ -84,31 +85,44 @@ const RouteList = () => {
         <Route path="/leaderboards" element={<LeaderboardPage />} />
           <Route path="/collab" element={<CollabPage />} />
           <Route path='/auth'>
-                <Route path="login" element={<LoginPage />} />
-                <Route path="forgot" element={<ForgotPage />} />
-                <Route path="register" element={<RegisterPage />} />
-                <Route path="reset" element={<ResetPage />} />
-                <Route path="activate" element={<ActivatePage />} />
-                <Route path="*" element={<NotFound />} />
-                <Route index element={<LoginPage />} />
-            </Route>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="forgot" element={<ForgotPage />} />
+            <Route path="register" element={<RegisterPage />} />
+            <Route path="reset" element={<ResetPage />} />
+            <Route path="activate" element={<ActivatePage />} />
+            <Route path="*" element={<NotFound />} />
+            <Route index element={<LoginPage />} />
+          </Route>
 
             {/* Admin Route */}
             <Route path='/admin'>
-                <Route path="dashboard" element={<DashboardPage />} />
-                <Route path="manage/journeys" element={<ManageJourneyPage />} />
-                <Route path="manage/journeys/create" element={<CreateJourneyPage />} />
-                <Route path="manage/journeys/:journeyId" element={<DetailJourneyPage />} />
-                <Route path="manage/journeys/:journeyId/edit" element={<EditJourneyPage />} />
-                <Route path="manage/journeys/:journeyId/problems/create" element={<CreateProblemPage />} />
-                <Route path="manage/journeys/:journeyId/problems/:problemId" element={<DetailProblemPage />} />
-                <Route path="manage/journeys/:journeyId/problems/:problemId/edit" element={<EditProblemPage />} />
-                <Route path="manage/journeys/:journeyId/problems/:problemId/samplecases/create" element={<CreateSampleCasePage />} />
-                <Route path="manage/journeys/:journeyId/problems/:problemId/samplecases/:sampleId/edit" element={<EditSampleCasePage />} />
-                <Route path="manage/journeys/:journeyId/problems/:problemId/testcases/create" element={<CreateTestCasePage />} />
-                <Route path="manage/journeys/:journeyId/problems/:problemId/testcases/:testId/edit" element={<EditTestCasePage />} />
-                <Route path="*" element={<NotFound />} />
-                <Route index element={<NotFound />} />
+                <Route path="manage">
+                  {/* Journeys */}
+                  <Route path="journeys">
+                    <Route path="create" element={<CreateJourneyPage />} />
+                    <Route path=":journeyId" element={<DetailJourneyPage />} />
+                    <Route path=":journeyId/edit" element={<EditJourneyPage />} />
+                    <Route path=":journeyId/problems/create" element={<CreateProblemPage />} />
+                    <Route path=":journeyId/problems/:problemId" element={<DetailProblemPage />} />
+                    <Route path=":journeyId/problems/:problemId/edit" element={<EditProblemPage />} />
+                    <Route path=":journeyId/problems/:problemId/samplecases/create" element={<CreateSampleCasePage />} />
+                    <Route path=":journeyId/problems/:problemId/samplecases/:sampleId/edit" element={<EditSampleCasePage />} />
+                    <Route path=":journeyId/problems/:problemId/testcases/create" element={<CreateTestCasePage />} />
+                    <Route path=":journeyId/problems/:problemId/testcases/:testId/edit" element={<EditTestCasePage />} />
+                    <Route index element={<ManageJourneyPage />} />
+                  </Route>
+
+                  {/* Challenges */}
+                  <Route path="challenges">
+                    <Route index element={<ManageChallengePage />} />
+                  </Route>
+
+                  <Route path="*" element={<NotFound />} />
+                </Route>
+
+              <Route path="dashboard" element={<DashboardPage />} />
+              <Route path="*" element={<NotFound />} />
+              <Route index element={<NotFound />} />
             </Route>
 
             {/* 404 */}
