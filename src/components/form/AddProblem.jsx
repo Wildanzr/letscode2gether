@@ -131,6 +131,10 @@ const AddProblem = () => {
                 message: 'Please input title of problem!'
               },
               {
+                min: 3,
+                message: 'Title must be at least 3 characters!'
+              },
+              {
                 max: 255,
                 message: 'Title must be at most 255 characters'
               }

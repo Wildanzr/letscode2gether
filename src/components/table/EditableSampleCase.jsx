@@ -13,7 +13,7 @@ const EditableSampleCase = (props) => {
   const { sampleCases, setFetch } = props
 
   // useParams
-  const { journeyId, problemId } = useParams()
+  const { journeyId, problemId, competeId, challengeId } = useParams()
 
   // Global Functions
   const { globalFunctions } = useGlobal()
@@ -69,7 +69,11 @@ const EditableSampleCase = (props) => {
 
     // Delete Sample Case
     try {
-      await api.delete(`/problems/${problemId}/sample-cases/${sampleId}`, config)
+      const path = journeyId === undefined
+        ? `/problems/${challengeId}/sample-cases/${sampleId}`
+        : `/problems/${problemId}/sample-cases/${sampleId}`
+
+      await api.delete(path, config)
 
       // Show success
       mySwal.fire({
@@ -196,7 +200,10 @@ const EditableSampleCase = (props) => {
                     <td className="py-3 px-5 text-left overflow-clip">
                       <div className="flex flex-row space-x-4 items-center justify-end">
                         <Link
-                          to={`/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/${_id}/edit`}
+                          to={journeyId === undefined
+                            ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/samplecases/${_id}/edit`
+                            : `/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/${_id}/edit`
+                          }
                           className="px-2 py-2 bg-medium rounded-lg"
                         >
                           <BsPencil className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
@@ -240,7 +247,10 @@ const EditableSampleCase = (props) => {
               >
                 <div className="py-2 flex flex-row items-center justify-center">
                   <Link
-                    to={`/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/create`}
+                    to={journeyId === undefined
+                      ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/samplecases/create`
+                      : `/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/create`
+                    }
                     className="flex flex-row space-x-2 w-full items-center justify-center"
                   >
                     <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />

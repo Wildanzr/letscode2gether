@@ -120,6 +120,10 @@ const RouteList = () => {
                     <Route path="create" element={<CreateChallengePage />} />
                     <Route path=":competeId/problems/:challengeId" element={<DetailChallengePage />} />
                     <Route path=":competeId/problems/:challengeId/edit" element={<EditChallengePage />} />
+                    <Route path=":competeId/problems/:challengeId/samplecases/create" element={<CreateSampleCasePage />} />
+                    <Route path=":competeId/problems/:challengeId/samplecases/:sampleId/edit" element={<EditSampleCasePage />} />
+                    <Route path=":competeId/problems/:challengeId/testcases/create" element={<CreateTestCasePage />} />
+                    <Route path=":competeId/problems/:challengeId/testcases/:testId/edit" element={<EditTestCasePage />} />
                     <Route index element={<ManageChallengePage />} />
                   </Route>
 
