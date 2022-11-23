@@ -62,7 +62,8 @@ const AddJourney = () => {
       languageAllowed,
       start: null,
       end: null,
-      isLearnPath: true
+      isLearnPath: true,
+      isChallenge: false
     }
     console.log(payload)
 

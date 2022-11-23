@@ -76,8 +76,7 @@ const EditJourney = (props) => {
     payload.languageAllowed = languageAllowed
 
     try {
-      const res = await api.put(`/competes/${journeyId}`, payload, config)
-      console.log(res)
+      await api.put(`/competes/${journeyId}`, payload, config)
 
       // Show success
       mySwal.fire({
