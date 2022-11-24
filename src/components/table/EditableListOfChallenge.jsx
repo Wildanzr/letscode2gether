@@ -173,7 +173,7 @@ const EditableListOfChallenge = (props) => {
               )
             : problems.map((problem, index) => {
               const { _id: competeId, problemId, maxPoint } = problem
-              const { _id, title, difficulty } = problemId
+              const { _id, title, difficulty } = problemId || {}
               return (
             <tr
               key={index}

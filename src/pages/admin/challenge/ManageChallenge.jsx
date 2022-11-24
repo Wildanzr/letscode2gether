@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react'
 import api from '../../../api'
 import { Navbar, Footer } from '../../../layout'
 import { Breadcrumb } from '../../../components/breadcrumb'
-// import { SearchDebounce } from '../../../components/other'
+import { SearchDebounce } from '../../../components/other'
 import { EditableListOfChallenge } from '../../../components/table'
 
 import Cookies from 'js-cookie'
-// import { Pagination } from 'antd'
+import { Pagination } from 'antd'
 
 const ManageChallengePage = () => {
   // Breadcrumb paths
@@ -22,12 +22,28 @@ const ManageChallengePage = () => {
   const [problems, setProblems] = useState(null)
   const [fetch, setFetch] = useState(true)
   const [secondFetch, setSecondFetch] = useState(false)
-  // const [defaultCurrent, setDefaultCurrent] = useState(1)
-  // const [total, setTotal] = useState(10)
 
-  // const onShowSizeChange = (current, pageSize) => {
-  //   console.log(current, pageSize)
-  // }
+  // Pagination state
+  const [search, setSearch] = useState('')
+  const [defaultCurrent, setDefaultCurrent] = useState(1)
+  const [total, setTotal] = useState(10)
+  const [limit, setLimit] = useState(10)
+  const paginationProps = {
+    search,
+    setSearch,
+    defaultCurrent,
+    setDefaultCurrent,
+    total,
+    setTotal,
+    limit,
+    setLimit
+  }
+
+  const onShowSizeChange = (current, pageSize) => {
+    setDefaultCurrent(current)
+    setLimit(pageSize)
+    setSecondFetch(true)
+  }
 
   const fetchJourneys = async () => {
     const config = {
@@ -47,7 +63,11 @@ const ManageChallengePage = () => {
     }
   }
 
-  const fetchChallengeProblems = async () => {
+  // Search problems
+  const searchProblem = async () => {
+    // Set problems to null
+    setProblems(null)
+
     // Config
     const config = {
       headers: {
@@ -56,11 +76,17 @@ const ManageChallengePage = () => {
     }
 
     try {
-      const { data } = await api.get(`/competes/${competeId}/problems`, config)
+      const { data } = await api.get(`/competes/${competeId}/challenges?q=${search}&page=${defaultCurrent}&limit=${limit}`, config)
       // console.log(data)
 
+      // Set problems
       const { problems } = data.data
       setProblems(problems)
+
+      // Set meta
+      const { page, total } = data.meta
+      setDefaultCurrent(parseInt(page))
+      setTotal(parseInt(total))
     } catch (error) {
       console.log(error)
     }
@@ -74,13 +100,13 @@ const ManageChallengePage = () => {
     }
   }, [fetch])
 
-  // Initial fetch challenge problems
+  // Search problems when total or defaultCurrent changed
   useEffect(() => {
     if (secondFetch) {
-      fetchChallengeProblems()
+      searchProblem()
       setSecondFetch(false)
     }
-  }, [secondFetch])
+  }, [total, defaultCurrent, secondFetch])
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar>
@@ -94,22 +120,23 @@ const ManageChallengePage = () => {
           </div>
 
           {/* Search */}
-          {/* <div className="flex flex-col m-0 space-y-5 lg:pt-0 w-full items-center justify-between">
+          <div className="flex flex-col m-0 space-y-5 lg:pt-0 w-full items-center justify-between">
 
             <div className="w-full hidden lg:flex">
-              <SearchDebounce setJourneys={setChallenges} />
+              <SearchDebounce setProblems={setProblems} isChallenge={true} competeId={competeId} {...paginationProps} />
             </div>
 
             <div className="w-full hidden flex-row justify-end lg:flex">
               <Pagination
-                onShowSizeChange={onShowSizeChange}
+                showSizeChanger
+                onChange={onShowSizeChange}
                 defaultCurrent={defaultCurrent}
                 total={total}
               />
             </div>
 
             <div className="flex flex-row lg:hidden w-full space-x-5">
-              <SearchDebounce setJourneys={setChallenges} />
+              <SearchDebounce setProblems={setProblems} isChallenge={true} competeId={competeId} {...paginationProps} />
             </div>
 
             <div className="w-full flex flex-row justify-center lg:hidden">
@@ -119,7 +146,7 @@ const ManageChallengePage = () => {
                 total={total}
               />
             </div>
-          </div> */}
+          </div>
 
           {/* Challenges Data */}
           <div className="flex flex-col w-full space-y-2 overflow-y-auto">

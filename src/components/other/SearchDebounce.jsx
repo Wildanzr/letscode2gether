@@ -9,7 +9,7 @@ const { Search } = Input
 
 const SearchDebounce = (props) => {
   // Destructure props
-  const { setJourneys } = props
+  const { setJourneys, setProblems, competeId, isChallenge, setDefaultCurrent, setTotal, limit, defaultCurrent, setSearch } = props
 
   // Search journeys
   const searchJourney = async (e) => {
@@ -35,11 +35,47 @@ const SearchDebounce = (props) => {
       console.log(error)
     }
   }
+
+  // Search problems
+  const searchProblem = async (e) => {
+    // Destrcuture props
+    const { value } = e.target
+
+    // Set problems to null
+    setProblems(null)
+
+    // Set search
+    setSearch(value)
+
+    // // Config
+    const config = {
+      headers: {
+        authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+
+    try {
+      const { data } = await api.get(`/competes/${competeId}/challenges?q=${value}&page=${defaultCurrent}&limit=${limit}`, config)
+      // console.log(data)
+
+      // Set problems
+      const { problems } = data.data
+      setProblems(problems)
+
+      // Set meta
+      const { page, total } = data.meta
+      setDefaultCurrent(parseInt(page))
+      setTotal(parseInt(total))
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <Search
         placeholder="Search Learning Journey"
-        onChange={debounce(searchJourney, 800)}
+        onChange={isChallenge ? debounce(searchProblem, 500) : debounce(searchJourney, 500)}
         prefix={<RiSearchLine />}
+        allowClear
         enterButton="Search"
     />
   )
