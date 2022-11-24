@@ -1,10 +1,21 @@
-import Challenge from '../../assets/challenge.svg'
+import { useState, useEffect } from 'react'
+import ChallengePic from '../../assets/challenge.svg'
 
-import { RiSearchLine } from 'react-icons/ri'
-import { Input, Cascader, Pagination } from 'antd'
+import api from '../../api'
 import { Navbar, Footer } from '../../layout'
+import { Challenge } from '../../components/card'
+
+import debounce from 'lodash.debounce'
+import Cookies from 'js-cookie'
+import { RiSearchLine } from 'react-icons/ri'
+import { Input, Cascader, Pagination, Skeleton } from 'antd'
 
 const ChallengePage = () => {
+  // Local states
+  const [competeId, setCompeteId] = useState(null)
+  const [problems, setProblems] = useState(null)
+  const [firstFetch, setFirstFetch] = useState(true)
+  const [secondFetch, setSecondFetch] = useState(false)
   const options = [
     {
       value: 'level',
@@ -34,20 +45,102 @@ const ChallengePage = () => {
     }
   ]
 
-  const onChange = (value) => {
+  // Pagination states
+  const [search, setSearch] = useState('')
+  const [defaultCurrent, setDefaultCurrent] = useState(1)
+  const [total, setTotal] = useState(10)
+  const [limit, setLimit] = useState(10)
+
+  // Handle cascader change
+  const handleCascaderChange = (value) => {
     console.log(value)
   }
 
+  // Handle pagination change
   const onShowSizeChange = (current, pageSize) => {
-    console.log(current, pageSize)
+    setDefaultCurrent(current)
+    setLimit(pageSize)
+    setSecondFetch(true)
   }
+
+  const fetchJourneys = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+    try {
+      const { data } = await api.get('/competes?page=1&limit=10&isChallenge=true', config)
+      // console.log(data)
+
+      const { competes } = data.data
+      setCompeteId(competes[0]._id)
+      setSecondFetch(true)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Search problems
+  const searchProblem = async () => {
+    // Set problems to null
+    setProblems(null)
+
+    // Config
+    const config = {
+      headers: {
+        authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+
+    try {
+      const { data } = await api.get(`/competes/${competeId}/challenges?q=${search}&page=${defaultCurrent}&limit=${limit}`, config)
+      // console.log(data)
+
+      // Set problems
+      const { problems } = data.data
+      setProblems(problems)
+
+      // Set meta
+      const { page, total } = data.meta
+      setDefaultCurrent(parseInt(page))
+      setTotal(parseInt(total))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Handle search change
+  const handleSearch = (e) => {
+    setProblems(null)
+    const query = e.target.value
+    setSearch(query)
+    setSecondFetch(true)
+  }
+
+  // Initial fetch challenge journey
+  useEffect(() => {
+    if (firstFetch) {
+      fetchJourneys()
+      setFirstFetch(false)
+    }
+  }, [firstFetch])
+
+  // Search problems when total or defaultCurrent changed
+  useEffect(() => {
+    if (secondFetch) {
+      searchProblem()
+      setSecondFetch(false)
+    }
+  }, [total, defaultCurrent, secondFetch])
   return (
-    <div className="flex flex-col w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
+    <div className="flex flex-col w-full min-h-screen justify-between space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar />
 
+      {/* Header */}
       <div className="flex px-[5%] flex-col lg:flex-row-reverse w-full items-center justify-center lg:justify-between">
         <div className="flex w-full lg:w-1/3 items-center justify-center">
-          <img src={Challenge} className="flex w-[60%]" />
+          <img src={ChallengePic} className="flex w-[60%]" />
         </div>
 
         <div className="flex w-full lg:w-2/3 items-center justify-center">
@@ -72,97 +165,71 @@ const ChallengePage = () => {
       {/* List Controller */}
       <div className="flex flex-col m-0 px-[5%] space-y-5 lg:pt-0 w-full items-center justify-between">
         <div className="w-full hidden lg:flex">
-          <Input placeholder="Search Challenge" prefix={<RiSearchLine />} />
+          <Input
+            placeholder="Search Challenge"
+            prefix={<RiSearchLine />}
+            allowClear
+            onChange={debounce(handleSearch, 500)}
+          />
         </div>
 
         <div className="w-full hidden flex-row justify-between lg:flex">
           <Cascader
             options={options}
-            onChange={onChange}
+            onChange={handleCascaderChange}
             placeholder="Filter Challenge"
           />
 
           <Pagination
-            onShowSizeChange={onShowSizeChange}
-            defaultCurrent={3}
-            total={20}
+            onChange={onShowSizeChange}
+            showSizeChanger
+            defaultCurrent={defaultCurrent}
+            total={total}
           />
         </div>
 
         <div className="flex flex-row lg:hidden w-full space-x-5">
-          <Input placeholder="Search Challenge" prefix={<RiSearchLine />} />
+          <Input
+            placeholder="Search Challenge"
+            prefix={<RiSearchLine />}
+            allowClear
+            onChange={debounce(handleSearch, 500)}
+          />
           <Cascader
             options={options}
-            onChange={onChange}
+            onChange={handleCascaderChange}
             placeholder="Filter Challenge"
           />
         </div>
 
         <div className="w-full flex flex-row justify-center lg:hidden">
           <Pagination
-            onShowSizeChange={onShowSizeChange}
-            defaultCurrent={3}
-            total={20}
+            onChange={onShowSizeChange}
+            defaultCurrent={defaultCurrent}
+            total={total}
           />
         </div>
+      </div>
 
-        <div className="flex flex-row justify-between w-full px-5 py-3 rounded-lg border-2 lg:border-4 border-easy bg-gradient-to-r from-[#CCF3F6] dark:from-[#30143F] via-[#DDCFF0] dark:via-[#151223] to:[#DCE7B3] dark:to-[#151729] duration-300 ease-out">
-          <div className="flex w-4/6 flex-col space-y-3">
-            <p className='mb-0 font-ubuntu tracking-wide font-bold'>Salary with Bonus Hahahajiajdkjk adjksa jdasjdaskjdla sdsadkj  </p>
-            <div className="flex flex-row w-full space-x-5 items-center">
-              <p className='mb-0 text-sm font-ubuntu font-medium'>
-                Level: <span className='pl-2 mb-0 text-sm font-ubuntu font-medium text-success'>easy</span>
-              </p>
-
-              <p className='mb-0 text-sm font-ubuntu font-medium'>
-                Max Point: <span className='pl-2 mb-0 text-sm font-ubuntu font-medium text-easy'>40</span>
-              </p>
-            </div>
-          </div>
-
-          <div className="flex w-2/6 items-start justify-end">
-            <button className='w-full lg:w-2/3 py-2 bg-main dark:bg-snow text-snow dark:text-main rounded font-medium lg:font-bold'>Solved</button>
-          </div>
-        </div>
-
-        <div className="flex flex-row justify-between w-full px-5 py-3 rounded-lg border-2 lg:border-4 border-easy bg-gradient-to-r from-[#CCF3F6] dark:from-[#30143F] via-[#DDCFF0] dark:via-[#151223] to:[#DCE7B3] dark:to-[#151729] duration-300 ease-out">
-          <div className="flex w-4/6 flex-col space-y-3">
-            <p className='mb-0 font-ubuntu tracking-wide font-bold'>Salary with Bonus Hahahajiajdkjk adjksa jdasjdaskjdla sdsadkj  </p>
-            <div className="flex flex-row w-full space-x-5 items-center">
-              <p className='mb-0 text-sm font-ubuntu font-medium'>
-                Level: <span className='pl-2 mb-0 text-sm font-ubuntu font-medium text-success'>easy</span>
-              </p>
-
-              <p className='mb-0 text-sm font-ubuntu font-medium'>
-                Max Point: <span className='pl-2 mb-0 text-sm font-ubuntu font-medium text-easy'>40</span>
-              </p>
-            </div>
-          </div>
-
-          <div className="flex w-2/6 items-start justify-end">
-            <button className='w-full lg:w-2/3 py-2 bg-medium text-main rounded font-medium lg:font-bold'>Try Again</button>
-          </div>
-        </div>
-
-        <div className="flex flex-row justify-between w-full px-5 py-3 rounded-lg border-2 lg:border-4 border-easy bg-gradient-to-r from-[#CCF3F6] dark:from-[#30143F] via-[#DDCFF0] dark:via-[#151223] to:[#DCE7B3] dark:to-[#151729] duration-300 ease-out">
-          <div className="flex w-4/6 flex-col space-y-3">
-            <p className='mb-0 font-ubuntu tracking-wide font-bold'>Salary with Bonus Hahahajiajdkjk adjksa jdasjdaskjdla sdsadkj  </p>
-            <div className="flex flex-row w-full space-x-5 items-center">
-              <p className='mb-0 text-sm font-ubuntu font-medium'>
-                Level: <span className='pl-2 mb-0 text-sm font-ubuntu font-medium text-success'>easy</span>
-              </p>
-
-              <p className='mb-0 text-sm font-ubuntu font-medium'>
-                Max Point: <span className='pl-2 mb-0 text-sm font-ubuntu font-medium text-easy'>40</span>
-              </p>
-            </div>
-          </div>
-
-          <div className="flex w-2/6 items-start justify-end">
-            <button className='w-full lg:w-2/3 py-2 bg-success text-snow rounded-lg font-medium lg:font-bold'>Lets Solve</button>
-          </div>
-        </div>
-
+      {/* Challenges */}
+      <div className="flex flex-col m-0 px-[5%] pb-10 space-y-5 lg:pt-0 w-full items-center justify-center">
+        {problems === null
+          ? <Skeleton active paragraph={{ rows: 4 }} />
+          : problems.length === 0
+            ? <p className="text-2xl font-ubuntu font-medium">No challenges found</p>
+            : problems.map((problem, index) => {
+              const { problemId, maxPoint } = problem
+              const { title, difficulty } = problemId
+              const challengeProps = {
+                title,
+                difficulty,
+                maxPoint
+              }
+              return (
+                <Challenge key={index} {...challengeProps} />
+              )
+            })
+        }
       </div>
 
       <Footer />
