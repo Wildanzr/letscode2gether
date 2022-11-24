@@ -29,7 +29,7 @@ export const CollabProvider = ({ children }) => {
   const [driver, setDriver] = useState('Wildanzr')
   const [navigator, setNavigator] = useState('Azmi')
   const [language, setLanguage] = useState(63)
-  const [code, setCode] = useState('console.log("Hello world")')
+  const [code, setCode] = useState('')
   const [btnDisabled, setBtnDisabled] = useState(false)
 
   // Problem and Solution State

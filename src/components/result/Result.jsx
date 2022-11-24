@@ -20,11 +20,19 @@ const Result = (props) => {
   const { problemStates } = useCollab()
   const { runMode } = problemStates
 
-  const decoder = (str) => {
-    const decoded = decode(str)
+  const formatOutput = (str) => {
+    const formatted = decode(str).replace(/\^/g, '\n')
 
-    // Change ^ to \n
-    return decoded.replace(/\^/g, '\n')
+    return (
+      <>
+        {formatted.split('\n').map((line, index) => (
+          <span key={index}>
+            {line}
+            <br />
+          </span>
+        ))}
+      </>
+    )
   }
 
   const color = statusId === 1 || statusId === 2 ? 'text-yellow-400' : statusId === 3 ? 'text-green-400' : 'text-red-400'
@@ -33,14 +41,24 @@ const Result = (props) => {
         <div className="flex flex-col w-full space-y-2">
           <p className="font-semibold text-base mb-0">Input (stdin)</p>
           <div className={`w-full px-2 py-1 font-code text-base bg-white mb-0 ${stdin ? 'text-black' : 'text-gray-300'}`}>
-            {stdin === undefined ? <Spin size='small'/> : stdin === null ? 'Error' : decoder(stdin) || 'No Input' }
+            {stdin === undefined
+              ? <Spin size='small'/>
+              : stdin === null
+                ? 'Error'
+                : formatOutput(stdin) || 'No Input'
+            }
           </div>
         </div>
 
         <div className="flex flex-col w-full space-y-2">
           <p className="font-semibold text-base mb-0">Output (stdout)</p>
           <div className={`w-full px-2 py-1 font-code text-base bg-white mb-0 ${stdout ? 'text-black' : 'text-gray-300'}`}>
-            {stdout === undefined ? <Spin size='small'/> : stdout === null ? 'Error' : decoder(stdout) || 'No Output'}
+            {stdout === undefined
+              ? <Spin size='small'/>
+              : stdout === null
+                ? 'Error'
+                : formatOutput(stdout) || 'No Output'
+            }
           </div>
         </div>
 
@@ -49,7 +67,12 @@ const Result = (props) => {
           <div className="flex flex-col w-full space-y-2">
             <p className="font-semibold text-base mb-0">Excpected Output</p>
             <div className="w-full px-2 py-1 font-code text-base bg-white mb-0 text-black">
-              {expected_output === undefined ? <Spin size='small'/> : expected_output === null ? 'Error' : decoder(expected_output) || 'No Output'}
+              {expected_output === undefined
+                ? <Spin size='small'/>
+                : expected_output === null
+                  ? 'Error'
+                  : formatOutput(expected_output) || 'No Output'
+              }
             </div>
           </div>
             )
@@ -57,18 +80,28 @@ const Result = (props) => {
 
         {stderr && (
           <div className="flex flex-col w-full space-y-2">
-            <p className="font-semibold text-base mb-0">Excpected Output</p>
+            <p className="font-semibold text-base mb-0">Error Output</p>
             <div className="w-full px-2 py-1 font-code text-base bg-white mb-0 text-black">
-              {stderr === undefined ? <Spin size='small'/> : stderr === null ? 'Error' : decoder(stderr) || 'No Error'}
+              {stderr === undefined
+                ? <Spin size='small'/>
+                : stderr === null
+                  ? 'Error'
+                  : formatOutput(stderr) || 'No Error'
+              }
             </div>
           </div>
         )}
 
       {compile_output && (
           <div className="flex flex-col w-full space-y-2">
-            <p className="font-semibold text-base mb-0">Excpected Output</p>
+            <p className="font-semibold text-base mb-0">Compile Output</p>
             <div className="w-full px-2 py-1 font-code text-base bg-white mb-0 text-black">
-              {compile_output === undefined ? <Spin size='small'/> : compile_output === null ? 'Error' : decode(compile_output) || 'No Error'}
+              {compile_output === undefined
+                ? <Spin size='small'/>
+                : compile_output === null
+                  ? 'Error'
+                  : formatOutput(compile_output) || 'No Error'
+              }
             </div>
           </div>
       )}

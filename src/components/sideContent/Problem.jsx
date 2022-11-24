@@ -11,6 +11,21 @@ const Problem = () => {
   const { problemStates } = useCollab()
   const { competeProblem } = problemStates
 
+  const formatOutput = (str) => {
+    const formatted = str.replace(/\^/g, '\n')
+
+    return (
+      <>
+        {formatted.split('\n').map((line, index) => (
+          <span key={index}>
+            {line}
+            <br />
+          </span>
+        ))}
+      </>
+    )
+  }
+
   return (
     <div className="flex flex-col w-full h-full space-y-4 text-main dark:text-snow duration-300 ease-in-out">
       <div className="flex flex-col w-full p-2">
@@ -45,7 +60,7 @@ const Problem = () => {
       <div className="flex flex-col w-full p-2 bg-white text-black">
         <ProblemSpecification title="Constraints">
           {competeProblem
-            ? <p className="mb-0">{competeProblem.constraint}</p>
+            ? <p className="mb-0">{formatOutput(competeProblem.constraint)}</p>
             : <Spin size='small' />
           }
         </ProblemSpecification>
@@ -54,7 +69,7 @@ const Problem = () => {
       <div className="flex flex-col w-full p-2 bg-white text-black">
         <ProblemSpecification title="Input Format">
           {competeProblem
-            ? <p className="mb-0">{competeProblem.inputFormat}</p>
+            ? <p className="mb-0">{formatOutput(competeProblem.inputFormat)}</p>
             : <Spin size='small' />
           }
         </ProblemSpecification>
@@ -63,7 +78,7 @@ const Problem = () => {
       <div className="flex flex-col w-full p-2 bg-white text-black">
         <ProblemSpecification title="Output Format">
           {competeProblem
-            ? <p className="mb-0">{competeProblem.outputFormat}</p>
+            ? <p className="mb-0">{formatOutput(competeProblem.outputFormat)}</p>
             : <Spin size='small' />
           }
         </ProblemSpecification>

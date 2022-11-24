@@ -1,29 +1,45 @@
 import { Spin } from 'antd'
 
 const SampleCase = (props) => {
+  // Props Destructuring
   const { title, input, output, explanation } = props
+
+  const formatOutput = (str) => {
+    const formatted = str.replace(/\^/g, '\n')
+
+    return (
+      <>
+        {formatted.split('\n').map((line, index) => (
+          <span key={index}>
+            {line}
+            <br />
+          </span>
+        ))}
+      </>
+    )
+  }
   return (
     <div className="flex flex-col py-2 w-full text-base">
       <p className="mb-0 font-bold">{title}</p>
 
       <p className="mb-0 text-sm">Input (stdin)</p>
       <div className="my-1 px-2 py-2 font-code bg-white w-full text-sm text-black">
-        {input === ''
+        {input === null
           ? <span className='text-gray-300'>No input</span>
-          : input || <Spin size='small' />
+          : formatOutput(input) || <Spin size='small' />
         }
       </div>
 
       <p className="mb-0 text-sm">Output (stdout)</p>
       <div className="my-1 px-2 py-2 bg-white w-full font-code text-sm text-black">
-        {output || <Spin size='small' />}
+        {formatOutput(output) || <Spin size='small' />}
       </div>
 
       {explanation && (
         <>
           <p className="mb-0 text-sm">Explanation</p>
           <div className="my-1 px-2 py-2 bg-white w-full font-code text-sm text-black">
-            {explanation || <Spin size='small' />}
+            {formatOutput(explanation) || <Spin size='small' />}
           </div>
         </>
       )}
