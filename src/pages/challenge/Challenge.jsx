@@ -100,6 +100,7 @@ const ChallengePage = () => {
       // Set problems
       const { problems } = data.data
       setProblems(problems)
+      // console.log(problems)
 
       // Set meta
       const { page, total } = data.meta
@@ -218,12 +219,14 @@ const ChallengePage = () => {
           : problems.length === 0
             ? <p className="text-2xl font-ubuntu font-medium">No challenges found</p>
             : problems.map((problem, index) => {
-              const { problemId, maxPoint } = problem
+              const { _id: competeProblemId, problemId, maxPoint } = problem
               const { title, difficulty } = problemId
               const challengeProps = {
                 title,
                 difficulty,
-                maxPoint
+                maxPoint,
+                competeProblemId,
+                competeId
               }
               return (
                 <Challenge key={index} {...challengeProps} />
