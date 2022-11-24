@@ -35,10 +35,14 @@ export const CollabProvider = ({ children }) => {
   // Problem and Solution State
   const [competeProblem, setCompeteProblem] = useState(null)
   const [competeMaxPoint, setCompeteMaxPoint] = useState(0)
-  const [problem, setProblem] = useState('')
-  const [result, setResult] = useState([])
+  const [languageList, setLanguageList] = useState(null)
+
   const [loading, setLoading] = useState(false)
   const [runMode, setRunMode] = useState(null)
+
+  // Not used anymore
+  const [problem, setProblem] = useState('')
+  const [result, setResult] = useState([])
   const [sampleTestCase, setSampleTestCase] = useState([
     {
       input: '13',
@@ -207,7 +211,9 @@ export const CollabProvider = ({ children }) => {
     competeProblem,
     setCompeteProblem,
     competeMaxPoint,
-    setCompeteMaxPoint
+    setCompeteMaxPoint,
+    languageList,
+    setLanguageList
   }
 
   return (

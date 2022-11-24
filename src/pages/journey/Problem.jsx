@@ -10,11 +10,15 @@ import Runner from '../../components/runner'
 import Result from '../../components/result'
 
 import Cookies from 'js-cookie'
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 
 const ProblemPage = () => {
   // useParams
   const { competeProblemId } = useParams()
+
+  // useSearchParams
+  const [searchParams] = useSearchParams()
+  const from = searchParams.get('from')
 
   // Global States
   const { globalState, editorState } = useGlobal()
@@ -23,7 +27,7 @@ const ProblemPage = () => {
 
   // Collab States
   const { problemStates } = useCollab()
-  const { setCompeteProblem, setCompeteMaxPoint } = problemStates
+  const { setCompeteProblem, setCompeteMaxPoint, setLanguageList } = problemStates
 
   // Get compete problem detail
   const getCompeteProblemDetail = async () => {
@@ -36,7 +40,7 @@ const ProblemPage = () => {
 
     try {
       const { data } = await api.get(`/competes/cp/${competeProblemId}`, config)
-      console.log(data)
+      // console.log(data)
 
       const { competeProblem } = data.data
       const { problemId, maxPoint } = competeProblem
@@ -47,9 +51,31 @@ const ProblemPage = () => {
     }
   }
 
+  // Get compete allowed language
+  const getCompeteAllowedLanguage = async () => {
+    // Config
+    const config = {
+      headers: {
+        authorization: Cookies.get('jwtToken')
+      }
+    }
+
+    try {
+      const { data } = await api.get(`/competes/${from}`, config)
+      // console.log(data)
+
+      // Set language list
+      const { languageAllowed } = data.data.compete
+      setLanguageList(languageAllowed)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   // Initially get compete problem detail
   useEffect(() => {
     setIsOnlyEditor(false)
+    getCompeteAllowedLanguage()
     getCompeteProblemDetail()
   }, [])
 

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 import Dropdown from './Dropdown'
 import TextEditor from './TextEditor'
@@ -17,8 +17,16 @@ const Editor = () => {
   const { setTheme } = editorState
 
   // Collab States
-  const { collabStates } = useCollab()
+  const { collabStates, problemStates } = useCollab()
   const { setLanguage } = collabStates
+  const { languageList } = problemStates
+
+  // Local States
+  const [languageAllowed, setLanguageAllowed] = useState(
+    languageList === null
+      ? languageOptions
+      : languageOptions.filter((lang) => languageList.includes(lang.id))
+  )
 
   const handleLanguageChange = async (value) => {
     setTheme(value)
@@ -32,11 +40,20 @@ const Editor = () => {
     })
   }, [])
 
+  // Monitor languageList
+  useEffect(() => {
+    setLanguageAllowed(
+      languageList === null
+        ? languageOptions
+        : languageOptions.filter((lang) => languageList.includes(lang.id))
+    )
+  }, [languageList])
+
   return (
     <>
       <div className="flex flex-row w-full space-x-4 items-start justify-start">
         <Dropdown
-          options={languageOptions}
+          options={languageAllowed}
           placeholder="Select Language"
           onChange={setLanguage}
         />

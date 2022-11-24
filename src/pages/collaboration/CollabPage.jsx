@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
+import { useCollab } from '../../contexts/CollabContext'
 
 import { Navbar as MainNavbar, Footer } from '../../layout'
 import { RoomInfo } from '../../components/collaboration'
@@ -13,9 +14,14 @@ const CollabPage = () => {
   const { colHide, setIsOnlyEditor } = globalState
   const { run } = editorState
 
+  // Collab States
+  const { problemStates } = useCollab()
+  const { setLanguageList } = problemStates
+
   // Initially set isCollab to true
   useEffect(() => {
     setIsOnlyEditor(true)
+    setLanguageList(null)
   }, [])
 
   return (
