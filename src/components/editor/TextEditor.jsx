@@ -18,6 +18,7 @@ const TextEditor = () => {
 
   // Local state
   const [langValue, setLangValue] = useState('javascript')
+  const [defaultTemplate] = useState('// Lets solve this problem!\n// Choose your language and start coding!')
 
   // Handle code change
   const handleCodeChange = (value) => {
@@ -53,12 +54,11 @@ const TextEditor = () => {
 
   // Monitor language change, then set intellisense to the language
   useEffect(() => {
-    const lang = languageOptions.find((lang) => lang.id === language)
-    setLangValue(lang.value || 'javascript')
-
-    // Todo check if code is saved in db, if yes, then load it
-
-    setCode(lang.template || 'console.log("hello, world");')
+    if (language !== null) {
+      const lang = languageOptions.find((lang) => lang.id === language)
+      setLangValue(lang.value || 'javascript')
+      setCode(lang.template || 'console.log("hello, world");')
+    }
   }, [language])
 
   return (
@@ -68,7 +68,7 @@ const TextEditor = () => {
       language={langValue}
       value={code}
       theme={theme}
-      defaultValue="// Lets solve this problem!"
+      defaultValue={defaultTemplate}
       onChange={handleCodeChange}
     />
   )

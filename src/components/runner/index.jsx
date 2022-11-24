@@ -80,7 +80,7 @@ const Runner = () => {
       }
     }
 
-    console.log(config)
+    // console.log(config)
     // console.log(type)
     const runMode = type === 'submission' ? 'batch' : showInput ? 'single' : 'batch'
     await submission(config, runMode, type)
@@ -169,6 +169,19 @@ const Runner = () => {
           <button
             disabled={btnDisabled}
             onClick={() => {
+              if (language === null) {
+                mySwal.fire({
+                  icon: 'error',
+                  title: 'Please select a language first',
+                  allowOutsideClick: true,
+                  backdrop: true,
+                  allowEscapeKey: true,
+                  timer: 2000,
+                  timerProgressBar: true,
+                  showConfirmButton: false
+                })
+                return
+              }
               runCode('run', 'run')
               setRun(true)
             }}
@@ -181,6 +194,19 @@ const Runner = () => {
             <button
             disabled={btnDisabled}
             onClick={() => {
+              if (language === null) {
+                mySwal.fire({
+                  icon: 'error',
+                  title: 'Please select a language first',
+                  allowOutsideClick: true,
+                  backdrop: true,
+                  allowEscapeKey: true,
+                  timer: 2000,
+                  timerProgressBar: true,
+                  showConfirmButton: false
+                })
+                return
+              }
               submitDialog()
             }}
             className={`flex py-1 px-1 lg:px-2 justify-center font-bold font-code tracking-wider bg-easy dark:bg-main rounded-sm border-b-2 text-snow border-white hover:border-medium dark:hover:border-blue-500 duration-300 ${btnDisabled ? 'border-gray-300 text-gray-300 hover:border-gray-300' : ''}`}

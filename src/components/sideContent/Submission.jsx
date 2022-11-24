@@ -1,12 +1,17 @@
+import { useGlobal } from '../../contexts/GlobalContext'
+
+import TestCaseResult from './TestCaseResult'
+
 import { Collapse, Tag } from 'antd'
 import Editor from '@monaco-editor/react'
-
-import { languageOptions } from '../../constants/languageOptions'
-import TestCaseResult from './TestCaseResult'
 
 const { Panel } = Collapse
 
 const Submission = () => {
+  // Global States
+  const { editorState } = useGlobal()
+  const { theme } = editorState
+
   return (
     <div className="flex flex-col w-full h-full space-y-4">
       <div className="flex flex-col w-full">
@@ -45,10 +50,9 @@ const Submission = () => {
                   height={'100%'}
                   width={'100%'}
                   language={''}
-                  value={languageOptions[25].template}
-                  theme={'vs'}
+                  theme={theme}
                   defaultValue="// Lets solve this problem!"
-                  onChange={() => console.log('changed')}
+                  options={{ readOnly: true }}
                 />
               </div>
             </div>

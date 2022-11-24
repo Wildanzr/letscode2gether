@@ -10,15 +10,11 @@ import Runner from '../../components/runner'
 import Result from '../../components/result'
 
 import Cookies from 'js-cookie'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 const ProblemPage = () => {
   // useParams
-  const { competeProblemId } = useParams()
-
-  // useSearchParams
-  const [searchParams] = useSearchParams()
-  const from = searchParams.get('from')
+  const { competeProblemId, competeId } = useParams()
 
   // Global States
   const { globalState, editorState } = useGlobal()
@@ -61,7 +57,7 @@ const ProblemPage = () => {
     }
 
     try {
-      const { data } = await api.get(`/competes/${from}`, config)
+      const { data } = await api.get(`/competes/${competeId}`, config)
       // console.log(data)
 
       // Set language list

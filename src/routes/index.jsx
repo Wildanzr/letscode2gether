@@ -65,7 +65,7 @@ const RouteList = () => {
 
   // Collab States
   const { collabStates } = useCollab()
-  const { setCode } = collabStates
+  const { setCode, setLanguage } = collabStates
 
   // useLocation
   const { pathname } = useLocation()
@@ -87,6 +87,7 @@ const RouteList = () => {
   // Reset collaboration
   const resetCollab = () => {
     setCode('')
+    setLanguage(null)
     setRun(false)
   }
 
@@ -101,7 +102,7 @@ const RouteList = () => {
 
       {/* Learning Journey */}
       <Route path="/learning-journey">
-        <Route path="problems/:competeProblemId" element={<ProblemPage />} />
+        <Route path="path/:competeId/problems/:competeProblemId" element={<ProblemPage />} />
         <Route index element={<JourneyPage />} />
       </Route>
 

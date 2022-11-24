@@ -11,7 +11,6 @@ const Dropdown = (props) => {
       style={{ width: 200 }}
       placeholder={placeholder}
       optionFilterProp="children"
-      defaultValue={options[0].label}
       onChange={(value) => onChange(value)}
     >
       {options.map((language) => {
