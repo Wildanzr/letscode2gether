@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import { Navbar, Footer } from '../../layout'
-import { Breadcrumb } from '../../components/breadcrumb'
-import { AddProblem } from '../../components/form'
+import { Navbar, Footer } from '../../../layout'
+import { Breadcrumb } from '../../../components/breadcrumb'
+import { AddProblem } from '../../../components/form'
 
 import { useParams } from 'react-router-dom'
 

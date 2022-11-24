@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 
-import api from '../../api'
-import { Navbar, Footer } from '../../layout'
-import { Breadcrumb } from '../../components/breadcrumb'
-import { Description } from '../../components/other'
-import { SampleCaseDetail, TestCaseDetail } from '../../components/table'
+import api from '../../../api'
+import { Navbar, Footer } from '../../../layout'
+import { Breadcrumb } from '../../../components/breadcrumb'
+import { Description } from '../../../components/other'
+import { SampleCaseDetail, TestCaseDetail } from '../../../components/table'
 
 import Cookies from 'js-cookie'
 import { Skeleton } from 'antd'

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { languageOptions } from '../../constants/languageOptions'
+import { languageOptions } from '../../../constants/languageOptions'
 
-import api from '../../api'
-import { Navbar, Footer } from '../../layout'
-import { Breadcrumb } from '../../components/breadcrumb'
-import { ListOfProblem } from '../../components/table'
-import { Description } from '../../components/other'
+import api from '../../../api'
+import { Navbar, Footer } from '../../../layout'
+import { Breadcrumb } from '../../../components/breadcrumb'
+import { ListOfProblem } from '../../../components/table'
+import { Description } from '../../../components/other'
 
 import Cookies from 'js-cookie'
 import { Skeleton, Tag } from 'antd'

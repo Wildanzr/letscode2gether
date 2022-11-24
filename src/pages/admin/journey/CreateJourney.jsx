@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import { Navbar, Footer } from '../../layout'
-import { Breadcrumb } from '../../components/breadcrumb'
-import { AddJourney } from '../../components/form'
+import { Navbar, Footer } from '../../../layout'
+import { Breadcrumb } from '../../../components/breadcrumb'
+import { AddJourney } from '../../../components/form'
 
 const CreateJourneyPage = () => {
   // Breadcrumb paths

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 
-import api from '../../api'
-import { Navbar, Footer } from '../../layout'
-import { Breadcrumb } from '../../components/breadcrumb'
-import { EditProblem } from '../../components/form'
-import { EditableSampleCase, EditableTestCase } from '../../components/table'
+import api from '../../../api'
+import { Navbar, Footer } from '../../../layout'
+import { Breadcrumb } from '../../../components/breadcrumb'
+import { EditProblem } from '../../../components/form'
+import { EditableSampleCase, EditableTestCase } from '../../../components/table'
 
 import Cookies from 'js-cookie'
 import { useParams } from 'react-router-dom'

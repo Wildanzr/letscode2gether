@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 
-import api from '../../api'
-import { Navbar, Footer } from '../../layout'
-import { Breadcrumb } from '../../components/breadcrumb'
-import { ListOfJourney } from '../../components/table'
-import { SearchDebounce } from '../../components/other'
+import api from '../../../api'
+import { Navbar, Footer } from '../../../layout'
+import { Breadcrumb } from '../../../components/breadcrumb'
+import { ListOfJourney } from '../../../components/table'
+import { SearchDebounce } from '../../../components/other'
 
 import Cookies from 'js-cookie'
 import { Pagination } from 'antd'

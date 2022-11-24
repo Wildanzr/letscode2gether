@@ -1,14 +1,14 @@
 import { useState } from 'react'
 
-import { Navbar, Footer } from '../../layout'
-import { Breadcrumb } from '../../components/breadcrumb'
-import { EditTest } from '../../components/form'
+import { Navbar, Footer } from '../../../layout'
+import { Breadcrumb } from '../../../components/breadcrumb'
+import { EditSample } from '../../../components/form'
 
 import { useParams } from 'react-router-dom'
 
-const EditTestCasePage = () => {
+const EditSampleCasePage = () => {
   // useParams
-  const { journeyId, problemId, competeId, challengeId, testId } = useParams()
+  const { journeyId, problemId, competeId, challengeId, sampleId } = useParams()
 
   // Breadcrumb paths
   const [paths] = useState(
@@ -23,8 +23,8 @@ const EditTestCasePage = () => {
             target: `/admin/manage/challenges/${competeId}/problems/${challengeId}/edit`
           },
           {
-            name: 'Edit Test Case',
-            target: `/admin/manage/challenges/${competeId}/problems/${challengeId}/testcases/edit`
+            name: 'Edit Sample Case',
+            target: `/admin/manage/challenges/${competeId}/problems/${challengeId}/samplecases/edit`
           }
         ]
       : [
@@ -41,10 +41,11 @@ const EditTestCasePage = () => {
             target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
           },
           {
-            name: 'Edit Test Case',
-            target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/testcases/${testId}/edit`
+            name: 'Edit Sample Case',
+            target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/${sampleId}/edit`
           }
-        ])
+        ]
+  )
 
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
@@ -53,13 +54,13 @@ const EditTestCasePage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              Learning Journey
+              {journeyId === undefined ? 'Challenge' : 'Learning Journey'}
             </h3>
             <Breadcrumb paths={paths} />
           </div>
 
-          {/* Edit Test Case */}
-          <EditTest />
+          {/* Edit Sample Case */}
+          <EditSample />
         </div>
       </Navbar>
 
@@ -68,4 +69,4 @@ const EditTestCasePage = () => {
   )
 }
 
-export default EditTestCasePage
+export default EditSampleCasePage
