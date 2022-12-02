@@ -164,6 +164,7 @@ const CollabInfo = (props) => {
     // Destructure data
     const { participants } = res.data
     const newDriver = participants[0].username
+    setDriver(newDriver)
 
     // Show notification
     message.info('Someone left the room.')
@@ -274,12 +275,30 @@ const CollabInfo = (props) => {
           : participants.length === 0
             ? <p className="mb-0 font-bold">-</p>
             : <div className="flex flex-col space-y-1">
-                {participants.map((participant, index) => (
-                    <p className="mb-0 font-bold" key={index}>{participant.username}</p>
-                ))}
+                <p className="mb-0 font-bold">{participants[0].username}</p>
             </div>
         }
       </div>
+
+      {participants !== null && participants.length > 1 && (
+        <div className="flex flex-row space-x-2">
+        <p className="mb-0">Participants:</p>
+        {participants === null
+          ? <Spin size='small' />
+          : participants.length === 0
+            ? <p className="mb-0 font-bold">-</p>
+            : <div className="flex flex-col space-y-1">
+                {participants.map((participant, index) => {
+                  if (index !== 0) {
+                    return <p className="mb-0 font-bold" key={index}>{participant.username}</p>
+                  }
+                  return null
+                })}
+            </div>
+        }
+      </div>
+      )
+      }
 
       <div className="flex flex-row space-x-2 pb-2">
         <p className="mb-0">Id Room:</p>
