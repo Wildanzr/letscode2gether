@@ -60,11 +60,6 @@ const CollabInfo = (props) => {
     setParticipants(participantsList)
   }
 
-  // Leave room
-  const leaveRoom = () => {
-    setPrivateRoom(true)
-  }
-
   // Join room
   const joinRoom = () => {
     if (inputRoomId === null || inputRoomId === '') {
@@ -94,7 +89,6 @@ const CollabInfo = (props) => {
 
     // Emit join room
     socket.emit('req_join_room', payload)
-    setPrivateRoom(false)
   }
 
   // Handle join room
@@ -102,10 +96,19 @@ const CollabInfo = (props) => {
     if (res.status) {
       const { collaboration } = res.data
       const { codeId, participants } = collaboration
+      const newDriver = participants[0].username
 
-      // Set room id
+      // Set values
       setRoomId(codeId)
-      setParticipants(participants)
+      setDriver(newDriver)
+
+      // Determine participants
+      const participantList = !privateRoom
+        ? participants.filter((participant) => participant.username !== user.username)
+        : participants.filter((participant) => participant.username !== newDriver)
+
+      setPrivateRoom(false)
+      setParticipants(participantList)
 
       // Show success
       mySwal.fire({
@@ -134,19 +137,29 @@ const CollabInfo = (props) => {
     }
   }
 
+  // Leave room
+  const leaveRoom = () => {
+    setPrivateRoom(true)
+  }
+
   // Handle update participants response
   const handleUpdateParticipants = (res) => {
     // Reset participants
     setParticipants(null)
 
+    // Destructure data
     const { participants } = res.data
+    const newDriver = participants[0].username
 
-    const newParticipants = privateRoom
-      ? participants.filter((participant) => user === null ? participant !== guestName : participant !== user._id)
-      : participants
+    // Show notification
+    message.success('Someone has joined the room')
 
-    console.log(newParticipants)
-    setParticipants(newParticipants)
+    // Determine participants
+    const participantList = !privateRoom
+      ? participants.filter((participant) => user ? participant.username !== user.username : participant.username !== guestName)
+      : participants.filter((participant) => participant.username !== newDriver)
+
+    setParticipants(participantList)
   }
 
   // Initaily request for room ID
@@ -177,12 +190,12 @@ const CollabInfo = (props) => {
     <div className="flex flex-col space-y-1">
       <div className="flex flex-row space-x-2">
         <p className="mb-0">Driver:</p>
-        <p className="mb-0 font-bold">
+        <div className="mb-0 font-bold">
           {driver === null
             ? <Spin size="small" />
             : driver
           }
-        </p>
+        </div>
       </div>
 
       <div className="flex flex-row space-x-2">
