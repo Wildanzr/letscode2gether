@@ -21,7 +21,7 @@ const CollabInfo = (props) => {
 
   // Collab States
   const { collabStates } = useCollab()
-  const { socket } = collabStates
+  const { socket, roomId, setRoomId } = collabStates
 
   // Auth States
   const { authStates } = useAuth()
@@ -32,7 +32,6 @@ const CollabInfo = (props) => {
   const [inputRoomId, setInputRoomId] = useState(null)
   const [driver, setDriver] = useState(null)
   const [participants, setParticipants] = useState(null)
-  const [roomId, setRoomId] = useState(null)
 
   // Create room
   const createRoom = () => {
@@ -137,11 +136,6 @@ const CollabInfo = (props) => {
     }
   }
 
-  // Leave room
-  const leaveRoom = () => {
-    setPrivateRoom(true)
-  }
-
   // Handle update participants response
   const handleUpdateParticipants = (res) => {
     // Reset participants
@@ -152,7 +146,7 @@ const CollabInfo = (props) => {
     const newDriver = participants[0].username
 
     // Show notification
-    message.success('Someone has joined the room')
+    message.info('Someone joined the room.')
 
     // Determine participants
     const participantList = !privateRoom
@@ -160,6 +154,77 @@ const CollabInfo = (props) => {
       : participants.filter((participant) => participant.username !== newDriver)
 
     setParticipants(participantList)
+  }
+
+  // Handle update participants left response
+  const handleUpdateParticipantsLeft = (res) => {
+    // Reset participants
+    setParticipants(null)
+
+    // Destructure data
+    const { participants } = res.data
+    const newDriver = participants[0].username
+
+    // Show notification
+    message.info('Someone left the room.')
+
+    // Determine participants
+    const participantList = !privateRoom
+      ? participants.filter((participant) => user ? participant.username !== user.username : participant.username !== guestName)
+      : participants.filter((participant) => participant.username !== newDriver)
+
+    setParticipants(participantList)
+  }
+
+  // Leave room
+  const leaveRoom = () => {
+    // Show dialog
+    mySwal.fire({
+      title: 'Are you sure want to leave this room?',
+      showDenyButton: true,
+      confirmButtonText: 'Leave',
+      confirmButtonColor: '#ff4d4f',
+      denyButtonText: 'Stay here',
+      denyButtonColor: '#1890ff',
+      reverseButtons: true,
+      backdrop: true,
+      allowOutsideClick: true,
+      allowEscapeKey: true,
+      allowEnterKey: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Create payload
+        const payload = {
+          userId: user ? user._id : guestName,
+          roomId: inputRoomId
+        }
+
+        // Emit leave room
+        socket.emit('req_leave_room', payload)
+      }
+    })
+  }
+
+  // Handle leave room response
+  const handleLeaveRoom = (res) => {
+    if (res.status) {
+      message.info('You left the room.')
+      setPrivateRoom(true)
+      createRoom()
+    } else {
+      console.log(res)
+      // Show error
+      mySwal.fire({
+        icon: 'error',
+        title: res.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      })
+    }
   }
 
   // Initaily request for room ID
@@ -178,12 +243,16 @@ const CollabInfo = (props) => {
     socket.on('res_create_room', handleCreateRoom)
     socket.on('res_join_room', handleJoinRoom)
     socket.on('res_update_participants', handleUpdateParticipants)
+    socket.on('res_participants_left', handleUpdateParticipantsLeft)
+    socket.on('res_leave_room', handleLeaveRoom)
 
     // Unlisteners
     return () => {
       socket.off('res_create_room', handleCreateRoom)
       socket.off('res_join_room', handleJoinRoom)
       socket.off('res_update_participants', handleUpdateParticipants)
+      socket.off('res_participants_left', handleUpdateParticipantsLeft)
+      socket.off('res_leave_room', handleLeaveRoom)
     }
   }, [socket])
   return (
@@ -231,6 +300,7 @@ const CollabInfo = (props) => {
           maxLength={5}
           minLength={5}
           allowClear
+          disabled={!privateRoom}
           onChange={(e) => setInputRoomId(e.target.value)}
           placeholder="Enter custom room id"
         />
