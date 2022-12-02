@@ -1,11 +1,18 @@
 import { useState } from 'react'
 
+import { CollabInfo } from '../other'
+
 import Draggable from 'react-draggable'
+import { useParams } from 'react-router-dom'
 
 const RoomInfo = () => {
+  // useParams
+  const { competeProblemId } = useParams()
+
+  // Local States
   const [collab, setCollab] = useState(false)
   const [visible, setVisible] = useState(true)
-
+  // Open collaboration video
   const openCollaboration = () => {
     console.log('Hello')
     setCollab(true)
@@ -52,16 +59,8 @@ const RoomInfo = () => {
   }
 
   return (
-    <div className="flex flex-row w-full max-h-full py-2 items-center justify-between text-main dark:text-snow duration-300 ease-in-out">
-      <div className="flex flex-col">
-        <p className="m-0">
-          Driver: Wildanzr
-          <br />
-          Navigator: Azmi
-          <br />
-          Room Id: 12345
-        </p>
-      </div>
+    <div className="flex flex-row w-full max-h-full py-2 items-center justify-between font-ubuntu text-main dark:text-snow duration-300 ease-in-out">
+      <CollabInfo competeProblemId={competeProblemId} />
 
       <Draggable handle="strong" position={collab ? undefined : ({ x: 0, y: 0 })}>
         <div className={`flex ${collab ? 'absolute z-50 top-0 bottom-0 right-0' : ''} flex-col w-[30%] max-h-[70%]`}>
