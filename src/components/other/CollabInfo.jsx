@@ -1,13 +1,23 @@
 import { useState, useEffect } from 'react'
+import { useGlobal } from '../../contexts/GlobalContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useCollab } from '../../contexts/CollabContext'
 
 import { Typography, Input, Spin, message } from 'antd'
+import { customAlphabet } from 'nanoid'
 
 const { Paragraph } = Typography
+const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWZYZ', 5)
+// Random guest name
+const guestName = `Guest-${nanoid()}`
+
 const CollabInfo = (props) => {
   // Props destructure
   const { competeProblemId } = props
+
+  // Global Functions
+  const { globalFunctions } = useGlobal()
+  const { mySwal } = globalFunctions
 
   // Collab States
   const { collabStates } = useCollab()
@@ -20,27 +30,43 @@ const CollabInfo = (props) => {
   // Local States
   const [privateRoom, setPrivateRoom] = useState(true)
   const [inputRoomId, setInputRoomId] = useState(null)
+  const [driver, setDriver] = useState(null)
   const [participants, setParticipants] = useState(null)
   const [roomId, setRoomId] = useState(null)
 
   // Create room
   const createRoom = () => {
     const payload = {
-      userId: user ? user._id : 'guest',
+      userId: user ? user._id : guestName,
       competeProblemId
     }
+
+    // Reset driver
+    setDriver(null)
+    setRoomId(null)
+    setParticipants(null)
 
     socket.emit('req_create_room', payload)
   }
 
-  const handleRoomId = (res) => {
-    const { codeId } = res.data
+  // Handle create room response
+  const handleCreateRoom = (res) => {
+    const { codeId, participants } = res.data
+    setDriver(participants[0].username)
     setRoomId(codeId)
-    setParticipants([])
+
+    // Determine participants
+    const participantsList = privateRoom ? [] : participants
+    setParticipants(participantsList)
   }
 
-  // Handle join room
-  const handleJoinRoom = () => {
+  // Leave room
+  const leaveRoom = () => {
+    setPrivateRoom(true)
+  }
+
+  // Join room
+  const joinRoom = () => {
     if (inputRoomId === null || inputRoomId === '') {
       message.error('Please enter a room ID')
       return
@@ -49,8 +75,78 @@ const CollabInfo = (props) => {
       return
     }
 
-    console.log(inputRoomId)
-    setPrivateRoom(!privateRoom)
+    // Create paylod
+    const payload = {
+      userId: user ? user._id : guestName,
+      roomId: inputRoomId
+    }
+
+    // Show loading
+    mySwal.fire({
+      title: 'Joining room...',
+      allowOutsideClick: true,
+      allowEscapeKey: true,
+      allowEnterKey: true,
+      didOpen: () => {
+        mySwal.showLoading()
+      }
+    })
+
+    // Emit join room
+    socket.emit('req_join_room', payload)
+    setPrivateRoom(false)
+  }
+
+  // Handle join room
+  const handleJoinRoom = (res) => {
+    if (res.status) {
+      const { collaboration } = res.data
+      const { codeId, participants } = collaboration
+
+      // Set room id
+      setRoomId(codeId)
+      setParticipants(participants)
+
+      // Show success
+      mySwal.fire({
+        icon: 'success',
+        title: res.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 2000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      })
+    } else {
+      console.log(res)
+      // Show error
+      mySwal.fire({
+        icon: 'error',
+        title: res.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      })
+    }
+  }
+
+  // Handle update participants response
+  const handleUpdateParticipants = (res) => {
+    // Reset participants
+    setParticipants(null)
+
+    const { participants } = res.data
+
+    const newParticipants = privateRoom
+      ? participants.filter((participant) => user === null ? participant !== guestName : participant !== user._id)
+      : participants
+
+    console.log(newParticipants)
+    setParticipants(newParticipants)
   }
 
   // Initaily request for room ID
@@ -66,11 +162,15 @@ const CollabInfo = (props) => {
     })
 
     // Listeners
-    socket.on('res_create_room', handleRoomId)
+    socket.on('res_create_room', handleCreateRoom)
+    socket.on('res_join_room', handleJoinRoom)
+    socket.on('res_update_participants', handleUpdateParticipants)
 
     // Unlisteners
     return () => {
-      socket.off('res_create_room', handleRoomId)
+      socket.off('res_create_room', handleCreateRoom)
+      socket.off('res_join_room', handleJoinRoom)
+      socket.off('res_update_participants', handleUpdateParticipants)
     }
   }, [socket])
   return (
@@ -78,7 +178,10 @@ const CollabInfo = (props) => {
       <div className="flex flex-row space-x-2">
         <p className="mb-0">Driver:</p>
         <p className="mb-0 font-bold">
-          {user ? user.username : 'Guest'}
+          {driver === null
+            ? <Spin size="small" />
+            : driver
+          }
         </p>
       </div>
 
@@ -90,7 +193,7 @@ const CollabInfo = (props) => {
             ? <p className="mb-0 font-bold">-</p>
             : <div className="flex flex-col space-y-1">
                 {participants.map((participant, index) => (
-                    <p className="mb-0 font-bold" key={index}>{participant}</p>
+                    <p className="mb-0 font-bold" key={index}>{participant.username}</p>
                 ))}
             </div>
         }
@@ -119,7 +222,7 @@ const CollabInfo = (props) => {
           placeholder="Enter custom room id"
         />
         <button
-          onClick={handleJoinRoom}
+          onClick={privateRoom ? joinRoom : leaveRoom}
           className="flex py-1 px-1 lg:px-2 justify-center font-medium whitespace-nowrap bg-easy dark:bg-main rounded-sm border-b-2 text-snow border-white hover:border-medium dark:hover:border-blue-500 duration-300"
         >
           {privateRoom ? 'Join Room' : 'Leave Room'}
