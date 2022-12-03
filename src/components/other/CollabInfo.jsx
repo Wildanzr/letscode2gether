@@ -68,7 +68,8 @@ const CollabInfo = (props) => {
     // Create paylod
     const payload = {
       userId: user ? user._id : guestName,
-      roomId: inputRoomId
+      roomId: inputRoomId,
+      competeProblemId
     }
 
     // Show loading
