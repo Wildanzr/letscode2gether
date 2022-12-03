@@ -14,7 +14,7 @@ const TextEditor = () => {
 
   // Collab States
   const { collabStates } = useCollab()
-  const { language, code, setCode, socket, roomId } = collabStates
+  const { language, setLanguage, code, setCode, socket, roomId } = collabStates
 
   // Local state
   const [langValue, setLangValue] = useState('javascript')
@@ -36,7 +36,7 @@ const TextEditor = () => {
 
   // Hanlde code change
   const handleCode = (res) => {
-    console.log(res)
+    setLanguage(res.selectedLanguage)
     setCode(res.code)
   }
 

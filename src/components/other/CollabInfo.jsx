@@ -21,7 +21,7 @@ const CollabInfo = (props) => {
 
   // Collab States
   const { collabStates } = useCollab()
-  const { socket, roomId, setRoomId, setCode, setLanguage, setActiveLanguage } = collabStates
+  const { socket, roomId, setRoomId, setCode, setLanguage } = collabStates
 
   // Auth States
   const { authStates } = useAuth()
@@ -103,11 +103,8 @@ const CollabInfo = (props) => {
       setDriver(newDriver)
 
       // Set collaboration code and language
-      console.log(selectedLanguage)
-      if (selectedLanguage) {
-        setLanguage(selectedLanguage)
-        setActiveLanguage(selectedLanguage)
-      }
+      if (selectedLanguage) setLanguage(selectedLanguage)
+
       if (code) setCode(code)
 
       // Determine participants

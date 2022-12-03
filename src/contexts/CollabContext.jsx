@@ -28,7 +28,6 @@ export const CollabProvider = ({ children }) => {
   // Collab States
   const [roomId, setRoomId] = useState(null)
   const [language, setLanguage] = useState(null)
-  const [activeLanguage, setActiveLanguage] = useState(null)
   const [code, setCode] = useState('')
   const [btnDisabled, setBtnDisabled] = useState(false)
 
@@ -181,9 +180,7 @@ export const CollabProvider = ({ children }) => {
     setLanguage,
     code,
     setCode,
-    socket,
-    activeLanguage,
-    setActiveLanguage
+    socket
   }
 
   // Export submission functions

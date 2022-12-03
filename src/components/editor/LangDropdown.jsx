@@ -12,7 +12,7 @@ const LangDropdown = (props) => {
 
   // Collab states
   const { collabStates } = useCollab()
-  const { language, activeLanguage } = collabStates
+  const { language } = collabStates
 
   // Local states
   const [render, setRender] = useState(true)
@@ -28,7 +28,7 @@ const LangDropdown = (props) => {
   useEffect(() => {
     console.log('language change')
     rerender()
-  }, [language, activeLanguage])
+  }, [language])
 
   return (
     <>
