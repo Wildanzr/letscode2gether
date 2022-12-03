@@ -13,10 +13,10 @@ const Dropdown = (props) => {
       optionFilterProp="children"
       onChange={(value) => onChange(value)}
     >
-      {options.map((language) => {
+      {options.map((theme) => {
         return (
-          <Option key={language.id} value={language.id}>
-            {language.label}
+          <Option key={theme.id} value={theme.id}>
+            {theme.label}
           </Option>
         )
       })}

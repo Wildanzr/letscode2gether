@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 import Dropdown from './Dropdown'
 import TextEditor from './TextEditor'
+import LangDropdown from './LangDropdown'
 
 import { languageOptions } from '../../constants/languageOptions'
 import { useGlobal } from '../../contexts/GlobalContext'
@@ -52,7 +53,7 @@ const Editor = () => {
   return (
     <>
       <div className="flex flex-row w-full space-x-4 items-start justify-start">
-        <Dropdown
+        <LangDropdown
           options={languageAllowed}
           placeholder="Select Language"
           onChange={setLanguage}
