@@ -14,41 +14,40 @@ const TextEditor = () => {
 
   // Collab States
   const { collabStates } = useCollab()
-  const { language, code, setCode, socket } = collabStates
+  const { language, setLanguage, code, setCode, socket, roomId } = collabStates
 
   // Local state
   const [langValue, setLangValue] = useState('javascript')
   const [defaultTemplate] = useState('// Lets solve this problem!\n// Choose your language and start coding!')
 
-  // Handle code change
-  const handleCodeChange = (value) => {
-    // Todo save current code to db with name of language
+  // Emit code to server
+  const changeCode = (value) => {
+    const payload = {
+      roomId,
+      selectedLanguage: language,
+      code: value
+    }
 
-    socket.emit('req_mvp_code', { code: value, room: 'mvp-1' })
+    socket.emit('req_update_code', payload)
+
+    // socket.emit('req_mvp_code', { code: value, room: 'mvp-1' })
     setCode(value)
   }
 
-  // First time join room
-  useEffect(() => {
-    socket.emit('req_mvp_join', { room: 'mvp-1' })
-  }, [])
+  // Hanlde code change
+  const handleCode = (res) => {
+    setLanguage(res.selectedLanguage)
+    setCode(res.code)
+  }
 
   // Websocket Listener
   useEffect(() => {
-    const handleCode = (res) => {
-      setCode(res.code)
-    }
-
     // Listeners
-    socket.on('res_mvp_code', handleCode)
-    // Join room
-    socket.on('connect', () => {
-      socket.emit('req_mvp_join', { room: 'mvp-1' })
-    })
+    socket.on('res_update_code', handleCode)
 
     // Unlisteners
     return () => {
-      socket.off('res_mvp_code', handleCode)
+      socket.off('res_update_code', handleCode)
     }
   }, [socket])
 
@@ -69,7 +68,7 @@ const TextEditor = () => {
       value={code}
       theme={theme}
       defaultValue={defaultTemplate}
-      onChange={handleCodeChange}
+      onChange={changeCode}
     />
   )
 }

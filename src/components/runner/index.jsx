@@ -24,86 +24,6 @@ const Runner = () => {
   // Local States
   const [input, setInput] = useState('')
 
-  const runCode = async (mode, type) => {
-    let config = {}
-    if (mode === 'run') {
-      if (showInput) {
-        // Todo : run code with input
-        config = {
-          language_id: language,
-          source_code: encode(code),
-          stdin: encode(input)
-        }
-      } else {
-        // Todo : run code without input
-        config = competeProblem
-          ? {
-              submissions: competeProblem.sampleCases.map((sample) => {
-                return {
-                  language_id: language,
-                  source_code: encode(code),
-                  stdin: encode(sample.input),
-                  expected_output: encode(sample.output)
-                }
-              })
-            }
-          : {
-              submissions: [
-                {
-                  language_id: language,
-                  stdin: encode(''),
-                  source_code: encode(code)
-                }
-              ]
-            }
-      }
-    } else {
-      // Todo : submit code
-      const sample = sampleTestCase.map((sample) => {
-        return {
-          language_id: language,
-          source_code: encode(code),
-          stdin: encode(sample.input),
-          expected_output: encode(sample.expected)
-        }
-      })
-      const test = testCase.map((test) => {
-        return {
-          language_id: language,
-          source_code: encode(code),
-          stdin: encode(test.input),
-          expected_output: encode(test.expected)
-        }
-      })
-      config = {
-        submissions: [...sample, ...test]
-      }
-    }
-
-    // console.log(config)
-    // console.log(type)
-    const runMode = type === 'submission' ? 'batch' : showInput ? 'single' : 'batch'
-    await submission(config, runMode, type)
-    setCustomInput(showInput)
-  }
-
-  const submitDialog = () => {
-    mySwal.fire({
-      title: 'Submit Code?',
-      text: 'Are you sure you want to submit your code?',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, submit it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: false
-    }).then((result) => {
-      if (result.isConfirmed) {
-        runCode('submit', 'submission')
-        setRun(true)
-      }
-    })
-  }
-
   // Submission Functions
   const submission = async (config, mode, type) => {
     // Disable button
@@ -157,6 +77,113 @@ const Runner = () => {
       setBtnDisabled(false)
       setRunMode(mode)
     }
+  }
+
+  // Run Code
+  const runCode = async (mode, type) => {
+    let config = {}
+    if (mode === 'run') {
+      if (showInput) {
+        // Todo : run code with input
+        config = {
+          language_id: language,
+          source_code: encode(code),
+          stdin: encode(input),
+          cpu_time_limit: '5',
+          cpu_extra_time: '1',
+          wall_time_limit: '10',
+          memory_limit: '128000',
+          stack_limit: '64000'
+        }
+      } else {
+        // Todo : run code without input
+        config = competeProblem
+          ? {
+              submissions: competeProblem.sampleCases.map((sample) => {
+                return {
+                  language_id: language,
+                  source_code: encode(code),
+                  stdin: encode(sample.input),
+                  expected_output: encode(sample.output),
+                  cpu_time_limit: '5',
+                  cpu_extra_time: '1',
+                  wall_time_limit: '10',
+                  memory_limit: '128000',
+                  stack_limit: '64000'
+                }
+              })
+            }
+          : {
+              submissions: [
+                {
+                  language_id: language,
+                  stdin: encode(''),
+                  source_code: encode(code),
+                  cpu_time_limit: '5',
+                  cpu_extra_time: '1',
+                  wall_time_limit: '10',
+                  memory_limit: '128000',
+                  stack_limit: '64000'
+                }
+              ]
+            }
+      }
+    } else {
+      // Todo : submit code
+      const sample = sampleTestCase.map((sample) => {
+        return {
+          language_id: language,
+          source_code: encode(code),
+          stdin: encode(sample.input),
+          expected_output: encode(sample.expected),
+          cpu_time_limit: '5',
+          cpu_extra_time: '1',
+          wall_time_limit: '10',
+          memory_limit: '128000',
+          stack_limit: '64000'
+        }
+      })
+      const test = testCase.map((test) => {
+        return {
+          language_id: language,
+          source_code: encode(code),
+          stdin: encode(test.input),
+          expected_output: encode(test.expected),
+          cpu_time_limit: '5',
+          cpu_extra_time: '1',
+          wall_time_limit: '10',
+          memory_limit: '128000',
+          stack_limit: '64000'
+        }
+      })
+      config = {
+        submissions: [...sample, ...test]
+      }
+    }
+
+    // console.log(config)
+    // console.log(type)
+    const runMode = type === 'submission' ? 'batch' : showInput ? 'single' : 'batch'
+    await submission(config, runMode, type)
+    setCustomInput(showInput)
+  }
+
+  // Dialog for submission
+  const submitDialog = () => {
+    mySwal.fire({
+      title: 'Submit Code?',
+      text: 'Are you sure you want to submit your code?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, submit it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        runCode('submit', 'submission')
+        setRun(true)
+      }
+    })
   }
 
   return (

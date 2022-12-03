@@ -25,10 +25,9 @@ export const CollabProvider = ({ children }) => {
     setSocket(socket)
   }, [])
 
-  // Collab State
-  const [driver, setDriver] = useState('Wildanzr')
-  const [navigator, setNavigator] = useState('Azmi')
-  const [language, setLanguage] = useState(63)
+  // Collab States
+  const [roomId, setRoomId] = useState(null)
+  const [language, setLanguage] = useState(null)
   const [code, setCode] = useState('')
   const [btnDisabled, setBtnDisabled] = useState(false)
 
@@ -175,10 +174,8 @@ export const CollabProvider = ({ children }) => {
 
   // Export collab state
   const collabStates = {
-    driver,
-    setDriver,
-    navigator,
-    setNavigator,
+    roomId,
+    setRoomId,
     language,
     setLanguage,
     code,

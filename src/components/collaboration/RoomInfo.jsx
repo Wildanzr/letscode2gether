@@ -1,18 +1,38 @@
 import { useState } from 'react'
+import { useAuth } from '../../contexts/AuthContext'
+import { useCollab } from '../../contexts/CollabContext'
+
+import { CollabInfo } from '../other'
 
 import Draggable from 'react-draggable'
+import { useParams } from 'react-router-dom'
+import { customAlphabet } from 'nanoid'
+
+// Random guest name
+const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWZYZ', 5)
+const guestName = `Guest-${nanoid()}`
 
 const RoomInfo = () => {
+  // useParams
+  const { competeProblemId = 'collaboration' } = useParams()
+
+  // Auth States
+  const { authStates } = useAuth()
+  const { user } = authStates
+
+  const { collabStates } = useCollab()
+  const { roomId } = collabStates
+
+  // Local States
   const [collab, setCollab] = useState(false)
   const [visible, setVisible] = useState(true)
-
+  // Open collaboration video
   const openCollaboration = () => {
-    console.log('Hello')
     setCollab(true)
 
     const domain = 'meet.jit.si'
     const options = {
-      roomName: 'HelloAkuAdaDuaApa',
+      roomName: `letscode-collaborative-${roomId}`,
       width: '100%',
       height: '100%',
       parentNode: document.querySelector('#meet'),
@@ -34,7 +54,7 @@ const RoomInfo = () => {
         DISABLE_JOIN_LEAVE_NOTIFICATIONS: true
       },
       userInfo: {
-        displayName: 'Saya'
+        displayName: user ? user.username : guestName
       }
     }
     // eslint-disable-next-line no-undef
@@ -52,16 +72,8 @@ const RoomInfo = () => {
   }
 
   return (
-    <div className="flex flex-row w-full max-h-full py-2 items-center justify-between text-main dark:text-snow duration-300 ease-in-out">
-      <div className="flex flex-col">
-        <p className="m-0">
-          Driver: Wildanzr
-          <br />
-          Navigator: Azmi
-          <br />
-          Room Id: 12345
-        </p>
-      </div>
+    <div className="flex flex-row w-full max-h-full py-2 items-center justify-between font-ubuntu text-main dark:text-snow duration-300 ease-in-out">
+      <CollabInfo competeProblemId={competeProblemId} guestName={guestName} />
 
       <Draggable handle="strong" position={collab ? undefined : ({ x: 0, y: 0 })}>
         <div className={`flex ${collab ? 'absolute z-50 top-0 bottom-0 right-0' : ''} flex-col w-[30%] max-h-[70%]`}>
