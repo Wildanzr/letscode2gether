@@ -4,16 +4,12 @@ import { useAuth } from '../../contexts/AuthContext'
 import { useCollab } from '../../contexts/CollabContext'
 
 import { Typography, Input, Spin, message } from 'antd'
-import { customAlphabet } from 'nanoid'
 
 const { Paragraph } = Typography
-const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWZYZ', 5)
-// Random guest name
-const guestName = `Guest-${nanoid()}`
 
 const CollabInfo = (props) => {
   // Props destructure
-  const { competeProblemId } = props
+  const { competeProblemId, guestName } = props
 
   // Global Functions
   const { globalFunctions } = useGlobal()

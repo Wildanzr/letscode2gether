@@ -26,7 +26,6 @@ const LangDropdown = (props) => {
 
   // Monitor language change
   useEffect(() => {
-    console.log('language change')
     rerender()
   }, [language])
 
