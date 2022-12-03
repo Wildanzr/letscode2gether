@@ -35,6 +35,8 @@ const Testcase = (props) => {
     }
 
     while (tempRes.statusId === 1 || tempRes.statusId === 2) {
+      // wait for 800ms
+      await new Promise((resolve) => setTimeout(resolve, 800))
       const res = await getSubmission(token)
       // console.log(res)
       tempRes = res

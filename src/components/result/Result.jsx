@@ -35,6 +35,11 @@ const Result = (props) => {
     )
   }
 
+  // Determine which error
+  const determineError = (status) => {
+    return status.description
+  }
+
   const color = statusId === 1 || statusId === 2 ? 'text-yellow-400' : statusId === 3 ? 'text-green-400' : 'text-red-400'
   return (
     <div className="flex flex-col px-2 py-2 space-y-4 w-full text-main dark:text-snow duration-300 ease-in-out">
@@ -56,7 +61,7 @@ const Result = (props) => {
             {stdout === undefined
               ? <Spin size='small'/>
               : stdout === null
-                ? 'Error'
+                ? determineError(status)
                 : formatOutput(stdout) || 'No Output'
             }
           </div>
