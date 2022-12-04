@@ -1,19 +1,29 @@
 import { useState, useEffect } from 'react'
 
-import { useCollab } from '../../contexts/CollabContext'
 import { useGlobal } from '../../contexts/GlobalContext'
+import { useAuth } from '../../contexts/AuthContext'
+import { useCollab } from '../../contexts/CollabContext'
 
 import CustomInput from './CustomInput'
 import InputArea from './InputArea'
 
 import { encode } from 'js-base64'
+import { useParams } from 'react-router-dom'
 
 const Runner = () => {
+  // useParams
+  // useParams
+  const { competeProblemId = 'collaboration' } = useParams()
+
   // Global States
   const { editorState, globalFunctions, globalState } = useGlobal()
   const { setRun, showInput, setShowInput, setCustomInput } = editorState
   const { mySwal } = globalFunctions
   const { setColHide, setColSideContent, isOnlyEditor } = globalState
+
+  // Auth States
+  const { authStates } = useAuth()
+  const { user } = authStates
 
   // Collab States
   const { collabStates, problemStates } = useCollab()
@@ -123,28 +133,11 @@ const Runner = () => {
     config = addRunnerOptions(config)
 
     const runMode = type === 'submission' ? 'batch' : showInput ? 'single' : 'batch'
-    judgeRun(config, runMode, type)
-    setCustomInput(showInput)
-  }
 
-  // Dialog for submission
-  const submitDialog = () => {
-    mySwal
-      .fire({
-        title: 'Submit Code?',
-        text: 'Are you sure you want to submit your code?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, submit it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: false
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          runCode('submit', 'submission')
-          setRun(true)
-        }
-      })
+    if (type === 'submission') judgeSubmit(config, runMode, type)
+    else judgeRun(config, runMode, type)
+
+    setCustomInput(showInput)
   }
 
   // Judge run code
@@ -169,7 +162,7 @@ const Runner = () => {
   }
 
   // Handle judge run code
-  const handleJudgeRun = (res) => {
+  const handleJudge = (res) => {
     if (res.status) {
       // Destructure response
       const { tokens, type, mode } = res.data
@@ -205,14 +198,80 @@ const Runner = () => {
     setBtnDisabled(false)
   }
 
+  // Judge submit code
+  const judgeSubmit = (config, mode, type) => {
+    // Disable button
+    setBtnDisabled(true)
+
+    // Set loading
+    if (type === 'run') {
+      setLoading(true)
+    }
+
+    // Create payload
+    const payload = {
+      userId: user ? user._id : 'guest',
+      competeProblemId,
+      languageCode: language,
+      code,
+      config,
+      mode,
+      type
+    }
+
+    console.log(payload)
+
+    // Emit run code event
+    socket.emit('req_submit_code', payload)
+  }
+
+  // Dialog for submission
+  const submitDialog = () => {
+    // Check if user is logged in
+    if (!user) {
+      // Show error
+      mySwal.fire({
+        icon: 'error',
+        title: 'Please login to submit your code',
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      })
+
+      return
+    }
+
+    mySwal
+      .fire({
+        title: 'Submit Code?',
+        text: 'Are you sure you want to submit your code?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, submit it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: false
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          runCode('submit', 'submission')
+          setRun(true)
+        }
+      })
+  }
+
   // Websocket
   useEffect(() => {
     // Listeners
-    socket.on('res_run_code', handleJudgeRun)
+    socket.on('res_run_code', handleJudge)
+    socket.on('res_submit_code', handleJudge)
 
     // Clean up
     return () => {
-      socket.off('res_run_code', handleJudgeRun)
+      socket.off('res_run_code', handleJudge)
+      socket.off('res_submit_code', handleJudge)
     }
   }, [socket])
 
