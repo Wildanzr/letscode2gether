@@ -60,7 +60,6 @@ const TestCase = (props) => {
       // console.log(res)
       tempRes = res
     }
-    console.log(tempRes)
 
     // Set value
     if (tempRes.statusId === 3 || tempRes.data.status.id === 3) setResult(true)

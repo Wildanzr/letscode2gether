@@ -88,12 +88,6 @@ const SubmissionDetail = (props) => {
             <p className="mb-0 font-bold text-success">{transformLanguageAllowed(submission.languageCode)}</p>
           </div>
 
-          {/* Score */}
-          <div className="flex flex-row w-full pb-0 space-x-2 text-white">
-            <p className="mb-0 font-medium">Score:</p>
-            <p className="mb-0 font-bold text-success">{submission.point}</p>
-          </div>
-
           <div className="flex flex-col w-full h-full">
             <TestCaseResult tokens={submission.tokens} />
             <p className="mb-2 text-white">Source Code:</p>

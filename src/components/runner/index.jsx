@@ -162,7 +162,7 @@ const Runner = () => {
   }
 
   // Handle judge run code
-  const handleJudge = (res) => {
+  const handleJudge = async (res) => {
     if (res.status) {
       // Destructure response
       const { tokens, type, mode } = res.data
@@ -175,6 +175,8 @@ const Runner = () => {
         setLoading(false)
         setRunMode(mode)
       } else {
+        // wait for 800ms
+        await new Promise((resolve) => setTimeout(resolve, 2000))
         setColHide(true)
         setColSideContent('submissions')
       }
@@ -258,6 +260,8 @@ const Runner = () => {
         if (result.isConfirmed) {
           runCode('submit', 'submission')
           setRun(true)
+          setColHide(true)
+          setColSideContent('problems')
         }
       })
   }
