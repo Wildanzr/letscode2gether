@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { useCollab } from '../../contexts/CollabContext'
 import { useGlobal } from '../../contexts/GlobalContext'
@@ -6,7 +6,6 @@ import { useGlobal } from '../../contexts/GlobalContext'
 import CustomInput from './CustomInput'
 import InputArea from './InputArea'
 
-import axios from 'axios'
 import { encode } from 'js-base64'
 
 const Runner = () => {
@@ -18,7 +17,7 @@ const Runner = () => {
 
   // Collab States
   const { collabStates, problemStates } = useCollab()
-  const { code, language } = collabStates
+  const { code, language, socket } = collabStates
   const {
     btnDisabled,
     setBtnDisabled,
@@ -66,10 +65,11 @@ const Runner = () => {
 
   // Mapping config with custom input
   const configWithInput = () => {
+    const formattedInput = input === '' || input === null ? null : encode(input)
     return {
       language_id: language,
       source_code: encode(code),
-      stdin: encode(input)
+      stdin: formattedInput
     }
   }
 
@@ -94,62 +94,6 @@ const Runner = () => {
     }
 
     return config
-  }
-
-  // Submission Functions
-  const submission = async (config, mode, type) => {
-    // Disable button
-    setBtnDisabled(true)
-
-    // Set loading
-    if (type === 'run') {
-      setLoading(true)
-    }
-
-    // Define API URL
-    const url =
-      mode === 'single'
-        ? import.meta.env.VITE_RAPID_API_URL
-        : `${import.meta.env.VITE_RAPID_API_URL}/batch`
-
-    // Define API Payload
-    const options = {
-      method: 'POST',
-      url,
-      params: { base64_encoded: 'true', fields: '*' },
-      data: config
-    }
-
-    // Collet token results
-    let tokens = []
-    try {
-      const res = await axios.request(options)
-      if (mode === 'single') {
-        tokens.push(res.data.token)
-      } else {
-        tokens = res.data.map((data) => data.token)
-      }
-
-      // Set result
-      if (type === 'run') {
-        setResult(tokens)
-
-        // Set loading and mode
-        setLoading(false)
-        setRunMode(mode)
-      } else {
-        setColHide(true)
-        setColSideContent('submissions')
-      }
-
-      // Enable button after submission
-      setBtnDisabled(false)
-    } catch (error) {
-      console.error(error)
-      setLoading(false)
-      setBtnDisabled(false)
-      setRunMode(mode)
-    }
   }
 
   // Run Code
@@ -177,10 +121,9 @@ const Runner = () => {
 
     // Add runner options
     config = addRunnerOptions(config)
-    console.log(config)
 
     const runMode = type === 'submission' ? 'batch' : showInput ? 'single' : 'batch'
-    await submission(config, runMode, type)
+    judgeRun(config, runMode, type)
     setCustomInput(showInput)
   }
 
@@ -203,6 +146,75 @@ const Runner = () => {
         }
       })
   }
+
+  // Judge run code
+  const judgeRun = (config, mode, type) => {
+    // Disable button
+    setBtnDisabled(true)
+
+    // Set loading
+    if (type === 'run') {
+      setLoading(true)
+    }
+
+    // Create payload
+    const payload = {
+      config,
+      mode,
+      type
+    }
+
+    // Emit run code event
+    socket.emit('req_run_code', payload)
+  }
+
+  // Handle judge run code
+  const handleJudgeRun = (res) => {
+    if (res.status) {
+      // Destructure response
+      const { tokens, type, mode } = res.data
+
+      // Set result
+      if (type === 'run') {
+        setResult(tokens)
+
+        // Set loading and mode
+        setLoading(false)
+        setRunMode(mode)
+      } else {
+        setColHide(true)
+        setColSideContent('submissions')
+      }
+    } else {
+      setLoading(false)
+
+      // Show error
+      mySwal.fire({
+        icon: 'error',
+        title: res.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      })
+    }
+
+    // Enable button after submission
+    setBtnDisabled(false)
+  }
+
+  // Websocket
+  useEffect(() => {
+    // Listeners
+    socket.on('res_run_code', handleJudgeRun)
+
+    // Clean up
+    return () => {
+      socket.off('res_run_code', handleJudgeRun)
+    }
+  }, [socket])
 
   return (
     <div className="flex flex-col w-full items-center space-y-4 text-main dark:text-snow">
