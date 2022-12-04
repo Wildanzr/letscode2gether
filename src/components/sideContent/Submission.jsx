@@ -66,7 +66,7 @@ const Submission = () => {
         {submissions === null
           ? <Spin size="default" />
           : submissions.length === 0
-            ? <p className="mb-0 text-lg font-semibold text-white">No submissions yet</p>
+            ? <p className="mb-0 text-base tracking-wide text-white">No submissions yet...</p>
             : <SubmissionList submissions={submissions} />
         }
       </div>

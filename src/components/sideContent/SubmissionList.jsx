@@ -21,7 +21,7 @@ const SubmissionList = (props) => {
         <Panel
           header={<p className="font-bold text-white mb-0">Submissions #{submissions.length - index}</p>}
           key={index + 1}
-          className="bg-[#4B5563] text-white"
+          className="bg-floor text-white"
         >
           <SubmissionDetail submissionId={submission}/>
         </Panel>

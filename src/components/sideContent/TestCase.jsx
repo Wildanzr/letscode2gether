@@ -1,36 +1,91 @@
-import { Tag } from 'antd'
+import { useState, useEffect } from 'react'
+
+import { Tag, Spin } from 'antd'
+
+import axios from 'axios'
+import { BsCheckCircle, BsXCircle } from 'react-icons/bs'
 
 const TestCase = (props) => {
-  const { title, result } = props
+  const { token, title } = props
+
+  // Local States
+  const [result, setResult] = useState(null)
+
+  // Get Submission Result
+  const getSubmission = async (token) => {
+    const options = {
+      method: 'GET',
+      url: import.meta.env.VITE_RAPID_API_URL + '/' + token,
+      params: {
+        base64_encoded: 'true',
+        fields: 'compile_output,expected_output,language,memory,status,stderr,stdin,stdout,time'
+      }
+    }
+    try {
+      const response = await axios.request(options)
+      const statusId = response.data.status.id
+
+      if (statusId === 1 || statusId === 2) {
+        return {
+          statusId,
+          data: null
+        }
+      } else {
+        return {
+          statusId,
+          data: response.data
+        }
+      }
+    } catch (err) {
+      console.log('err', err)
+      return {
+        statusId: 13,
+        data: null
+      }
+    }
+  }
+
+  // Check token
+  const checkToken = async (token) => {
+    // console.log('Checking token...')
+    let tempRes = {
+      statusId: 1,
+      data: null
+    }
+
+    while (tempRes.statusId === 1 || tempRes.statusId === 2) {
+      // wait for 800ms
+      await new Promise((resolve) => setTimeout(resolve, 800))
+      const res = await getSubmission(token)
+      // console.log(res)
+      tempRes = res
+    }
+    console.log(tempRes)
+
+    // Set value
+    if (tempRes.statusId === 3 || tempRes.data.status.id === 3) setResult(true)
+    else setResult(false)
+  }
+
+  // Initially check token
+  useEffect(() => {
+    checkToken(token)
+  }, [])
   return (
-    <Tag color={`${result ? 'blue' : 'red'}`}>
+    <Tag color={`${result === null
+      ? '#FFFFFF'
+      : result === true
+        ? '#16A34A'
+        : '#DC2626'
+    }`}>
       <div className="flex flex-row gap-2 py-2 items-center justify-center">
-        <span className="font-semibold">{title}</span>
-        {result
-          ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            className="bi bi-check-circle-fill"
-            viewBox="0 0 16 16"
-          >
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-          </svg>
-            )
-          : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            className="bi bi-x-circle-fill"
-            viewBox="0 0 16 16"
-          >
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
-          </svg>
-            )}
+        <span className={`font-medium tracking-wide text-sm ${result === null ? 'text-black' : 'text-white'} duration-150 ease-in-out`}>{title}</span>
+        {result === null
+          ? <Spin size="small" />
+          : result === true
+            ? <BsCheckCircle className={`w-5 h-5 duration-150 ease-in-out ${result === null ? 'fill-black' : 'fill-white'}`} />
+            : <BsXCircle className={`w-5 h-5 duration-150 ease-in-out ${result === null ? 'fill-black' : 'fill-white'}`} />
+          }
       </div>
     </Tag>
   )
