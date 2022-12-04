@@ -219,7 +219,7 @@ const Runner = () => {
       type
     }
 
-    console.log(payload)
+    // console.log(payload)
 
     // Emit run code event
     socket.emit('req_submit_code', payload)
