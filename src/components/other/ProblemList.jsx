@@ -1,4 +1,11 @@
+import { useState, useEffect } from 'react'
+import { useAuth } from '../../contexts/AuthContext'
+
+import api from '../../api'
+
+import { Spin } from 'antd'
 import { Link } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 const ProblemList = (props) => {
   // Destructure props
@@ -6,6 +13,42 @@ const ProblemList = (props) => {
   const { problemId, _id } = problem
   const { title, difficulty } = problemId
 
+  // Auth States
+  const { authStates } = useAuth()
+  const { user } = authStates
+
+  // Local states
+  const [isDone, setIsDone] = useState(null)
+
+  // Check cp is done
+  const checkCPIsDone = async () => {
+    // Config
+    const config = {
+      headers: {
+        authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+
+    try {
+      const { data } = await api.get(`/compete-problems/${_id}/check`, config)
+      const { isDone } = data.data
+      // console.log(data)
+
+      // Set Value
+      setIsDone(isDone)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Initially check cp is done
+  useEffect(() => {
+    if (user) {
+      checkCPIsDone()
+    } else {
+      setIsDone(0)
+    }
+  }, [])
   return (
     <>
       {problem
@@ -23,9 +66,16 @@ const ProblemList = (props) => {
             <div className="flex w-2/6 space-x-6 justify-end lg:justify-start items-center">
               <Link
                 to={`path/${competeId}/problems/${_id}`}
-                className="w-4/6 py-2 bg-snow text-main text-center rounded font-medium lg:font-bold hover:text-main hover:dark:text-main"
+                className={`w-4/6 py-2 ${isDone === null ? 'bg-snow' : isDone === 0 ? 'bg-snow' : isDone === 1 ? 'bg-medium' : 'bg-success'} text-main text-center rounded font-medium lg:font-bold hover:text-main hover:dark:text-main`}
                 >
-                Solve
+                {isDone === null
+                  ? <Spin size="small" />
+                  : isDone === 0
+                    ? 'Solve Now'
+                    : isDone === 1
+                      ? 'Try Again'
+                      : 'Solved'
+                }
               </Link>
             </div>
           </div>
