@@ -2,6 +2,7 @@
 import { useGlobal } from '../../contexts/GlobalContext'
 import api from '../../api'
 
+import debounce from 'debounce-promise'
 import { useNavigate, Link } from 'react-router-dom'
 import { Form, Input, Select, DatePicker } from 'antd'
 
@@ -80,6 +81,50 @@ const Register = () => {
     console.log(errorInfo)
   }
 
+  // Check userame is available
+  const checkUsername = async (username) => {
+    try {
+      const { data } = await api.get(`/user/username?username=${username}`)
+      const { isTaken } = data.data
+
+      return isTaken
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Check email is available
+  const checkEmail = async (email) => {
+    try {
+      const { data } = await api.get(`/user/email?email=${email}`)
+      const { isTaken } = data.data
+
+      return isTaken
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Validator for username
+  const usernameValidator = debounce(async (rule, value) => {
+    if (value) {
+      const isTaken = await checkUsername(value)
+      if (isTaken) {
+        return Promise.reject('Username is taken')
+      }
+    }
+  }, 500)
+
+  // Validator for email
+  const emailValidator = debounce(async (rule, value) => {
+    if (value) {
+      const isTaken = await checkEmail(value)
+      if (isTaken) {
+        return Promise.reject('Email is taken')
+      }
+    }
+  }, 500)
+
   return (
     <Form
       name="register"
@@ -88,6 +133,7 @@ const Register = () => {
       onFinishFailed={onFinishFailed}
       className="flex flex-col w-full duration-300 ease-in-out"
     >
+      {/* Email */}
       <Item
         name="email"
         rules={[
@@ -102,12 +148,16 @@ const Register = () => {
           {
             max: 50,
             message: 'Email must be at most 50 characters'
+          },
+          {
+            validator: emailValidator
           }
         ]}
       >
         <Input placeholder="Email" />
       </Item>
 
+      {/* Fullname */}
       <Item
         name="fullName"
         rules={[
@@ -128,6 +178,7 @@ const Register = () => {
         <Input placeholder="Full Name" />
       </Item>
 
+      {/* Username */}
       <Item
         name="username"
         rules={[
@@ -146,12 +197,16 @@ const Register = () => {
           {
             pattern: /^[a-z0-9]+$/,
             message: 'Username must be lowercase and contain only letters and numbers'
+          },
+          {
+            validator: usernameValidator
           }
         ]}
       >
         <Input placeholder="Username" />
       </Item>
 
+      {/* Gender */}
       <Item
         name="gender"
         rules={[
@@ -167,6 +222,7 @@ const Register = () => {
         </Select>
       </Item>
 
+      {/* Birthday */}
       <Item
         name="dateOfBirth"
         rules={[
@@ -183,6 +239,7 @@ const Register = () => {
         />
       </Item>
 
+      {/* Password */}
       <Item
         name="password"
         rules={[
@@ -203,6 +260,7 @@ const Register = () => {
         <Input.Password placeholder="Password" />
       </Item>
 
+      {/* Confirm Password */}
       <Item
         name="confirmPassword"
         rules={[
@@ -225,6 +283,7 @@ const Register = () => {
         <Input.Password placeholder="Confirm Password" />
       </Item>
 
+      {/* Submit */}
       <Item>
         <button
           type="submit"
