@@ -1,17 +1,30 @@
+
+import B1 from '../../assets/badge1.svg'
+import B2 from '../../assets/badge2.svg'
+import B3 from '../../assets/badge3.svg'
+import B4 from '../../assets/badge4.svg'
+import B5 from '../../assets/badge5.svg'
+import B6 from '../../assets/badge6.svg'
+
 import { useState, useEffect } from 'react'
+import { useAuth } from '../../contexts/AuthContext'
 
 import api from '../../api'
 import Journey from '../../assets/journey.svg'
-import B6 from '../../assets/badge6.svg'
 import { Navbar, Footer } from '../../layout'
 import { JourneyList } from '../../components/card'
 
-import { Skeleton } from 'antd'
+import { Skeleton, Spin } from 'antd'
 import Cookies from 'js-cookie'
 
 const JourneyPage = () => {
+  // Auth States
+  const { authStates } = useAuth()
+  const { user } = authStates
   // Local states
   const [journeys, setJourneys] = useState(null)
+  const [progress, setProgress] = useState(null)
+  const [point, setPoint] = useState(null)
 
   // Get all journeys
   const getAllJourneys = async () => {
@@ -33,8 +46,56 @@ const JourneyPage = () => {
     }
   }
 
+  // Check progress of journey
+  const checkProgress = async () => {
+    // Config
+    const config = {
+      headers: {
+        authorization: Cookies.get('jwtToken')
+      }
+    }
+
+    try {
+      const { data } = await api.get('/competes/journey-progress', config)
+      const { progress, point } = data.data
+      // console.log(data)
+
+      // Set Value
+      setProgress(progress)
+      setPoint(point)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Define badge
+  const defineBadge = (point) => {
+    if (point === 0) {
+      return <p className='mb-0 text-2xl font-ubuntu font-bold text-success'>-</p>
+    } else if (point < 500) {
+      return <img src={B1} className="w-14" />
+    } else if (point < 1000) {
+      return <img src={B2} className="w-14" />
+    } else if (point < 1500) {
+      return <img src={B3} className="w-14" />
+    } else if (point < 2000) {
+      return <img src={B4} className="w-14" />
+    } else if (point < 2500) {
+      return <img src={B5} className="w-14" />
+    } else {
+      return <img src={B6} className="w-14" />
+    }
+  }
+
   // Initially get all journeys
   useEffect(() => {
+    if (user) {
+      checkProgress()
+    } else {
+      setProgress(0)
+      setPoint(0)
+    }
+
     getAllJourneys()
   }, [])
   return (
@@ -63,20 +124,30 @@ const JourneyPage = () => {
                 apply them to many programming languages.
               </p>
 
+              <div className="flex flex-col w-full space-y-2">
               <div className="flex flex-row space-x-4 items-center">
                 <p className="mb-0 text-2xl font-ubuntu font-bold">
                   Overral progress:
                 </p>
-                <span className="mb-0 text-2xl font-ubuntu font-bold text-success">
-                  30%
-                </span>
+                <div className="mb-0 text-2xl font-ubuntu font-bold text-success">
+                  {progress === null
+                    ? <Spin size="small" />
+                    : `${progress}%`
+                  }
+                </div>
               </div>
+
               <div className="flex flex-row space-x-4 items-center">
                 <p className="mb-0 text-2xl font-ubuntu font-bold">
                   Current badges:
                 </p>
-                <img src={B6} alt="badge" className="w-10" />
+                {point === null
+                  ? <Spin size="small" />
+                  : defineBadge(point)
+                }
               </div>
+              </div>
+
             </div>
           </div>
         </div>

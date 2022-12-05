@@ -259,6 +259,7 @@ const CollabInfo = (props) => {
       socket.off('res_leave_room', handleLeaveRoom)
     }
   }, [socket])
+
   return (
     <div className="flex flex-col space-y-1">
       <div className="flex flex-row space-x-2">

@@ -49,8 +49,8 @@ const Result = (props) => {
             {stdin === undefined
               ? <Spin size='small'/>
               : stdin === null
-                ? 'Error'
-                : formatOutput(stdin) || 'No Input'
+                ? 'No Input'
+                : formatOutput(stdin)
             }
           </div>
         </div>
@@ -62,7 +62,7 @@ const Result = (props) => {
               ? <Spin size='small'/>
               : stdout === null
                 ? determineError(status)
-                : formatOutput(stdout) || 'No Output'
+                : formatOutput(stdout)
             }
           </div>
         </div>
@@ -76,7 +76,7 @@ const Result = (props) => {
                 ? <Spin size='small'/>
                 : expected_output === null
                   ? 'Error'
-                  : formatOutput(expected_output) || 'No Output'
+                  : formatOutput(expected_output)
               }
             </div>
           </div>
@@ -91,7 +91,7 @@ const Result = (props) => {
                 ? <Spin size='small'/>
                 : stderr === null
                   ? 'Error'
-                  : formatOutput(stderr) || 'No Error'
+                  : formatOutput(stderr)
               }
             </div>
           </div>
@@ -105,7 +105,7 @@ const Result = (props) => {
                 ? <Spin size='small'/>
                 : compile_output === null
                   ? 'Error'
-                  : formatOutput(compile_output) || 'No Error'
+                  : formatOutput(compile_output)
               }
             </div>
           </div>
