@@ -94,12 +94,12 @@ const JourneyList = (props) => {
           <p className="mb-0 text-left lg:text-center font-ubuntu font-medium">
             Your Progress:
           </p>
-          <p className="mb-0 lg:text-4xl text-left lg:text-center text-success font-ubuntu font-medium">
+          <div className="mb-0 lg:text-4xl text-left lg:text-center text-success font-ubuntu font-medium">
             {progress === null
               ? <Spin size="small" />
               : `${progress.solved}/${progress.total}`
             }
-          </p>
+          </div>
         </div>
       </div>
     </div>

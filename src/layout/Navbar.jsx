@@ -99,6 +99,7 @@ const Navbar = (props) => {
     // Set isAuthenticated to false
     setIsAuthenticated(false)
     setUser(null)
+    setTabs(0)
 
     // Redirect to home
     navigate('/')
