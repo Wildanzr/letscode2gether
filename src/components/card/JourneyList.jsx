@@ -51,7 +51,7 @@ const JourneyList = (props) => {
 
     try {
       const { data } = await api.get(`/competes/${_id}/progress`, config)
-      console.log(data)
+      // console.log(data)
 
       // Set Value
       setProgress(data.data)
