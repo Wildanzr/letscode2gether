@@ -4,7 +4,6 @@ import ProblemSpecification from './ProblemSpecification'
 import SampleCase from './SampleCase'
 
 import { Spin } from 'antd'
-import { Link } from 'react-router-dom'
 
 const Problem = () => {
   // Collab States
@@ -28,26 +27,7 @@ const Problem = () => {
 
   return (
     <div className="flex flex-col w-full h-full space-y-4 text-main dark:text-snow duration-300 ease-in-out">
-      <div className="flex flex-col w-full p-2">
-        {competeProblem
-          ? (
-            <>
-              <h4 className="mb-0 text-lg lg:text-2xl font-semibold text-main dark:text-snow duration-300 ease-in-out">
-                {competeProblem.title}
-              </h4>
-              <p className="mb-0 text-sm font-thin">
-                Challenger:
-                <Link to={`/@/${competeProblem.challenger.username}`} className="ml-2 font-medium text-easy">
-                  {competeProblem.challenger.username}
-                </Link>
-              </p>
-            </>
-            )
-          : <Spin size='small' />
-        }
-      </div>
-
-      <div className="flex flex-col w-full p-2">
+      <div className="flex flex-col w-full">
         {competeProblem
           ? (
             <p className="text-sm text-justify mb-0">

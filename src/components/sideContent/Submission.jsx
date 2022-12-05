@@ -53,20 +53,11 @@ const Submission = () => {
   }, [])
   return (
     <div className="flex flex-col w-full h-full space-y-4">
-      <div className="flex flex-col w-full">
-        <h4 className="mb-0 text-lg lg:text-2xl font-semibold text-white">
-          Program Mengeja Angka 1 Hingga 100
-        </h4>
-        <p className="mb-0 text-sm font-thin text-white">
-          Challenger: <span className="font-semibold">meowwed</span>
-        </p>
-      </div>
-
       <div className="flex flex-col w-full items-center justify-center">
         {submissions === null
           ? <Spin size="default" />
           : submissions.length === 0
-            ? <p className="mb-0 text-base tracking-wide text-white">No submissions yet...</p>
+            ? <p className="mb-0 text-base tracking-wide text-white">You have no submissions yet...</p>
             : <SubmissionList submissions={submissions} />
         }
       </div>
