@@ -17,3 +17,6 @@ export { default as EditTest } from './EditTest'
 
 export { default as AddChallenge } from './AddChallenge'
 export { default as EditChallenge } from './EditChallenge'
+
+export { default as UpdateProfile } from './UpdateProfile'
+export { default as UpdateProfilePicture } from './UpdateProfilePicture'
