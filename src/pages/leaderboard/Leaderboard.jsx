@@ -59,11 +59,16 @@ const LeaderboardPage = () => {
         </div>
 
         {/* Leaderboard Table */}
-        <div className="flex px-[5%] flex-col lg:flex-row-reverse w-full items-center justify-center">
-          {leaderboard === null
-            ? <Spin size='default' />
-            : <LeaderboardTable leaderboard={leaderboard} />
-          }
+        <div className="flex w-full items-center justify-center">
+          <div className="flex flex-col w-full lg:w-1/2 items-center justify-center">
+            {leaderboard === null
+              ? (
+              <Spin size="default" />
+                )
+              : (
+              <LeaderboardTable leaderboard={leaderboard} />
+                )}
+          </div>
         </div>
       </Navbar>
 
