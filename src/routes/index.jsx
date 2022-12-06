@@ -8,6 +8,7 @@ import { JourneyPage, ProblemPage } from '../pages/journey'
 import { ChallengePage, ChallengeProblemPage } from '../pages/challenge'
 import { CompetePage } from '../pages/compete'
 import { LeaderboardPage } from '../pages/leaderboard'
+import { ProfilePage, SettingPage } from '../pages/user'
 import {
   LoginPage,
   ForgotPage,
@@ -99,6 +100,12 @@ const RouteList = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+
+      {/* Profile */}
+      <Route path='/profile/:username' element={<ProfilePage />} />
+
+      {/* Setting */}
+      <Route path='/settings' element={<SettingPage />} />
 
       {/* Learning Journey */}
       <Route path="/learning-journey">

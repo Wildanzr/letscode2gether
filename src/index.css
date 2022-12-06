@@ -19,3 +19,8 @@
   background-color: #aaa;
   background-color: #555;
 }
+
+/* Fix css conflict between antd and tailwindcss  */
+img {
+  display: unset !important;
+}
