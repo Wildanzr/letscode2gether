@@ -32,12 +32,12 @@ const Profile = (props) => {
         className="flex text-sm rounded-full"
       >
         <div className="flex flex-row items-center w-full space-x-4">
+          <div className="flex h-8 w-8 rounded-full bg-red-500">
           <img
             src={avatar}
-            width={32}
-            height={32}
-            className="rounded-full"
+            className="rounded-full object-cover object-center"
           />
+          </div>
           {/* show name */}
           <span className="text-base font-medium">{username}</span>
         </div>
@@ -56,7 +56,8 @@ const Profile = (props) => {
               </Link>
             )}
             <Link
-              to="/profile"
+              to={`/profile/${username}`}
+              onClick={() => setTabs(0)}
               className="px-4 py-2 text-sm text-main dark:text-snow flex flex-row items-center space-x-2 hover:bg-gray-300 dark:hover:bg-gray-600"
             >
               <RiShieldUserLine className="text-lg" />
@@ -64,6 +65,7 @@ const Profile = (props) => {
             </Link>
             <Link
               to="/settings"
+              onClick={() => setTabs(0)}
               className="px-4 py-2 text-sm text-main dark:text-snow flex flex-row items-center space-x-2 hover:bg-gray-300 dark:hover:bg-gray-600"
             >
               <RiSettings3Line className="text-lg" />

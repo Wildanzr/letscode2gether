@@ -8,12 +8,14 @@ import { JourneyPage, ProblemPage } from '../pages/journey'
 import { ChallengePage, ChallengeProblemPage } from '../pages/challenge'
 import { CompetePage } from '../pages/compete'
 import { LeaderboardPage } from '../pages/leaderboard'
+import { ProfilePage, SettingPage } from '../pages/user'
 import {
   LoginPage,
   ForgotPage,
   RegisterPage,
   ResetPage,
-  ActivatePage
+  ActivatePage,
+  TeacherRegisterPage
 } from '../pages/auth'
 import {
   DashboardPage,
@@ -100,6 +102,12 @@ const RouteList = () => {
     <Routes>
       <Route path="/" element={<HomePage />} />
 
+      {/* Profile */}
+      <Route path='/profile/:username' element={<ProfilePage />} />
+
+      {/* Setting */}
+      <Route path='/settings' element={<SettingPage />} />
+
       {/* Learning Journey */}
       <Route path="/learning-journey">
         <Route path="path/:competeId/problems/:competeProblemId" element={<ProblemPage />} />
@@ -121,6 +129,7 @@ const RouteList = () => {
         <Route path="login" element={<LoginPage />} />
         <Route path="forgot" element={<ForgotPage />} />
         <Route path="register" element={<RegisterPage />} />
+        <Route path="teacher/register" element={<TeacherRegisterPage />} />
         <Route path="reset" element={<ResetPage />} />
         <Route path="activate" element={<ActivatePage />} />
         <Route path="*" element={<NotFound />} />

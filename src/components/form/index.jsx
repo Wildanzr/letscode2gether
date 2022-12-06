@@ -1,4 +1,5 @@
 export { default as Register } from './Register'
+export { default as TeacherRegister } from './TeacherRegister'
 export { default as Login } from './Login'
 export { default as Forgot } from './Forgot'
 export { default as Reset } from './Reset'
@@ -17,3 +18,7 @@ export { default as EditTest } from './EditTest'
 
 export { default as AddChallenge } from './AddChallenge'
 export { default as EditChallenge } from './EditChallenge'
+
+export { default as UpdateProfile } from './UpdateProfile'
+export { default as UpdateProfilePicture } from './UpdateProfilePicture'
+export { default as UpdatePassword } from './UpdatePassword'

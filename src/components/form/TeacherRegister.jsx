@@ -10,7 +10,7 @@ import { Form, Input, Select, DatePicker } from 'antd'
 const { Item } = Form
 const { Option } = Select
 
-const Register = () => {
+const TeacherRegister = () => {
   // Global Functions
   const { globalFunctions, globalState } = useGlobal()
   const { mySwal } = globalFunctions
@@ -29,7 +29,7 @@ const Register = () => {
   const onFinish = async (values) => {
     const payload = {
       ...values,
-      role: 0
+      role: 1
     }
 
     // Show loading
@@ -306,4 +306,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default TeacherRegister
