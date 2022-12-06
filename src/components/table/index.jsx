@@ -6,6 +6,7 @@ export { default as PopularProblem } from './PopularProblem'
 
 export { default as ListOfJourney } from './ListOfJourney'
 export { default as ListOfProblem } from './ListOfProblem'
+export { default as ListOfCompete } from './ListOfCompete'
 
 export { default as SampleCaseDetail } from './SampleCaseDetail'
 export { default as EditableSampleCase } from './EditableSampleCase'
