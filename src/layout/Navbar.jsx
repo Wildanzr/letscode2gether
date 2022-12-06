@@ -31,6 +31,7 @@ const Navbar = (props) => {
   // Location
   const location = useLocation()
   const isAdmin = location.pathname.includes('admin')
+  const isTeacher = location.pathname.includes('teacher')
 
   // Local States
   const [paths, setPaths] = useState(
@@ -52,28 +53,41 @@ const Navbar = (props) => {
             no: 3
           }
         ]
-      : [
-          {
-            to: '/learning-journey',
-            name: 'Learning Journey',
-            no: 1
-          },
-          {
-            to: '/challenges',
-            name: 'Challenge',
-            no: 2
-          },
-          {
-            to: '/competes',
-            name: 'Compete',
-            no: 3
-          },
-          {
-            to: '/leaderboards',
-            name: 'Leaderboard',
-            no: 4
-          }
-        ]
+      : user !== null && user.role === 1 && isTeacher
+        ? [
+            {
+              to: '/teacher/dashboard',
+              name: 'Dashboard',
+              no: 1
+            },
+            {
+              to: '/teacher/manage/competes',
+              name: 'Manage Competes',
+              no: 2
+            }
+          ]
+        : [
+            {
+              to: '/learning-journey',
+              name: 'Learning Journey',
+              no: 1
+            },
+            {
+              to: '/challenges',
+              name: 'Challenge',
+              no: 2
+            },
+            {
+              to: '/competes',
+              name: 'Compete',
+              no: 3
+            },
+            {
+              to: '/leaderboards',
+              name: 'Leaderboard',
+              no: 4
+            }
+          ]
   )
 
   // Navigator
@@ -158,28 +172,41 @@ const Navbar = (props) => {
               no: 3
             }
           ]
-        : [
-            {
-              to: '/learning-journey',
-              name: 'Learning Journey',
-              no: 1
-            },
-            {
-              to: '/challenges',
-              name: 'Challenge',
-              no: 2
-            },
-            {
-              to: '/competes',
-              name: 'Compete',
-              no: 3
-            },
-            {
-              to: '/leaderboards',
-              name: 'Leaderboard',
-              no: 4
-            }
-          ]
+        : user !== null && user.role === 1 && isTeacher
+          ? [
+              {
+                to: '/teacher/dashboard',
+                name: 'Dashboard',
+                no: 1
+              },
+              {
+                to: '/teacher/manage/competes',
+                name: 'Manage Competes',
+                no: 2
+              }
+            ]
+          : [
+              {
+                to: '/learning-journey',
+                name: 'Learning Journey',
+                no: 1
+              },
+              {
+                to: '/challenges',
+                name: 'Challenge',
+                no: 2
+              },
+              {
+                to: '/competes',
+                name: 'Compete',
+                no: 3
+              },
+              {
+                to: '/leaderboards',
+                name: 'Leaderboard',
+                no: 4
+              }
+            ]
     )
   }, [user])
 

@@ -213,6 +213,13 @@ const RouteList = () => {
         <Route index element={<NotFound />} />
       </Route>
 
+      {/* Teacher Route */}
+      <Route path="/teacher">
+        <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="*" element={<NotFound />} />
+        <Route index element={<NotFound />} />
+      </Route>
+
       {/* 404 */}
       <Route path="*" element={<NotFound />} />
     </Routes>
