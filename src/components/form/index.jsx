@@ -10,6 +10,7 @@ export { default as AddJourney } from './AddJourney'
 export { default as EditProblem } from './EditProblem'
 export { default as AddProblem } from './AddProblem'
 
+export { default as EditCompete } from './EditCompete'
 export { default as AddCompete } from './AddCompete'
 
 export { default as AddSample } from './AddSample'

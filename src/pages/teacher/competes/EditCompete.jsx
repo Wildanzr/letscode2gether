@@ -2,8 +2,8 @@ import { useState } from 'react'
 
 import { Navbar, Footer } from '../../../layout'
 import { Breadcrumb } from '../../../components/breadcrumb'
-import { EditableListOfProblem } from '../../../components/table'
-import { EditJourney } from '../../../components/form'
+import { EditableListOfCompeteProblem } from '../../../components/table'
+import { EditCompete } from '../../../components/form'
 
 import { useParams } from 'react-router-dom'
 
@@ -14,12 +14,12 @@ const EditCompetesPage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: 'List of Learning Journeys',
-      target: '/admin/manage/journeys'
+      name: 'List of Competes',
+      target: '/teacher/manage/competes'
     },
     {
-      name: 'Edit Learning Journey',
-      target: `/admin/manage/journeys/${journeyId}/edit`
+      name: 'Edit Compete',
+      target: `/teacher/manage/competes/${journeyId}/edit`
     }
   ])
 
@@ -30,23 +30,23 @@ const EditCompetesPage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              Learning Journey
+              Competes
             </h3>
             <Breadcrumb paths={paths} />
           </div>
 
           {/* Detail of Journey */}
           <div className="flex flex-col space-y-4 w-full font-ubuntu">
-            <EditJourney>
+            <EditCompete>
               {/* List of Problems */}
               <div className="flex flex-col w-full space-y-2 overflow-y-auto">
                 <div className="flex flex-col pb-4 overflow-y-auto">
                   <div className="flex w-full">
-                    <EditableListOfProblem />
+                    <EditableListOfCompeteProblem />
                   </div>
                 </div>
               </div>
-            </EditJourney>
+            </EditCompete>
           </div>
         </div>
       </Navbar>
