@@ -11,7 +11,10 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 const { Item } = Form
 const { TextArea } = Input
 
-const AddProblem = () => {
+const AddProblem = (props) => {
+  // Props destructuring
+  const { competes } = props
+
   // useParams
   const { journeyId } = useParams()
 
@@ -90,7 +93,11 @@ const AddProblem = () => {
         showConfirmButton: false,
         timerProgressBar: true
       }).then(() => {
-        navigate(`/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`)
+        const endpoint = competes
+          ? `/teacher/manage/competes/${journeyId}/problems/${problemId}/edit`
+          : `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
+
+        navigate(endpoint)
       })
     } catch (error) {
       console.log(error)

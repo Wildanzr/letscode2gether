@@ -35,7 +35,15 @@ import {
   DetailChallengePage,
   EditChallengePage
 } from '../pages/admin'
-import { CreateCompetesPage, ManageCompetesPage, DetailCompetesPage, EditCompetesPage } from '../pages/teacher'
+import {
+  CreateCompetesPage,
+  ManageCompetesPage,
+  DetailCompetesPage,
+  EditCompetesPage,
+  CreateCompeteProblemPage,
+  DetailCompeteProblemPage,
+  EditCompeteProblemPage
+} from '../pages/teacher'
 import { NotFound } from '../pages/notfound'
 
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
@@ -221,7 +229,6 @@ const RouteList = () => {
 
       {/* Teacher Route */}
       <Route path="/teacher">
-
         <Route path="manage">
           {/* Competes */}
           <Route path="competes">
@@ -230,15 +237,15 @@ const RouteList = () => {
             <Route path=":journeyId/edit" element={<EditCompetesPage />} />
             <Route
               path=":journeyId/problems/create"
-              element={<CreateProblemPage />}
+              element={<CreateCompeteProblemPage />}
             />
             <Route
               path=":journeyId/problems/:problemId"
-              element={<DetailProblemPage />}
+              element={<DetailCompeteProblemPage />}
             />
             <Route
               path=":journeyId/problems/:problemId/edit"
-              element={<EditProblemPage />}
+              element={<EditCompeteProblemPage />}
             />
             <Route
               path=":journeyId/problems/:problemId/samplecases/create"
