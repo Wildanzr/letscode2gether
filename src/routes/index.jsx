@@ -14,7 +14,8 @@ import {
   ForgotPage,
   RegisterPage,
   ResetPage,
-  ActivatePage
+  ActivatePage,
+  TeacherRegisterPage
 } from '../pages/auth'
 import {
   DashboardPage,
@@ -128,6 +129,7 @@ const RouteList = () => {
         <Route path="login" element={<LoginPage />} />
         <Route path="forgot" element={<ForgotPage />} />
         <Route path="register" element={<RegisterPage />} />
+        <Route path="teacher/register" element={<TeacherRegisterPage />} />
         <Route path="reset" element={<ResetPage />} />
         <Route path="activate" element={<ActivatePage />} />
         <Route path="*" element={<NotFound />} />
