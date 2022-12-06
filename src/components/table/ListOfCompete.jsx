@@ -229,7 +229,7 @@ const ListOfCompete = (props) => {
           >
             <div className="py-2 flex flex-row items-center justify-center">
               <Link
-                to="/teacher/manage/journeys/create"
+                to="/teacher/manage/competes/create"
                 className="flex flex-row space-x-2 w-full items-center justify-center"
               >
                 <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
