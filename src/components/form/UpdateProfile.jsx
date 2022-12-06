@@ -20,7 +20,6 @@ const UpdateProfile = (props) => {
   const {
     username,
     avatar,
-    email,
     fullName,
     gender,
     dateOfBirth,
@@ -39,7 +38,6 @@ const UpdateProfile = (props) => {
   }
 
   // Make duplicate of email and username to check if it is changed
-  const emailDuplicate = email
   const usernameDuplicate = username
 
   // useForm
@@ -61,6 +59,8 @@ const UpdateProfile = (props) => {
       phone: values.phone,
       bio: values.bio
     }
+
+    console.log(payload)
 
     // Config
     const config = {
@@ -93,18 +93,6 @@ const UpdateProfile = (props) => {
     }
   }
 
-  // Check email is available
-  const checkEmail = async (email) => {
-    try {
-      const { data } = await api.get(`/user/email?email=${email}`)
-      const { isTaken } = data.data
-
-      return isTaken
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   // Validator for username
   const usernameValidator = debounce(async (rule, value) => {
     if (value === usernameDuplicate) {
@@ -113,18 +101,6 @@ const UpdateProfile = (props) => {
       const isTaken = await checkUsername(value)
       if (isTaken) {
         return Promise.reject('Username is taken')
-      }
-    }
-  }, 500)
-
-  // Validator for email
-  const emailValidator = debounce(async (rule, value) => {
-    if (value === emailDuplicate) {
-      return Promise.resolve()
-    } else {
-      const isTaken = await checkEmail(value)
-      if (isTaken) {
-        return Promise.reject('Email is taken')
       }
     }
   }, 500)
@@ -139,7 +115,6 @@ const UpdateProfile = (props) => {
         className="w-full"
         onFinish={onFinish}
         initialValues={{
-          email,
           fullName,
           username,
           gender,
@@ -254,30 +229,6 @@ const UpdateProfile = (props) => {
             placeholder="Address"
             autoSize={{ minRows: 1, maxRows: 2 }}
           />
-        </Item>
-
-        {/* Email */}
-        <Item
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your email!'
-            },
-            {
-              type: 'email',
-              message: 'Please input a valid email!'
-            },
-            {
-              max: 50,
-              message: 'Email must be at most 50 characters'
-            },
-            {
-              validator: emailValidator
-            }
-          ]}
-        >
-          <Input placeholder="Email" />
         </Item>
 
         {/* Phone */}

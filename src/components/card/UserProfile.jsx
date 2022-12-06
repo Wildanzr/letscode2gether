@@ -10,7 +10,7 @@ moment.updateLocale('id', momentId)
 const UserProfile = (props) => {
   // Props Destructure
   const { profileDetails } = props
-  const { avatar, dateOfBirth, fullName, gender, username } = profileDetails
+  const { avatar, dateOfBirth, fullName, gender, username, email, bio, phone, address, role } = profileDetails
 
   return (
     <div className="flex flex-col w-full items-center justify-center font-ubuntu py-5 px-5 text-main dark:text-snow duration-300 ease-in-out">
@@ -28,16 +28,20 @@ const UserProfile = (props) => {
           <div className="flex flex-row space-x-2">
             <BsPerson className="h-5 w-5 fill-main dark:fill-snow duration-300 ease-in-out" />
             <span className="mb-0 font-light tracking-wider text-sm">
-              Student
+              {role === 0
+                ? 'Student'
+                : role === 1
+                  ? 'Teacher'
+                  : role === 2
+                    ? 'Admin'
+                    : 'Unknown'
+              }
             </span>
           </div>
 
           {/* Bio */}
           <p className="mb-0 text-sm font-light tracking-wide text-center">
-            I am a full stack developer with over 8 years of experience in web
-            and software development. I specialize in front-end development,
-            utilizing HTML, CSS, JavaScript, JQuery, React, and other frameworks
-            to create dynamic web pages and applications.
+            {bio}
           </p>
         </div>
 
@@ -85,21 +89,21 @@ const UserProfile = (props) => {
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Email.</div>
                   <div className="px-4 py-2">
-                    <a href="mailto:jane@example.com">jane@example.com</a>
+                    <a href={`mailto:${email}`}>{email}</a>
                   </div>
                 </div>
 
                 {/* Phone */}
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Phone</div>
-                  <div className="px-4 py-2">081335488360</div>
+                  <div className="px-4 py-2">{phone}</div>
                 </div>
 
                 {/* Address */}
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Address</div>
                   <div className="px-4 py-2">
-                    Arlington Heights, IL, Illinois
+                    {address}
                   </div>
                 </div>
               </div>
