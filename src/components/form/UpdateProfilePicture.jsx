@@ -83,7 +83,7 @@ const UpdateProfilePicture = (props) => {
 
   return (
     <div className="flex flex-col items-center justify-center space-y-4 w-full">
-      <div className="flex w-60 h-60 ">
+      <div className="flex w-60 h-60 items-center justify-center ">
         <Image src={picture} className="rounded-full" fallback={FallBack} />
       </div>
       <ImgCrop rotate>

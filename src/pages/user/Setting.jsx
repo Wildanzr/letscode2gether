@@ -3,24 +3,23 @@ import { useAuth } from '../../contexts/AuthContext'
 
 import api from '../../api'
 import { Navbar, Footer } from '../../layout'
-import { UpdateProfile } from '../../components/form'
+import { UpdateProfile, UpdatePassword } from '../../components/form'
 
 import Cookies from 'js-cookie'
-import { Divider, Spin } from 'antd'
+import { Spin } from 'antd'
 
 const SettingPage = () => {
-  // Theme from local storage
-  const theme = localStorage.getItem('theme')
-
   // Auth States
   const { authStates } = useAuth()
   const { user } = authStates
 
   // Local States
   const [userDetails, setUserDetails] = useState(null)
+  const [tabKey, setTabKey] = useState(1)
   const [fetch, setFetch] = useState(true)
   const fetcher = {
-    fetch, setFetch
+    fetch,
+    setFetch
   }
 
   // Get profile details
@@ -56,20 +55,31 @@ const SettingPage = () => {
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow font-ubuntu dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar>
         <div className="flex w-full items-center justify-center">
-          <div className="flex flex-col w-full lg:w-1/2 items-center justify-center">
+          <div className="flex flex-col w-full lg:w-1/2 items-center justify-center space-y-6">
 
-            <h1 className='text-3xl tracking-wide text-main dark:text-snow'>Update Profile</h1>
+            {/* Tabs */}
+            <div className="flex bg-gray-200 rounded-lg">
+              <button
+                className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${tabKey === 1 ? 'bg-easy text-snow' : 'text-main'}`}
+                onClick={() => setTabKey(1)}
+              >
+                Update Profile
+              </button>
+              <button
+                className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${tabKey === 2 ? 'bg-easy text-snow' : 'text-main'}`}
+                onClick={() => setTabKey(2)}
+              >
+                Change Password
+              </button>
+            </div>
+
             {userDetails === null
               ? <Spin size="default" />
-              : <UpdateProfile userDetails={userDetails} {...fetcher} />
+              : tabKey === 1
+                ? <UpdateProfile userDetails={userDetails} {...fetcher} />
+                : <UpdatePassword />
             }
 
-            <Divider
-              style={{
-                backgroundColor: theme === 'light' ? '#111827' : '#f2f4f7'
-              }}
-            />
-            <h1>Change Password</h1>
           </div>
         </div>
       </Navbar>

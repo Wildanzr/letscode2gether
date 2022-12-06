@@ -51,7 +51,7 @@ const UserJourney = (props) => {
         <div className="flex flex-col w-full space-y-2">
           <div className="flex flex-col space-y-2 items-center">
             <p className="mb-0 text-lg font-ubuntu font-bold">
-              Overral progress:
+              Journey progress:
             </p>
             <p className="mb-0 text-4xl font-ubuntu font-bold text-success">
               {progress}%
