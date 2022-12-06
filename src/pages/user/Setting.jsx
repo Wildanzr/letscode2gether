@@ -24,6 +24,9 @@ const SettingPage = () => {
 
   // Get profile details
   const getProfileDetails = async () => {
+    // Reset user details
+    setUserDetails(null)
+
     // Config
     const config = {
       headers: {

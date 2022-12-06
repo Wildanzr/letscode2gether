@@ -1,4 +1,5 @@
 /* eslint-disable prefer-promise-reject-errors */
+import { useGlobal } from '../../contexts/GlobalContext'
 import { useAuth } from '../../contexts/AuthContext'
 
 import api from '../../api'
@@ -23,10 +24,14 @@ const UpdateProfile = (props) => {
     fullName,
     gender,
     dateOfBirth,
-    address = 'taad',
-    phone = '13231',
-    bio = 'adsadadasd'
+    address,
+    phone,
+    bio
   } = userDetails
+
+  // Global Functions
+  const { globalFunctions } = useGlobal()
+  const { mySwal } = globalFunctions
 
   // Auth Functions
   const { authFunctions } = useAuth()
@@ -48,6 +53,18 @@ const UpdateProfile = (props) => {
 
   // onFinish
   const onFinish = async (values) => {
+    // Show loading
+    mySwal.fire({
+      title: 'Updating your profile...',
+      allowOutsideClick: true,
+      backdrop: true,
+      allowEscapeKey: true,
+      showConfirmButton: false,
+      didOpen: () => {
+        mySwal.showLoading()
+      }
+    })
+
     // Create payload
     const payload = {
       email: values.email,
@@ -60,8 +77,6 @@ const UpdateProfile = (props) => {
       bio: values.bio
     }
 
-    console.log(payload)
-
     // Config
     const config = {
       headers: {
@@ -70,14 +85,33 @@ const UpdateProfile = (props) => {
     }
 
     try {
-      const { data } = await api.put('/user/profile', payload, config)
-      console.log(data)
+      await api.put('/user/profile', payload, config)
+      // console.log(data)
+
+      mySwal.fire({
+        icon: 'success',
+        title: 'Update Profile Success',
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 2000,
+        showConfirmButton: false
+      })
 
       // Set fetch to true
       await fetchUser()
       setFetch(true)
     } catch (error) {
       console.log(error)
+      mySwal.fire({
+        icon: 'error',
+        title: error.response.data.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false
+      })
     }
   }
 
