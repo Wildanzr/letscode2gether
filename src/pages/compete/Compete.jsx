@@ -38,7 +38,8 @@ const CompetePage = () => {
   }
 
   const onShowSizeChange = (current, pageSize) => {
-    console.log(current, pageSize)
+    setCurrent(current)
+    setTotal(parseInt(pageSize))
   }
 
   // Fetch Competes
@@ -49,7 +50,7 @@ const CompetePage = () => {
       )
       const { meta } = data
       const { competes } = data.data
-      console.log(data)
+      // console.log(data)
 
       // Set values
       setCompetes(competes)
@@ -112,9 +113,9 @@ const CompetePage = () => {
           />
 
           <Pagination
-            onShowSizeChange={onShowSizeChange}
-            defaultCurrent={3}
-            total={20}
+            onChange={onShowSizeChange}
+            defaultCurrent={current}
+            total={total}
           />
         </div>
 
@@ -129,9 +130,9 @@ const CompetePage = () => {
 
         <div className="w-full flex flex-row justify-center lg:hidden">
           <Pagination
-            onShowSizeChange={onShowSizeChange}
-            defaultCurrent={3}
-            total={20}
+            onChange={onShowSizeChange}
+            defaultCurrent={current}
+            total={total}
           />
         </div>
 
