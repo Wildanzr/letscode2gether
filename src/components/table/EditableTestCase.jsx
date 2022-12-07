@@ -183,7 +183,9 @@ const EditableTestCase = (props) => {
                               to={
                                 journeyId === undefined
                                   ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/testcases/${_id}/edit`
-                                  : `/admin/manage/journeys/${journeyId}/problems/${problemId}/testcases/${_id}/edit`
+                                  : competes
+                                    ? `/teacher/manage/competes/${journeyId}/problems/${problemId}/testcases/${_id}/edit`
+                                    : `/admin/manage/journeys/${journeyId}/problems/${problemId}/testcases/${_id}/edit`
                               }
                               className="px-2 py-2 bg-medium rounded-lg"
                             >

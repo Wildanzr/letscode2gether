@@ -42,7 +42,7 @@ const EditCompetesPage = () => {
               <div className="flex flex-col w-full space-y-2 overflow-y-auto">
                 <div className="flex flex-col pb-4 overflow-y-auto">
                   <div className="flex w-full">
-                    <EditableListOfCompeteProblem />
+                    <EditableListOfCompeteProblem competes={true} />
                   </div>
                 </div>
               </div>

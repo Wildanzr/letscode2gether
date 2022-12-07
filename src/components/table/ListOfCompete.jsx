@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 import { BsEye, BsPencil, BsTrash, BsPlus } from 'react-icons/bs'
 
 const ListOfCompete = (props) => {
-  const { journeys, setFetch } = props
+  const { journeys, setFetch, competes } = props
 
   // Global functions
   const { globalFunctions } = useGlobal()
@@ -64,7 +64,7 @@ const ListOfCompete = (props) => {
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: 'Journey has been deleted',
+        title: competes ? 'Compete has been deleted' : 'Journey has been deleted',
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,

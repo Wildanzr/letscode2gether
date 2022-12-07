@@ -9,6 +9,9 @@ import { Link, useParams } from 'react-router-dom'
 import { Spin, Tag } from 'antd'
 
 const EditableListOfCompeteProblem = (props) => {
+  // Props destructuring
+  const { competes } = props
+
   // useParams
   const { journeyId } = useParams()
 
@@ -229,14 +232,20 @@ const EditableListOfCompeteProblem = (props) => {
                 <td className="py-3 px-5 text-left overflow-clip">
                   <div className="flex flex-row space-x-4 items-center justify-end">
                     <Link
-                      to={`/admin/manage/journeys/${journeyId}/problems/${_id}?origin=edit`}
+                      to={competes
+                        ? `/teacher/manage/competes/${journeyId}/problems/${_id}?origin=edit`
+                        : `/admin/manage/journeys/${journeyId}/problems/${_id}?origin=edit`
+                      }
                       className="px-2 py-2 bg-easy rounded-lg"
                     >
                       <BsEye className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
                     </Link>
 
                     <Link
-                      to={`/admin/manage/journeys/${journeyId}/problems/${_id}/edit`}
+                      to={competes
+                        ? `/teacher/manage/competes/${journeyId}/problems/${_id}/edit`
+                        : `/admin/manage/journeys/${journeyId}/problems/${_id}/edit`
+                      }
                       className="px-2 py-2 bg-medium rounded-lg"
                     >
                       <BsPencil className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />

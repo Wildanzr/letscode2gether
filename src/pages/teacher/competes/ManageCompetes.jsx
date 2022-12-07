@@ -109,7 +109,7 @@ const ManageCompetesPage = () => {
                 {
                   journeys === null
                     ? <ListOfCompete journeys={null} setFetch={setFetch} />
-                    : <ListOfCompete journeys={journeys} setFetch={setFetch} />
+                    : <ListOfCompete journeys={journeys} setFetch={setFetch} competes={true} />
                 }
               </div>
             </div>

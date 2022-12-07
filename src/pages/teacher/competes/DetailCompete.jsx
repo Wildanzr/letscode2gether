@@ -18,12 +18,12 @@ const DetailCompetesPage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: 'List of Learning Journeys',
-      target: '/admin/manage/journeys'
+      name: 'List of Competes',
+      target: '/teacher/manage/competes'
     },
     {
-      name: 'Detail Learning Journey',
-      target: `/admin/manage/journeys/${journeyId}`
+      name: 'Detail Compete',
+      target: `/teacher/manage/competes/${journeyId}`
     }
   ])
 
@@ -85,7 +85,7 @@ const DetailCompetesPage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              Learning Journey
+              Competes
             </h3>
             <Breadcrumb paths={paths} />
           </div>
@@ -107,7 +107,7 @@ const DetailCompetesPage = () => {
                 <div className="flex flex-col w-full space-y-2 overflow-y-auto">
                   <div className="flex flex-col pb-4 overflow-y-auto">
                     <div className="flex w-full">
-                      <ListOfProblem />
+                      <ListOfProblem competes={true} />
                     </div>
                   </div>
                 </div>
