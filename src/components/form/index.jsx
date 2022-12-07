@@ -25,3 +25,5 @@ export { default as EditChallenge } from './EditChallenge'
 export { default as UpdateProfile } from './UpdateProfile'
 export { default as UpdateProfilePicture } from './UpdateProfilePicture'
 export { default as UpdatePassword } from './UpdatePassword'
+
+export { default as JoinCompete } from './JoinCompete'

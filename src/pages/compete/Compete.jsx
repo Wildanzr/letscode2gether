@@ -1,10 +1,16 @@
-import Compete from '../../assets/compete.svg'
+import { useState, useEffect } from 'react'
+import CompetePic from '../../assets/compete.svg'
+
+import api from '../../api'
+import { Compete } from '../../components/card'
+import { JoinCompete } from '../../components/modal'
 
 import { RiSearchLine } from 'react-icons/ri'
-import { Input, Cascader, Pagination } from 'antd'
+import { Input, Cascader, Pagination, Spin } from 'antd'
 import { Navbar, Footer } from '../../layout'
 
 const CompetePage = () => {
+  // Local States
   const options = [
     {
       value: 'on going',
@@ -19,6 +25,13 @@ const CompetePage = () => {
       label: 'Joined'
     }
   ]
+  const [competes, setCompetes] = useState(null)
+  const [current, setCurrent] = useState(1)
+  const [total, setTotal] = useState(10)
+  const [fetch, setFetch] = useState(true)
+
+  // Compete props drill
+  const [selectedCompete, setSelectedCompete] = useState(null)
 
   const onChange = (value) => {
     console.log(value)
@@ -27,13 +40,41 @@ const CompetePage = () => {
   const onShowSizeChange = (current, pageSize) => {
     console.log(current, pageSize)
   }
+
+  // Fetch Competes
+  const fetchCompetes = async () => {
+    try {
+      const { data } = await api.get(
+        `/competes?page=${current}&limit=${total}&isLearnPath=false&isChallenge=false`
+      )
+      const { meta } = data
+      const { competes } = data.data
+      console.log(data)
+
+      // Set values
+      setCompetes(competes)
+      setCurrent(parseInt(meta.page))
+      setTotal(parseInt(meta.total))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Initial fetch competes
+  useEffect(() => {
+    if (fetch) {
+      fetchCompetes()
+      setFetch(false)
+    }
+  }, [fetch])
+
   return (
     <div className="flex flex-col w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar />
 
       <div className="flex px-[5%] flex-col lg:flex-row-reverse w-full items-center justify-center lg:justify-between">
         <div className="flex w-full lg:w-1/3 items-center justify-center">
-          <img src={Compete} className="flex w-[60%]" />
+          <img src={CompetePic} className="flex w-[60%]" />
         </div>
 
         <div className="flex w-full lg:w-2/3 items-center justify-center">
@@ -42,13 +83,15 @@ const CompetePage = () => {
               Compete
             </p>
             <p className="flex lg:hidden font-ubuntu text-base lg:text-lg text-center lg:text-left">
-              Competition is a  a rivalry where two or more parties strive for a common goal which cannot be
-              shared: where one&apos;s gain is the other&apos;s loss. But,  in this competition you can share and
+              Competition is a a rivalry where two or more parties strive for a
+              common goal which cannot be shared: where one&apos;s gain is the
+              other&apos;s loss. But, in this competition you can share and
               collaborate with your friend to solve the problem. Ready to start?
             </p>
             <p className="hidden lg:flex font-ubuntu text-base lg:text-lg text-center lg:text-left">
-              Competition is a  a rivalry where two or more parties strive for a common goal which cannot be
-              shared: where one&apos;s gain is the other&apos;s loss. But,  in this competition you can share and
+              Competition is a a rivalry where two or more parties strive for a
+              common goal which cannot be shared: where one&apos;s gain is the
+              other&apos;s loss. But, in this competition you can share and
               collaborate with your friend to solve the problem. Ready to start?
             </p>
           </div>
@@ -92,34 +135,28 @@ const CompetePage = () => {
           />
         </div>
 
-        <div className="flex flex-row justify-between w-full px-5 py-3 rounded-lg border-2 lg:border-4 border-easy bg-gradient-to-r from-[#CCF3F6] dark:from-[#30143F] via-[#DDCFF0] dark:via-[#151223] to:[#DCE7B3] dark:to-[#151729] duration-300 ease-out">
-          <div className="flex w-full flex-col space-y-3">
+        {/* Compete List */}
+        {competes === null
+          ? <Spin size='default' />
+          : competes.length === 0
+            ? <p className='text-center text-xl font-ubuntu'>No Compete</p>
+            : competes.map((compete, index) => {
+              const { key: competeKey } = compete
+              const competeProps = {
+                competeKey,
+                ...compete,
+                selectedCompete,
+                setSelectedCompete
+              }
+              return (
+                <Compete key={index} {...compete} {...competeProps} />
+              )
+            })
+        }
 
-            {/* Compete Title and Button Join */}
-            <div className="flex flex-row w-full items-center justify-between">
-              <p className='mb-0 font-ubuntu text-3xl tracking-wide font-medium'>UAP PEMDAS - FILKOM 2022</p>
-              <button className='px-2 py-2 bg-main dark:bg-alternate text-snow dark:text-snow whitespace-nowrap rounded font-medium'>Join Now</button>
-            </div>
+        {/* Modal for join compete */}
+        <JoinCompete selectedCompete={selectedCompete} setSelectedCompete={setSelectedCompete} />
 
-            {/* Compete Information */}
-            <div className="flex flex-col w-full space-y-1 items-start">
-              <p className='mb-0 text-sm font-ubuntu font-bold'>
-                Challenger: <span className='pl-2 mb-0 text-sm font-ubuntu font-thin text-easy'>Mr. John Doe</span>
-              </p>
-              <p className='mb-0 text-sm font-ubuntu font-bold'>
-                Starts In: <span className='mb-0 text-sm font-ubuntu font-thin'>Wednesday, 24 May 2022 14:00</span>
-              </p>
-              <p className='mb-0 text-sm font-ubuntu font-bold'>
-                Ends In: <span className='pl-2 mb-0 text-sm font-ubuntu font-thin'>Wednesday, 24 May 2022 16:00</span>
-              </p>
-              <p className='mb-0 text-sm font-ubuntu font-thin text-justify'>
-                <span className='font-bold'>Description:</span> <br />
-                Praesent gravida nisi velit, eu gravida nunc ultrices nec. Donec ut rutrum lacus, quis imperdiet urna. Cras mollis lectus eu neque dictum, at mollis enim tristique. Curabitur convallis nulla mauris, vitae posuere tortor scelerisque tristique. Aliquam pellentesque justo in scelerisque commodo. Integer urna leo, elementum et nisi nec, fringilla efficitur dui. Integer placerat justo semper nisi imperdiet suscipit. Ut consectetur, eros non molestie tempus, eros lectus blandit enim, at pellentesque arcu eros sit amet dolor. Nam eget justo sem.
-              </p>
-            </div>
-
-          </div>
-        </div>
       </div>
 
       <Footer />
