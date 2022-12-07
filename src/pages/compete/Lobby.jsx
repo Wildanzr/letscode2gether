@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/AuthContext'
 import api from '../../api'
 import { Navbar, Footer } from '../../layout'
 import { CompeteHeader } from '../../components/other'
-import { CompeteProblemList } from '../../views'
+import { CompeteProblemList, CompeteLeaderboard } from '../../views'
 
 import Cookies from 'js-cookie'
 import { Spin } from 'antd'
@@ -134,7 +134,7 @@ const CompeteLobbyPage = () => {
               ? compete === null || problems === null
                 ? <Spin size="default" />
                 : <CompeteProblemList problems={problems} competeId={compete._id}/>
-              : 'Leaderboard'
+              : <CompeteLeaderboard />
             }
           </div>
         </div>

@@ -18,3 +18,5 @@ export { default as EditableListOfProblem } from './EditableListOfProblem'
 export { default as EditableListOfCompeteProblem } from './EditableListOfCompeteProblem'
 
 export { default as EditableListOfChallenge } from './EditableListOfChallenge'
+
+export { default as CompeteLeaderboard } from './CompeteLeaderboard'

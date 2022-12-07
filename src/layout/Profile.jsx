@@ -33,7 +33,7 @@ const Profile = (props) => {
         className="flex text-sm rounded-full"
       >
         <div className="flex flex-row items-center w-full space-x-4">
-          <div className="flex h-8 w-8 rounded-full bg-red-500">
+          <div className="flex h-8 w-8 rounded-full">
             <img
               src={avatar}
               className="rounded-full object-cover object-center"
