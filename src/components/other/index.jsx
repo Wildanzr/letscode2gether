@@ -5,3 +5,5 @@ export { default as CollabInfo } from './CollabInfo'
 
 export { default as SearchDebounce } from './SearchDebounce'
 export { default as CompeteSearch } from './CompeteSearch'
+
+export { default as CompeteHeader } from './CompeteHeader'

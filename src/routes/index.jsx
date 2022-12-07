@@ -6,7 +6,7 @@ import { CollabPage } from '../pages/collaboration'
 import { HomePage } from '../pages/home'
 import { JourneyPage, ProblemPage } from '../pages/journey'
 import { ChallengePage, ChallengeProblemPage } from '../pages/challenge'
-import { CompetePage } from '../pages/compete'
+import { CompetePage, CompeteLobbyPage } from '../pages/compete'
 import { LeaderboardPage } from '../pages/leaderboard'
 import { ProfilePage, SettingPage } from '../pages/user'
 import {
@@ -143,7 +143,15 @@ const RouteList = () => {
         <Route index element={<ChallengePage />} />
       </Route>
 
-      <Route path="/competes" element={<CompetePage />} />
+      {/* Compete */}
+      <Route path="/competes">
+        <Route
+          path=":competeId/lobby"
+          element={<CompeteLobbyPage />}
+        />
+        <Route index element={<CompetePage />} />
+      </Route>
+
       <Route path="/leaderboards" element={<LeaderboardPage />} />
       <Route path="/collab" element={<CollabPage />} />
 

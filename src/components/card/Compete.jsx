@@ -82,7 +82,7 @@ const Compete = (props) => {
     } else {
       setIsJoined(false)
     }
-  }, [])
+  }, [user])
 
   return (
     <div className="flex flex-row justify-between w-full px-5 py-3 rounded-lg border-2 lg:border-4 border-easy bg-gradient-to-r from-[#CCF3F6] dark:from-[#30143F] via-[#DDCFF0] dark:via-[#151223] to:[#DCE7B3] dark:to-[#151729] duration-300 ease-out">
@@ -131,6 +131,7 @@ const Compete = (props) => {
             {description}
           </p>
         </div>
+
       </div>
     </div>
   )
