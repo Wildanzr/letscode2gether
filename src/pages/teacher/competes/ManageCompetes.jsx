@@ -29,7 +29,8 @@ const ManageCompetesPage = () => {
   const [total, setTotal] = useState(10)
 
   const onShowSizeChange = (current, pageSize) => {
-    console.log(current, pageSize)
+    setDefaultCurrent(current)
+    setTotal(parseInt(pageSize))
   }
 
   const fetchJourneys = async () => {
@@ -40,9 +41,8 @@ const ManageCompetesPage = () => {
     }
     try {
       const ENDPOINT = `/competes?page=1&limit=10&isLearnPath=false&isChallenge=false&challengerId=${user._id}`
-      console.log(ENDPOINT)
       const { data } = await api.get(ENDPOINT, config)
-      // console.log(data)
+      console.log(data)
 
       const { meta } = data
       const { competes } = data.data

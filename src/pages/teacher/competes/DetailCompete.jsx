@@ -43,6 +43,7 @@ const DetailCompetesPage = () => {
     try {
       const { data } = await api.get(`/competes/${journeyId}`, config)
       const { compete } = data.data
+      // console.log(compete)
 
       setJourneyDetail(compete)
       setLanguageAllowed(transformLanguageAllowed(compete.languageAllowed))

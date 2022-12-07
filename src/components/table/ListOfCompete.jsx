@@ -24,8 +24,13 @@ const ListOfCompete = (props) => {
     },
     {
       name: 'NAME',
-      wide: 75,
+      wide: 65,
       align: 'text-left'
+    },
+    {
+      name: 'KEY',
+      wide: 10,
+      align: 'text-center'
     },
     {
       name: 'TOTAL PROBLEM',
@@ -91,7 +96,7 @@ const ListOfCompete = (props) => {
     mySwal.fire({
       icon: 'warning',
       title: 'Are you sure?',
-      text: 'You will not be able to recover this learning journey!',
+      text: 'You will not be able to recover this compete!',
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
       confirmButtonColor: '#d33',
@@ -158,14 +163,14 @@ const ListOfCompete = (props) => {
                     <td colSpan={5} className="py-3 px-5 text-left overflow-clip">
                       <div className="flex items-center justify-center">
                         <div className="font-medium whitespace-nowrap">
-                          <span className="ml-3 text-gray-600">No Journeys Found</span>
+                          <span className="ml-3 text-gray-600">No Compete Found</span>
                         </div>
                       </div>
                     </td>
                   </tr>
                   )
                 : journeys.map((journey, index) => {
-                  const { _id, name, problems } = journey
+                  const { _id, name, problems, key } = journey
                   return (
                 <tr
                   key={index}
@@ -182,6 +187,15 @@ const ListOfCompete = (props) => {
                     <div className="flex items-center justify-start">
                       <div className="font-medium whitespace-nowrap">
                         <span className="text-gray-600">{name}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="py-3 px-5 text-left overflow-clip">
+                    <div className="flex items-center justify-center">
+                      <div className="font-medium whitespace-nowrap">
+                        <span className="text-gray-600">
+                          {key}
+                        </span>
                       </div>
                     </div>
                   </td>
@@ -224,7 +238,7 @@ const ListOfCompete = (props) => {
         {/* Button for add more learning journey */}
         <tr>
           <td
-            colSpan="4"
+            colSpan="5"
             className="bg-easy hover:bg-blue-600 duration-300 ease-in-out"
           >
             <div className="py-2 flex flex-row items-center justify-center">
