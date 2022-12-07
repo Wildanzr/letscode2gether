@@ -10,7 +10,7 @@ import { Link, useParams } from 'react-router-dom'
 
 const EditableTestCase = (props) => {
   // Destructure props
-  const { testCases, setFetch } = props
+  const { testCases, setFetch, competes } = props
 
   // useParams
   const { journeyId, problemId, competeId, challengeId } = useParams()
@@ -230,7 +230,9 @@ const EditableTestCase = (props) => {
                     to={
                       journeyId === undefined
                         ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/testcases/create`
-                        : `/admin/manage/journeys/${journeyId}/problems/${problemId}/testcases/create`
+                        : competes
+                          ? `/teacher/manage/competes/${journeyId}/problems/${problemId}/testcases/create`
+                          : `/admin/manage/journeys/${journeyId}/problems/${problemId}/testcases/create`
                     }
                     className="flex flex-row space-x-2 w-full items-center justify-center"
                   >

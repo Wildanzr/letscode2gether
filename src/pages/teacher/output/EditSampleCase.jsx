@@ -6,45 +6,29 @@ import { EditSample } from '../../../components/form'
 
 import { useParams } from 'react-router-dom'
 
-const EditSampleCasePage = () => {
+const EditProblemSampleCasePage = () => {
   // useParams
-  const { journeyId, problemId, competeId, challengeId, sampleId } = useParams()
+  const { journeyId, problemId, sampleId } = useParams()
 
   // Breadcrumb paths
-  const [paths] = useState(
-    journeyId === undefined
-      ? [
-          {
-            name: 'List of Challenges',
-            target: '/admin/manage/challenges'
-          },
-          {
-            name: 'Edit Challenge',
-            target: `/admin/manage/challenges/${competeId}/problems/${challengeId}/edit`
-          },
-          {
-            name: 'Edit Sample Case',
-            target: `/admin/manage/challenges/${competeId}/problems/${challengeId}/samplecases/edit`
-          }
-        ]
-      : [
-          {
-            name: 'List of Learning Journeys',
-            target: '/admin/manage/journeys'
-          },
-          {
-            name: 'Edit Learning Journey',
-            target: `/admin/manage/journeys/${journeyId}/edit`
-          },
-          {
-            name: 'Edit Problem',
-            target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
-          },
-          {
-            name: 'Edit Sample Case',
-            target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/${sampleId}/edit`
-          }
-        ]
+  const [paths] = useState([
+    {
+      name: 'List of Competes',
+      target: '/teacher/manage/competes'
+    },
+    {
+      name: 'Edit Compete',
+      target: `/teacher/manage/competes/${journeyId}/edit`
+    },
+    {
+      name: 'Edit Problem',
+      target: `/teacher/manage/competes/${journeyId}/problems/${problemId}/edit`
+    },
+    {
+      name: 'Edit Sample Case',
+      target: `/teacher/manage/competes/${journeyId}/problems/${problemId}/samplecases/${sampleId}/edit`
+    }
+  ]
   )
 
   return (
@@ -54,13 +38,13 @@ const EditSampleCasePage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              {journeyId === undefined ? 'Challenge' : 'Learning Journey'}
+              Competes
             </h3>
             <Breadcrumb paths={paths} />
           </div>
 
           {/* Edit Sample Case */}
-          <EditSample />
+          <EditSample competes={true} />
         </div>
       </Navbar>
 
@@ -69,4 +53,4 @@ const EditSampleCasePage = () => {
   )
 }
 
-export default EditSampleCasePage
+export default EditProblemSampleCasePage

@@ -42,7 +42,11 @@ import {
   EditCompetesPage,
   CreateCompeteProblemPage,
   DetailCompeteProblemPage,
-  EditCompeteProblemPage
+  EditCompeteProblemPage,
+  CreateProblemSampleCasePage,
+  EditProblemSampleCasePage,
+  CreateProblemTestCasePage,
+  EditProblemTestCasePage
 } from '../pages/teacher'
 import { NotFound } from '../pages/notfound'
 
@@ -249,19 +253,19 @@ const RouteList = () => {
             />
             <Route
               path=":journeyId/problems/:problemId/samplecases/create"
-              element={<CreateSampleCasePage />}
+              element={<CreateProblemSampleCasePage />}
             />
             <Route
               path=":journeyId/problems/:problemId/samplecases/:sampleId/edit"
-              element={<EditSampleCasePage />}
+              element={<EditProblemSampleCasePage />}
             />
             <Route
               path=":journeyId/problems/:problemId/testcases/create"
-              element={<CreateTestCasePage />}
+              element={<CreateProblemTestCasePage />}
             />
             <Route
               path=":journeyId/problems/:problemId/testcases/:testId/edit"
-              element={<EditTestCasePage />}
+              element={<EditProblemTestCasePage />}
             />
             <Route index element={<ManageCompetesPage />} />
           </Route>

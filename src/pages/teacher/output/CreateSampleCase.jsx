@@ -6,44 +6,29 @@ import { AddSample } from '../../../components/form'
 
 import { useParams } from 'react-router-dom'
 
-const CreateSampleCasePage = () => {
+const CreateProblemSampleCasePage = () => {
   // useParams
-  const { journeyId, problemId, competeId, challengeId } = useParams()
+  const { journeyId, problemId } = useParams()
 
   // Breadcrumb paths
-  const [paths] = useState(journeyId === undefined
-    ? [
-        {
-          name: 'List of Challenges',
-          target: '/admin/manage/challenges'
-        },
-        {
-          name: 'Edit Challenge',
-          target: `/admin/manage/challenges/${competeId}/problems/${challengeId}/edit`
-        },
-        {
-          name: 'Add Sample Case',
-          target: `/admin/manage/challenges/${competeId}/problems/${challengeId}/samplecases/create`
-        }
-      ]
-    : [
-        {
-          name: 'List of Learning Journeys',
-          target: '/admin/manage/journeys'
-        },
-        {
-          name: 'Edit Learning Journey',
-          target: `/admin/manage/journeys/${journeyId}/edit`
-        },
-        {
-          name: 'Edit Problem',
-          target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
-        },
-        {
-          name: 'Add Sample Case',
-          target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/create`
-        }
-      ]
+  const [paths] = useState([
+    {
+      name: 'List of Competes',
+      target: '/teacher/manage/competes'
+    },
+    {
+      name: 'Edit Compete',
+      target: `/teacher/manage/competes/${journeyId}/edit`
+    },
+    {
+      name: 'Edit Problem',
+      target: `/teacher/manage/competes/${journeyId}/problems/${problemId}/edit`
+    },
+    {
+      name: 'Add Sample Case',
+      target: `/teacher/manage/competes/${journeyId}/problems/${problemId}/samplecases/create`
+    }
+  ]
   )
 
   return (
@@ -53,13 +38,13 @@ const CreateSampleCasePage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              {journeyId === undefined ? 'Challenges' : 'Learning Journey'}
+              Competes
             </h3>
             <Breadcrumb paths={paths} />
           </div>
 
           {/* Add Sample Case */}
-          <AddSample />
+          <AddSample competes={true}/>
         </div>
       </Navbar>
 
@@ -68,4 +53,4 @@ const CreateSampleCasePage = () => {
   )
 }
 
-export default CreateSampleCasePage
+export default CreateProblemSampleCasePage

@@ -16,16 +16,16 @@ const EditCompeteProblemPage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: 'List of Learning Journeys',
-      target: '/admin/manage/journeys'
+      name: 'List of Competes',
+      target: '/teacher/manage/competes'
     },
     {
-      name: 'Edit Learning Journey',
-      target: `/admin/manage/journeys/${journeyId}/edit`
+      name: 'Edit Compete',
+      target: `/teacher/manage/competes/${journeyId}/edit`
     },
     {
       name: 'Edit Problem',
-      target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
+      target: `/teacher/manage/competes/${journeyId}/problems/${problemId}/edit`
     }
   ])
 
@@ -70,26 +70,26 @@ const EditCompeteProblemPage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              Learning Journey
+              Competes
             </h3>
             <Breadcrumb paths={paths} />
           </div>
 
           {/* Edit Problem */}
-          <EditProblem problemDetail={problemDetail} setFetch={setFetch}>
+          <EditProblem problemDetail={problemDetail} setFetch={setFetch} competes={true} >
             <div className="flex flex-col space-y-4 w-full font-ubuntu">
               <div className="flex flex-col w-full space-y-2">
                 <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
                   Sample Cases
                 </p>
-                <EditableSampleCase sampleCases={sampleCases} setFetch={setFetch} />
+                <EditableSampleCase sampleCases={sampleCases} setFetch={setFetch} competes={true}/>
               </div>
 
               <div className="flex flex-col w-full space-y-2">
                 <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
                   Test Cases
                 </p>
-                <EditableTestCase testCases={testCases} setFetch={setFetch}/>
+                <EditableTestCase testCases={testCases} setFetch={setFetch} competes={true}/>
               </div>
             </div>
           </EditProblem>

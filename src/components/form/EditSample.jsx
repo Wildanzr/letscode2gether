@@ -10,7 +10,10 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 const { Item } = Form
 const { TextArea } = Input
 
-const AddSample = () => {
+const AddSample = (props) => {
+  // Props destructuring
+  const { competes } = props
+
   // useForm
   const [form] = Form.useForm()
 
@@ -67,7 +70,9 @@ const AddSample = () => {
       }).then(() => {
         const path = journeyId === undefined
           ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/edit`
-          : `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
+          : competes
+            ? `/teacher/manage/competes/${journeyId}/problems/${problemId}/edit`
+            : `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
 
         navigate(path)
       })
@@ -228,7 +233,9 @@ const AddSample = () => {
                 to={
                   journeyId === undefined
                     ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/edit`
-                    : `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
+                    : competes
+                      ? `/teacher/manage/competes/${journeyId}/problems/${problemId}/edit`
+                      : `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
                 }
                 className="px-4 py-2 mt-4 text-sm font-medium text-center font-ubuntu tracking-wider uppercase transition-colors transform border-2 text-main dark:text-snow border-main dark:border-snow dark:hover:border-easy hover:border-easy duration-300 ease-in-out"
               >
@@ -239,7 +246,7 @@ const AddSample = () => {
                 type="submit"
                 className="px-4 py-2 mt-4 text-sm font-medium text-center text-white font-ubuntu tracking-wider uppercase transition-colors duration-200 transform bg-easy hover:bg-blue-400 focus:outline-none focus:bg-blue-400"
               >
-                Create
+                Update
               </button>
             </div>
           </Item>
