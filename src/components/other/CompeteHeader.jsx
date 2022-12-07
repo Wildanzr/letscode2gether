@@ -20,7 +20,7 @@ const CompeteHeader = (props) => {
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a completed state
-      return 'Time is up!'
+      return <p className="mb-0 text-xl lg:text-3xl font-bold ">Time is up!</p>
     } else {
       // Render a countdown with days hours minutes and seconds in beautiful format
       return (

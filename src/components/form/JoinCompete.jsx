@@ -85,7 +85,7 @@ const JoinCompete = (props) => {
           }
         ]}
       >
-        <Input placeholder="Compete Key" />
+        <Input placeholder="Ask compete key to your teacher" />
       </Item>
 
       {/* Button */}

@@ -1,10 +1,12 @@
 import { Challenge } from '../components/card'
 
+import moment from 'moment/moment'
+
 import { Skeleton } from 'antd'
 
 const CompeteProblemList = (props) => {
   // Props destructuring
-  const { problems, competeId } = props
+  const { problems, competeId, compete } = props
   return (
     <div className="flex flex-col m-0 px-[5%] pb-10 space-y-5 lg:pt-0 w-full items-center justify-center">
         {problems === null
@@ -14,6 +16,8 @@ const CompeteProblemList = (props) => {
             : problems.map((problem, index) => {
               const { _id: competeProblemId, problemId, maxPoint } = problem
               const { title, difficulty } = problemId
+              const disabled = compete ? moment().isAfter(moment(compete.end)) : false
+              console.log(disabled)
               const challengeProps = {
                 title,
                 difficulty,
@@ -22,7 +26,7 @@ const CompeteProblemList = (props) => {
                 competeId
               }
               return (
-                <Challenge key={index} {...challengeProps} competes={true} />
+                <Challenge key={index} {...challengeProps} competes={true} disabled={disabled} />
               )
             })
         }

@@ -101,42 +101,55 @@ const CompeteLobbyPage = () => {
               )
             : isJoined && compete
               ? (
-            <CompeteHeader compete={compete} />
+            <div className="flex flex-col w-full h-screen items-center justify-start">
+              <CompeteHeader compete={compete} />
+              <div className="flex flex-col w-full items-center justify-center space-y-6">
+                {/* Tabs */}
+                <div className="flex bg-gray-200 rounded-lg">
+                  <button
+                    className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${
+                      tabKey === 1 ? 'bg-easy text-snow' : 'text-main'
+                    }`}
+                    onClick={() => setTabKey(1)}
+                  >
+                    Problems
+                  </button>
+                  <button
+                    className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${
+                      tabKey === 2 ? 'bg-easy text-snow' : 'text-main'
+                    }`}
+                    onClick={() => setTabKey(2)}
+                  >
+                    Leaderboard
+                  </button>
+                </div>
+
+                {/* Tab Content */}
+                {tabKey === 1 && isJoined
+                  ? (
+                      compete === null || problems === null
+                        ? (
+                    <Spin size="default" />
+                          )
+                        : (
+                    <CompeteProblemList
+                      problems={problems}
+                      competeId={compete._id}
+                      compete={compete}
+                    />
+                          )
+                    )
+                  : (
+                  <CompeteLeaderboard />
+                    )}
+              </div>
+            </div>
                 )
               : (
-                  'Oops you are not joined yet'
+                  <div className="flex w-full h-screen items-center justify-center">
+                    <p className='text-lg font-semibold'>Oops you are not join this compete</p>
+                  </div>
                 )}
-
-          <div className="flex flex-col w-full items-center justify-center space-y-6">
-
-            {/* Tabs */}
-            <div className="flex bg-gray-200 rounded-lg">
-              <button
-                className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${
-                  tabKey === 1 ? 'bg-easy text-snow' : 'text-main'
-                }`}
-                onClick={() => setTabKey(1)}
-              >
-                Problems
-              </button>
-              <button
-                className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${
-                  tabKey === 2 ? 'bg-easy text-snow' : 'text-main'
-                }`}
-                onClick={() => setTabKey(2)}
-              >
-                Leaderboard
-              </button>
-            </div>
-
-            {/* Tab Content */}
-            {tabKey === 1
-              ? compete === null || problems === null
-                ? <Spin size="default" />
-                : <CompeteProblemList problems={problems} competeId={compete._id}/>
-              : <CompeteLeaderboard />
-            }
-          </div>
         </div>
       </Navbar>
 

@@ -97,9 +97,13 @@ const Compete = (props) => {
             ? <Spin size="small" />
             : isJoined
               ? <Link to={`${_id}/lobby`} className="px-2 py-2 bg-success text-main cursor-pointer whitespace-nowrap rounded font-medium"> Joined </Link>
-              : <label onClick={joinCompete} htmlFor='modal-join-compete' className="px-2 py-2 bg-easy text-snow cursor-pointer whitespace-nowrap rounded font-medium">
-                Join Now
-              </label>
+              : moment().isAfter(moment(end))
+                ? <Link to={`${_id}/lobby`} className="px-2 py-2 bg-success text-main cursor-pointer whitespace-nowrap rounded font-medium">
+                    Check Result
+                  </Link>
+                : <label onClick={joinCompete} htmlFor='modal-join-compete' className="px-2 py-2 bg-easy text-snow cursor-pointer whitespace-nowrap rounded font-medium">
+                    Join Now
+                  </label>
           }
         </div>
 

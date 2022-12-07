@@ -10,6 +10,8 @@ import Cookies from 'js-cookie'
 import { RiSearchLine } from 'react-icons/ri'
 import { Input, Cascader, Pagination, Skeleton } from 'antd'
 
+const { Search } = Input
+
 const ChallengePage = () => {
   // Local states
   const [competeId, setCompeteId] = useState(null)
@@ -166,11 +168,12 @@ const ChallengePage = () => {
       {/* List Controller */}
       <div className="flex flex-col m-0 px-[5%] space-y-5 lg:pt-0 w-full items-center justify-between">
         <div className="w-full hidden lg:flex">
-          <Input
+          <Search
             placeholder="Search Challenge"
             prefix={<RiSearchLine />}
             allowClear
             onChange={debounce(handleSearch, 500)}
+            enterButton="Search"
           />
         </div>
 
@@ -190,11 +193,12 @@ const ChallengePage = () => {
         </div>
 
         <div className="flex flex-row lg:hidden w-full space-x-5">
-          <Input
+          <Search
             placeholder="Search Challenge"
             prefix={<RiSearchLine />}
             allowClear
             onChange={debounce(handleSearch, 500)}
+            enterButton="Search"
           />
           <Cascader
             options={options}
