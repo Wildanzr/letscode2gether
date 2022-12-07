@@ -14,7 +14,7 @@ const SideContent = () => {
   // Collab States
   const { problemStates } = useCollab()
   const { competeProblem } = problemStates
-  console.log(competeProblem)
+  // console.log(competeProblem)
 
   return (
     <div

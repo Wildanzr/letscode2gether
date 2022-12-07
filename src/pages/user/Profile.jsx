@@ -34,7 +34,7 @@ const ProfilePage = () => {
     try {
       const { data } = await api.get(`/user/profile/${username}`, config)
       const { user, journey } = data.data
-      console.log(data)
+      // console.log(data)
 
       // Set Value
       setProfileDetails(user)
