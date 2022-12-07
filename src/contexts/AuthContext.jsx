@@ -25,6 +25,22 @@ export const AuthProvider = ({ children }) => {
     })
   }
 
+  // TravelLog
+  const travelLog = async (path) => {
+    // Config
+    const config = {
+      headers: {
+        authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+
+    try {
+      await api.post(`user/travel?path=${path}`, {}, config)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   // Fetch user data when jwtToken changed
   useEffect(() => {
     if (jwtToken) {
@@ -44,7 +60,8 @@ export const AuthProvider = ({ children }) => {
 
   // Export auth functions here
   const authFunctions = {
-    fetchUser
+    fetchUser,
+    travelLog
   }
 
   return (

@@ -13,9 +13,10 @@ import { Navbar, Footer } from '../../layout'
 
 const { Search } = Input
 const CompetePage = () => {
-  // Auth States
-  const { authStates } = useAuth()
+  // Auth States and Functions
+  const { authStates, authFunctions } = useAuth()
   const { user } = authStates
+  const { travelLog } = authFunctions
 
   // Local States
   const [options, setOptions] = useState(
@@ -183,6 +184,13 @@ const CompetePage = () => {
               }
             ]
     )
+  }, [user])
+
+  // Travel log
+  useEffect(() => {
+    if (user) {
+      travelLog('Visiting compete page')
+    }
   }, [user])
 
   return (

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useAuth } from '../../contexts/AuthContext'
 
 import { Navbar, Footer } from '../../layout'
 import api from '../../api'
@@ -11,6 +12,11 @@ import { useParams } from 'react-router-dom'
 const ProfilePage = () => {
   // useParams
   const { username } = useParams()
+
+  // Auth States and Functions
+  const { authStates, authFunctions } = useAuth()
+  const { user } = authStates
+  const { travelLog } = authFunctions
 
   // Local States
   const [profileDetails, setProfileDetails] = useState(null)
@@ -42,6 +48,13 @@ const ProfilePage = () => {
   useEffect(() => {
     getProfileDetails()
   }, [])
+
+  // Travel log
+  useEffect(() => {
+    if (user) {
+      travelLog(`Visiting user profile page ->${username}`)
+    }
+  }, [user])
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar>

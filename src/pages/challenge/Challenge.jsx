@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useAuth } from '../../contexts/AuthContext'
 import ChallengePic from '../../assets/challenge.svg'
 
 import api from '../../api'
@@ -13,6 +14,11 @@ import { Input, Cascader, Pagination, Skeleton } from 'antd'
 const { Search } = Input
 
 const ChallengePage = () => {
+  // Auth States and Functions
+  const { authStates, authFunctions } = useAuth()
+  const { user } = authStates
+  const { travelLog } = authFunctions
+
   // Local states
   const [competeId, setCompeteId] = useState(null)
   const [problems, setProblems] = useState(null)
@@ -136,6 +142,13 @@ const ChallengePage = () => {
       setSecondFetch(false)
     }
   }, [total, defaultCurrent, secondFetch])
+
+  // Travel log
+  useEffect(() => {
+    if (user) {
+      travelLog('Visiting challenge page')
+    }
+  }, [user])
   return (
     <div className="flex flex-col w-full min-h-screen justify-between space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar />

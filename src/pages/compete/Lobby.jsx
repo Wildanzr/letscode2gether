@@ -14,9 +14,10 @@ const CompeteLobbyPage = () => {
   // useParams
   const { competeId } = useParams()
 
-  // Auth States
-  const { authStates } = useAuth()
+  // Auth States and Functions
+  const { authStates, authFunctions } = useAuth()
   const { user } = authStates
+  const { travelLog } = authFunctions
 
   // Local States
   const [isJoined, setIsJoined] = useState(null)
@@ -90,6 +91,13 @@ const CompeteLobbyPage = () => {
       getCompeteDetails()
     }
   }, [isJoined])
+
+  // Travel log
+  useEffect(() => {
+    if (user) {
+      travelLog(`Visiting compete page lobby ->${competeId}`)
+    }
+  }, [user])
 
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">

@@ -1,3 +1,6 @@
+import { useEffect } from 'react'
+import { useAuth } from '../../contexts/AuthContext'
+
 import Learn from '../../assets/learn.svg'
 import Collaborate from '../../assets/collaborate.svg'
 import Compile from '../../assets/compile.svg'
@@ -8,6 +11,17 @@ import { Link } from 'react-router-dom'
 import { RiArrowRightSLine } from 'react-icons/ri'
 
 const HomePage = () => {
+  // Auth States and Functions
+  const { authStates, authFunctions } = useAuth()
+  const { user } = authStates
+  const { travelLog } = authFunctions
+
+  // Travel log
+  useEffect(() => {
+    if (user) {
+      travelLog('Visiting home page')
+    }
+  }, [user])
   return (
     <div className="flex flex-col w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar />

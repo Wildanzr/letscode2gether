@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useAuth } from '../../contexts/AuthContext'
 
 import Leaderboard from '../../assets/leaderboard.svg'
 
@@ -9,6 +10,11 @@ import { Navbar, Footer } from '../../layout'
 import { Spin } from 'antd'
 
 const LeaderboardPage = () => {
+  // Auth States and Functions
+  const { authStates, authFunctions } = useAuth()
+  const { user } = authStates
+  const { travelLog } = authFunctions
+
   // Local States
   const [leaderboard, setLeaderboard] = useState(null)
 
@@ -30,6 +36,13 @@ const LeaderboardPage = () => {
   useEffect(() => {
     getOverallLeaderboard()
   }, [])
+
+  // Travel log
+  useEffect(() => {
+    if (user) {
+      travelLog('Visiting overall leaderboard page')
+    }
+  }, [user])
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar>
