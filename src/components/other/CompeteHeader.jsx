@@ -24,11 +24,14 @@ const CompeteHeader = (props) => {
     } else {
       // Render a countdown with days hours minutes and seconds in beautiful format
       return (
-        <div className="flex flex-row space-x-3 py-5 lg:py-20">
-          <Time time={days} unit="Days" />
-          <Time time={hours} unit="Hours" />
-          <Time time={minutes} unit="Minutes" />
-          <Time time={seconds} unit="Seconds" />
+        <div className="flex flex-col space-y-4 py-5 lg:py-20 items-center justify-center">
+          <p className="mb-0 text-xl lg:text-3xl font-black tracking-wide">Compete End</p>
+          <div className="flex flex-row space-x-3">
+            <Time time={days} unit="Days" />
+            <Time time={hours} unit="Hours" />
+            <Time time={minutes} unit="Minutes" />
+            <Time time={seconds} unit="Seconds" />
+          </div>
         </div>
       )
     }
@@ -49,7 +52,6 @@ const CompeteHeader = (props) => {
 
           {/* Compete Information */}
           <div className="flex flex-col w-full space-y-2 items-start">
-
             {/* Challenger */}
             <div className="flex flex-col w-full lg:flex-row space-y-2 lg:space-y-0 space-x-0 lg:space-x-4 items-center">
               <p className="mb-0 text-sm font-ubuntu font-bold">Challenger: </p>
@@ -70,19 +72,20 @@ const CompeteHeader = (props) => {
             </div>
 
             <div className="flex flex-col w-full lg:flex-row space-y-2 lg:space-y-0 space-x-0 lg:space-x-4 items-center">
-              <p className="mb-0 text-sm font-ubuntu font-bold">Starts In: </p>
+              <p className="mb-0 text-sm font-ubuntu font-bold">Ends In: </p>
               <span className="mb-0 text-sm font-ubuntu font-thin">
                 {moment(end).format('dddd, DD MMMM YYYY HH:mm')}
               </span>
             </div>
 
             <div className="flex flex-col w-full lg:flex-row space-y-2 lg:space-y-0 space-x-0 lg:space-x-4 items-center">
-              <p className="mb-0 text-sm font-ubuntu font-bold">Description: </p>
+              <p className="mb-0 text-sm font-ubuntu font-bold">
+                Description:{' '}
+              </p>
               <span className="mb-0 text-sm font-ubuntu font-thin">
                 {description}
               </span>
             </div>
-
           </div>
         </div>
       </div>

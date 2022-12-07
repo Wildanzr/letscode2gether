@@ -78,7 +78,7 @@ const Challenge = (props) => {
       <div className="flex w-2/6 items-start justify-end">
         <Link
           to={`path/${competeId}/problems/${competeProblemId}`}
-          className={`w-full lg:w-2/3 py-2 ${isDone === null ? 'bg-snow' : isDone === 0 ? 'bg-snow' : isDone === 1 ? 'bg-medium' : 'bg-success'} text-snow dark:text-main text-center rounded font-medium lg:font-bold`}>
+          className={`w-full lg:w-2/3 py-2 ${isDone === null ? 'bg-snow' : isDone === 0 ? 'bg-snow' : isDone === 1 ? 'bg-medium' : 'bg-success'} text-main text-center rounded font-medium lg:font-bold`}>
           {isDone === null
             ? <Spin size="small" />
             : isDone === 0

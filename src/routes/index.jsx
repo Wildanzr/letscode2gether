@@ -6,7 +6,11 @@ import { CollabPage } from '../pages/collaboration'
 import { HomePage } from '../pages/home'
 import { JourneyPage, ProblemPage } from '../pages/journey'
 import { ChallengePage, ChallengeProblemPage } from '../pages/challenge'
-import { CompetePage, CompeteLobbyPage } from '../pages/compete'
+import {
+  CompetePage,
+  CompeteLobbyPage,
+  CompeteProblemPage
+} from '../pages/compete'
 import { LeaderboardPage } from '../pages/leaderboard'
 import { ProfilePage, SettingPage } from '../pages/user'
 import {
@@ -91,11 +95,9 @@ const RouteList = () => {
     if (pathname.includes('/admin/dashboard')) setTabs(1)
     else if (pathname.includes('/admin/manage/journeys')) setTabs(2)
     else if (pathname.includes('/admin/manage/challenges')) setTabs(3)
-
     // For Teacher
     else if (pathname.includes('/teacher/dashboard')) setTabs(1)
     else if (pathname.includes('/teacher/manage/competes')) setTabs(2)
-
     // For User
     else if (pathname.includes('/learning-journey')) setTabs(1)
     else if (pathname.includes('/challenges')) setTabs(2)
@@ -145,10 +147,13 @@ const RouteList = () => {
 
       {/* Compete */}
       <Route path="/competes">
-        <Route
-          path=":competeId/lobby"
-          element={<CompeteLobbyPage />}
-        />
+        <Route path=":competeId/lobby">
+          <Route
+            path="path/:competeId/problems/:competeProblemId"
+            element={<CompeteProblemPage />}
+          />
+          <Route index element={<CompeteLobbyPage />} />
+        </Route>
         <Route index element={<CompetePage />} />
       </Route>
 

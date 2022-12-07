@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext'
 import api from '../../api'
 import { Navbar, Footer } from '../../layout'
 import { CompeteHeader } from '../../components/other'
+import { CompeteProblemList } from '../../views'
 
 import Cookies from 'js-cookie'
 import { Spin } from 'antd'
@@ -20,6 +21,8 @@ const CompeteLobbyPage = () => {
   // Local States
   const [isJoined, setIsJoined] = useState(null)
   const [compete, setCompete] = useState(null)
+  const [problems, setProblems] = useState(null)
+  const [tabKey, setTabKey] = useState(1)
 
   // Check if user already joined
   const checkJoined = async () => {
@@ -47,10 +50,26 @@ const CompeteLobbyPage = () => {
     try {
       const { data } = await api.get(`/competes/${competeId}`)
       const { compete } = data.data
-      //   console.log(compete)
+      const { _id } = compete
 
       // Set Value
       setCompete(compete)
+
+      await getCompeteProblems(_id)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Get Compete Problems
+  const getCompeteProblems = async (id) => {
+    try {
+      const { data } = await api.get(`/competes/${id}/problems`)
+      const { problems } = data.data
+      //   console.log(data)
+
+      // Set Value
+      setProblems(problems)
     } catch (error) {
       console.log(error)
     }
@@ -76,14 +95,48 @@ const CompeteLobbyPage = () => {
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar>
         <div className="flex px-[5%] flex-col w-full items-center justify-center">
+          {isJoined === null && compete === null
+            ? (
+            <Spin size="default" />
+              )
+            : isJoined && compete
+              ? (
+            <CompeteHeader compete={compete} />
+                )
+              : (
+                  'Oops you are not joined yet'
+                )}
 
-            {isJoined === null && compete === null
-              ? <Spin size="default" />
-              : isJoined && compete
-                ? <CompeteHeader compete={compete} />
-                : 'Oops you are not joined yet'
+          <div className="flex flex-col w-full items-center justify-center space-y-6">
+
+            {/* Tabs */}
+            <div className="flex bg-gray-200 rounded-lg">
+              <button
+                className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${
+                  tabKey === 1 ? 'bg-easy text-snow' : 'text-main'
+                }`}
+                onClick={() => setTabKey(1)}
+              >
+                Problems
+              </button>
+              <button
+                className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${
+                  tabKey === 2 ? 'bg-easy text-snow' : 'text-main'
+                }`}
+                onClick={() => setTabKey(2)}
+              >
+                Leaderboard
+              </button>
+            </div>
+
+            {/* Tab Content */}
+            {tabKey === 1
+              ? compete === null || problems === null
+                ? <Spin size="default" />
+                : <CompeteProblemList problems={problems} competeId={compete._id}/>
+              : 'Leaderboard'
             }
-
+          </div>
         </div>
       </Navbar>
 
