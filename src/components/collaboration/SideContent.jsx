@@ -14,6 +14,7 @@ const SideContent = () => {
   // Collab States
   const { problemStates } = useCollab()
   const { competeProblem } = problemStates
+  console.log(competeProblem)
 
   return (
     <div
@@ -32,15 +33,18 @@ const SideContent = () => {
               <h4 className="mb-0 text-lg lg:text-2xl font-semibold text-main dark:text-snow duration-300 ease-in-out">
                 {competeProblem.title}
               </h4>
-              <p className="mb-0 text-sm font-thin">
-                Challenger:
-                <Link
-                  to={`/@/${competeProblem.challenger.username}`}
-                  className="ml-2 font-medium text-easy"
-                >
-                  {competeProblem.challenger.username}
-                </Link>
-              </p>
+
+              <div className="flex flex-row space-x-2 items-center">
+                <p className="mb-0 text-sm font-thin duration-300 ease-in-out">
+                  Challenger:
+                </p>
+                  <Link
+                    to={`/profile/${competeProblem.challenger.username}`}
+                    className="ml-2 font-medium text-easy text-base"
+                  >
+                    {competeProblem.challenger.username}
+                  </Link>
+              </div>
             </div>
             : <Spin size="small" />
           }

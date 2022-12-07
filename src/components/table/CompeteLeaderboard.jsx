@@ -7,7 +7,7 @@ const Leaderboard = (props) => {
   return (
     <table className="w-full table-auto shadow-md">
       <thead>
-        <tr className="bg-gray-600 text-white uppercase text-sm leading-normal">
+        <tr className="bg-easy dark:bg-floor duration-300 ease-in-out text-white uppercase text-sm leading-normal">
           <th className="py-3 px-5 w-10 text-left overflow-clip whitespace-nowrap">
             RANK
           </th>

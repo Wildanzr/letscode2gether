@@ -8,7 +8,7 @@ const CPLeaderboard = (props) => {
   return (
     <table className="w-full table-auto shadow-md">
       <thead>
-        <tr className="bg-gray-600 text-white uppercase text-sm leading-normal">
+        <tr className="bg-easy dark:bg-floor duration-300 ease-in-out text-white uppercase text-sm leading-normal">
           <th className="py-3 px-5 w-10 text-left overflow-clip whitespace-nowrap">
             RANK
           </th>
@@ -20,7 +20,7 @@ const CPLeaderboard = (props) => {
           </th>
         </tr>
       </thead>
-      <tbody className="text-black text-xs font-light ">
+      <tbody className="text-black text-base font-light ">
         {data.map((person, index) => (
           <tr
             key={index}
@@ -29,18 +29,35 @@ const CPLeaderboard = (props) => {
             <td className="py-3 px-5 text-left overflow-clip">
               <div className="flex items-center justify-start">
                 <div className="font-medium whitespace-nowrap">
-                  <span className="ml-3 text-gray-600">{index + 1}</span>
+                  <span className="ml-3 text-main">
+                  {index + 1 === 1
+                    ? '🥇'
+                    : index + 1 === 2
+                      ? '🥈'
+                      : index + 1 === 3
+                        ? '🥉'
+                        : index + 1
+                    }
+                  </span>
                 </div>
               </div>
             </td>
             <td className="py-3 px-5 text-left overflow-clip">
               <div className="flex items-center justify-start">
-                <div className="font-medium whitespace-nowrap">
+              <div className="font-medium whitespace-nowrap">
                   <Link
-                    to={`/@/${person.userId.username}`}
-                    className="font-medium text-easy"
+                    to={`/profile/${person.username}`}
+                    className="flex flex-row group space-x-2 items-center group"
                   >
-                    {person.userId.username}
+                    <div className="flex h-8 w-8 rounded-full group-hover:border-easy">
+                      <img
+                        src={person.userId.avatar}
+                        className="rounded-full object-cover object-center"
+                      />
+                    </div>
+                    <span className="text-main group-hover:text-easy group-hover:cursor-pointer">
+                      {person.userId.username}
+                    </span>
                   </Link>
                 </div>
               </div>
@@ -48,7 +65,7 @@ const CPLeaderboard = (props) => {
             <td className="py-3 px-5 text-left overflow-clip">
               <div className="flex items-center justify-center">
                 <div className="font-medium whitespace-nowrap">
-                  <span className="text-gray-600">{person.currentPoints}</span>
+                  <span className="text-main">{person.currentPoints}</span>
                 </div>
               </div>
             </td>
