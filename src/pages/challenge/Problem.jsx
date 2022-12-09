@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
+import { useAuth } from '../../contexts/AuthContext'
 import { useCollab } from '../../contexts/CollabContext'
 
 import api from '../../api'
@@ -20,6 +21,11 @@ const ChallengeProblemPage = () => {
   const { globalState, editorState } = useGlobal()
   const { colHide, setIsOnlyEditor } = globalState
   const { run } = editorState
+
+  // Auth States and Functions
+  const { authStates, authFunctions } = useAuth()
+  const { user } = authStates
+  const { travelLog } = authFunctions
 
   // Collab States
   const { problemStates } = useCollab()
@@ -74,6 +80,13 @@ const ChallengeProblemPage = () => {
     getCompeteAllowedLanguage()
     getCompeteProblemDetail()
   }, [])
+
+  // Travel log
+  useEffect(() => {
+    if (user) {
+      travelLog(`Visiting challenge problem page ->${competeProblemId}`)
+    }
+  }, [user])
 
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">

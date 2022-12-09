@@ -6,7 +6,11 @@ import { CollabPage } from '../pages/collaboration'
 import { HomePage } from '../pages/home'
 import { JourneyPage, ProblemPage } from '../pages/journey'
 import { ChallengePage, ChallengeProblemPage } from '../pages/challenge'
-import { CompetePage } from '../pages/compete'
+import {
+  CompetePage,
+  CompeteLobbyPage,
+  CompeteProblemPage
+} from '../pages/compete'
 import { LeaderboardPage } from '../pages/leaderboard'
 import { ProfilePage, SettingPage } from '../pages/user'
 import {
@@ -35,6 +39,19 @@ import {
   DetailChallengePage,
   EditChallengePage
 } from '../pages/admin'
+import {
+  CreateCompetesPage,
+  ManageCompetesPage,
+  DetailCompetesPage,
+  EditCompetesPage,
+  CreateCompeteProblemPage,
+  DetailCompeteProblemPage,
+  EditCompeteProblemPage,
+  CreateProblemSampleCasePage,
+  EditProblemSampleCasePage,
+  CreateProblemTestCasePage,
+  EditProblemTestCasePage
+} from '../pages/teacher'
 import { NotFound } from '../pages/notfound'
 
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
@@ -78,7 +95,9 @@ const RouteList = () => {
     if (pathname.includes('/admin/dashboard')) setTabs(1)
     else if (pathname.includes('/admin/manage/journeys')) setTabs(2)
     else if (pathname.includes('/admin/manage/challenges')) setTabs(3)
-
+    // For Teacher
+    else if (pathname.includes('/teacher/dashboard')) setTabs(1)
+    else if (pathname.includes('/teacher/manage/competes')) setTabs(2)
     // For User
     else if (pathname.includes('/learning-journey')) setTabs(1)
     else if (pathname.includes('/challenges')) setTabs(2)
@@ -103,24 +122,41 @@ const RouteList = () => {
       <Route path="/" element={<HomePage />} />
 
       {/* Profile */}
-      <Route path='/profile/:username' element={<ProfilePage />} />
+      <Route path="/profile/:username" element={<ProfilePage />} />
 
       {/* Setting */}
-      <Route path='/settings' element={<SettingPage />} />
+      <Route path="/settings" element={<SettingPage />} />
 
       {/* Learning Journey */}
       <Route path="/learning-journey">
-        <Route path="path/:competeId/problems/:competeProblemId" element={<ProblemPage />} />
+        <Route
+          path="path/:competeId/problems/:competeProblemId"
+          element={<ProblemPage />}
+        />
         <Route index element={<JourneyPage />} />
       </Route>
 
       {/* Challenge */}
       <Route path="/challenges">
-        <Route path="path/:competeId/problems/:competeProblemId" element={<ChallengeProblemPage />} />
+        <Route
+          path="path/:competeId/problems/:competeProblemId"
+          element={<ChallengeProblemPage />}
+        />
         <Route index element={<ChallengePage />} />
       </Route>
 
-      <Route path="/competes" element={<CompetePage />} />
+      {/* Compete */}
+      <Route path="/competes">
+        <Route path=":competeId/lobby">
+          <Route
+            path="path/:competeId/problems/:competeProblemId"
+            element={<CompeteProblemPage />}
+          />
+          <Route index element={<CompeteLobbyPage />} />
+        </Route>
+        <Route index element={<CompetePage />} />
+      </Route>
+
       <Route path="/leaderboards" element={<LeaderboardPage />} />
       <Route path="/collab" element={<CollabPage />} />
 
@@ -203,6 +239,53 @@ const RouteList = () => {
               element={<EditTestCasePage />}
             />
             <Route index element={<ManageChallengePage />} />
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
+        </Route>
+
+        <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="*" element={<NotFound />} />
+        <Route index element={<NotFound />} />
+      </Route>
+
+      {/* Teacher Route */}
+      <Route path="/teacher">
+        <Route path="manage">
+          {/* Competes */}
+          <Route path="competes">
+            <Route path="create" element={<CreateCompetesPage />} />
+            <Route path=":journeyId" element={<DetailCompetesPage />} />
+            <Route path=":journeyId/edit" element={<EditCompetesPage />} />
+            <Route
+              path=":journeyId/problems/create"
+              element={<CreateCompeteProblemPage />}
+            />
+            <Route
+              path=":journeyId/problems/:problemId"
+              element={<DetailCompeteProblemPage />}
+            />
+            <Route
+              path=":journeyId/problems/:problemId/edit"
+              element={<EditCompeteProblemPage />}
+            />
+            <Route
+              path=":journeyId/problems/:problemId/samplecases/create"
+              element={<CreateProblemSampleCasePage />}
+            />
+            <Route
+              path=":journeyId/problems/:problemId/samplecases/:sampleId/edit"
+              element={<EditProblemSampleCasePage />}
+            />
+            <Route
+              path=":journeyId/problems/:problemId/testcases/create"
+              element={<CreateProblemTestCasePage />}
+            />
+            <Route
+              path=":journeyId/problems/:problemId/testcases/:testId/edit"
+              element={<EditProblemTestCasePage />}
+            />
+            <Route index element={<ManageCompetesPage />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />

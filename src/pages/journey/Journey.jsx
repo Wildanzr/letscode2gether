@@ -18,9 +18,11 @@ import { Skeleton, Spin } from 'antd'
 import Cookies from 'js-cookie'
 
 const JourneyPage = () => {
-  // Auth States
-  const { authStates } = useAuth()
+  // Auth States and Functions
+  const { authStates, authFunctions } = useAuth()
   const { user } = authStates
+  const { travelLog } = authFunctions
+
   // Local states
   const [journeys, setJourneys] = useState(null)
   const [progress, setProgress] = useState(null)
@@ -98,6 +100,13 @@ const JourneyPage = () => {
 
     getAllJourneys()
   }, [])
+
+  // Travel log
+  useEffect(() => {
+    if (user) {
+      travelLog('Visiting learning journey page')
+    }
+  }, [user])
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar>
@@ -127,7 +136,7 @@ const JourneyPage = () => {
               <div className="flex flex-col w-full space-y-2">
               <div className="flex flex-row space-x-4 items-center">
                 <p className="mb-0 text-2xl font-ubuntu font-bold">
-                  Overral progress:
+                  Overall progress:
                 </p>
                 <div className="mb-0 text-2xl font-ubuntu font-bold text-success">
                   {progress === null

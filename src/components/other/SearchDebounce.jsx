@@ -72,8 +72,8 @@ const SearchDebounce = (props) => {
   }
   return (
     <Search
+    onChange={isChallenge ? debounce(searchProblem, 500) : debounce(searchJourney, 500)}
         placeholder="Search Learning Journey"
-        onChange={isChallenge ? debounce(searchProblem, 500) : debounce(searchJourney, 500)}
         prefix={<RiSearchLine />}
         allowClear
         enterButton="Search"

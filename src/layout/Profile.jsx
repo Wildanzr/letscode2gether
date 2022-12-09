@@ -21,6 +21,7 @@ const Profile = (props) => {
   // Location
   const location = useLocation()
   const isAdmin = location.pathname.includes('admin')
+  const isTeacher = location.pathname.includes('teacher')
 
   // Local States
   const [visible, setVisible] = useState(false)
@@ -32,11 +33,11 @@ const Profile = (props) => {
         className="flex text-sm rounded-full"
       >
         <div className="flex flex-row items-center w-full space-x-4">
-          <div className="flex h-8 w-8 rounded-full bg-red-500">
-          <img
-            src={avatar}
-            className="rounded-full object-cover object-center"
-          />
+          <div className="flex h-8 w-8 rounded-full">
+            <img
+              src={avatar}
+              className="rounded-full object-cover object-center"
+            />
           </div>
           {/* show name */}
           <span className="text-base font-medium">{username}</span>
@@ -45,16 +46,30 @@ const Profile = (props) => {
       {visible && (
         <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-3 bg-snow dark:bg-main space-y-3 divide-y-2 divide-main dark:divide-snow z-50">
           <div className="space-y-1">
+            {/* Admin Dashboard */}
             {user.role === 2 && (
               <Link
                 to={isAdmin ? '/' : '/admin/dashboard'}
-                onClick={() => isAdmin ? setTabs(0) : setTabs(1)}
+                onClick={() => (isAdmin ? setTabs(0) : setTabs(1))}
                 className="px-4 py-2 text-sm text-main dark:text-snow flex flex-row items-center space-x-2 hover:bg-gray-300 dark:hover:bg-gray-600"
               >
                 <RiDashboard3Line className="text-lg" />
                 <span>{isAdmin ? 'User View' : 'Admin Dashboard'}</span>
               </Link>
             )}
+
+            {/* Teacher Management */}
+            {user.role === 1 && (
+              <Link
+                to={isTeacher ? '/' : '/teacher/dashboard'}
+                onClick={() => (isTeacher ? setTabs(0) : setTabs(1))}
+                className="px-4 py-2 text-sm text-main dark:text-snow flex flex-row items-center space-x-2 hover:bg-gray-300 dark:hover:bg-gray-600"
+              >
+                <RiDashboard3Line className="text-lg" />
+                <span>{isTeacher ? 'User View' : 'Teacher Dashboard'}</span>
+              </Link>
+            )}
+
             <Link
               to={`/profile/${username}`}
               onClick={() => setTabs(0)}

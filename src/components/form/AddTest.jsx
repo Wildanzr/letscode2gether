@@ -9,7 +9,10 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 const { Item } = Form
 const { TextArea } = Input
 
-const AddTest = () => {
+const AddTest = (props) => {
+  // Props destructuring
+  const { competes } = props
+
   // useForm
   const [form] = Form.useForm()
 
@@ -63,7 +66,9 @@ const AddTest = () => {
       }).then(() => {
         const path = journeyId === undefined
           ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/edit`
-          : `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
+          : competes
+            ? `/teacher/manage/competes/${journeyId}/problems/${problemId}/edit`
+            : `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
 
         navigate(path)
       })
@@ -159,7 +164,9 @@ const AddTest = () => {
             to={
               journeyId === undefined
                 ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/edit`
-                : `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
+                : competes
+                  ? `/teacher/manage/competes/${journeyId}/problems/${problemId}/edit`
+                  : `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
             }
             className="px-4 py-2 mt-4 text-sm font-medium text-center font-ubuntu tracking-wider uppercase transition-colors transform border-2 text-main dark:text-snow border-main dark:border-snow dark:hover:border-easy hover:border-easy duration-300 ease-in-out"
           >

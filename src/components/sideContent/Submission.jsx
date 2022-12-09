@@ -50,14 +50,14 @@ const Submission = () => {
       // Show info message in 5 seconds
       message.info('Please login to see your submissions', 5)
     }
-  }, [])
+  }, [user])
   return (
     <div className="flex flex-col w-full h-full space-y-4">
       <div className="flex flex-col w-full items-center justify-center">
         {submissions === null
           ? <Spin size="default" />
           : submissions.length === 0
-            ? <p className="mb-0 text-base tracking-wide text-white">You have no submissions yet...</p>
+            ? <p className="mb-0 text-base tracking-wide text-main dark:text-snow duration-300 ease-in-out">You have no submissions yet...</p>
             : <SubmissionList submissions={submissions} />
         }
       </div>

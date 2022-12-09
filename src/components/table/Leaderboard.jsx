@@ -7,6 +7,8 @@ import B4 from '../../assets/badge4.svg'
 import B5 from '../../assets/badge5.svg'
 import B6 from '../../assets/badge6.svg'
 
+import { Link } from 'react-router-dom'
+
 const Leaderboard = (props) => {
   // Destructure props
   const { leaderboard } = props
@@ -33,7 +35,7 @@ const Leaderboard = (props) => {
   return (
     <table className="w-full table-auto shadow-md">
       <thead>
-        <tr className="bg-gray-600 text-white uppercase text-sm leading-normal">
+        <tr className="bg-easy dark:bg-floor duration-300 ease-in-out text-white uppercase text-sm leading-normal">
           <th className="py-3 px-5 w-10 text-left overflow-clip whitespace-nowrap">
             RANK
           </th>
@@ -48,7 +50,7 @@ const Leaderboard = (props) => {
           </th>
         </tr>
       </thead>
-      <tbody className="text-black text-xs font-light ">
+      <tbody className="text-black font-light text-base ">
         {leaderboard.map((person, index) => (
           <tr
             key={index}
@@ -57,21 +59,43 @@ const Leaderboard = (props) => {
             <td className="py-3 px-5 text-left overflow-clip">
               <div className="flex items-center justify-start">
                 <div className="font-medium whitespace-nowrap">
-                  <span className="ml-3 text-gray-600">{index + 1}</span>
+                  <span className="ml-3 text-main">
+                  {index + 1 === 1
+                    ? '🥇'
+                    : index + 1 === 2
+                      ? '🥈'
+                      : index + 1 === 3
+                        ? '🥉'
+                        : index + 1
+                    }
+                  </span>
                 </div>
               </div>
             </td>
             <td className="py-3 px-5 text-left overflow-clip">
               <div className="flex items-center justify-start">
-                <div className="font-medium whitespace-nowrap">
-                  <span className="text-gray-600">{person.username}</span>
+              <div className="font-medium whitespace-nowrap">
+                  <Link
+                    to={`/profile/${person.username}`}
+                    className="flex flex-row group space-x-2 items-center group"
+                  >
+                    <div className="flex h-8 w-8 rounded-full group-hover:border-easy">
+                      <img
+                        src={person.avatar}
+                        className="rounded-full object-cover object-center"
+                      />
+                    </div>
+                    <span className="text-main group-hover:text-easy group-hover:cursor-pointer">
+                      {person.username}
+                    </span>
+                  </Link>
                 </div>
               </div>
             </td>
             <td className="py-3 px-5 text-left overflow-clip">
               <div className="flex items-center justify-center">
                 <div className="font-medium whitespace-nowrap">
-                  <span className="text-gray-600">{person.point}</span>
+                  <span className="text-main">{person.point}</span>
                 </div>
               </div>
             </td>

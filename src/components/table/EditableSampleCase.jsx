@@ -10,7 +10,7 @@ import { BsPencil, BsTrash, BsPlus } from 'react-icons/bs'
 
 const EditableSampleCase = (props) => {
   // Destructure props
-  const { sampleCases, setFetch } = props
+  const { sampleCases, setFetch, competes } = props
 
   // useParams
   const { journeyId, problemId, competeId, challengeId } = useParams()
@@ -202,7 +202,9 @@ const EditableSampleCase = (props) => {
                         <Link
                           to={journeyId === undefined
                             ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/samplecases/${_id}/edit`
-                            : `/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/${_id}/edit`
+                            : competes
+                              ? `/teacher/manage/competes/${journeyId}/problems/${problemId}/samplecases/${_id}/edit`
+                              : `/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/${_id}/edit`
                           }
                           className="px-2 py-2 bg-medium rounded-lg"
                         >
@@ -249,7 +251,9 @@ const EditableSampleCase = (props) => {
                   <Link
                     to={journeyId === undefined
                       ? `/admin/manage/challenges/${competeId}/problems/${challengeId}/samplecases/create`
-                      : `/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/create`
+                      : competes
+                        ? `/teacher/manage/competes/${journeyId}/problems/${problemId}/samplecases/create`
+                        : `/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/create`
                     }
                     className="flex flex-row space-x-2 w-full items-center justify-center"
                   >

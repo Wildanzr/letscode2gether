@@ -10,6 +10,9 @@ export { default as AddJourney } from './AddJourney'
 export { default as EditProblem } from './EditProblem'
 export { default as AddProblem } from './AddProblem'
 
+export { default as EditCompete } from './EditCompete'
+export { default as AddCompete } from './AddCompete'
+
 export { default as AddSample } from './AddSample'
 export { default as AddTest } from './AddTest'
 
@@ -22,3 +25,5 @@ export { default as EditChallenge } from './EditChallenge'
 export { default as UpdateProfile } from './UpdateProfile'
 export { default as UpdateProfilePicture } from './UpdateProfilePicture'
 export { default as UpdatePassword } from './UpdatePassword'
+
+export { default as JoinCompete } from './JoinCompete'

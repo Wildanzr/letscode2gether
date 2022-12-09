@@ -9,9 +9,10 @@ import Cookies from 'js-cookie'
 import { Spin } from 'antd'
 
 const SettingPage = () => {
-  // Auth States
-  const { authStates } = useAuth()
+  // Auth States and Functions
+  const { authStates, authFunctions } = useAuth()
   const { user } = authStates
+  const { travelLog } = authFunctions
 
   // Local States
   const [userDetails, setUserDetails] = useState(null)
@@ -53,6 +54,13 @@ const SettingPage = () => {
       setFetch(false)
     }
   }, [fetch])
+
+  // Travel log
+  useEffect(() => {
+    if (user) {
+      travelLog('Visiting user setting page')
+    }
+  }, [user])
 
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow font-ubuntu dark:bg-main text-main dark:text-snow duration-300 ease-in-out">

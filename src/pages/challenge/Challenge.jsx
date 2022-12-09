@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useAuth } from '../../contexts/AuthContext'
 import ChallengePic from '../../assets/challenge.svg'
 
 import api from '../../api'
@@ -8,42 +9,49 @@ import { Challenge } from '../../components/card'
 import debounce from 'lodash.debounce'
 import Cookies from 'js-cookie'
 import { RiSearchLine } from 'react-icons/ri'
-import { Input, Cascader, Pagination, Skeleton } from 'antd'
+import { Input, Pagination, Skeleton } from 'antd'
+
+const { Search } = Input
 
 const ChallengePage = () => {
+  // Auth States and Functions
+  const { authStates, authFunctions } = useAuth()
+  const { user } = authStates
+  const { travelLog } = authFunctions
+
   // Local states
   const [competeId, setCompeteId] = useState(null)
   const [problems, setProblems] = useState(null)
   const [firstFetch, setFirstFetch] = useState(true)
   const [secondFetch, setSecondFetch] = useState(false)
-  const options = [
-    {
-      value: 'level',
-      label: 'Level',
-      children: [
-        {
-          value: 'easy',
-          label: 'Easy'
-        },
-        {
-          value: 'medium',
-          label: 'Medium'
-        },
-        {
-          value: 'hard',
-          label: 'Hard'
-        }
-      ]
-    },
-    {
-      value: 'solved',
-      label: 'Solved'
-    },
-    {
-      value: 'solve',
-      label: 'Waiting to Solve'
-    }
-  ]
+  // const options = [
+  //   {
+  //     value: 'level',
+  //     label: 'Level',
+  //     children: [
+  //       {
+  //         value: 'easy',
+  //         label: 'Easy'
+  //       },
+  //       {
+  //         value: 'medium',
+  //         label: 'Medium'
+  //       },
+  //       {
+  //         value: 'hard',
+  //         label: 'Hard'
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     value: 'solved',
+  //     label: 'Solved'
+  //   },
+  //   {
+  //     value: 'solve',
+  //     label: 'Waiting to Solve'
+  //   }
+  // ]
 
   // Pagination states
   const [search, setSearch] = useState('')
@@ -52,9 +60,9 @@ const ChallengePage = () => {
   const [limit, setLimit] = useState(10)
 
   // Handle cascader change
-  const handleCascaderChange = (value) => {
-    console.log(value)
-  }
+  // const handleCascaderChange = (value) => {
+  //   console.log(value)
+  // }
 
   // Handle pagination change
   const onShowSizeChange = (current, pageSize) => {
@@ -134,6 +142,13 @@ const ChallengePage = () => {
       setSecondFetch(false)
     }
   }, [total, defaultCurrent, secondFetch])
+
+  // Travel log
+  useEffect(() => {
+    if (user) {
+      travelLog('Visiting challenge page')
+    }
+  }, [user])
   return (
     <div className="flex flex-col w-full min-h-screen justify-between space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar />
@@ -166,20 +181,21 @@ const ChallengePage = () => {
       {/* List Controller */}
       <div className="flex flex-col m-0 px-[5%] space-y-5 lg:pt-0 w-full items-center justify-between">
         <div className="w-full hidden lg:flex">
-          <Input
+          <Search
             placeholder="Search Challenge"
             prefix={<RiSearchLine />}
             allowClear
             onChange={debounce(handleSearch, 500)}
+            enterButton="Search"
           />
         </div>
 
-        <div className="w-full hidden flex-row justify-between lg:flex">
-          <Cascader
+        <div className="w-full hidden flex-row justify-end lg:flex">
+          {/* <Cascader
             options={options}
             onChange={handleCascaderChange}
             placeholder="Filter Challenge"
-          />
+          /> */}
 
           <Pagination
             onChange={onShowSizeChange}
@@ -190,17 +206,18 @@ const ChallengePage = () => {
         </div>
 
         <div className="flex flex-row lg:hidden w-full space-x-5">
-          <Input
+          <Search
             placeholder="Search Challenge"
             prefix={<RiSearchLine />}
             allowClear
             onChange={debounce(handleSearch, 500)}
+            enterButton="Search"
           />
-          <Cascader
+          {/* <Cascader
             options={options}
             onChange={handleCascaderChange}
             placeholder="Filter Challenge"
-          />
+          /> */}
         </div>
 
         <div className="w-full flex flex-row justify-center lg:hidden">
