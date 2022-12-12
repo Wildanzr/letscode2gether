@@ -95,7 +95,7 @@ const EditableListOfChallenge = (props) => {
     mySwal.fire({
       icon: 'warning',
       title: 'Are you sure?',
-      text: 'You will not be able to recover this problem!',
+      text: 'You will not be able to recover this challenge!',
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
       confirmButtonColor: '#d33',

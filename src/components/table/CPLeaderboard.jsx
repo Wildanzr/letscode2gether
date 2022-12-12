@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 const CPLeaderboard = (props) => {
   // Destrcuturing props
   const { data } = props
+
   return (
     <table className="w-full table-auto shadow-md">
       <thead>
@@ -46,7 +47,7 @@ const CPLeaderboard = (props) => {
               <div className="flex items-center justify-start">
               <div className="font-medium whitespace-nowrap">
                   <Link
-                    to={`/profile/${person.username}`}
+                    to={`/profile/${person.userId.username}`}
                     className="flex flex-row group space-x-2 items-center group"
                   >
                     <div className="flex h-8 w-8 rounded-full group-hover:border-easy">

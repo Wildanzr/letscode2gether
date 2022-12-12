@@ -3,7 +3,7 @@ const Footer = () => {
     <p
       style={{ margin: 0 }}
       className="flex w-full items-center justify-center text-center py-3 font-ubuntu font-medium text-sm">
-        Copyright &copy; 20222 LetsCode
+        Copyright &copy; 2022 LetsCode
     </p>
   )
 }
