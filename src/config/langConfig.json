@@ -38,5 +38,22 @@
     "challengeLevel1": "Mudah",
     "challengeLevel2": "Sedang",
     "challengeLevel3": "Sulit",
-    "challengMaxPointLabel": "Poin Maksimal :"
+    "challengMaxPointLabel": "Poin Maksimal :",
+    "challengeNoData": "Tidak ada tantangan ditemukan.",
+    "competeDesc": "Kompetisi merupakan ajang persaingan untuk meraih suatu kemenangan. Namun tidak perlu khawatir, pada kompetisi ini kamu tetap dapat berkolaborasi bersama temanmu untuk meraih kemenangan bersama. Siap memulai kompetisi?",
+    "competeSearch": "Cari Kompetisi",
+    "competeSearchButton": "Cari",
+    "competeFilterLabel": "Filter Kompetisi :",
+    "competeFilterLabel1": "Sedang Berjalan",
+    "competeFilterLabel2": "Sudah Berakhir",
+    "competeFilterLabel3": "Sedang Diikuti",
+    "competeFilterLabel4": "Kompetisi Saya",
+    "competeNoData": "Tidak ada kompetisi ditemukan.",
+    "competeChallenger": "Penantang :",
+    "competeStart": "Dimulai dalam :",
+    "competeEnd": "Berakhir dalam :",
+    "competeListDesc": "Deskripsi :",
+    "competeButtonLabel1": "Gabung",
+    "competeButtonLabel2": "Diikuti",
+    "competeButtonLabel3": "Lihat Hasil"
 }

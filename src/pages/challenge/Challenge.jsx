@@ -222,7 +222,7 @@ const ChallengePage = () => {
         {problems === null
           ? <Skeleton active paragraph={{ rows: 4 }} />
           : problems.length === 0
-            ? <p className="text-2xl font-ubuntu font-medium">No challenges found</p>
+            ? <p className="text-2xl font-ubuntu font-medium">{langConfig.challengeNoData}</p>
             : problems.map((problem, index) => {
               const { _id: competeProblemId, problemId, maxPoint } = problem
               const { title, difficulty } = problemId

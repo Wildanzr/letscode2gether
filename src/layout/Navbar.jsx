@@ -160,17 +160,17 @@ const Navbar = (props) => {
         ? [
             {
               to: '/admin/dashboard',
-              name: 'Dashboard',
+              name: langConfig.adminNav1,
               no: 1
             },
             {
               to: '/admin/manage/journeys',
-              name: 'Manage Learning Journey',
+              name: langConfig.adminNav2,
               no: 2
             },
             {
               to: '/admin/manage/challenges',
-              name: 'Manage Challenge',
+              name: langConfig.adminNav3,
               no: 3
             }
           ]
@@ -178,34 +178,34 @@ const Navbar = (props) => {
           ? [
               {
                 to: '/teacher/dashboard',
-                name: 'Dashboard',
+                name: langConfig.teacherNav1,
                 no: 1
               },
               {
                 to: '/teacher/manage/competes',
-                name: 'Manage Competes',
+                name: langConfig.teacherNav2,
                 no: 2
               }
             ]
           : [
               {
                 to: '/learning-journey',
-                name: 'Learning Journey',
+                name: langConfig.userNav1,
                 no: 1
               },
               {
                 to: '/challenges',
-                name: 'Challenge',
+                name: langConfig.userNav2,
                 no: 2
               },
               {
                 to: '/competes',
-                name: 'Compete',
+                name: langConfig.userNav3,
                 no: 3
               },
               {
                 to: '/leaderboards',
-                name: 'Leaderboard',
+                name: langConfig.userNav4,
                 no: 4
               }
             ]
@@ -237,7 +237,7 @@ const Navbar = (props) => {
                 tabs === path.no ? 'border-b-2' : ''
               }`}
             >
-              {langConfig[`userNav${index + 1}`]}
+              {path.name}
             </Link>
           ))}
         </div>
