@@ -1,3 +1,5 @@
+import langConfig from '../config/langConfig.json'
+
 import { useState, useEffect } from 'react'
 import { useGlobal } from '../contexts/GlobalContext'
 import { useAuth } from '../contexts/AuthContext'
@@ -39,17 +41,17 @@ const Navbar = (props) => {
       ? [
           {
             to: '/admin/dashboard',
-            name: 'Dashboard',
+            name: langConfig.adminNav1,
             no: 1
           },
           {
             to: '/admin/manage/journeys',
-            name: 'Manage Learning Journey',
+            name: langConfig.adminNav2,
             no: 2
           },
           {
             to: '/admin/manage/challenges',
-            name: 'Manage Challenge',
+            name: langConfig.adminNav3,
             no: 3
           }
         ]
@@ -57,34 +59,34 @@ const Navbar = (props) => {
         ? [
             {
               to: '/teacher/dashboard',
-              name: 'Dashboard',
+              name: langConfig.teacherNav1,
               no: 1
             },
             {
               to: '/teacher/manage/competes',
-              name: 'Manage Competes',
+              name: langConfig.teacherNav2,
               no: 2
             }
           ]
         : [
             {
               to: '/learning-journey',
-              name: 'Learning Journey',
+              name: langConfig.userNav1,
               no: 1
             },
             {
               to: '/challenges',
-              name: 'Challenge',
+              name: langConfig.userNav2,
               no: 2
             },
             {
               to: '/competes',
-              name: 'Compete',
+              name: langConfig.userNav3,
               no: 3
             },
             {
               to: '/leaderboards',
-              name: 'Leaderboard',
+              name: langConfig.userNav4,
               no: 4
             }
           ]
@@ -235,7 +237,7 @@ const Navbar = (props) => {
                 tabs === path.no ? 'border-b-2' : ''
               }`}
             >
-              {path.name}
+              {langConfig[`userNav${index + 1}`]}
             </Link>
           ))}
         </div>
@@ -277,7 +279,7 @@ const Navbar = (props) => {
                   tabs === 5 ? 'border-b-2' : ''
                 }`}
               >
-                Login
+                {langConfig.userNav5}
               </Link>
               <Link
                 to="/auth/register"
@@ -286,7 +288,7 @@ const Navbar = (props) => {
                   tabs === 6 ? 'border-b-2' : ''
                 }`}
               >
-                Register
+                {langConfig.userNav6}
               </Link>
             </>
               )}
@@ -308,7 +310,7 @@ const Navbar = (props) => {
               'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
             }
           >
-            {path.name}
+            {langConfig[`userNav${index + 1}`]}
           </Link>
         ))}
 
@@ -321,7 +323,7 @@ const Navbar = (props) => {
                 'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
               }
             >
-              Profile
+              {langConfig.menu1}
             </Link>
 
             <Link
@@ -330,7 +332,7 @@ const Navbar = (props) => {
                 'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
               }
             >
-              Setting
+              {langConfig.menu2}
             </Link>
 
             <div
@@ -339,7 +341,7 @@ const Navbar = (props) => {
                 'w-full text-hard text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
               }
             >
-              Logout
+              {langConfig.userNav7}
             </div>
           </>
             )
@@ -352,7 +354,7 @@ const Navbar = (props) => {
                 'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
               }
             >
-              Login
+              {langConfig.userNav5}
             </Link>
 
             <Link
@@ -362,7 +364,7 @@ const Navbar = (props) => {
                 'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
               }
             >
-              Register
+              {langConfig.userNav6}
             </Link>
           </>
             )}
