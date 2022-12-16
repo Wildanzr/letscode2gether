@@ -30,5 +30,13 @@
     "journeyListProgress": "Kemajuan Belajarmu :",
     "journeyListProblemButton1": "Selesaikan Sekarang",
     "journeyListProblemButton2": "Coba Lagi",
-    "journeyListProblemButton3": "Telah Diselesaikan"
+    "journeyListProblemButton3": "Telah Diselesaikan",
+    "challengeDesc": "Apakah kamu mencari tantangan lain untuk mengembangkan keterampilan pemrogramanmu? Atau kamu ingin mengembangkan keterampilan problem solvingmu? Yuk, coba tantangan-tantangan berikut ini!",
+    "challengeSearch": "Cari Tantangan",
+    "challengeSearchButton": "Cari",
+    "challengeLevelLabel": "Tingkat Kesulitan",
+    "challengeLevel1": "Mudah",
+    "challengeLevel2": "Sedang",
+    "challengeLevel3": "Sulit",
+    "challengMaxPointLabel": "Poin Maksimal :"
 }

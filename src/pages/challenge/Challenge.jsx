@@ -1,3 +1,5 @@
+import langConfig from '../../config/langConfig.json'
+
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import ChallengePic from '../../assets/challenge.svg'
@@ -162,17 +164,13 @@ const ChallengePage = () => {
         <div className="flex w-full lg:w-2/3 items-center justify-center">
           <div className="flex flex-col w-full space-y-4 lg:space-y-8 items-center lg:items-start">
             <p className="text-3xl text-center lg:text-left mb-0 lg:text-5xl font-ubuntu font-medium">
-              Challenge
+              {langConfig.userNav2}
             </p>
             <p className="flex lg:hidden font-ubuntu text-base lg:text-lg text-center lg:text-left">
-              Are you looking for another challenge to improve your programming
-              skills? Or you wanna develop problem solving skills? We have many
-              problems here ready to solve here. Try me if you dare!
+              {langConfig.challengeDesc}
             </p>
             <p className="hidden lg:flex font-ubuntu text-base lg:text-lg text-center lg:text-left">
-              Are you looking for another challenge to improve your programming
-              skills? Or you wanna develop problem solving skills? We have many
-              problems here ready to solve here. Try me if you dare!
+              {langConfig.challengeDesc}
             </p>
           </div>
         </div>
@@ -182,49 +180,39 @@ const ChallengePage = () => {
       <div className="flex flex-col m-0 px-[5%] space-y-5 lg:pt-0 w-full items-center justify-between">
         <div className="w-full hidden lg:flex">
           <Search
-            placeholder="Search Challenge"
+            placeholder={langConfig.challengeSearch}
             prefix={<RiSearchLine />}
             allowClear
             onChange={debounce(handleSearch, 500)}
-            enterButton="Search"
+            enterButton={langConfig.challengeSearchButton}
           />
         </div>
 
         <div className="w-full hidden flex-row justify-end lg:flex">
-          {/* <Cascader
-            options={options}
-            onChange={handleCascaderChange}
-            placeholder="Filter Challenge"
-          /> */}
-
           <Pagination
             onChange={onShowSizeChange}
             showSizeChanger
             defaultCurrent={defaultCurrent}
             total={total}
+            locale={{ items_per_page: ' / halaman' }}
           />
         </div>
 
         <div className="flex flex-row lg:hidden w-full space-x-5">
           <Search
-            placeholder="Search Challenge"
+            placeholder={langConfig.challengeSearch}
             prefix={<RiSearchLine />}
             allowClear
             onChange={debounce(handleSearch, 500)}
-            enterButton="Search"
+            enterButton={langConfig.challengeSearchButton}
           />
-          {/* <Cascader
-            options={options}
-            onChange={handleCascaderChange}
-            placeholder="Filter Challenge"
-          /> */}
         </div>
-
         <div className="w-full flex flex-row justify-center lg:hidden">
           <Pagination
             onChange={onShowSizeChange}
             defaultCurrent={defaultCurrent}
             total={total}
+            locale={{ items_per_page: ' / halaman' }}
           />
         </div>
       </div>

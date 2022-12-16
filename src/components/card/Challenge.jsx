@@ -1,3 +1,5 @@
+import langConfig from '../../config/langConfig.json'
+
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 
@@ -57,7 +59,7 @@ const Challenge = (props) => {
         <p className="mb-0 font-ubuntu tracking-wide font-bold">{title}</p>
         <div className="flex flex-row w-full space-x-5 items-center">
           <p className="mb-0 text-sm font-ubuntu font-medium">
-            Level:
+            {langConfig.challengeLevelLabel}
             <span
               className={`pl-2 mb-0 text-sm font-ubuntu font-medium ${
                 difficulty === 1
@@ -67,12 +69,12 @@ const Challenge = (props) => {
                   : 'text-hard'
               }`}
             >
-              {difficulty === 1 ? 'Easy' : difficulty === 2 ? 'Medium' : 'Hard'}
+              {difficulty === 1 ? langConfig.challengeLevel1 : difficulty === 2 ? langConfig.challengeLevel2 : langConfig.challengeLevel3}
             </span>
           </p>
 
           <p className="mb-0 text-sm font-ubuntu font-medium">
-            Max Point:{' '}
+            {langConfig.challengMaxPointLabel}
             <span className="pl-2 mb-0 text-sm font-ubuntu font-medium text-easy">
               {maxPoint}
             </span>
@@ -105,11 +107,11 @@ const Challenge = (props) => {
               isDone === null
                 ? 'bg-snow'
                 : isDone === 0
-                ? 'bg-snow'
+                ? 'bg-easy text-snow hover:text-snow hover:dark:text-snow'
                 : isDone === 1
-                ? 'bg-medium'
-                : 'bg-success'
-            } text-main text-center rounded font-medium lg:font-bold`}
+                ? 'bg-medium text-main hover:text-main hover:dark:text-main'
+                : 'bg-success text-main hover:text-main hover:dark:text-main'
+            }  text-center rounded font-medium lg:font-bold`}
           >
             {isDone === null
               ? (
@@ -117,14 +119,14 @@ const Challenge = (props) => {
                 )
               : isDone === 0
                 ? (
-                    'Solve Now'
+                    langConfig.journeyListProblemButton1
                   )
                 : isDone === 1
                   ? (
-                      'Try Again'
+                      langConfig.journeyListProblemButton2
                     )
                   : (
-                      'Solved'
+                      langConfig.journeyListProblemButton3
                     )}
           </Link>
             )}
