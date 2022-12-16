@@ -19,9 +19,16 @@
     "home1": "Metode Belajar Baru",
     "home2": "Bersama Menjadi Lebih Mudah",
     "home3": "Lebih Praktis",
-    "home1Desc": "LetsCode merupakan platform belajar terbaik yang membantumu belajar pemrograman, meningkatkan keterampilan problem solving, dan berkolaborasi dengan teman-temanmu.",
-    "home1Button": "Belajar Sekarang",
+    "home1Desc": "LetsCode merupakan media pembelajaran terbaik yang membantumu belajar pemrograman, meningkatkan keterampilan problem solving, dan berkolaborasi dengan teman-temanmu.",
+    "home1Button": "Mulai Belajar",
     "home2Desc": "Jangan berpikir sendirian! Ajak teman-temanmu untuk menyelesaiakan permasalahan bersama.",
     "home2Button": "Coba Sekarang",
-    "home3Desc": "Tidak perlu menginstal aplikasi pemrograman. Cukup dengan memilih salah satu bahasa pemrograman dan mulailah menulis kode."
+    "home3Desc": "Tidak perlu menginstal aplikasi pemrograman. Cukup dengan memilih salah satu bahasa pemrograman dan mulailah menulis kode.",
+    "journeyDesc": "Media ini menerapkan metode pembelajaran berbasis masalah. Dengan metode ini, kamu dapat belajar dengan cara yang lebih fokus dan terarah serta proses belajarmu akan lebih bermakna karena kamu akan mempraktikkan apa yang telah kamu pelajari sebelumnya.",
+    "journeyProgress": "Kemajuan Belajar :",
+    "journeyBadges": "Lencana Saat Ini :",
+    "journeyListProgress": "Kemajuan Belajarmu :",
+    "journeyListProblemButton1": "Selesaikan Sekarang",
+    "journeyListProblemButton2": "Coba Lagi",
+    "journeyListProblemButton3": "Telah Diselesaikan"
 }

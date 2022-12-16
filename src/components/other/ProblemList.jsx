@@ -1,3 +1,5 @@
+import langConfig from '../../config/langConfig.json'
+
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 
@@ -66,15 +68,15 @@ const ProblemList = (props) => {
             <div className="flex w-2/6 space-x-6 justify-end lg:justify-start items-center">
               <Link
                 to={`path/${competeId}/problems/${_id}`}
-                className={`w-4/6 py-2 ${isDone === null ? 'bg-snow' : isDone === 0 ? 'bg-snow' : isDone === 1 ? 'bg-medium' : 'bg-success'} text-main text-center rounded font-medium lg:font-bold hover:text-main hover:dark:text-main`}
+                className={`w-4/6 py-2 ${isDone === null ? 'bg-snow' : isDone === 0 ? 'bg-easy text-snow hover:text-snow hover:dark:text-snow' : isDone === 1 ? 'bg-medium text-main hover:text-main hover:dark:text-main' : 'bg-success text-main hover:text-main hover:dark:text-main'} text-center rounded font-medium lg:font-bold duration-150 ease-in-out`}
                 >
                 {isDone === null
                   ? <Spin size="small" />
                   : isDone === 0
-                    ? 'Solve Now'
+                    ? langConfig.journeyListProblemButton1
                     : isDone === 1
-                      ? 'Try Again'
-                      : 'Solved'
+                      ? langConfig.journeyListProblemButton2
+                      : langConfig.journeyListProblemButton3
                 }
               </Link>
             </div>
