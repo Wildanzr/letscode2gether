@@ -1,4 +1,4 @@
-import React from 'react'
+import langConfig from '../../config/langConfig.json'
 
 import B1 from '../../assets/badge1.svg'
 import B2 from '../../assets/badge2.svg'
@@ -37,16 +37,16 @@ const Leaderboard = (props) => {
       <thead>
         <tr className="bg-easy dark:bg-floor duration-300 ease-in-out text-white uppercase text-sm leading-normal">
           <th className="py-3 px-5 w-10 text-left overflow-clip whitespace-nowrap">
-            RANK
+            {langConfig.leaderboardRank}
           </th>
           <th className="py-3 px-5 text-left overflow-clip whitespace-nowrap">
-            NAME
+            {langConfig.leaderboardName}
           </th>
           <th className="py-3 px-5 text-center overflow-clip whitespace-nowrap">
-            POINT
+            {langConfig.leaderboardPoint}
           </th>
           <th className="py-3 px-5 text-center overflow-clip whitespace-nowrap">
-            CURRENT BADGE
+            {langConfig.leaderboardBadge}
           </th>
         </tr>
       </thead>

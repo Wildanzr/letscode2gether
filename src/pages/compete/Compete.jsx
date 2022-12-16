@@ -100,6 +100,7 @@ const CompetePage = () => {
   const onShowSizeChange = (current, pageSize) => {
     setCurrent(current)
     setTotal(parseInt((pageSize = 10)))
+    setFetch(true)
   }
 
   // Handle search input
@@ -119,7 +120,7 @@ const CompetePage = () => {
       const { data } = await api.get(path)
       const { meta } = data
       const { competes } = data.data
-      // console.log(data)
+      // console.log(data.data)
 
       // Set values
       setCompetes(competes)
