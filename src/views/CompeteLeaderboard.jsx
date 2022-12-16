@@ -22,7 +22,7 @@ const CompeteLeaderboard = () => {
 
       // Set Value
       setLeaderboard(leaderboard)
-      console.table(leaderboard)
+      // console.table(leaderboard)
     } catch (error) {
       console.log(error)
     }

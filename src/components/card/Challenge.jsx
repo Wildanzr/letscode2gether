@@ -97,7 +97,7 @@ const Challenge = (props) => {
                 : 'bg-success'
             } text-main text-center rounded font-medium lg:font-bold cursor-not-allowed`}
           >
-            Locked
+            {langConfig.competeProblemLocked}
           </buttton>
             )
           : (

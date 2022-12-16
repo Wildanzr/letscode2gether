@@ -55,5 +55,17 @@
     "competeListDesc": "Deskripsi :",
     "competeButtonLabel1": "Gabung",
     "competeButtonLabel2": "Diikuti",
-    "competeButtonLabel3": "Lihat Hasil"
+    "competeButtonLabel3": "Lihat Hasil",
+    "competeLobbyTab1": "Daftar Permasalahan",
+    "competeLobbyTab2": "Papan Peringkat",
+    "competeLobbyTimeStart": "Dimulai dalam :",
+    "competeLobbyTimeEnd": "Berakhir dalam :",
+    "competeLobbyTimeUp": "Waktu Habis!",
+    "competeTimeDays": "Hari",
+    "competeTimeHours": "Jam",
+    "competeTimeMinutes": "Menit",
+    "competeTimeSeconds": "Detik",
+    "competeLobbyNoJoin": "Maaf, kamu tidak tergabung dalam kompetisi ini.",
+    "competeProblemNoData": "Tidak ada permasalahan ditemukan.",
+    "competeProblemLocked": "Dikunci"
 }

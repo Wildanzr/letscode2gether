@@ -1,3 +1,5 @@
+import langConfig from '../../config/langConfig.json'
+
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 
@@ -113,14 +115,14 @@ const CompeteLobbyPage = () => {
               <CompeteHeader compete={compete} />
               <div className="flex flex-col w-full items-center justify-center space-y-6">
                 {/* Tabs */}
-                <div className="flex bg-gray-200 rounded-lg">
+                <div className="flex bg-gray-200 rounded-lg mt-5">
                   <button
                     className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${
                       tabKey === 1 ? 'bg-easy text-snow' : 'text-main'
                     }`}
                     onClick={() => setTabKey(1)}
                   >
-                    Problems
+                    {langConfig.competeLobbyTab1}
                   </button>
                   <button
                     className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${
@@ -128,7 +130,7 @@ const CompeteLobbyPage = () => {
                     }`}
                     onClick={() => setTabKey(2)}
                   >
-                    Leaderboard
+                    {langConfig.competeLobbyTab2}
                   </button>
                 </div>
 
@@ -155,7 +157,9 @@ const CompeteLobbyPage = () => {
                 )
               : (
                   <div className="flex w-full h-screen items-center justify-center">
-                    <p className='text-lg font-semibold'>Oops you are not join this compete</p>
+                    <p className='text-lg font-semibold'>
+                      {langConfig.competeLobbyNoJoin}
+                    </p>
                   </div>
                 )}
         </div>
