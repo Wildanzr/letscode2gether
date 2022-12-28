@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { useCollab } from '../../contexts/CollabContext'
 
@@ -36,7 +37,7 @@ const SideContent = () => {
 
               <div className="flex flex-row space-x-2 items-center">
                 <p className="mb-0 text-sm font-thin duration-300 ease-in-out">
-                  Challenger:
+                  {langConfig.sideContentChallenger}
                 </p>
                   <Link
                     to={`/profile/${competeProblem.challenger.username}`}

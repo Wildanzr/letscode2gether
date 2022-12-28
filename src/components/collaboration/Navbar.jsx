@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useGlobal } from '../../contexts/GlobalContext'
 
 import { BsCaretLeft } from 'react-icons/bs'
@@ -40,28 +41,30 @@ const Navbar = () => {
           onClick={() => navigate(-1)}
         >
           <BsCaretLeft className='fill-main dark:fill-snow w-5 h-5 duration-300 ease-in-out group-hover:fill-easy'/>
-          <span className='text-main dark:text-snow duration-300 ease-in-out group-hover:text-easy'>Back</span>
+          <span className='text-main dark:text-snow duration-300 ease-in-out group-hover:text-easy'>
+            {langConfig.sideContentBack}
+          </span>
         </button>
 
         <button
           className="flex py-1 px-2 lg:w-full justify-center bg-easy dark:bg-main rounded-sm border-b-2 border-main dark:border-snow hover:border-medium dark:hover:border-easy duration-300 ease-in-out"
           onClick={() => handleChangeSideContent('problems')}
         >
-          Problem
+          {langConfig.sideContentProblem}
         </button>
 
         <button
           className="flex py-1 px-2 lg:w-full justify-center bg-easy dark:bg-main rounded-sm border-b-2 border-main dark:border-snow hover:border-medium dark:hover:border-easy duration-300 ease-in-out"
           onClick={() => handleChangeSideContent('submissions')}
         >
-          Submissions
+          {langConfig.sideContentSubmissions}
         </button>
 
         <button
-          className="flex py-1 px-2 lg:w-full justify-center bg-easy dark:bg-main rounded-sm border-b-2 border-main dark:border-snow hover:border-medium dark:hover:border-easy duration-300 ease-in-out"
+          className="flex py-1 px-2 lg:w-full justify-center bg-easy dark:bg-main rounded-sm border-b-2 border-main dark:border-snow hover:border-medium dark:hover:border-easy duration-300 ease-in-out whitespace-nowrap"
           onClick={() => handleChangeSideContent('leaderboards')}
         >
-          Leaderboards
+          {langConfig.sideContentLeaderboards}
         </button>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 
 import { useGlobal } from '../../contexts/GlobalContext'
@@ -234,7 +235,7 @@ const Runner = () => {
       // Show error
       mySwal.fire({
         icon: 'error',
-        title: 'Please login to submit your code',
+        title: langConfig.collabMustLogin,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -249,11 +250,11 @@ const Runner = () => {
     mySwal
       .fire({
         title: 'Submit Code?',
-        text: 'Are you sure you want to submit your code?',
+        text: langConfig.dialogSubmitCode,
         icon: 'question',
         showCancelButton: true,
-        confirmButtonText: 'Yes, submit it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Ya, kumpulkan!',
+        cancelButtonText: 'Nanti saja',
         reverseButtons: false
       })
       .then((result) => {
@@ -292,7 +293,7 @@ const Runner = () => {
               if (language === null) {
                 mySwal.fire({
                   icon: 'error',
-                  title: 'Please select a language first',
+                  title: langConfig.collabSubmitWarn,
                   allowOutsideClick: true,
                   backdrop: true,
                   allowEscapeKey: true,
@@ -311,7 +312,7 @@ const Runner = () => {
                 : ''
             }`}
           >
-            RUN CODE
+            {langConfig.collabRun}
           </button>
 
           {!isOnlyEditor && (
@@ -321,7 +322,7 @@ const Runner = () => {
                 if (language === null) {
                   mySwal.fire({
                     icon: 'error',
-                    title: 'Please select a language first',
+                    title: langConfig.collabSubmitWarn,
                     allowOutsideClick: true,
                     backdrop: true,
                     allowEscapeKey: true,
@@ -339,7 +340,7 @@ const Runner = () => {
                   : ''
               }`}
             >
-              SUBMIT CODE
+              {langConfig.collabSubmit}
             </button>
           )}
         </div>

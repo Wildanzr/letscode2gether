@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { useAuth } from '../../contexts/AuthContext'
@@ -58,10 +59,10 @@ const CollabInfo = (props) => {
   // Join room
   const joinRoom = () => {
     if (inputRoomId === null || inputRoomId === '') {
-      message.error('Please enter a room ID')
+      message.error(langConfig.collabRoomWarn1)
       return
     } else if (inputRoomId.length < 5 || inputRoomId.length > 5) {
-      message.error('Room ID consists of 5 characters')
+      message.error(langConfig.collabRoomWarn2)
       return
     }
 
@@ -74,7 +75,7 @@ const CollabInfo = (props) => {
 
     // Show loading
     mySwal.fire({
-      title: 'Joining room...',
+      title: langConfig.loadingJoinRoom,
       allowOutsideClick: true,
       allowEscapeKey: true,
       allowEnterKey: true,
@@ -149,7 +150,7 @@ const CollabInfo = (props) => {
     const newDriver = participants[0].username
 
     // Show notification
-    message.info('Someone joined the room.')
+    message.info(langConfig.infoSomeoneJoined)
 
     // Determine participants
     const participantList = !privateRoom
@@ -170,7 +171,7 @@ const CollabInfo = (props) => {
     setDriver(newDriver)
 
     // Show notification
-    message.info('Someone left the room.')
+    message.info(langConfig.infoSomeoneLeft)
 
     // Determine participants
     const participantList = !privateRoom
@@ -184,11 +185,11 @@ const CollabInfo = (props) => {
   const leaveRoom = () => {
     // Show dialog
     mySwal.fire({
-      title: 'Are you sure want to leave this room?',
+      title: langConfig.dialogLeftRoom,
       showDenyButton: true,
-      confirmButtonText: 'Leave',
+      confirmButtonText: 'Keluar',
       confirmButtonColor: '#ff4d4f',
-      denyButtonText: 'Stay here',
+      denyButtonText: 'Tetap disini',
       denyButtonColor: '#1890ff',
       reverseButtons: true,
       backdrop: true,
@@ -212,7 +213,7 @@ const CollabInfo = (props) => {
   // Handle leave room response
   const handleLeaveRoom = (res) => {
     if (res.status) {
-      message.info('You left the room.')
+      message.info(langConfig.infoMeLeftRoom)
       setPrivateRoom(true)
       createRoom()
     } else {
@@ -263,7 +264,9 @@ const CollabInfo = (props) => {
   return (
     <div className="flex flex-col space-y-1">
       <div className="flex flex-row space-x-2">
-        <p className="mb-0">Driver:</p>
+        <p className="mb-0">
+          {langConfig.collabDriver}
+        </p>
         <div className="mb-0 font-bold">
           {driver === null
             ? <Spin size="small" />
@@ -273,7 +276,9 @@ const CollabInfo = (props) => {
       </div>
 
       <div className="flex flex-row space-x-2">
-        <p className="mb-0">Navigator:</p>
+        <p className="mb-0">
+          {langConfig.collabNavigator}
+        </p>
         {participants === null
           ? <Spin size='small' />
           : participants.length === 0
@@ -286,7 +291,9 @@ const CollabInfo = (props) => {
 
       {participants !== null && participants.length > 1 && (
         <div className="flex flex-row space-x-2">
-        <p className="mb-0">Participants:</p>
+        <p className="mb-0">
+          {langConfig.collabParticipants}
+        </p>
         {participants === null
           ? <Spin size='small' />
           : participants.length === 0
@@ -305,7 +312,9 @@ const CollabInfo = (props) => {
       }
 
       <div className="flex flex-row space-x-2 pb-2">
-        <p className="mb-0">Id Room:</p>
+        <p className="mb-0">
+          {langConfig.collabIDRoom}
+        </p>
         {roomId === null
           ? <Spin size='small' />
           : <Paragraph
@@ -325,13 +334,13 @@ const CollabInfo = (props) => {
           allowClear
           disabled={!privateRoom}
           onChange={(e) => setInputRoomId(e.target.value)}
-          placeholder="Enter custom room id"
+          placeholder={langConfig.formPlaceholderRoomID}
         />
         <button
           onClick={privateRoom ? joinRoom : leaveRoom}
           className="flex py-1 px-1 lg:px-2 justify-center font-medium whitespace-nowrap bg-easy dark:bg-main rounded-sm border-b-2 text-snow border-white hover:border-medium dark:hover:border-blue-500 duration-300"
         >
-          {privateRoom ? 'Join Room' : 'Leave Room'}
+          {privateRoom ? langConfig.collabRoomJoin : langConfig.collabRoomLeft }
         </button>
       </div>
     </div>

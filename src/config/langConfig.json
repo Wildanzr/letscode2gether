@@ -129,10 +129,17 @@
   "formPlaceholderUsernameOrEmail": "Username atau email",
   "formPlaceholderPassword": "Password",
   "formPlaceHolderEmail": "Email",
+  "formPlaceholderRoomID": "Masukkan ID ruangan",
+  "formPlaceholderCustomInput": "Isikan percobaan masukkan",
   
   
   "updatePictureProfileWarn1": "Kamu hanya dapat mengupload file JPG/PNG!",
   "updatePictureProfileWarn2": "Ukaran gambar tidak boleh melebihi 2MB!",
+  "collabRoomWarn1": "Mohon masukkan ID ruangan!",
+  "collabRoomWarn2": "ID ruangan terdiri dari 5 karakter!",
+  "collabSubmitWarn": "Pilihlah satu bahasa dulu!",
+  
+  
   "profileUpdatePicture": "Perbarui Foto Profil",
   "changePasswordWarn1": "Password yang diisi tidak sama!",
   "changePasswordChange": "Ganti Password",
@@ -144,7 +151,17 @@
   "loadingUpdateProfile": "Sedang memperbarui profil...",
   "loadingRegister": "Sedang mendaftarkan...",
   "loadingResetPassword": "Sedang mengatur ulang...",
+  "loadingJoinRoom": "Sedang mencoba bergabung...",
+
+
+  "infoSomeoneJoined": "Seseorang bergabung dalaman ruangan.",
+  "infoSomeoneLeft": "Seseorang keluar dari ruangan.",
+  "infoMeLeftRoom": "Kamu keluar dari ruangan.",
+  "infoMustLogin": "Kamu harus masuk untuk melihat pengumpulanmu.",
+
   
+  "dialogLeftRoom": "Apakah kamu yakin ingin keluar dari ruangan ini?",
+  "dialogSubmitCode": "Apakah kamu yakin ingin mengumpulkan kode ini?",
   
   
   "successUpdateProfile": "Pembaruan profil berhasil",
@@ -153,7 +170,6 @@
   "successForgotPassword": "Berhasil",
   "successRegister": "Pendaftaran berhasil",
   "successResetPassword": "Password berhasil diperbarui",
-  
   
   
   "validateUsernameTaken": "Username telah digunakan!",
@@ -175,5 +191,48 @@
   "authResetErrorValidate": "Token tidak valid atau sudah kadaluarsa!",
   "authResetPassword": "Atur Ulang Password",
   "authResetPasswordHead": "Mimin menemukan akunmu, sekarang kamu dapat memperbarui password.",
-  "authResetPasswordButton": "Atur Ulang Password"
+  "authResetPasswordButton": "Atur Ulang Password",
+
+  "sideContentChallenger": "Penantang:",
+  "sideContentBack": "Kembali",
+  "sideContentProblem": "Permasalahan",
+  "sideContentSubmissions": "Pengumpulan",
+  "sideContentLeaderboards": "Papan Peringkat",
+
+  "problemConstraints": "Batasan",
+  "problemInputFormat": "Format Masukkan",
+  "problemOutputFormat": "Format Keluaran",
+  "problemSampleCase": "Contoh Kasus",
+  "problemCustomInput": "Masukkan Kustom",
+  "sampleCaseInput": "Masukkan (stdin)",
+  "sampleCaseOutput": "Keluaran (stdout)",
+  "sampleCaseExplanation": "Penjelasan",
+  "sampleCaseNoInput": "Tidak ada masukkan",
+  "sampleCaseExpected": "Keluaran yang diharapkan",
+  "sampleCaseError": "Kesalahan Kode",
+  "sampleCompileError": "Kompilasi Kesalahan",
+  "collabOpenCommunication": "Buka Komunikasi Video",
+  "collabCommunication": "Terhubung Komunikasi Video",
+  "collabDriver": "Driver:",
+  "collabNavigator": "Navigator:",
+  "collabParticipants": "Partisipan lain:",
+  "collabIDRoom": "ID Ruangan:",
+  "collabRoomJoin": "Gabung",
+  "collabRoomLeft": "Keluar",
+  "collabMustLogin": "Kamu harus masuk untuk mengumpulkan kode!",
+  "collabRun": "JALANKAN",
+  "collabSubmit": "KUMPULKAN",
+  "collabCustomInput": "Kustomisasi Masukkan",
+  "editorSelectLanguage": "Pilih bahasa",
+  "editorSelectTheme": "Pilih tema editor",
+  "editorTemplate": "// Ayo selesaikan permasalahan ini!\n// Pilih bahasa pemrograman dan mulailah menulis kode!",
+  "resultResult": "Hasil:",
+  "resultMemory": "Penggunaan Memori:",
+  "resultTime": "Waktu Eksekusi:",
+
+  "submissionEmpty": "Belum ada pengumpulan.",
+  "submissionName": "Pengumpulan",
+  "submissionLanguage": "Bahasa",
+  "submissionTestCase": "Uji kasus",
+  "submissionSourceCode": "Kode sumber"
 }

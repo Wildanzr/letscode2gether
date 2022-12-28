@@ -14,10 +14,10 @@ const CPLeaderboard = (props) => {
             RANK
           </th>
           <th className="py-3 px-5 text-left overflow-clip whitespace-nowrap">
-            NAME
+            USERNAME
           </th>
           <th className="py-3 px-5 text-center overflow-clip whitespace-nowrap">
-            POINT
+            POIN
           </th>
         </tr>
       </thead>

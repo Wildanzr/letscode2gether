@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 
 import Dropdown from './Dropdown'
@@ -55,12 +56,12 @@ const Editor = () => {
       <div className="flex flex-row w-full space-x-4 items-start justify-start">
         <LangDropdown
           options={languageAllowed}
-          placeholder="Select Language"
+          placeholder={langConfig.editorSelectLanguage}
           onChange={setLanguage}
         />
         <Dropdown
           options={themeDropDown}
-          placeholder="Select Theme"
+          placeholder={langConfig.editorSelectTheme}
           onChange={handleLanguageChange}
         />
       </div>

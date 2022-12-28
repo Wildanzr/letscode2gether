@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 
 import { useGlobal } from '../../contexts/GlobalContext'
@@ -18,7 +19,7 @@ const TextEditor = () => {
 
   // Local state
   const [langValue, setLangValue] = useState('javascript')
-  const [defaultTemplate] = useState('// Lets solve this problem!\n// Choose your language and start coding!')
+  const [defaultTemplate] = useState(langConfig.editorTemplate)
 
   // Emit code to server
   const changeCode = (value) => {
