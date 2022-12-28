@@ -125,21 +125,20 @@ const Navbar = (props) => {
   const dialogLogout = () => {
     mySwal
       .fire({
-        title: 'Are you sure?',
-        text: 'You will be logged out!',
+        title: langConfig.dialogLogout,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, logout!',
-        cancelButtonText: 'No, stay!'
+        confirmButtonText: 'Ya, keluar!',
+        cancelButtonText: 'Nanti saja'
       })
       .then((result) => {
         if (result.isConfirmed) {
           // show loading 2 second
           mySwal
             .fire({
-              title: 'See you again!',
+              title: langConfig.infoSeeYouAgain,
               timer: 2000,
               timerProgressBar: true,
               didOpen: () => {

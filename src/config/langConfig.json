@@ -158,10 +158,12 @@
   "infoSomeoneLeft": "Seseorang keluar dari ruangan.",
   "infoMeLeftRoom": "Kamu keluar dari ruangan.",
   "infoMustLogin": "Kamu harus masuk untuk melihat pengumpulanmu.",
+  "infoSeeYouAgain": "Sampai jumpa kembali",
 
   
   "dialogLeftRoom": "Apakah kamu yakin ingin keluar dari ruangan ini?",
   "dialogSubmitCode": "Apakah kamu yakin ingin mengumpulkan kode ini?",
+  "dialogLogout": "Apakah kamu yakin ingin keluar?",
   
   
   "successUpdateProfile": "Pembaruan profil berhasil",
@@ -177,6 +179,7 @@
 
 
   "authLogin": "Masuk",
+  "authLoginHead": "Masuk LetsCode",
   "authLoginRemember": "Ingat saya",
   "authLoginForgot": "Lupa password?",
   "authLoginNotHaveAccount": "Belum punya akun?",
@@ -234,5 +237,12 @@
   "submissionName": "Pengumpulan",
   "submissionLanguage": "Bahasa",
   "submissionTestCase": "Uji kasus",
-  "submissionSourceCode": "Kode sumber"
+  "submissionSourceCode": "Kode sumber",
+
+  "totalStudents": "Total Peserta Didik",
+  "totalTeachers": "Total Pendidik",
+  "totalProblems": "Total Permasalahan",
+  "totalSubmissions": "Total Pengumpulan",
+  "totalCompetes": "Total Kompetisi",
+  "dashboardStatistics": "Statistik"
 }
