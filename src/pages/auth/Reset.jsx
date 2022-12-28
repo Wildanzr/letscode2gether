@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 
 import api from '../../api'
@@ -15,7 +16,7 @@ const ResetPage = () => {
   // Local States
   const [isTokenValid, setIsTokenValid] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [text, setText] = useState('Validating token...')
+  const [text, setText] = useState(langConfig.authResetValidating)
 
   // Validate token
   useEffect(() => {
@@ -28,7 +29,7 @@ const ResetPage = () => {
       } catch (error) {
         console.log(error)
         setIsTokenValid(false)
-        setText('Token is invalid or has expired!')
+        setText(langConfig.authResetErrorValidate)
       } finally {
         setIsLoading(false)
       }
@@ -41,10 +42,12 @@ const ResetPage = () => {
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 font-ubuntu bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar />
       <div className="flex flex-col items-center w-2/3 lg:w-1/3 justify-center">
-        <p className="text-2xl lg:text-4xl text-center">Reset Password</p>
+        <p className="text-2xl lg:text-4xl text-center">
+          {langConfig.authResetPassword}
+        </p>
         {isTokenValid && (
           <p className="text-base lg:text-sm text-center font-ubuntu">
-            We found your account, now you can reset your password
+            {langConfig.authResetPasswordHead}
           </p>
         )}
         {isTokenValid

@@ -89,6 +89,8 @@
   "updateProfileTab1": "Perbarui Profil",
   "updateProfileTab2": "Ganti Password",
   "updateProfileUpdate": "Perbarui Profil",
+
+
   "formFullNameRule1": "Mohon masukkan nama lengkap!",
   "formFullNameRule2": "Nama lengkap tidak boleh melebihi dari 255 karakter!",
   "formFullNameRule3": "Nama lengkap setidaknya terdiri dari 3 karakter!",
@@ -110,17 +112,68 @@
   "formPasswordRule3": "Password tidak boleh melebihi dari 50 karakter!",
   "formPasswordRule4": "Mohon konfirmasi password kamu!",
   "formBioRule1": "Bio tidak boleh melebihi dari 1000 karakter!",
+  "formUsernameOrEmailRule1": "Mohon masukkan username atau email!",
+  "formUsernameOrEmailRule2": "Username atau email tidak boleh melebihi 50 karakter!",
+  "formEmailRule1": "Mohon masukkan email!",
+  "formEmailRule2": "Mohon masukkan format email yang valid!",
+  "formEmailRule3": "Email tidak boleh melebihi dari 50 karakter!",
+
+
+  "formPlaceholderFullName": "Nama lengkap",
+  "formPlaceholderUsername": "Username",
+  "formPlaceholderGender": "Jenis kelamin",
+  "formPlaceholderBirthday": "Tanggal lahir",
   "formPlaceholderCurrentPassword": "Password saat ini",
   "formPlaceholderNewPassword": "Password baru",
   "formPlaceholderConfirmPassword": "Konfirmasi password",
+  "formPlaceholderUsernameOrEmail": "Username atau email",
+  "formPlaceholderPassword": "Password",
+  "formPlaceHolderEmail": "Email",
+  
+  
   "updatePictureProfileWarn1": "Kamu hanya dapat mengupload file JPG/PNG!",
   "updatePictureProfileWarn2": "Ukaran gambar tidak boleh melebihi 2MB!",
   "profileUpdatePicture": "Perbarui Foto Profil",
   "changePasswordWarn1": "Password yang diisi tidak sama!",
   "changePasswordChange": "Ganti Password",
+  
+  
+  "loadingLogIn": "Sedang mencoba masuk...",
+  "loadingForgotPassword": "Sedang memvalidasi email...",
   "loadingChangePassword": "Sedang memperbarui password...",
   "loadingUpdateProfile": "Sedang memperbarui profil...",
+  "loadingRegister": "Sedang mendaftarkan...",
+  "loadingResetPassword": "Sedang mengatur ulang...",
+  
+  
+  
   "successUpdateProfile": "Pembaruan profil berhasil",
   "successChangePassword": "Pembaruan password berhasil",
-  "validateUsernameTaken": "Username telah digunakan!"
+  "successLogIn": "Berhasil masuk",
+  "successForgotPassword": "Berhasil",
+  "successRegister": "Pendaftaran berhasil",
+  "successResetPassword": "Password berhasil diperbarui",
+  
+  
+  
+  "validateUsernameTaken": "Username telah digunakan!",
+  "validateEmailTaken": "Email telah digunakan!",
+
+
+  "authLogin": "Masuk",
+  "authLoginRemember": "Ingat saya",
+  "authLoginForgot": "Lupa password?",
+  "authLoginNotHaveAccount": "Belum punya akun?",
+  "authLoginRegister": "Daftar",
+  "authForgot": "Atur Ulang Password",
+  "authForgotToLogin": "Kembali ke halaman Masuk",
+  "authForgotHead": "Kirimkan email kamu! Mimin akan mengirimkan tautang untuk mengatur ulang password kamus.",
+  "authRegister": "Daftar LetsCode",
+  "authRegisterButton": "Daftar",
+  "authRegisterHaveAccount": "Sudah mempunyai akun?",
+  "authResetValidating": "Sedang memvalidasi token...",
+  "authResetErrorValidate": "Token tidak valid atau sudah kadaluarsa!",
+  "authResetPassword": "Atur Ulang Password",
+  "authResetPasswordHead": "Mimin menemukan akunmu, sekarang kamu dapat memperbarui password.",
+  "authResetPasswordButton": "Atur Ulang Password"
 }
