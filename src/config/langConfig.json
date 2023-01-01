@@ -244,5 +244,6 @@
   "totalProblems": "Total Permasalahan",
   "totalSubmissions": "Total Pengumpulan",
   "totalCompetes": "Total Kompetisi",
-  "dashboardStatistics": "Statistik"
+  "dashboardStatistics": "Statistik",
+  "dashboardLeaderboards": "Papan Peringkat Pengguna"
 }
