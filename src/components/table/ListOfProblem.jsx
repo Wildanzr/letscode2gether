@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 
 import api from '../../api'
@@ -14,27 +15,27 @@ const ListOfProblem = (props) => {
   // Local states
   const [headingList] = useState([
     {
-      name: 'NO',
+      name: langConfig.tableDetailJourney1,
       wide: 5,
       align: 'text-left'
     },
     {
-      name: 'NAME',
+      name: langConfig.tableDetailJourney2,
       wide: 65,
       align: 'text-left'
     },
     {
-      name: 'MAX POINT',
+      name: langConfig.tableDetailJourney3,
       wide: 10,
       align: 'text-center'
     },
     {
-      name: 'DIFFICULTY',
+      name: langConfig.tableDetailJourney4,
       wide: 10,
       align: 'text-center'
     },
     {
-      name: 'ACTIONS',
+      name: langConfig.tableDetailJourney5,
       wide: 10,
       align: 'text-right'
     }

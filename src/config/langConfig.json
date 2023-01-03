@@ -131,6 +131,8 @@
   "formPlaceHolderEmail": "Email",
   "formPlaceholderRoomID": "Masukkan ID ruangan",
   "formPlaceholderCustomInput": "Isikan percobaan masukkan",
+  "formPlaceholderSearchJourney": "Cari Jalur Belajar",
+  "formPlaceholderSearchChallenge": "Cari Tantangan",
   
   
   "updatePictureProfileWarn1": "Kamu hanya dapat mengupload file JPG/PNG!",
@@ -152,6 +154,7 @@
   "loadingRegister": "Sedang mendaftarkan...",
   "loadingResetPassword": "Sedang mengatur ulang...",
   "loadingJoinRoom": "Sedang mencoba bergabung...",
+  "loadingDeleteJourney": "Sedang menghapus jalur belajar...",
 
 
   "infoSomeoneJoined": "Seseorang bergabung dalaman ruangan.",
@@ -159,20 +162,21 @@
   "infoMeLeftRoom": "Kamu keluar dari ruangan.",
   "infoMustLogin": "Kamu harus masuk untuk melihat pengumpulanmu.",
   "infoSeeYouAgain": "Sampai jumpa kembali",
+  "infoDeleteJourney": "Jalur belajar yang telah dihapus tidak dapat dipulihkan.",
 
   
   "dialogLeftRoom": "Apakah kamu yakin ingin keluar dari ruangan ini?",
   "dialogSubmitCode": "Apakah kamu yakin ingin mengumpulkan kode ini?",
   "dialogLogout": "Apakah kamu yakin ingin keluar?",
+  "dialogDeleteJourney": "Hapus jalur belajar?",
   
-  
+
   "successUpdateProfile": "Pembaruan profil berhasil",
   "successChangePassword": "Pembaruan password berhasil",
   "successLogIn": "Berhasil masuk",
   "successForgotPassword": "Berhasil",
   "successRegister": "Pendaftaran berhasil",
   "successResetPassword": "Password berhasil diperbarui",
-  
   
   "validateUsernameTaken": "Username telah digunakan!",
   "validateEmailTaken": "Email telah digunakan!",
@@ -196,11 +200,13 @@
   "authResetPasswordHead": "Mimin menemukan akunmu, sekarang kamu dapat memperbarui password.",
   "authResetPasswordButton": "Atur Ulang Password",
 
+
   "sideContentChallenger": "Penantang:",
   "sideContentBack": "Kembali",
   "sideContentProblem": "Permasalahan",
   "sideContentSubmissions": "Pengumpulan",
   "sideContentLeaderboards": "Papan Peringkat",
+
 
   "problemConstraints": "Batasan",
   "problemInputFormat": "Format Masukkan",
@@ -233,11 +239,13 @@
   "resultMemory": "Penggunaan Memori:",
   "resultTime": "Waktu Eksekusi:",
 
+
   "submissionEmpty": "Belum ada pengumpulan.",
   "submissionName": "Pengumpulan",
   "submissionLanguage": "Bahasa",
   "submissionTestCase": "Uji kasus",
   "submissionSourceCode": "Kode sumber",
+
 
   "totalStudents": "Total Peserta Didik",
   "totalTeachers": "Total Pendidik",
@@ -245,5 +253,31 @@
   "totalSubmissions": "Total Pengumpulan",
   "totalCompetes": "Total Kompetisi",
   "dashboardStatistics": "Statistik",
-  "dashboardLeaderboards": "Papan Peringkat Pengguna"
+  "dashboardLeaderboards": "Papan Peringkat Pengguna",
+
+  
+  "adminJourney": "Jalur Belajar",
+  "adminLearningJourney1": "Daftar Jalur Belajar",
+  "adminLearningJourney2": "Detail Jalur Belajar",
+  "adminLearningJourneyInfo": "* Daftar materi jalur belajar diurutkan berdasar nama, pastikan membuat materi dengan nama yang berurutan.",
+
+
+  "tableManagementJourney1": "NO",
+  "tableManagementJourney2": "NAMA MATERI",
+  "tableManagementJourney3": "JUMLAH PERMASALAHAN",
+  "tableManagementJourney4": "AKSI",
+  "tableAddJourney": "Tambahkan Jalur Belajar",
+  "tableDetailJourney1": "NO",
+  "tableDetailJourney2": "NAMA",
+  "tableDetailJourney3": "POIN MAKSIMAL",
+  "tableDetailJourney4": "TINGKAT KESULITAN",
+  "tableDetailJourney5": "AKSI",
+
+
+
+
+  "journeyDetailName": "Nama",
+  "journeyDetailDescription": "Deskripsi",
+  "journeyDetailLanguage": "Bahasa yang dapat digunakan",
+  "journeyDetailProblems": "Daftar Permasalahan"
 }
