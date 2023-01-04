@@ -163,6 +163,7 @@
   "infoMustLogin": "Kamu harus masuk untuk melihat pengumpulanmu.",
   "infoSeeYouAgain": "Sampai jumpa kembali",
   "infoDeleteJourney": "Jalur belajar yang telah dihapus tidak dapat dipulihkan.",
+  "infoNoInput": "Tidak ada masukkan",
 
   
   "dialogLeftRoom": "Apakah kamu yakin ingin keluar dari ruangan ini?",
@@ -259,6 +260,8 @@
   "adminJourney": "Jalur Belajar",
   "adminLearningJourney1": "Daftar Jalur Belajar",
   "adminLearningJourney2": "Detail Jalur Belajar",
+  "adminLearningJourney2a": "Edit Jalur Belajar",
+  "adminLearningJourney3": "Detail Permasalahan",
   "adminLearningJourneyInfo": "* Daftar materi jalur belajar diurutkan berdasar nama, pastikan membuat materi dengan nama yang berurutan.",
 
 
@@ -272,12 +275,27 @@
   "tableDetailJourney3": "POIN MAKSIMAL",
   "tableDetailJourney4": "TINGKAT KESULITAN",
   "tableDetailJourney5": "AKSI",
-
+  "tableSampleDetail1": "NO",
+  "tableSampleDetail2": "MASUKAN",
+  "tableSampleDetail3": "KELUARAN",
+  "tableSampleDetail4": "PENJELASAN",
+  "tableTestDetail1": "NO",
+  "tableTestDetail2": "MASUKAN",
+  "tableTestDetail3": "KELUARAN",
 
 
 
   "journeyDetailName": "Nama",
   "journeyDetailDescription": "Deskripsi",
   "journeyDetailLanguage": "Bahasa yang dapat digunakan",
-  "journeyDetailProblems": "Daftar Permasalahan"
+  "journeyDetailProblems": "Daftar Permasalahan",
+
+  
+  "problemDetailTitle": "Judul",
+  "problemDetailDescription": "Deskripsi",
+  "problemDetailConstraints": "Batasan",
+  "problemDetailDifficulty": "Tingkat Kesulitan",
+  "problemDetailInputFormat": "Format Masukkan",
+  "problemDetailOutputFormat": "Format Keluaran",
+  "problemDetailSampleCase": "Contoh Kasus"
 }

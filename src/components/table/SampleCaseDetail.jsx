@@ -1,3 +1,5 @@
+import langConfig from '../../config/langConfig.json'
+
 const SampleCaseDetail = (props) => {
   const { sampleCases } = props
   return (
@@ -5,16 +7,16 @@ const SampleCaseDetail = (props) => {
       <thead>
         <tr className="bg-gray-600 text-white uppercase text-sm leading-normal">
           <th className="py-3 px-5 w-[5%] text-left overflow-clip whitespace-nowrap">
-            NO
+            {langConfig.tableSampleDetail1}
           </th>
           <th className="py-3 px-5 w-[25%] text-left overflow-clip whitespace-nowrap">
-            INPUT
+            {langConfig.tableSampleDetail2}
           </th>
           <th className="py-3 px-5 w-[25%] text-left overflow-clip whitespace-nowrap">
-            OUTPUT
+            {langConfig.tableSampleDetail3}
           </th>
           <th className="py-3 px-5 w-[45%] text-left overflow-clip whitespace-nowrap">
-            EXPLANATION
+            {langConfig.tableSampleDetail4}
           </th>
         </tr>
       </thead>
@@ -44,7 +46,9 @@ const SampleCaseDetail = (props) => {
                   <div className="flex items-center justify-start">
                     <div className="font-medium whitespace-nowrap">
                       {inputSplit === null
-                        ? <p className="mb-0 text-gray-300">No Input</p>
+                        ? <p className="mb-0 text-gray-300">
+                          {langConfig.infoNoInput}
+                        </p>
                         : inputSplit.map((input, index) => (
                             <p key={index} className="mb-0 text-gray-600">{input}</p>
                         ))
@@ -56,7 +60,9 @@ const SampleCaseDetail = (props) => {
                   <div className="flex items-center justify-start">
                     <div className="font-medium whitespace-nowrap">
                       {outputSplit === null
-                        ? <p className="mb-0 text-gray-300">No Input</p>
+                        ? <p className="mb-0 text-gray-300">
+                          {langConfig.infoNoInput}
+                        </p>
                         : outputSplit.map((output, index) => (
                             <p key={index} className="mb-0 text-gray-600">{output}</p>
                         ))
