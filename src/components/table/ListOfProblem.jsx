@@ -116,13 +116,13 @@ const ListOfProblem = (props) => {
                             <div className="flex items-center justify-center">
                               <div className="font-medium whitespace-nowrap">
                               {difficulty === 1 && (
-                                <Tag color="#16A34A">Easy</Tag>
+                                <Tag color="#16A34A">{langConfig.challengeLevel1}</Tag>
                               )}
                               {difficulty === 2 && (
-                                <Tag color="#EAB308">Medium</Tag>
+                                <Tag color="#EAB308">{langConfig.challengeLevel2}</Tag>
                               )}
                               {difficulty === 3 && (
-                                <Tag color="#DC2626">Hard</Tag>
+                                <Tag color="#DC2626">{langConfig.challengeLevel3}</Tag>
                               )}
                               </div>
                             </div>

@@ -90,6 +90,10 @@
   "updateProfileTab2": "Ganti Password",
   "updateProfileUpdate": "Perbarui Profil",
 
+  
+  "buttonCancel": "Batal",
+  "buttonSave": "Simpan",
+
 
   "formFullNameRule1": "Mohon masukkan nama lengkap!",
   "formFullNameRule2": "Nama lengkap tidak boleh melebihi dari 255 karakter!",
@@ -117,6 +121,11 @@
   "formEmailRule1": "Mohon masukkan email!",
   "formEmailRule2": "Mohon masukkan format email yang valid!",
   "formEmailRule3": "Email tidak boleh melebihi dari 50 karakter!",
+  "formJourneyNameRule1": "Mohon masukkan nama jalur belajar!",
+  "formJourneyNameRule2": "Nama jalur belajar tidak boleh melebihi dari 255 karakter!",
+  "formJourneyDescriptionRule1": "Mohon masukkan deskripsi jalur belajar!",
+  "formJourneyLanguageRule1": "Mohon pilih bahasa pemrograman yang dapat digunakan!",
+  "formJourneyLanguageRule2": "Mohon pilih setidaknya 1 bahasa pemrograman!",
 
 
   "formPlaceholderFullName": "Nama lengkap",
@@ -133,6 +142,9 @@
   "formPlaceholderCustomInput": "Isikan percobaan masukkan",
   "formPlaceholderSearchJourney": "Cari Jalur Belajar",
   "formPlaceholderSearchChallenge": "Cari Tantangan",
+  "formPlaceholderJourneyName": "Nama Jalur Belajar",
+  "formPlaceholderJourneyDescription": "Deskripsi Jalur Belajar",
+  "formPlaceholderJourneyLanguage": "Pilih bahasa pemrograman",
   
   
   "updatePictureProfileWarn1": "Kamu hanya dapat mengupload file JPG/PNG!",
@@ -155,6 +167,7 @@
   "loadingResetPassword": "Sedang mengatur ulang...",
   "loadingJoinRoom": "Sedang mencoba bergabung...",
   "loadingDeleteJourney": "Sedang menghapus jalur belajar...",
+  "loadingUpdateJourney": "Sedang memperbarui jalur belajar...",
 
 
   "infoSomeoneJoined": "Seseorang bergabung dalaman ruangan.",
@@ -178,6 +191,7 @@
   "successForgotPassword": "Berhasil",
   "successRegister": "Pendaftaran berhasil",
   "successResetPassword": "Password berhasil diperbarui",
+  "successUpdateJourney": "Jalur belajar berhasil diperbarui",
   
   "validateUsernameTaken": "Username telah digunakan!",
   "validateEmailTaken": "Email telah digunakan!",
@@ -262,6 +276,7 @@
   "adminLearningJourney2": "Detail Jalur Belajar",
   "adminLearningJourney2a": "Edit Jalur Belajar",
   "adminLearningJourney3": "Detail Permasalahan",
+  "adminLearningJourney4": "Edit Jalur Belajar",
   "adminLearningJourneyInfo": "* Daftar materi jalur belajar diurutkan berdasar nama, pastikan membuat materi dengan nama yang berurutan.",
 
 
@@ -269,7 +284,6 @@
   "tableManagementJourney2": "NAMA MATERI",
   "tableManagementJourney3": "JUMLAH PERMASALAHAN",
   "tableManagementJourney4": "AKSI",
-  "tableAddJourney": "Tambahkan Jalur Belajar",
   "tableDetailJourney1": "NO",
   "tableDetailJourney2": "NAMA",
   "tableDetailJourney3": "POIN MAKSIMAL",
@@ -284,6 +298,9 @@
   "tableTestDetail3": "KELUARAN",
 
 
+  "tableAddJourney": "Tambahkan Jalur Belajar",
+  "tableAddProblem": "Tambahkan Permasalahan",
+
 
   "journeyDetailName": "Nama",
   "journeyDetailDescription": "Deskripsi",
@@ -297,5 +314,10 @@
   "problemDetailDifficulty": "Tingkat Kesulitan",
   "problemDetailInputFormat": "Format Masukkan",
   "problemDetailOutputFormat": "Format Keluaran",
-  "problemDetailSampleCase": "Contoh Kasus"
+  "problemDetailSampleCase": "Contoh Kasus",
+
+  "editJourneyName": "Nama",
+  "editJourneyDescription": "Deskripsi",
+  "editJourneyLanguage": "Bahasa yang dapat digunakan",
+  "editJourneyProblems": "Daftar Permasalahan"
 }
