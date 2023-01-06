@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 
@@ -32,15 +33,15 @@ const AddProblem = (props) => {
   const [otherFields] = useState([
     {
       name: 'constraint',
-      placeholder: 'Constraints'
+      placeholder: langConfig.problemDetailConstraints
     },
     {
       name: 'inputFormat',
-      placeholder: 'Input Format'
+      placeholder: langConfig.problemDetailInputFormat
     },
     {
       name: 'outputFormat',
-      placeholder: 'Output Format'
+      placeholder: langConfig.problemDetailOutputFormat
     }
   ])
 
@@ -53,7 +54,7 @@ const AddProblem = (props) => {
   const onFinish = async (payload) => {
     // Show loading
     mySwal.fire({
-      title: 'Creating Problem...',
+      title: langConfig.loadingCreateProblem,
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => {
@@ -85,7 +86,7 @@ const AddProblem = (props) => {
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: 'Problem created successfully',
+        title: langConfig.successCreateProblem,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -125,7 +126,7 @@ const AddProblem = (props) => {
       <div className="flex flex-row w-full items-start justify-start">
         <div className="flex w-1/4">
           <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-            Title
+            {langConfig.problemDetailTitle}
           </p>
         </div>
         <div className="flex w-3/4">
@@ -135,19 +136,19 @@ const AddProblem = (props) => {
             rules={[
               {
                 required: true,
-                message: 'Please input title of problem!'
+                message: langConfig.formProblemTitleRule1
               },
               {
                 min: 3,
-                message: 'Title must be at least 3 characters!'
+                message: langConfig.formProblemTitleRule2
               },
               {
                 max: 255,
-                message: 'Title must be at most 255 characters'
+                message: langConfig.formProblemTitleRule3
               }
             ]}
           >
-            <Input placeholder="Title of problem" />
+            <Input placeholder={langConfig.formPlaceholderProblemTitle} />
           </Item>
         </div>
       </div>
@@ -156,7 +157,7 @@ const AddProblem = (props) => {
       <div className="flex flex-row w-full items-start justify-start">
         <div className="flex w-1/4">
           <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-            Description
+            {langConfig.problemDetailDescription}
           </p>
         </div>
         <div className="flex w-3/4">
@@ -166,13 +167,13 @@ const AddProblem = (props) => {
             rules={[
               {
                 required: true,
-                message: 'Please input description of problem!'
+                message: langConfig.formProblemDescriptionRule1
               }
             ]}
           >
             <TextArea
-              rows={5}
-              placeholder="Description of problem"
+              autoSize={{ minRows: 2, maxRows: 10 }}
+              placeholder={langConfig.formPlaceholderProblemDescription}
               className="w-full"
             />
           </Item>
@@ -183,7 +184,7 @@ const AddProblem = (props) => {
       <div className="flex flex-row w-full items-start justify-start">
         <div className="flex w-1/4">
           <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-            Difficulty
+            {langConfig.problemDetailDifficulty}
           </p>
         </div>
         <div className="flex w-3/4">
@@ -193,17 +194,23 @@ const AddProblem = (props) => {
             rules={[
               {
                 required: true,
-                message: 'Please select difficulty of problem!'
+                message: langConfig.formProblemDifficultyRule1
               }
             ]}
           >
             <Select
-              placeholder="Select difficulty of problem"
+              placeholder={langConfig.formPlaceholderProblemDifficulty}
               className="w-full"
             >
-              <Select.Option value="1">Easy</Select.Option>
-              <Select.Option value="2">Medium</Select.Option>
-              <Select.Option value="3">Hard</Select.Option>
+              <Select.Option value={1}>
+                {langConfig.challengeLevel1}
+              </Select.Option>
+              <Select.Option value={2}>
+                {langConfig.challengeLevel2}
+              </Select.Option>
+              <Select.Option value={3}>
+                {langConfig.challengeLevel3}
+              </Select.Option>
             </Select>
           </Item>
         </div>
@@ -229,15 +236,19 @@ const AddProblem = (props) => {
                 rules={[
                   {
                     required: true,
-                    message: `Please input ${placeholder.toLowerCase()} of problem!`
+                    message: `${langConfig.formConstraintsAndFormatRule1a} ${placeholder.toLowerCase()} ${langConfig.formConstraintsAndFormatRule1b}`
                   },
                   {
-                    max: 255,
-                    message: `${placeholder} must be at most 255 characters`
+                    max: 1000,
+                    message: `${placeholder} ${langConfig.formConstraintsAndFormatRule2}`
                   }
                 ]}
               >
-                <Input placeholder={`${placeholder} of problem`} />
+                <TextArea
+                  autoSize={{ minRows: 1, maxRows: 10 }}
+                  placeholder={`${placeholder} ${langConfig.formConstraintsAndFormatRule1b}`}
+                  className="w-full"
+                />
               </Item>
             </div>
           </div>
@@ -251,14 +262,14 @@ const AddProblem = (props) => {
             to={competes ? `/teacher/manage/competes/${journeyId}/edit` : `/admin/manage/journeys/${journeyId}/edit`}
             className="px-4 py-2 mt-4 text-sm font-medium text-center font-ubuntu tracking-wider uppercase transition-colors transform border-2 text-main dark:text-snow border-main dark:border-snow dark:hover:border-easy hover:border-easy duration-300 ease-in-out"
           >
-            Cancel
+            {langConfig.buttonCancel}
           </Link>
 
           <button
             type="submit"
             className="px-4 py-2 mt-4 text-sm font-medium text-center text-white font-ubuntu tracking-wider uppercase transition-colors duration-200 transform bg-easy hover:bg-blue-400 focus:outline-none focus:bg-blue-400"
           >
-            Save
+            {langConfig.buttonSave}
           </button>
         </div>
       </Item>

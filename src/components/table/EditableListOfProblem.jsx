@@ -70,7 +70,7 @@ const EditableListOfProblem = (props) => {
   const deleteProblem = async (problemId) => {
     // Show loading
     mySwal.fire({
-      title: 'Deleting Problem...',
+      title: langConfig.loadingDeleteProblem,
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => mySwal.showLoading()
@@ -116,12 +116,12 @@ const EditableListOfProblem = (props) => {
   const dialogDeleteProblem = (problemId) => {
     mySwal.fire({
       icon: 'warning',
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this problem!',
+      title: langConfig.dialogDeleteProblem,
+      text: langConfig.infoDeleteProblem,
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Ya, hapus!',
       confirmButtonColor: '#d33',
-      cancelButtonText: 'No, keep it',
+      cancelButtonText: 'Batal',
       cancelButtonColor: '#3085d6',
       reverseButtons: true
     }).then((result) => {

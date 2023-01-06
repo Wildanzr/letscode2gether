@@ -105,10 +105,10 @@ const DetailProblemPage = () => {
                   title={langConfig.problemDetailDifficulty}
                   value={
                     problemDetail.difficulty === 1
-                      ? <span className='font-medium text-success'>Easy</span>
+                      ? <span className='font-medium text-success'>{langConfig.challengeLevel1}</span>
                       : problemDetail.difficulty === 2
-                        ? <span className='font-medium text-medium'>Medium</span>
-                        : <span className='font-medium text-hard'>Hard</span>
+                        ? <span className='font-medium text-medium'>{langConfig.challengeLevel2}</span>
+                        : <span className='font-medium text-hard'>{langConfig.challengeLevel3}</span>
                   }
                 />
                 <Description title={langConfig.problemDetailInputFormat} value={problemDetail.inputFormat} />

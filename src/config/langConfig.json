@@ -126,6 +126,14 @@
   "formJourneyDescriptionRule1": "Mohon masukkan deskripsi jalur belajar!",
   "formJourneyLanguageRule1": "Mohon pilih bahasa pemrograman yang dapat digunakan!",
   "formJourneyLanguageRule2": "Mohon pilih setidaknya 1 bahasa pemrograman!",
+  "formProblemTitleRule1": "Mohon masukkan judul permasalahan!",
+  "formProblemTitleRule2": "Judul permasalahan setidaknya terdiri dari 3 karakter!",
+  "formProblemTitleRule3": "Judul permasalahan tidak boleh melebihi dari 255 karakter!",
+  "formProblemDescriptionRule1": "Mohon masukkan deskripsi permasalahan!",
+  "formProblemDifficultyRule1": "Mohon pilih tingkat kesulitan permasalahan!",
+  "formConstraintsAndFormatRule1a": "Mohon masukkan",
+  "formConstraintsAndFormatRule1b": "dari permasalahan!",
+  "formConstraintsAndFormatRule2": "tidak boleh melebihi dari 1000 karakter!", 
 
 
   "formPlaceholderFullName": "Nama lengkap",
@@ -145,6 +153,9 @@
   "formPlaceholderJourneyName": "Nama Jalur Belajar",
   "formPlaceholderJourneyDescription": "Deskripsi Jalur Belajar",
   "formPlaceholderJourneyLanguage": "Pilih bahasa pemrograman",
+  "formPlaceholderProblemTitle": "Judul permasalahan",
+  "formPlaceholderProblemDescription": "Deskripsi permasalahan",
+  "formPlaceholderProblemDifficulty": "Tingkat kesulitan permasalahan",
   
   
   "updatePictureProfileWarn1": "Kamu hanya dapat mengupload file JPG/PNG!",
@@ -168,6 +179,13 @@
   "loadingJoinRoom": "Sedang mencoba bergabung...",
   "loadingDeleteJourney": "Sedang menghapus jalur belajar...",
   "loadingUpdateJourney": "Sedang memperbarui jalur belajar...",
+  "loadingUpdateProblem": "Sedang memperbarui permasalahan...",
+  "loadingCreateProblem": "Sedang membuat permasalahan...",
+  "loadingDeleteSampleCase": "Sedang menghapus contoh kasus...",
+  "loadingCreateSampleCase": "Sedang membuat contoh kasus...",
+  "loadingDeleteTestcase": "Sedang menghapus kasus uji...",
+  "loadingCreateTestcase": "Sedang membuat kasus uji...",
+  "loadingDeleteProblem": "Sedang menghapus permasalahan...",
 
 
   "infoSomeoneJoined": "Seseorang bergabung dalaman ruangan.",
@@ -177,12 +195,21 @@
   "infoSeeYouAgain": "Sampai jumpa kembali",
   "infoDeleteJourney": "Jalur belajar yang telah dihapus tidak dapat dipulihkan.",
   "infoNoInput": "Tidak ada masukkan",
+  "infoDeleteSampleCase": "Contoh kasus yang telah dihapus tidak dapat dipulihkan.",
+  "infoDeleteTestcase": "Kasus uji yang telah dihapus tidak dapat dipulihkan.",
+  "infoDeleteProblem": "Permasalahan yang telah dihapus tidak dapat dipulihkan.",
+  "infoZeroSampleCase": "Belum ada contoh kasus yang dibuat.",
+  "infoZeroTestcase": "Belum ada kasus uji yang dibuat.",
 
   
   "dialogLeftRoom": "Apakah kamu yakin ingin keluar dari ruangan ini?",
   "dialogSubmitCode": "Apakah kamu yakin ingin mengumpulkan kode ini?",
   "dialogLogout": "Apakah kamu yakin ingin keluar?",
   "dialogDeleteJourney": "Hapus jalur belajar?",
+  "dialogDeleteSampleCase": "Hapus contoh kasus?",
+  "dialogDeleteTestcase": "Hapus kasus uji?",
+  "dialogDeleteProblem": "Hapus permasalahan?",
+
   
 
   "successUpdateProfile": "Pembaruan profil berhasil",
@@ -192,6 +219,10 @@
   "successRegister": "Pendaftaran berhasil",
   "successResetPassword": "Password berhasil diperbarui",
   "successUpdateJourney": "Jalur belajar berhasil diperbarui",
+  "successUpdateProblem": "Permasalahan berhasil diperbarui",
+  "successCreateProblem": "Permasalahan berhasil dibuat",
+  "successDeleteSampleCase": "Contoh kasus berhasil dihapus",
+
   
   "validateUsernameTaken": "Username telah digunakan!",
   "validateEmailTaken": "Email telah digunakan!",
@@ -276,7 +307,7 @@
   "adminLearningJourney2": "Detail Jalur Belajar",
   "adminLearningJourney2a": "Edit Jalur Belajar",
   "adminLearningJourney3": "Detail Permasalahan",
-  "adminLearningJourney4": "Edit Jalur Belajar",
+  "adminLearningJourney4": "Edit Permasalahan",
   "adminLearningJourneyInfo": "* Daftar materi jalur belajar diurutkan berdasar nama, pastikan membuat materi dengan nama yang berurutan.",
 
 
@@ -293,13 +324,17 @@
   "tableSampleDetail2": "MASUKAN",
   "tableSampleDetail3": "KELUARAN",
   "tableSampleDetail4": "PENJELASAN",
+  "tableSampleDetail5": "AKSI",
   "tableTestDetail1": "NO",
   "tableTestDetail2": "MASUKAN",
   "tableTestDetail3": "KELUARAN",
+  "tableTestDetail4": "AKSI",
 
 
   "tableAddJourney": "Tambahkan Jalur Belajar",
   "tableAddProblem": "Tambahkan Permasalahan",
+  "tableAddSample": "Tambahkan Contoh Kasus",
+  "tableAddTest": "Tambahkan Uji Kasus",
 
 
   "journeyDetailName": "Nama",
@@ -315,6 +350,7 @@
   "problemDetailInputFormat": "Format Masukkan",
   "problemDetailOutputFormat": "Format Keluaran",
   "problemDetailSampleCase": "Contoh Kasus",
+  "problemDetailTestCase": "Uji Kasus",
 
   "editJourneyName": "Nama",
   "editJourneyDescription": "Deskripsi",
