@@ -196,6 +196,7 @@
   "loadingDeleteProblem": "Sedang menghapus permasalahan...",
   "loadingUpdateTestcase": "Sedang memperbarui kasus uji...",
   "loadingCreateJourney": "Sedang membuat jalur belajar...",
+  "loadingDeleteChallenge": "Sedang menghapus tantangan...",
 
 
   "infoSomeoneJoined": "Seseorang bergabung dalaman ruangan.",
@@ -208,8 +209,10 @@
   "infoDeleteSampleCase": "Contoh kasus yang telah dihapus tidak dapat dipulihkan.",
   "infoDeleteTestcase": "Kasus uji yang telah dihapus tidak dapat dipulihkan.",
   "infoDeleteProblem": "Permasalahan yang telah dihapus tidak dapat dipulihkan.",
+  "infoDeleteChallenge": "Tantangan yang telah dihapus tidak dapat dipulihkan.",
   "infoZeroSampleCase": "Belum ada contoh kasus yang dibuat.",
   "infoZeroTestcase": "Belum ada kasus uji yang dibuat.",
+  "infoZeroChallenge": "Belum ada tantangan yang dibuat.",
 
   
   "dialogLeftRoom": "Apakah kamu yakin ingin keluar dari ruangan ini?",
@@ -219,6 +222,7 @@
   "dialogDeleteSampleCase": "Hapus contoh kasus?",
   "dialogDeleteTestcase": "Hapus kasus uji?",
   "dialogDeleteProblem": "Hapus permasalahan?",
+  "dialogDeleteChallenge": "Hapus tantangan?",
 
   
 
@@ -237,6 +241,7 @@
   "successCreateTestcase": "Kasus uji berhasil dibuat",
   "successUpdateTestcase": "Kasus uji berhasil diperbarui",
   "successCreateJourney": "Jalur belajar berhasil dibuat",
+  "successDeleteChallenge": "Tantangan berhasil dihapus",
 
   
   "validateUsernameTaken": "Username telah digunakan!",
@@ -348,6 +353,11 @@
   "tableManagementJourney2": "NAMA MATERI",
   "tableManagementJourney3": "JUMLAH PERMASALAHAN",
   "tableManagementJourney4": "AKSI",
+  "tableManagementChallenge1": "NO",
+  "tableManagementChallenge2": "NAMA TANTANGAN",
+  "tableManagementChallenge3": "POIN MAKSIMAL",
+  "tableManagementChallenge4": "TINGKAT KESULITAN",
+  "tableManagementChallenge5": "AKSI",
   "tableDetailJourney1": "NO",
   "tableDetailJourney2": "NAMA",
   "tableDetailJourney3": "POIN MAKSIMAL",
@@ -368,6 +378,7 @@
   "tableAddProblem": "Tambahkan Permasalahan",
   "tableAddSample": "Tambahkan Contoh Kasus",
   "tableAddTest": "Tambahkan Uji Kasus",
+  "tableAddChallenge": "Tambahkan Tantangan",
 
 
   "journeyDetailName": "Nama",
