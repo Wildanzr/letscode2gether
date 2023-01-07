@@ -134,10 +134,16 @@
   "formProblemDifficultyRule1": "Mohon pilih tingkat kesulitan permasalahan!",
   "formConstraintsAndFormatRule1a": "Mohon masukkan",
   "formConstraintsAndFormatRule1b": "dari permasalahan!",
+  "formConstraintsAndFormatRule1c": "dari tantangan!",
   "formConstraintsAndFormatRule2": "tidak boleh melebihi dari 1000 karakter!", 
   "formInputRule1": "Masukkan tidak boleh melebihi dari 1000 karakter!",
   "formOutputRule1": "Mohon isi keluaran!",
   "formOutputRule2": "Keluaran tidak boleh melebihi dari 10000 karakter!",
+  "formChallengeTitleRule1": "Mohon masukkan judul tantangan!",
+  "formChallengeTitleRule2": "Judul tantangan setidaknya terdiri dari 3 karakter!",
+  "formChallengeTitleRule3": "Judul tantangan tidak boleh melebihi dari 255 karakter!",
+  "formChallengeDescriptionRule1": "Mohon masukkan deskripsi tantangan!",
+  "formChallengeDifficultyRule1": "Mohon pilih tingkat kesulitan tantangan!",
 
 
   "formPlaceholderFullName": "Nama lengkap",
@@ -163,6 +169,10 @@
   "formPlaceholderInput": "Masukkan (stdin)",
   "formPlaceholderOutput": "Keluaran (stdout)",
   "formPlaceholderExplanation": "Penjelasan (opsional)",
+  "formPlaceholderChallengeTitle": "Judul tantangan",
+  "formPlaceholderChallengeDescription": "Deskripsi tantangan",
+  "formPlaceholderChallengeDifficulty": "Tingkat kesulitan tantangan",
+  
   
   
   "updatePictureProfileWarn1": "Kamu hanya dapat mengupload file JPG/PNG!",
@@ -197,6 +207,28 @@
   "loadingUpdateTestcase": "Sedang memperbarui kasus uji...",
   "loadingCreateJourney": "Sedang membuat jalur belajar...",
   "loadingDeleteChallenge": "Sedang menghapus tantangan...",
+  "loadingCreateChallenge": "Sedang membuat tantangan...",
+  "loadingUpdateChallenge": "Sedang memperbarui tantangan...",
+
+
+  "successUpdateProfile": "Pembaruan profil berhasil",
+  "successChangePassword": "Pembaruan password berhasil",
+  "successLogIn": "Berhasil masuk",
+  "successForgotPassword": "Berhasil",
+  "successRegister": "Pendaftaran berhasil",
+  "successResetPassword": "Password berhasil diperbarui",
+  "successUpdateJourney": "Jalur belajar berhasil diperbarui",
+  "successUpdateProblem": "Permasalahan berhasil diperbarui",
+  "successCreateProblem": "Permasalahan berhasil dibuat",
+  "successDeleteSampleCase": "Contoh kasus berhasil dihapus",
+  "successCreateSampleCase": "Contoh kasus berhasil dibuat",
+  "successUpdateSampleCase": "Contoh kasus berhasil diperbarui",
+  "successCreateTestcase": "Kasus uji berhasil dibuat",
+  "successUpdateTestcase": "Kasus uji berhasil diperbarui",
+  "successCreateJourney": "Jalur belajar berhasil dibuat",
+  "successDeleteChallenge": "Tantangan berhasil dihapus",
+  "successCreateChallenge": "Tantangan berhasil dibuat",
+  "successUpdateChallenge": "Tantangan berhasil diperbarui",
 
 
   "infoSomeoneJoined": "Seseorang bergabung dalaman ruangan.",
@@ -223,25 +255,6 @@
   "dialogDeleteTestcase": "Hapus kasus uji?",
   "dialogDeleteProblem": "Hapus permasalahan?",
   "dialogDeleteChallenge": "Hapus tantangan?",
-
-  
-
-  "successUpdateProfile": "Pembaruan profil berhasil",
-  "successChangePassword": "Pembaruan password berhasil",
-  "successLogIn": "Berhasil masuk",
-  "successForgotPassword": "Berhasil",
-  "successRegister": "Pendaftaran berhasil",
-  "successResetPassword": "Password berhasil diperbarui",
-  "successUpdateJourney": "Jalur belajar berhasil diperbarui",
-  "successUpdateProblem": "Permasalahan berhasil diperbarui",
-  "successCreateProblem": "Permasalahan berhasil dibuat",
-  "successDeleteSampleCase": "Contoh kasus berhasil dihapus",
-  "successCreateSampleCase": "Contoh kasus berhasil dibuat",
-  "successUpdateSampleCase": "Contoh kasus berhasil diperbarui",
-  "successCreateTestcase": "Kasus uji berhasil dibuat",
-  "successUpdateTestcase": "Kasus uji berhasil diperbarui",
-  "successCreateJourney": "Jalur belajar berhasil dibuat",
-  "successDeleteChallenge": "Tantangan berhasil dihapus",
 
   
   "validateUsernameTaken": "Username telah digunakan!",
@@ -341,6 +354,7 @@
 
   "adminChallenge": "Tantangan",
   "adminChallenge1": "Daftar Tantangan",
+  "adminChallenge1a": "Tambah Tantangan",
   "adminChallenge2": "Edit Tantangan",
   "adminChallenge3": "Detail Tantangan",
   "adminChallenge4": "Tambah Contoh Kasus",

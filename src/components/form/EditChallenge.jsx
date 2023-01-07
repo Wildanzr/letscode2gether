@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 
@@ -32,15 +33,15 @@ const EditChallenge = (props) => {
   const [otherFields] = useState([
     {
       name: 'constraint',
-      placeholder: 'Constraints'
+      placeholder: langConfig.problemDetailConstraints
     },
     {
       name: 'inputFormat',
-      placeholder: 'Input Format'
+      placeholder: langConfig.problemDetailInputFormat
     },
     {
       name: 'outputFormat',
-      placeholder: 'Output Format'
+      placeholder: langConfig.problemDetailOutputFormat
     }
   ])
 
@@ -53,7 +54,7 @@ const EditChallenge = (props) => {
   const onFinish = async (payload) => {
     // Show loading
     mySwal.fire({
-      title: 'Updating Challenge...',
+      title: langConfig.loadingUpdateChallenge,
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => {
@@ -74,7 +75,7 @@ const EditChallenge = (props) => {
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: 'Update challenge successfully',
+        title: langConfig.successUpdateChallenge,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -131,19 +132,19 @@ const EditChallenge = (props) => {
                 rules={[
                   {
                     required: true,
-                    message: 'Please input title of challenge!'
+                    message: langConfig.formChallengeTitleRule1
                   },
                   {
                     min: 3,
-                    message: 'Title must be at least 3 characters!'
+                    message: langConfig.formChallengeTitleRule1
                   },
                   {
                     max: 255,
-                    message: 'Title must be at most 255 characters'
+                    message: langConfig.formChallengeTitleRule1
                   }
                 ]}
               >
-                <Input placeholder="Title of challenge" />
+                <Input placeholder={langConfig.formPlaceholderChallengeTitle} />
               </Item>
             </div>
           </div>
@@ -152,7 +153,7 @@ const EditChallenge = (props) => {
           <div className="flex flex-row w-full items-start justify-start">
             <div className="flex w-1/4">
               <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-                Description
+              {langConfig.problemDetailDescription}
               </p>
             </div>
             <div className="flex w-3/4">
@@ -162,13 +163,13 @@ const EditChallenge = (props) => {
                 rules={[
                   {
                     required: true,
-                    message: 'Please input description of challenge!'
+                    message: langConfig.formChallengeDescriptionRule1
                   }
                 ]}
               >
                 <TextArea
                   rows={5}
-                  placeholder="Description of challenge"
+                  placeholder={langConfig.formPlaceholderChallengeDescription}
                   className="w-full"
                 />
               </Item>
@@ -179,7 +180,7 @@ const EditChallenge = (props) => {
           <div className="flex flex-row w-full items-start justify-start">
             <div className="flex w-1/4">
               <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-                Difficulty
+                {langConfig.problemDetailDifficulty}
               </p>
             </div>
             <div className="flex w-3/4">
@@ -189,17 +190,23 @@ const EditChallenge = (props) => {
                 rules={[
                   {
                     required: true,
-                    message: 'Please select difficulty of challenge!'
+                    message: langConfig.formChallengeDifficultyRule1
                   }
                 ]}
               >
                 <Select
-                  placeholder="Select difficulty of challenge"
+                  placeholder={langConfig.formPlaceholderChallengeDifficulty}
                   className="w-full"
                 >
-                  <Select.Option value="1">Easy</Select.Option>
-                  <Select.Option value="2">Medium</Select.Option>
-                  <Select.Option value="3">Hard</Select.Option>
+                  <Select.Option value={1}>
+                    {langConfig.challengeLevel1}
+                  </Select.Option>
+                  <Select.Option value={2}>
+                    {langConfig.challengeLevel2}
+                  </Select.Option>
+                  <Select.Option value={3}>
+                    {langConfig.challengeLevel3}
+                  </Select.Option>
                 </Select>
               </Item>
             </div>
@@ -225,15 +232,19 @@ const EditChallenge = (props) => {
                     rules={[
                       {
                         required: true,
-                        message: `Please input ${placeholder.toLowerCase()} of challenge!`
+                        message: `${langConfig.formConstraintsAndFormatRule1a} ${placeholder.toLowerCase()} ${langConfig.formConstraintsAndFormatRule1c}`
                       },
                       {
-                        max: 255,
-                        message: `${placeholder} must be at most 255 characters`
+                        max: 1000,
+                        message: `${placeholder} ${langConfig.formConstraintsAndFormatRule2}`
                       }
                     ]}
                   >
-                    <Input placeholder={`${placeholder} of challenge`} />
+                    <TextArea
+                      autoSize={{ minRows: 1, maxRows: 10 }}
+                      placeholder={`${placeholder} ${langConfig.formConstraintsAndFormatRule1b}`}
+                      className="w-full"
+                    />
                   </Item>
                 </div>
               </div>
@@ -247,14 +258,14 @@ const EditChallenge = (props) => {
                 to={'/admin/manage/challenges'}
                 className="px-4 py-2 mt-4 text-sm font-medium text-center font-ubuntu tracking-wider uppercase transition-colors transform border-2 text-main dark:text-snow border-main dark:border-snow dark:hover:border-easy hover:border-easy duration-300 ease-in-out"
               >
-                Cancel
+                {langConfig.buttonCancel}
               </Link>
 
               <button
                 type="submit"
                 className="px-4 py-2 mt-4 text-sm font-medium text-center text-white font-ubuntu tracking-wider uppercase transition-colors duration-200 transform bg-easy hover:bg-blue-400 focus:outline-none focus:bg-blue-400"
               >
-                Save
+                {langConfig.buttonSave}
               </button>
             </div>
           </Item>
