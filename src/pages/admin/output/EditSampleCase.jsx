@@ -1,3 +1,4 @@
+import langConfig from '../../../config/langConfig.json'
 import { useState } from 'react'
 
 import { Navbar, Footer } from '../../../layout'
@@ -15,33 +16,33 @@ const EditSampleCasePage = () => {
     journeyId === undefined
       ? [
           {
-            name: 'List of Challenges',
+            name: langConfig.adminChallenge1,
             target: '/admin/manage/challenges'
           },
           {
-            name: 'Edit Challenge',
+            name: langConfig.adminChallenge2,
             target: `/admin/manage/challenges/${competeId}/problems/${challengeId}/edit`
           },
           {
-            name: 'Edit Sample Case',
+            name: langConfig.adminChallenge6,
             target: `/admin/manage/challenges/${competeId}/problems/${challengeId}/samplecases/edit`
           }
         ]
       : [
           {
-            name: 'List of Learning Journeys',
+            name: langConfig.adminLearningJourney1,
             target: '/admin/manage/journeys'
           },
           {
-            name: 'Edit Learning Journey',
+            name: langConfig.adminLearningJourney2a,
             target: `/admin/manage/journeys/${journeyId}/edit`
           },
           {
-            name: 'Edit Problem',
+            name: langConfig.adminLearningJourney4,
             target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
           },
           {
-            name: 'Edit Sample Case',
+            name: langConfig.adminLearningJourney7,
             target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/${sampleId}/edit`
           }
         ]
@@ -54,7 +55,10 @@ const EditSampleCasePage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              {journeyId === undefined ? 'Challenge' : 'Learning Journey'}
+              {journeyId === undefined
+                ? langConfig.adminChallenge
+                : langConfig.adminJourney
+              }
             </h3>
             <Breadcrumb paths={paths} />
           </div>

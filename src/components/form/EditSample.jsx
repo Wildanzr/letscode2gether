@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 
@@ -34,7 +35,7 @@ const AddSample = (props) => {
   const onFinish = async (payload) => {
     // Show loading
     mySwal.fire({
-      title: 'Updating Sample Case...',
+      title: langConfig.loadingUpdateSampleCase,
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => {
@@ -45,7 +46,7 @@ const AddSample = (props) => {
     // Configuration
     const config = {
       headers: {
-        authorization: Cookies.get('jwtToken')
+        authorization: `Bearer ${Cookies.get('jwtToken')}`
       }
     }
 
@@ -60,7 +61,7 @@ const AddSample = (props) => {
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: 'Update sample case successfully',
+        title: langConfig.successUpdateSampleCase,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -142,7 +143,7 @@ const AddSample = (props) => {
           <div className="flex flex-row w-full items-start justify-start">
             <div className="flex w-1/4">
               <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-                Input
+              {langConfig.sampleCaseInput}
               </p>
             </div>
             <div className="flex w-3/4">
@@ -151,18 +152,14 @@ const AddSample = (props) => {
                 className="w-full"
                 rules={[
                   {
-                    required: true,
-                    message: 'Please fill the input of sample case!'
-                  },
-                  {
-                    max: 255,
-                    message: 'Input must be at most 255 characters'
+                    max: 1000,
+                    message: langConfig.formInputRule1
                   }
                 ]}
               >
                 <TextArea
                   rows={5}
-                  placeholder="Input of sample case"
+                  placeholder={langConfig.formPlaceholderInput}
                   className="font-code"
                 />
               </Item>
@@ -173,7 +170,7 @@ const AddSample = (props) => {
           <div className="flex flex-row w-full items-start justify-start">
             <div className="flex w-1/4">
               <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-                Output
+              {langConfig.sampleCaseOutput}
               </p>
             </div>
             <div className="flex w-3/4">
@@ -183,17 +180,17 @@ const AddSample = (props) => {
                 rules={[
                   {
                     required: true,
-                    message: 'Please fill the output of sample case!'
+                    message: langConfig.formOutputRule1
                   },
                   {
-                    max: 255,
-                    message: 'Output must be at most 255 characters'
+                    max: 10000,
+                    message: langConfig.formOutputRule2
                   }
                 ]}
               >
                 <TextArea
                   rows={5}
-                  placeholder="Output of sample case"
+                  placeholder={langConfig.formPlaceholderOutput}
                   className="font-code"
                 />
               </Item>
@@ -204,7 +201,7 @@ const AddSample = (props) => {
           <div className="flex flex-row w-full items-start justify-start">
             <div className="flex w-1/4">
               <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-                Explanation
+              {langConfig.sampleCaseExplanation}
               </p>
             </div>
             <div className="flex w-3/4">
@@ -219,7 +216,7 @@ const AddSample = (props) => {
               >
                 <TextArea
                   rows={5}
-                  placeholder="Explanation of sample case"
+                  placeholder={langConfig.formPlaceholderExplanation}
                   className="w-full font-code"
                 />
               </Item>
@@ -239,14 +236,14 @@ const AddSample = (props) => {
                 }
                 className="px-4 py-2 mt-4 text-sm font-medium text-center font-ubuntu tracking-wider uppercase transition-colors transform border-2 text-main dark:text-snow border-main dark:border-snow dark:hover:border-easy hover:border-easy duration-300 ease-in-out"
               >
-                Cancel
+                {langConfig.buttonCancel}
               </Link>
 
               <button
                 type="submit"
                 className="px-4 py-2 mt-4 text-sm font-medium text-center text-white font-ubuntu tracking-wider uppercase transition-colors duration-200 transform bg-easy hover:bg-blue-400 focus:outline-none focus:bg-blue-400"
               >
-                Update
+                {langConfig.buttonSave}
               </button>
             </div>
           </Item>

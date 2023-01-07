@@ -93,6 +93,7 @@
   
   "buttonCancel": "Batal",
   "buttonSave": "Simpan",
+  "buttonAdd": "Tambahkan",
 
 
   "formFullNameRule1": "Mohon masukkan nama lengkap!",
@@ -134,6 +135,9 @@
   "formConstraintsAndFormatRule1a": "Mohon masukkan",
   "formConstraintsAndFormatRule1b": "dari permasalahan!",
   "formConstraintsAndFormatRule2": "tidak boleh melebihi dari 1000 karakter!", 
+  "formInputRule1": "Masukkan tidak boleh melebihi dari 1000 karakter!",
+  "formOutputRule1": "Mohon isi keluaran!",
+  "formOutputRule2": "Keluaran tidak boleh melebihi dari 10000 karakter!",
 
 
   "formPlaceholderFullName": "Nama lengkap",
@@ -156,6 +160,9 @@
   "formPlaceholderProblemTitle": "Judul permasalahan",
   "formPlaceholderProblemDescription": "Deskripsi permasalahan",
   "formPlaceholderProblemDifficulty": "Tingkat kesulitan permasalahan",
+  "formPlaceholderInput": "Masukkan (stdin)",
+  "formPlaceholderOutput": "Keluaran (stdout)",
+  "formPlaceholderExplanation": "Penjelasan (opsional)",
   
   
   "updatePictureProfileWarn1": "Kamu hanya dapat mengupload file JPG/PNG!",
@@ -183,9 +190,11 @@
   "loadingCreateProblem": "Sedang membuat permasalahan...",
   "loadingDeleteSampleCase": "Sedang menghapus contoh kasus...",
   "loadingCreateSampleCase": "Sedang membuat contoh kasus...",
+  "loadingUpdateSampleCase": "Sedang memperbarui contoh kasus...",
   "loadingDeleteTestcase": "Sedang menghapus kasus uji...",
   "loadingCreateTestcase": "Sedang membuat kasus uji...",
   "loadingDeleteProblem": "Sedang menghapus permasalahan...",
+  "loadingUpdateTestcase": "Sedang memperbarui kasus uji...",
 
 
   "infoSomeoneJoined": "Seseorang bergabung dalaman ruangan.",
@@ -222,6 +231,10 @@
   "successUpdateProblem": "Permasalahan berhasil diperbarui",
   "successCreateProblem": "Permasalahan berhasil dibuat",
   "successDeleteSampleCase": "Contoh kasus berhasil dihapus",
+  "successCreateSampleCase": "Contoh kasus berhasil dibuat",
+  "successUpdateSampleCase": "Contoh kasus berhasil diperbarui",
+  "successCreateTestcase": "Kasus uji berhasil dibuat",
+  "successUpdateTestcase": "Kasus uji berhasil diperbarui",
 
   
   "validateUsernameTaken": "Username telah digunakan!",
@@ -261,6 +274,8 @@
   "problemCustomInput": "Masukkan Kustom",
   "sampleCaseInput": "Masukkan (stdin)",
   "sampleCaseOutput": "Keluaran (stdout)",
+  "testCaseInput": "Masukkan (stdin)",
+  "testCaseOutput": "Keluaran (stdout)",
   "sampleCaseExplanation": "Penjelasan",
   "sampleCaseNoInput": "Tidak ada masukkan",
   "sampleCaseExpected": "Keluaran yang diharapkan",
@@ -308,7 +323,21 @@
   "adminLearningJourney2a": "Edit Jalur Belajar",
   "adminLearningJourney3": "Detail Permasalahan",
   "adminLearningJourney4": "Edit Permasalahan",
+  "adminLearningJourney5": "Tambah Contoh Kasus",
+  "adminLearningJourney6": "Tambah Uji Kasus",
+  "adminLearningJourney7": "Edit Contoh Kasus",
+  "adminLearningJourney8": "Edit Uji Kasus",
   "adminLearningJourneyInfo": "* Daftar materi jalur belajar diurutkan berdasar nama, pastikan membuat materi dengan nama yang berurutan.",
+
+
+  "adminChallenge": "Tantangan",
+  "adminChallenge1": "Daftar Tantangan",
+  "adminChallenge2": "Edit Tantangan",
+  "adminChallenge3": "Detail Tantangan",
+  "adminChallenge4": "Tambah Contoh Kasus",
+  "adminChallenge5": "Tambah Uji Kasus",
+  "adminChallenge6": "Edit Contoh Kasus",
+  "adminChallenge7": "Edit Uji Kasus",
 
 
   "tableManagementJourney1": "NO",
