@@ -124,7 +124,7 @@ const DetailProblemPage = () => {
                   </div>
                 </div>
 
-                <Description title="Test Cases" value={null} />
+                <Description title={langConfig.problemDetailTestCase} value={null} />
 
                 {/* Problem Test Cases */}
                 <div className="flex flex-col w-full space-y-2 overflow-y-auto">

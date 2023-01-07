@@ -195,6 +195,7 @@
   "loadingCreateTestcase": "Sedang membuat kasus uji...",
   "loadingDeleteProblem": "Sedang menghapus permasalahan...",
   "loadingUpdateTestcase": "Sedang memperbarui kasus uji...",
+  "loadingCreateJourney": "Sedang membuat jalur belajar...",
 
 
   "infoSomeoneJoined": "Seseorang bergabung dalaman ruangan.",
@@ -235,6 +236,7 @@
   "successUpdateSampleCase": "Contoh kasus berhasil diperbarui",
   "successCreateTestcase": "Kasus uji berhasil dibuat",
   "successUpdateTestcase": "Kasus uji berhasil diperbarui",
+  "successCreateJourney": "Jalur belajar berhasil dibuat",
 
   
   "validateUsernameTaken": "Username telah digunakan!",
@@ -319,6 +321,8 @@
   
   "adminJourney": "Jalur Belajar",
   "adminLearningJourney1": "Daftar Jalur Belajar",
+  "adminLearningJourney1a": "Tambah Jalur Belajar",
+  "adminLearningJourney1b": "Tambah Permasalahan",
   "adminLearningJourney2": "Detail Jalur Belajar",
   "adminLearningJourney2a": "Edit Jalur Belajar",
   "adminLearningJourney3": "Detail Permasalahan",
