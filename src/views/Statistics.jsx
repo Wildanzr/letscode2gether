@@ -1,13 +1,49 @@
 import langConfig from '../config/langConfig.json'
-import { StatDetail } from '../components/card'
+import { useState, useEffect } from 'react'
 
+import { StatDetail } from '../components/card'
+import api from '../api'
+
+import Cookies from 'js-cookie'
 import { Spin } from 'antd'
 
 const Statistics = (props) => {
-  // Props destrructure
-  const { statistic } = props
-  console.log(statistic)
+  // Local states
+  const [statistic, setStatistic] = useState(null)
 
+  // Get dashboard statistic
+  const getDashboardStatistic = async () => {
+    // config
+    const config = {
+      headers: {
+        authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+
+    try {
+      const { data } = await api.get('/competes/statistics', config)
+      // console.log(data)
+
+      // Destructure
+      const { totalCompetes, totalProblems, totalStudent, totalSubmissions, totalTeacher } = data.data
+
+      // Set Value
+      setStatistic({
+        totalCompetes,
+        totalProblems,
+        totalStudent,
+        totalSubmissions,
+        totalTeacher
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Initially get dashboard data
+  useEffect(() => {
+    getDashboardStatistic()
+  }, [])
   return (
     <div className="flex flex-col w-full">
       <h3 className='mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out'>

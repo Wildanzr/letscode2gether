@@ -94,6 +94,8 @@
   "buttonCancel": "Batal",
   "buttonSave": "Simpan",
   "buttonAdd": "Tambahkan",
+  "studentSearchButton": "Cari Peserta Didik",
+  "searchButton": "Cari",
 
 
   "formFullNameRule1": "Mohon masukkan nama lengkap!",
@@ -242,9 +244,10 @@
   "infoDeleteTestcase": "Kasus uji yang telah dihapus tidak dapat dipulihkan.",
   "infoDeleteProblem": "Permasalahan yang telah dihapus tidak dapat dipulihkan.",
   "infoDeleteChallenge": "Tantangan yang telah dihapus tidak dapat dipulihkan.",
-  "infoZeroSampleCase": "Belum ada contoh kasus yang dibuat.",
-  "infoZeroTestcase": "Belum ada kasus uji yang dibuat.",
-  "infoZeroChallenge": "Belum ada tantangan yang dibuat.",
+  "infoZeroSampleCase": "Tidak ada contoh kasus yang dibuat.",
+  "infoZeroTestcase": "Tidak ada kasus uji yang dibuat.",
+  "infoZeroChallenge": "Tidak ada tantangan yang dibuat.",
+  "infoZeroStudents": "Tidak ada peserta didik yang terdaftar.",
 
   
   "dialogLeftRoom": "Apakah kamu yakin ingin keluar dari ruangan ini?",
@@ -334,7 +337,7 @@
   "totalSubmissions": "Total Pengumpulan",
   "totalCompetes": "Total Kompetisi",
   "dashboardStatistics": "Statistik",
-  "dashboardLeaderboards": "Papan Peringkat Pengguna",
+  "dashboardUserStudent": "Daftar Peserta Didik",
 
   
   "adminJourney": "Jalur Belajar",
@@ -386,6 +389,12 @@
   "tableTestDetail2": "MASUKAN",
   "tableTestDetail3": "KELUARAN",
   "tableTestDetail4": "AKSI",
+  "tableStudent1": "NO",
+  "tableStudent2": "NAMA LENGKAP",
+  "tableStudent3": "USERNAME",
+  "tableStudent4": "LENCANA",
+  "tableStudent5": "POIN",
+  "tableStudent6": "KEMAJUAN BELAJAR",  
 
 
   "tableAddJourney": "Tambahkan Jalur Belajar",
