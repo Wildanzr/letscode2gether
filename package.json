@@ -18,6 +18,7 @@
     "daisyui": "^2.39.1",
     "debounce-promise": "^3.1.2",
     "framer-motion": "^7.6.1",
+    "history": "^5.3.0",
     "js-base64": "^3.7.2",
     "js-cookie": "^3.0.1",
     "lodash.debounce": "^4.0.8",

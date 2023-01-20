@@ -65,7 +65,6 @@ const MonacoEditor = (props) => {
   const createRoom = (joinedRoom) => {
     ydoc = new Y.Doc()
     provider = new WebsocketProvider('wss://demos.yjs.dev', roomId, ydoc)
-    console.log(provider)
     const ytext = ydoc.getText('monaco')
 
     const randColor = randomColor({
@@ -96,14 +95,16 @@ const MonacoEditor = (props) => {
 
       // You can observe when a user updates their awareness information
       provider.awareness.on('update', (changes) => {
+        // Update code
+        setCode(editorRef.current.getValue())
+
+        // Update user list
         const users = Array.from(provider.awareness.states)
         if (users.length !== totalParticipants) {
           let tempCssValue = ''
           users.forEach((user) => {
-            console.log(user)
             tempCssValue += `${addCustomCss(user[0], user[1].user.color, user[1].user.name)} `
           })
-          console.log(customCss)
           setRenderCss(true)
           setCustomCss(tempCssValue)
         }

@@ -1,26 +1,30 @@
 import langConfig from '../../config/langConfig.json'
+import { themeList } from '../../constants/themeList'
+import { defineTheme } from '../../libs/defineTheme'
+import { themeDropDown } from '../../constants/themeDropdown'
+import { languageOptions } from '../../constants/languageOptions'
+
 import { useState, useEffect } from 'react'
+import { useGlobal } from '../../contexts/GlobalContext'
+import { useAuth } from '../../contexts/AuthContext'
+import { useCollab } from '../../contexts/CollabContext'
 
 import Dropdown from './Dropdown'
 import TextEditor from './TextEditor'
 import LangDropdown from './LangDropdown'
-
-import { languageOptions } from '../../constants/languageOptions'
-import { useGlobal } from '../../contexts/GlobalContext'
-import { useCollab } from '../../contexts/CollabContext'
-
-import { themeList } from '../../constants/themeList'
-import { defineTheme } from '../../libs/defineTheme'
-import { themeDropDown } from '../../constants/themeDropdown'
 
 const Editor = () => {
   // Global States
   const { editorState } = useGlobal()
   const { setTheme } = editorState
 
+  // Auth States
+  const { authStates } = useAuth()
+  const { user } = authStates
+
   // Collab States
   const { collabStates, problemStates } = useCollab()
-  const { setLanguage } = collabStates
+  const { setLanguage, guestName, roomId, socket } = collabStates
   const { languageList } = problemStates
 
   // Local States
@@ -35,11 +39,27 @@ const Editor = () => {
     await defineTheme(value)
   }
 
+  const forceLeaveRoom = () => {
+    const payload = {
+      userId: user && user._id ? user.username : guestName,
+      roomId
+    }
+
+    setTimeout(() => {
+      socket.emit('req_leave_room', payload)
+    }, 3000)
+  }
+
   // Change theme
   useEffect(() => {
     themeList.forEach(async (theme) => {
       await defineTheme(theme)
     })
+
+    return () => {
+      console.log('force leave')
+      forceLeaveRoom()
+    }
   }, [])
 
   // Monitor languageList

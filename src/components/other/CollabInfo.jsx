@@ -203,7 +203,7 @@ const CollabInfo = (props) => {
       if (result.isConfirmed) {
         // Create payload
         const payload = {
-          userId: user ? user._id : guestName,
+          userId: user && user._id ? user.username : guestName,
           roomId: inputRoomId
         }
 
@@ -344,7 +344,7 @@ const CollabInfo = (props) => {
         />
         <button
           onClick={privateRoom ? joinRoom : leaveRoom}
-          className="flex py-1 px-1 lg:px-2 justify-center font-medium whitespace-nowrap bg-easy dark:bg-main rounded-sm border-b-2 text-snow border-white hover:border-medium dark:hover:border-blue-500 duration-300"
+          className={`flex py-1 px-1 lg:px-2 justify-center font-medium whitespace-nowrap ${privateRoom ? 'bg-easy dark:bg-main hover:border-medium dark:hover:border-blue-500' : 'bg-hard dark:hover:border-medium hover:border-medium'} rounded-sm border-b-2 text-snow border-white duration-300`}
         >
           {privateRoom ? langConfig.collabRoomJoin : langConfig.collabRoomLeft }
         </button>
