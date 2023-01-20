@@ -4,6 +4,10 @@ import { useGlobal } from './GlobalContext'
 
 import axios from 'axios'
 import { io } from 'socket.io-client'
+import { customAlphabet } from 'nanoid'
+
+// Random guest name
+const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWZYZ', 5)
 
 const CollabContext = createContext()
 
@@ -27,6 +31,11 @@ export const CollabProvider = ({ children }) => {
 
   // Collab States
   const [roomId, setRoomId] = useState(null)
+  const [isPrivate, setIsPrivate] = useState(true)
+  const [loadingEditor, setLoadingEditor] = useState(true)
+  const [guestName, setGuestName] = useState(`Guest-${nanoid()}`)
+
+  // Editor States
   const [language, setLanguage] = useState(null)
   const [code, setCode] = useState('')
   const [btnDisabled, setBtnDisabled] = useState(false)
@@ -180,7 +189,13 @@ export const CollabProvider = ({ children }) => {
     setLanguage,
     code,
     setCode,
-    socket
+    socket,
+    isPrivate,
+    setIsPrivate,
+    loadingEditor,
+    setLoadingEditor,
+    guestName,
+    setGuestName
   }
 
   // Export submission functions

@@ -18,7 +18,7 @@ const CollabInfo = (props) => {
 
   // Collab States
   const { collabStates } = useCollab()
-  const { socket, roomId, setRoomId, setCode, setLanguage } = collabStates
+  const { socket, roomId, setRoomId, setCode, setLanguage, setLoadingEditor } = collabStates
 
   // Auth States
   const { authStates } = useAuth()
@@ -29,11 +29,12 @@ const CollabInfo = (props) => {
   const [inputRoomId, setInputRoomId] = useState(null)
   const [driver, setDriver] = useState(null)
   const [participants, setParticipants] = useState(null)
+  const [initRoom, setInitRoom] = useState(true)
 
   // Create room
-  const createRoom = () => {
+  const createRoom = async () => {
     const payload = {
-      userId: user ? user._id : guestName,
+      userId: user && user._id ? user._id : guestName,
       competeProblemId
     }
 
@@ -41,6 +42,7 @@ const CollabInfo = (props) => {
     setDriver(null)
     setRoomId(null)
     setParticipants(null)
+    setLoadingEditor(true)
 
     socket.emit('req_create_room', payload)
   }
@@ -99,6 +101,7 @@ const CollabInfo = (props) => {
       // Set values
       setRoomId(codeId)
       setDriver(newDriver)
+      setLoadingEditor(true)
 
       // Set collaboration code and language
       if (selectedLanguage) setLanguage(selectedLanguage)
@@ -234,14 +237,17 @@ const CollabInfo = (props) => {
 
   // Initaily request for room ID
   useEffect(() => {
-    createRoom()
-  }, [])
+    if (initRoom) {
+      createRoom()
+      setInitRoom(false)
+    }
+  }, [initRoom])
 
   // Websocket Listeners
   useEffect(() => {
     // Initially request for room ID, this line works when user refreshes the page
     socket.on('connect', () => {
-      createRoom()
+      setInitRoom(true)
     })
 
     // Listeners

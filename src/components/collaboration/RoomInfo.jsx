@@ -7,11 +7,6 @@ import { CollabInfo } from '../other'
 
 import Draggable from 'react-draggable'
 import { useParams } from 'react-router-dom'
-import { customAlphabet } from 'nanoid'
-
-// Random guest name
-const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWZYZ', 5)
-const guestName = `Guest-${nanoid()}`
 
 const RoomInfo = () => {
   // useParams
@@ -22,11 +17,12 @@ const RoomInfo = () => {
   const { user } = authStates
 
   const { collabStates } = useCollab()
-  const { roomId } = collabStates
+  const { roomId, guestName } = collabStates
 
   // Local States
   const [collab, setCollab] = useState(false)
   const [visible, setVisible] = useState(true)
+
   // Open collaboration video
   const openCollaboration = () => {
     setCollab(true)
@@ -55,7 +51,7 @@ const RoomInfo = () => {
         DISABLE_JOIN_LEAVE_NOTIFICATIONS: true
       },
       userInfo: {
-        displayName: user ? user.username : guestName
+        displayName: user && user.username ? user.username : guestName
       }
     }
     // eslint-disable-next-line no-undef
