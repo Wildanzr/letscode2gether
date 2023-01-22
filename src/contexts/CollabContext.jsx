@@ -25,7 +25,7 @@ export const CollabProvider = ({ children }) => {
 
   // Connect to Socket Server
   useEffect(() => {
-    const socket = io(import.meta.env.VITE_SOCKET_HOST)
+    const socket = io(import.meta.env.VITE_BACKEND_URL)
     setSocket(socket)
   }, [])
 
@@ -47,46 +47,7 @@ export const CollabProvider = ({ children }) => {
 
   const [loading, setLoading] = useState(false)
   const [runMode, setRunMode] = useState(null)
-
-  // Not used anymore
-  const [problem, setProblem] = useState('')
   const [result, setResult] = useState([])
-  const [sampleTestCase, setSampleTestCase] = useState([
-    {
-      input: '13',
-      expected: 'Tiga Belas'
-    },
-    {
-      input: '45',
-      expected: 'Empat Puluh Lima'
-    },
-    {
-      input: '50',
-      expected: 'Lima Puluh'
-    },
-    {
-      input: '99',
-      expected: 'Sembilan Puluh Sembilan'
-    }
-  ])
-  const [testCase, setTestCase] = useState([
-    {
-      input: '16',
-      expected: 'Enam Belas'
-    },
-    {
-      input: '21',
-      expected: 'Dua Puluh Satu'
-    },
-    {
-      input: '100',
-      expected: 'Seratus'
-    },
-    {
-      input: '7',
-      expected: 'Tujuh'
-    }
-  ])
 
   // Submission Functions
   const submission = async (config, mode, type) => {
@@ -151,10 +112,6 @@ export const CollabProvider = ({ children }) => {
       params: {
         base64_encoded: 'true',
         fields: 'expected_output,language,memory,status,stderr,stdin,stdout,time'
-      },
-      headers: {
-        'X-RapidAPI-Host': import.meta.env.VITE_RAPID_API_HOST,
-        'X-RapidAPI-Key': import.meta.env.VITE_RAPID_API_KEY
       }
     }
     try {
@@ -206,12 +163,6 @@ export const CollabProvider = ({ children }) => {
 
   // Export problem and solution state
   const problemStates = {
-    problem,
-    setProblem,
-    sampleTestCase,
-    setSampleTestCase,
-    testCase,
-    setTestCase,
     loading,
     setLoading,
     result,

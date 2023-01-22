@@ -34,9 +34,20 @@ const Editor = () => {
       : languageOptions.filter((lang) => languageList.includes(lang.id))
   )
 
-  const handleLanguageChange = async (value) => {
+  const changeTheme = async (value) => {
     setTheme(value)
     await defineTheme(value)
+  }
+
+  const changeLanguage = (value) => {
+    setLanguage(value)
+
+    const payload = {
+      roomId,
+      language: value
+    }
+
+    socket.emit('req_update_lang', payload)
   }
 
   const forceLeaveRoom = () => {
@@ -77,12 +88,12 @@ const Editor = () => {
         <LangDropdown
           options={languageAllowed}
           placeholder={langConfig.editorSelectLanguage}
-          onChange={setLanguage}
+          onChange={changeLanguage}
         />
         <Dropdown
           options={themeDropDown}
           placeholder={langConfig.editorSelectTheme}
-          onChange={handleLanguageChange}
+          onChange={changeTheme}
         />
       </div>
 

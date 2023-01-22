@@ -8,16 +8,45 @@ import MonacoEditor from './MonacoEditor'
 
 const TextEditor = () => {
   // Global States
-  const { editorState } = useGlobal()
+  const { editorState, globalFunctions } = useGlobal()
   const { theme } = editorState
+  const { mySwal } = globalFunctions
 
   // Collab States
   const { collabStates } = useCollab()
-  const { language, setCode, roomId, loadingEditor, setLoadingEditor } = collabStates
+  const { socket, language, setLanguage, roomId, loadingEditor, setLoadingEditor } = collabStates
 
   // Local state
   const [langValue, setLangValue] = useState('javascript')
   const [defaultTemplate] = useState(langConfig.editorTemplate)
+
+  const setIntelisense = (language) => {
+    const lang = languageOptions.find((lang) => lang.id === language)
+    setLangValue(lang.value || 'javascript')
+    setLanguage(lang.id || null)
+  }
+
+  const handleChangeLanguage = (res) => {
+    console.log(res)
+    if (res.status) {
+      const { language } = res.data
+      console.log(language)
+      setIntelisense(language)
+    } else {
+      console.log(res)
+      // Show error
+      mySwal.fire({
+        icon: 'error',
+        title: res.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      })
+    }
+  }
 
   useEffect(() => {
     if (loadingEditor) {
@@ -28,11 +57,18 @@ const TextEditor = () => {
   // Monitor language change, then set intellisense to the language
   useEffect(() => {
     if (language !== null) {
-      const lang = languageOptions.find((lang) => lang.id === language)
-      setLangValue(lang.value || 'javascript')
-      setCode(lang.template || 'console.log("hello, world");')
+      setIntelisense(language)
     }
   }, [language])
+
+  // Monitor socket
+  useEffect(() => {
+    socket.on('res_update_lang', handleChangeLanguage)
+
+    return () => {
+      socket.off('res_update_lang', handleChangeLanguage)
+    }
+  })
 
   return (
     <>

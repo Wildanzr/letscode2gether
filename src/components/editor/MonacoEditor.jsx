@@ -30,10 +30,7 @@ const MonacoEditor = (props) => {
   let ydoc = null
   let provider = null
   let totalParticipants = 0
-
-  const changeCode = (value) => {
-    setCode(value)
-  }
+  const HOST = import.meta.env.VITE_SOCKET_HOST
 
   const handleEditorDidMount = (editor, monaco) => {
     editorRef.current = editor
@@ -64,7 +61,7 @@ const MonacoEditor = (props) => {
 
   const createRoom = (joinedRoom) => {
     ydoc = new Y.Doc()
-    provider = new WebsocketProvider('wss://demos.yjs.dev', roomId, ydoc)
+    provider = new WebsocketProvider(HOST, roomId, ydoc)
     const ytext = ydoc.getText('monaco')
 
     const randColor = randomColor({
@@ -127,6 +124,7 @@ const MonacoEditor = (props) => {
       setRenderCss(false)
     }
   }, [renderCss])
+
   return (
     <div className={'flex flex-col px-5 py-5 w-full h-full'}>
       {renderCss
@@ -140,7 +138,6 @@ const MonacoEditor = (props) => {
         defaultValue={defaultValue}
         theme={theme}
         onMount={handleEditorDidMount}
-        onChange={changeCode}
       />
     </div>
   )

@@ -18,7 +18,7 @@ const CollabInfo = (props) => {
 
   // Collab States
   const { collabStates } = useCollab()
-  const { socket, roomId, setRoomId, setCode, setLanguage, setLoadingEditor } = collabStates
+  const { socket, roomId, setRoomId, setLanguage, setLoadingEditor } = collabStates
 
   // Auth States
   const { authStates } = useAuth()
@@ -93,9 +93,8 @@ const CollabInfo = (props) => {
   // Handle join room
   const handleJoinRoom = (res) => {
     if (res.status) {
-      const { collaboration, codeData } = res.data
-      const { codeId, participants } = collaboration
-      const { selectedLanguage, code } = codeData
+      const { collaboration } = res.data
+      const { codeId, participants, language } = collaboration
       const newDriver = participants[0].username
 
       // Set values
@@ -103,10 +102,8 @@ const CollabInfo = (props) => {
       setDriver(newDriver)
       setLoadingEditor(true)
 
-      // Set collaboration code and language
-      if (selectedLanguage) setLanguage(selectedLanguage)
-
-      if (code) setCode(code)
+      // Set collaboration language
+      if (language) setLanguage(language)
 
       // Determine participants
       const participantList = !privateRoom
