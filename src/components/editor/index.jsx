@@ -34,6 +34,9 @@ const Editor = () => {
       : languageOptions.filter((lang) => languageList.includes(lang.id))
   )
 
+  // Local Variables
+  let rId = roomId
+
   const changeTheme = async (value) => {
     setTheme(value)
     await defineTheme(value)
@@ -53,7 +56,7 @@ const Editor = () => {
   const forceLeaveRoom = () => {
     const payload = {
       userId: user && user._id ? user.username : guestName,
-      roomId
+      roomId: rId
     }
 
     setTimeout(() => {
@@ -68,7 +71,6 @@ const Editor = () => {
     })
 
     return () => {
-      console.log('force leave')
       forceLeaveRoom()
     }
   }, [])
@@ -81,6 +83,11 @@ const Editor = () => {
         : languageOptions.filter((lang) => languageList.includes(lang.id))
     )
   }, [languageList])
+
+  // Monitor roomId
+  useEffect(() => {
+    rId = roomId
+  }, [roomId])
 
   return (
     <>
