@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect, useRef } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { useCollab } from '../../contexts/CollabContext'
@@ -10,13 +11,14 @@ import { MonacoBinding } from 'y-monaco'
 import randomColor from 'randomcolor'
 import Cookies from 'js-cookie'
 import { useParams } from 'react-router-dom'
+import { message } from 'antd'
 
 const MonacoEditor = (props) => {
   // Props destructure
   const { language, theme, roomId } = props
 
   // Get params
-  const { competeId = 'collaboartion' } = useParams()
+  const { competeProblemId = 'collaboartion' } = useParams()
 
   // Global States
   const { globalState } = useGlobal()
@@ -93,6 +95,18 @@ const MonacoEditor = (props) => {
       new Set([editorRef.current]),
       provider.awareness
     )
+
+    // Check if any code is saved in cookie
+    setTimeout(() => {
+      if (isPrivate) {
+        const code = Cookies.get(competeProblemId)
+        if (code) {
+          editorRef.current.setValue(code)
+          setCode(editorRef.current.getValue())
+          message.info(langConfig.editorCodeRestore)
+        }
+      }
+    }, 1000)
   }
 
   // Update monaco value when code state changes
@@ -105,9 +119,9 @@ const MonacoEditor = (props) => {
         // Update code
         setCode(editorRef.current.getValue())
 
-        // If room is private, save code to cookie
+        // If room is private, save code to cookie for 30 days
         if (isPrivate) {
-          Cookies.set(roomId, editorRef.current.getValue())
+          Cookies.set(competeProblemId, editorRef.current.getValue(), { expires: 30 })
         }
 
         // Update user list
@@ -142,7 +156,7 @@ const MonacoEditor = (props) => {
 
   // Determine if collaboration or compete problem
   useEffect(() => {
-    if (competeId !== 'collaboartion') {
+    if (competeProblemId !== 'collaboartion') {
       setColHide(true)
       setColSideContent('problems')
     } else {

@@ -319,6 +319,7 @@
   "editorSelectLanguage": "Pilih bahasa",
   "editorSelectTheme": "Pilih tema editor",
   "editorTemplate": "// Ayo selesaikan permasalahan ini!\n// Pilih bahasa pemrograman dan mulailah menulis kode!",
+  "editorCodeRestore": "Kode sumber dipulihkan dari pengeditan terakhir.",
   "resultResult": "Hasil:",
   "resultMemory": "Penggunaan Memori:",
   "resultTime": "Waktu Eksekusi:",
