@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { useGlobal } from '../../contexts/GlobalContext'
 import { useCollab } from '../../contexts/CollabContext'
 import { useAuth } from '../../contexts/AuthContext'
 
@@ -7,10 +8,19 @@ import * as Y from 'yjs'
 import { WebsocketProvider } from 'y-websocket'
 import { MonacoBinding } from 'y-monaco'
 import randomColor from 'randomcolor'
+import Cookies from 'js-cookie'
+import { useParams } from 'react-router-dom'
 
 const MonacoEditor = (props) => {
   // Props destructure
-  const { language, theme, defaultValue, roomId } = props
+  const { language, theme, roomId } = props
+
+  // Get params
+  const { competeId = 'collaboartion' } = useParams()
+
+  // Global States
+  const { globalState } = useGlobal()
+  const { setColHide, setColSideContent } = globalState
 
   // Auth States
   const { authStates } = useAuth()
@@ -18,7 +28,7 @@ const MonacoEditor = (props) => {
 
   // Collab States
   const { collabStates } = useCollab()
-  const { setCode, guestName } = collabStates
+  const { setCode, guestName, isPrivate } = collabStates
 
   // Local states
   const editorRef = useRef(null)
@@ -85,7 +95,7 @@ const MonacoEditor = (props) => {
     )
   }
 
-  // First render monaco editor
+  // Update monaco value when code state changes
   useEffect(() => {
     if (editorReady) {
       createRoom(roomId)
@@ -94,6 +104,11 @@ const MonacoEditor = (props) => {
       provider.awareness.on('update', (changes) => {
         // Update code
         setCode(editorRef.current.getValue())
+
+        // If room is private, save code to cookie
+        if (isPrivate) {
+          Cookies.set(roomId, editorRef.current.getValue())
+        }
 
         // Update user list
         const users = Array.from(provider.awareness.states)
@@ -125,6 +140,16 @@ const MonacoEditor = (props) => {
     }
   }, [renderCss])
 
+  // Determine if collaboration or compete problem
+  useEffect(() => {
+    if (competeId !== 'collaboartion') {
+      setColHide(true)
+      setColSideContent('problems')
+    } else {
+      setColHide(false)
+    }
+  }, [])
+
   return (
     <div className={'flex flex-col px-5 py-5 w-full h-full'}>
       {renderCss
@@ -135,7 +160,6 @@ const MonacoEditor = (props) => {
         height={'100%'}
         width={'100%'}
         language={language}
-        defaultValue={defaultValue}
         theme={theme}
         onMount={handleEditorDidMount}
       />

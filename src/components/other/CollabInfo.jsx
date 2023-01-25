@@ -18,14 +18,13 @@ const CollabInfo = (props) => {
 
   // Collab States
   const { collabStates } = useCollab()
-  const { socket, roomId, setRoomId, setLanguage, setLoadingEditor } = collabStates
+  const { socket, roomId, setRoomId, setLanguage, setLoadingEditor, isPrivate, setIsPrivate } = collabStates
 
   // Auth States
   const { authStates } = useAuth()
   const { user } = authStates
 
   // Local States
-  const [privateRoom, setPrivateRoom] = useState(true)
   const [inputRoomId, setInputRoomId] = useState(null)
   const [driver, setDriver] = useState(null)
   const [participants, setParticipants] = useState(null)
@@ -54,7 +53,7 @@ const CollabInfo = (props) => {
     setRoomId(codeId)
 
     // Determine participants
-    const participantsList = privateRoom ? [] : participants
+    const participantsList = isPrivate ? [] : participants
     setParticipants(participantsList)
   }
 
@@ -106,11 +105,11 @@ const CollabInfo = (props) => {
       if (language) setLanguage(language)
 
       // Determine participants
-      const participantList = !privateRoom
+      const participantList = !isPrivate
         ? participants.filter((participant) => participant.username !== user.username)
         : participants.filter((participant) => participant.username !== newDriver)
 
-      setPrivateRoom(false)
+      setIsPrivate(false)
       setParticipants(participantList)
 
       // Show success
@@ -153,7 +152,7 @@ const CollabInfo = (props) => {
     message.info(langConfig.infoSomeoneJoined)
 
     // Determine participants
-    const participantList = !privateRoom
+    const participantList = !isPrivate
       ? participants.filter((participant) => user ? participant.username !== user.username : participant.username !== guestName)
       : participants.filter((participant) => participant.username !== newDriver)
 
@@ -174,7 +173,7 @@ const CollabInfo = (props) => {
     message.info(langConfig.infoSomeoneLeft)
 
     // Determine participants
-    const participantList = !privateRoom
+    const participantList = !isPrivate
       ? participants.filter((participant) => user ? participant.username !== user.username : participant.username !== guestName)
       : participants.filter((participant) => participant.username !== newDriver)
 
@@ -214,7 +213,7 @@ const CollabInfo = (props) => {
   const handleLeaveRoom = (res) => {
     if (res.status) {
       message.info(langConfig.infoMeLeftRoom)
-      setPrivateRoom(true)
+      setIsPrivate(true)
       createRoom()
     } else {
       console.log(res)
@@ -335,15 +334,15 @@ const CollabInfo = (props) => {
           maxLength={5}
           minLength={5}
           allowClear
-          disabled={!privateRoom}
+          disabled={!isPrivate}
           onChange={(e) => setInputRoomId(e.target.value)}
           placeholder={langConfig.formPlaceholderRoomID}
         />
         <button
-          onClick={privateRoom ? joinRoom : leaveRoom}
-          className={`flex py-1 px-1 lg:px-2 justify-center font-medium whitespace-nowrap ${privateRoom ? 'bg-easy dark:bg-main hover:border-medium dark:hover:border-blue-500' : 'bg-hard dark:hover:border-medium hover:border-medium'} rounded-sm border-b-2 text-snow border-white duration-300`}
+          onClick={isPrivate ? joinRoom : leaveRoom}
+          className={`flex py-1 px-1 lg:px-2 justify-center font-medium whitespace-nowrap ${isPrivate ? 'bg-easy dark:bg-main hover:border-medium dark:hover:border-blue-500' : 'bg-hard dark:hover:border-medium hover:border-medium'} rounded-sm border-b-2 text-snow border-white duration-300`}
         >
-          {privateRoom ? langConfig.collabRoomJoin : langConfig.collabRoomLeft }
+          {isPrivate ? langConfig.collabRoomJoin : langConfig.collabRoomLeft }
         </button>
       </div>
     </div>

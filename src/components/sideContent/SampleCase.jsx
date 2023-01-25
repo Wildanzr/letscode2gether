@@ -5,7 +5,8 @@ const SampleCase = (props) => {
   // Props Destructuring
   const { title, input, output, explanation } = props
 
-  const formatOutput = (str) => {
+  const formatOutput = (str = '') => {
+    if (str === null) return null
     const formatted = str.replace(/\^/g, '\n')
 
     return (
