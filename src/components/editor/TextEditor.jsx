@@ -27,10 +27,8 @@ const TextEditor = () => {
   }
 
   const handleChangeLanguage = (res) => {
-    console.log(res)
     if (res.status) {
       const { language } = res.data
-      console.log(language)
       setIntelisense(language)
     } else {
       console.log(res)

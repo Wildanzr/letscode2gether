@@ -60,6 +60,7 @@ const MonacoEditor = (props) => {
       background-color: ${color};
       height: 100%;
       box-sizing: border-box;
+      z-index: 50;
     } .yRemoteSelectionHead-${clientId}::after {
       position: absolute;
       content: "${name}";
@@ -68,6 +69,7 @@ const MonacoEditor = (props) => {
       border-radius: 4px;
       padding: 2px;
       top: 100%;
+      z-index: 50;
     }`
   }
 

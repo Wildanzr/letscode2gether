@@ -9,6 +9,7 @@ import { Spin, Pagination } from 'antd'
 const Leaderboard = () => {
   // useParams
   const { competeProblemId } = useParams()
+  console.log(competeProblemId)
 
   // Local States
   const [leaderboard, setLeaderboard] = useState(null)
@@ -26,18 +27,18 @@ const Leaderboard = () => {
 
   // Get leaderboard
   const getLeaderboard = async () => {
-    // Reset leaderboard
-    setLeaderboard(null)
-
     try {
       const { data } = await api.get(`/compete-problems/${competeProblemId}/leaderboard?page=${page}&limit=${limit}`)
       const { meta } = data
       const { leaderboard } = data.data
-      // console.log(data)
+      console.log(meta)
+      console.log(leaderboard)
 
       // Set value
       setLeaderboard(leaderboard)
+      setLimit(meta.limit)
       setTotal(meta.total)
+      setPage(meta.page)
     } catch (error) {
       console.log(error)
     }
@@ -64,6 +65,7 @@ const Leaderboard = () => {
                 showSizeChanger
                 defaultCurrent={page}
                 total={total}
+                locale={{ items_per_page: ' / halaman' }}
               />
             </div>
         }
