@@ -9,7 +9,6 @@ import { Spin, Pagination } from 'antd'
 const Leaderboard = () => {
   // useParams
   const { competeProblemId } = useParams()
-  console.log(competeProblemId)
 
   // Local States
   const [leaderboard, setLeaderboard] = useState(null)
@@ -17,22 +16,25 @@ const Leaderboard = () => {
   const [limit, setLimit] = useState(10)
   const [total, setTotal] = useState(10)
   const [fetch, setFetch] = useState(true)
+  const [start, setStart] = useState(limit)
 
   // Handle pagination change
   const onShowSizeChange = (current, pageSize) => {
     setPage(current)
     setLimit(pageSize)
+    setStart(pageSize - (pageSize - (current - 1) * pageSize))
     setFetch(true)
   }
 
   // Get leaderboard
   const getLeaderboard = async () => {
+    // Reset leaderboard
+    setLeaderboard([])
+
     try {
       const { data } = await api.get(`/compete-problems/${competeProblemId}/leaderboard?page=${page}&limit=${limit}`)
       const { meta } = data
       const { leaderboard } = data.data
-      console.log(meta)
-      console.log(leaderboard)
 
       // Set value
       setLeaderboard(leaderboard)
@@ -59,7 +61,7 @@ const Leaderboard = () => {
           : leaderboard.length === 0
             ? <p className="text-white">No one has solved this problem yet</p>
             : <div className="flex flex-col w-full space-y-4 items-center justify-center">
-              <CPLeaderboard data={leaderboard} />
+              <CPLeaderboard data={leaderboard} start={start} />
               <Pagination
                 onChange={onShowSizeChange}
                 showSizeChanger

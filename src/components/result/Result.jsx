@@ -9,7 +9,7 @@ import { Spin } from 'antd'
 const Result = (props) => {
   // Props Destructuring
   const { result } = props
-  const { stdin, compile_output, expected_output, stdout, stderr, status, time, memory } = result.data
+  const { stdin, compile_output, expected_output, stdout, stderr, status } = result.data
   const { statusId } = result
 
   // Global States
@@ -121,7 +121,7 @@ const Result = (props) => {
           </div>
       )}
 
-        <div className="flex flex-col w-full items-end justify-end">
+        <div className="flex flex-col w-full items-start justify-start">
           <div className="flex flex-row items-start justify-evenly space-x-4">
             <div className="flex flex-row gap-1">
               <p className="text-sm lg:text-base mb-0">
@@ -129,24 +129,6 @@ const Result = (props) => {
               </p>
               <div className={`text-sm lg:text-base font-bold mb-0 ${color}`}>
                 {status.description === undefined ? <Spin size='small'/> : status.description === null ? 'Error' : status.description}
-              </div>
-            </div>
-
-            <div className="flex flex-row gap-1">
-              <p className="text-sm lg:text-base mb-0">
-                {langConfig.resultMemory}
-              </p>
-              <div className="text-sm lg:text-base font-bold mb-0">
-                {memory === undefined ? <Spin size='small'/> : memory === null ? 'Error' : memory}
-              </div>
-            </div>
-
-            <div className="flex flex-row gap-1">
-              <p className="text-sm lg:text-base mb-0">
-                {langConfig.resultTime}
-              </p>
-              <div className="text-sm lg:text-base font-bold mb-0">
-                {time === undefined ? <Spin size='small'/> : time === null ? 'Error' : time}
               </div>
             </div>
           </div>

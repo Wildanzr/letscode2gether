@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const CPLeaderboard = (props) => {
   // Destrcuturing props
-  const { data } = props
+  const { data, start } = props
 
   return (
     <table className="w-full table-auto shadow-md">
@@ -31,13 +31,13 @@ const CPLeaderboard = (props) => {
               <div className="flex items-center justify-start">
                 <div className="font-medium whitespace-nowrap">
                   <span className="ml-3 text-main">
-                  {index + 1 === 1
+                  {start + index + 1 === 1
                     ? '🥇'
-                    : index + 1 === 2
+                    : start + index + 1 === 2
                       ? '🥈'
-                      : index + 1 === 3
+                      : start + index + 1 === 3
                         ? '🥉'
-                        : index + 1
+                        : start + index + 1
                     }
                   </span>
                 </div>
