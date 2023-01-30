@@ -89,7 +89,7 @@ const RoomInfo = () => {
             : (
             <button
                 onClick={openCollaboration}
-                className="flex py-2 px-2 rounded-sm border-b-2 tracking-wide bg-easy dark:bg-main text-snow border-white hover:border-medium dark:hover:border-blue-500  duration-300"
+                className="rt-meet flex py-2 px-2 rounded-sm border-b-2 tracking-wide bg-easy dark:bg-main text-snow border-white hover:border-medium dark:hover:border-blue-500  duration-300"
               >
                 {langConfig.collabOpenCommunication}
               </button>

@@ -92,16 +92,21 @@ const Editor = () => {
   return (
     <>
       <div className="flex flex-row w-full space-x-4 items-start justify-start">
-        <LangDropdown
-          options={languageAllowed}
-          placeholder={langConfig.editorSelectLanguage}
-          onChange={changeLanguage}
-        />
-        <Dropdown
-          options={themeDropDown}
-          placeholder={langConfig.editorSelectTheme}
-          onChange={changeTheme}
-        />
+        <div className="rt-language">
+          <LangDropdown
+            options={languageAllowed}
+            placeholder={langConfig.editorSelectLanguage}
+            onChange={changeLanguage}
+          />
+        </div>
+
+        <div className="rt-theme">
+          <Dropdown
+            options={themeDropDown}
+            placeholder={langConfig.editorSelectTheme}
+            onChange={changeTheme}
+          />
+        </div>
       </div>
 
       <div className="flex flex-col w-full h-[60vh]">

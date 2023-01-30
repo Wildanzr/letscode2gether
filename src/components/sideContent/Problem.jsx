@@ -27,7 +27,7 @@ const Problem = () => {
   }
 
   return (
-    <div className="flex flex-col w-full h-full space-y-4 text-main dark:text-snow duration-300 ease-in-out">
+    <div className="rt-problem-description flex flex-col w-full h-full space-y-4 text-main dark:text-snow duration-300 ease-in-out">
       <div className="flex flex-col w-full">
         {competeProblem
           ? (

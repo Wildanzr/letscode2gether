@@ -30,7 +30,7 @@ const SideContent = () => {
         <div className="flex flex-col w-full p-2">
           {competeProblem
             ? <div className='flex flex-col w-full space-y-1 pb-5'>
-              <h4 className="mb-0 text-lg lg:text-2xl font-semibold text-main dark:text-snow duration-300 ease-in-out">
+              <h4 className="rt-problem-title mb-0 text-lg lg:text-2xl font-semibold text-main dark:text-snow duration-300 ease-in-out">
                 {competeProblem.title}
               </h4>
 
@@ -40,7 +40,7 @@ const SideContent = () => {
                 </p>
                   <Link
                     to={`/profile/${competeProblem.challenger.username}`}
-                    className="ml-2 font-medium text-easy text-base"
+                    className="rt-problem-challenger ml-2 font-medium text-easy text-base"
                   >
                     {competeProblem.challenger.username}
                   </Link>

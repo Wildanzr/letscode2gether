@@ -172,13 +172,15 @@ const MonacoEditor = (props) => {
         ? null
         : <style>{`${customCss}`}</style>
       }
-      <Editor
-        height={'100%'}
-        width={'100%'}
-        language={language}
-        theme={theme}
-        onMount={handleEditorDidMount}
-      />
+      <div className="rt-editor w-full h-full">
+        <Editor
+          height={'100%'}
+          width={'100%'}
+          language={language}
+          theme={theme}
+          onMount={handleEditorDidMount}
+        />
+      </div>
     </div>
   )
 }

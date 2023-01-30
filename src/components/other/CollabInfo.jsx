@@ -18,7 +18,15 @@ const CollabInfo = (props) => {
 
   // Collab States
   const { collabStates } = useCollab()
-  const { socket, roomId, setRoomId, setLanguage, setLoadingEditor, isPrivate, setIsPrivate } = collabStates
+  const {
+    socket,
+    roomId,
+    setRoomId,
+    setLanguage,
+    setLoadingEditor,
+    isPrivate,
+    setIsPrivate
+  } = collabStates
 
   // Auth States
   const { authStates } = useAuth()
@@ -106,8 +114,12 @@ const CollabInfo = (props) => {
 
       // Determine participants
       const participantList = !isPrivate
-        ? participants.filter((participant) => participant.username !== user.username)
-        : participants.filter((participant) => participant.username !== newDriver)
+        ? participants.filter(
+          (participant) => participant.username !== user.username
+        )
+        : participants.filter(
+          (participant) => participant.username !== newDriver
+        )
 
       setIsPrivate(false)
       setParticipants(participantList)
@@ -153,8 +165,14 @@ const CollabInfo = (props) => {
 
     // Determine participants
     const participantList = !isPrivate
-      ? participants.filter((participant) => user ? participant.username !== user.username : participant.username !== guestName)
-      : participants.filter((participant) => participant.username !== newDriver)
+      ? participants.filter((participant) =>
+        user
+          ? participant.username !== user.username
+          : participant.username !== guestName
+      )
+      : participants.filter(
+        (participant) => participant.username !== newDriver
+      )
 
     setParticipants(participantList)
   }
@@ -174,8 +192,14 @@ const CollabInfo = (props) => {
 
     // Determine participants
     const participantList = !isPrivate
-      ? participants.filter((participant) => user ? participant.username !== user.username : participant.username !== guestName)
-      : participants.filter((participant) => participant.username !== newDriver)
+      ? participants.filter((participant) =>
+        user
+          ? participant.username !== user.username
+          : participant.username !== guestName
+      )
+      : participants.filter(
+        (participant) => participant.username !== newDriver
+      )
 
     setParticipants(participantList)
   }
@@ -183,30 +207,32 @@ const CollabInfo = (props) => {
   // Leave room
   const leaveRoom = () => {
     // Show dialog
-    mySwal.fire({
-      title: langConfig.dialogLeftRoom,
-      showDenyButton: true,
-      confirmButtonText: 'Keluar',
-      confirmButtonColor: '#ff4d4f',
-      denyButtonText: 'Tetap disini',
-      denyButtonColor: '#1890ff',
-      reverseButtons: true,
-      backdrop: true,
-      allowOutsideClick: true,
-      allowEscapeKey: true,
-      allowEnterKey: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Create payload
-        const payload = {
-          userId: user && user._id ? user.username : guestName,
-          roomId: inputRoomId
-        }
+    mySwal
+      .fire({
+        title: langConfig.dialogLeftRoom,
+        showDenyButton: true,
+        confirmButtonText: 'Keluar',
+        confirmButtonColor: '#ff4d4f',
+        denyButtonText: 'Tetap disini',
+        denyButtonColor: '#1890ff',
+        reverseButtons: true,
+        backdrop: true,
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+        allowEnterKey: true
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // Create payload
+          const payload = {
+            userId: user && user._id ? user.username : guestName,
+            roomId: inputRoomId
+          }
 
-        // Emit leave room
-        socket.emit('req_leave_room', payload)
-      }
-    })
+          // Emit leave room
+          socket.emit('req_leave_room', payload)
+        }
+      })
   }
 
   // Handle leave room response
@@ -265,85 +291,100 @@ const CollabInfo = (props) => {
 
   return (
     <div className="flex flex-col space-y-1">
-      <div className="flex flex-row space-x-2">
-        <p className="mb-0">
-          {langConfig.collabDriver}
-        </p>
-        <div className="mb-0 font-bold">
-          {driver === null
-            ? <Spin size="small" />
-            : driver
-          }
+      <div className="rt-collab-info flex flex-col">
+        <div className="flex flex-row space-x-2">
+          <p className="mb-0">{langConfig.collabDriver}</p>
+          <div className="mb-0 font-bold">
+            {driver === null ? <Spin size="small" /> : driver}
+          </div>
+        </div>
+
+        <div className="flex flex-row space-x-2">
+          <p className="mb-0">{langConfig.collabNavigator}</p>
+          {participants === null
+            ? (
+            <Spin size="small" />
+              )
+            : participants.length === 0
+              ? (
+            <p className="mb-0 font-bold">-</p>
+                )
+              : (
+            <div className="flex flex-col space-y-1">
+              <p className="mb-0 font-bold">{participants[0].username}</p>
+            </div>
+                )}
+        </div>
+
+        {participants !== null && participants.length > 1 && (
+          <div className="flex flex-row space-x-2">
+            <p className="mb-0">{langConfig.collabParticipants}</p>
+            {participants === null
+              ? (
+              <Spin size="small" />
+                )
+              : participants.length === 0
+                ? (
+              <p className="mb-0 font-bold">-</p>
+                  )
+                : (
+              <div className="flex flex-col space-y-1">
+                {participants.map((participant, index) => {
+                  if (index !== 0) {
+                    return (
+                      <p className="mb-0 font-bold" key={index}>
+                        {participant.username}
+                      </p>
+                    )
+                  }
+                  return null
+                })}
+              </div>
+                  )}
+          </div>
+        )}
+
+        <div className="flex flex-row space-x-2 pb-2">
+          <p className="mb-0">{langConfig.collabIDRoom}</p>
+          {roomId === null
+            ? (
+            <Spin size="small" />
+              )
+            : (
+            <Paragraph
+              copyable
+              style={{ marginBottom: 0 }}
+              className="mb-0 font-bold text-main dark:text-snow duration-300 ease-in-out"
+            >
+              {roomId}
+            </Paragraph>
+              )}
         </div>
       </div>
 
       <div className="flex flex-row space-x-2">
-        <p className="mb-0">
-          {langConfig.collabNavigator}
-        </p>
-        {participants === null
-          ? <Spin size='small' />
-          : participants.length === 0
-            ? <p className="mb-0 font-bold">-</p>
-            : <div className="flex flex-col space-y-1">
-                <p className="mb-0 font-bold">{participants[0].username}</p>
-            </div>
-        }
-      </div>
-
-      {participants !== null && participants.length > 1 && (
-        <div className="flex flex-row space-x-2">
-        <p className="mb-0">
-          {langConfig.collabParticipants}
-        </p>
-        {participants === null
-          ? <Spin size='small' />
-          : participants.length === 0
-            ? <p className="mb-0 font-bold">-</p>
-            : <div className="flex flex-col space-y-1">
-                {participants.map((participant, index) => {
-                  if (index !== 0) {
-                    return <p className="mb-0 font-bold" key={index}>{participant.username}</p>
-                  }
-                  return null
-                })}
-            </div>
-        }
-      </div>
-      )
-      }
-
-      <div className="flex flex-row space-x-2 pb-2">
-        <p className="mb-0">
-          {langConfig.collabIDRoom}
-        </p>
-        {roomId === null
-          ? <Spin size='small' />
-          : <Paragraph
-            copyable
-            style={{ marginBottom: 0 }}
-            className="mb-0 font-bold text-main dark:text-snow duration-300 ease-in-out"
+        <div className="flex rt-collab-field">
+          <Input
+            maxLength={5}
+            minLength={5}
+            allowClear
+            disabled={!isPrivate}
+            onChange={(e) => setInputRoomId(e.target.value)}
+            placeholder={langConfig.formPlaceholderRoomID}
+          />
+        </div>
+        <div className="flex rt-collab-button">
+          <button
+            onClick={isPrivate ? joinRoom : leaveRoom}
+            className={`flex py-1 px-1 lg:px-2 justify-center font-medium whitespace-nowrap ${
+              isPrivate
+                ? 'bg-easy dark:bg-main hover:border-medium dark:hover:border-blue-500'
+                : 'bg-hard dark:hover:border-medium hover:border-medium'
+            } rounded-sm border-b-2 text-snow border-white duration-300`}
           >
-            {roomId}
-          </Paragraph>
-        }
-      </div>
-
-      <div className="flex flex-row space-x-2">
-        <Input
-          maxLength={5}
-          minLength={5}
-          allowClear
-          disabled={!isPrivate}
-          onChange={(e) => setInputRoomId(e.target.value)}
-          placeholder={langConfig.formPlaceholderRoomID}
-        />
-        <button
-          onClick={isPrivate ? joinRoom : leaveRoom}
-          className={`flex py-1 px-1 lg:px-2 justify-center font-medium whitespace-nowrap ${isPrivate ? 'bg-easy dark:bg-main hover:border-medium dark:hover:border-blue-500' : 'bg-hard dark:hover:border-medium hover:border-medium'} rounded-sm border-b-2 text-snow border-white duration-300`}
-        >
-          {isPrivate ? langConfig.collabRoomJoin : langConfig.collabRoomLeft }
-        </button>
+            {isPrivate ? langConfig.collabRoomJoin : langConfig.collabRoomLeft}
+          </button>
+        </div>
       </div>
     </div>
   )

@@ -285,7 +285,9 @@ const Runner = () => {
       {showInput && <InputArea input={input} setInput={setInput} />}
 
       <div className="flex flex-row w-full px-2 items-center justify-between">
-        <CustomInput value={showInput} change={setShowInput} />
+        <div className="flex rt-custom-input">
+          <CustomInput value={showInput} change={setShowInput} />
+        </div>
         <div className="flex flex-row items-center justify-start space-x-4">
           <button
             disabled={btnDisabled}
@@ -306,7 +308,7 @@ const Runner = () => {
               runCode('run', 'run')
               setRun(true)
             }}
-            className={`flex py-1 px-1 lg:px-2 justify-center font-bold font-code tracking-wider rounded-sm text-easy dark:text-snow border-2 border-easy dark:border-white hover:border-main hover:text-main dark:hover:border-blue-500 duration-300 ${
+            className={`rt-code-run flex py-1 px-1 lg:px-2 justify-center font-bold font-code tracking-wider rounded-sm text-easy dark:text-snow border-2 border-easy dark:border-white hover:border-main hover:text-main dark:hover:border-blue-500 duration-300 ${
               btnDisabled
                 ? 'border-gray-300 text-gray-300 hover:border-gray-300'
                 : ''
@@ -334,7 +336,7 @@ const Runner = () => {
                 }
                 submitDialog()
               }}
-              className={`flex py-1 px-1 lg:px-2 justify-center font-bold font-code tracking-wider bg-easy dark:bg-main rounded-sm border-b-2 text-snow border-white hover:border-medium dark:hover:border-blue-500 duration-300 ${
+              className={`rt-code-submit flex py-1 px-1 lg:px-2 justify-center font-bold font-code tracking-wider bg-easy dark:bg-main rounded-sm border-b-2 text-snow border-white hover:border-medium dark:hover:border-blue-500 duration-300 ${
                 btnDisabled
                   ? 'border-gray-300 text-gray-300 hover:border-gray-300'
                   : ''

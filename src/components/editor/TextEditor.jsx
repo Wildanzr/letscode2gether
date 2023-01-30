@@ -72,12 +72,14 @@ const TextEditor = () => {
     <>
       {loadingEditor
         ? null
-        : <MonacoEditor
-            language={langValue}
-            defaultValue={defaultTemplate}
-            theme={theme}
-            roomId={roomId}
-          />
+        : <div className="rt-editor flex w-full h-full">
+          <MonacoEditor
+              language={langValue}
+              defaultValue={defaultTemplate}
+              theme={theme}
+              roomId={roomId}
+            />
+        </div>
       }
     </>
   )
