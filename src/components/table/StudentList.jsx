@@ -56,17 +56,17 @@ const StudentList = (props) => {
     if (point === 0) {
       return <p className='mb-0 text-2xl font-ubuntu font-bold text-success'>-</p>
     } else if (point < 500) {
-      return <img src={B1} className="w-10" />
+      return <img src={B1} className="w-10 h-10" />
     } else if (point < 1000) {
-      return <img src={B2} className="w-10" />
+      return <img src={B2} className="w-10 h-10" />
     } else if (point < 1500) {
-      return <img src={B3} className="w-10" />
+      return <img src={B3} className="w-10 h-10" />
     } else if (point < 2000) {
-      return <img src={B4} className="w-10" />
+      return <img src={B4} className="w-10 h-10" />
     } else if (point < 2500) {
-      return <img src={B5} className="w-10" />
+      return <img src={B5} className="w-10 h-10" />
     } else {
-      return <img src={B6} className="w-10" />
+      return <img src={B6} className="w-10 h-10" />
     }
   }
   return (

@@ -70,7 +70,7 @@ const LeaderboardPage = () => {
 
         {/* Leaderboard Table */}
         <div className="flex w-full items-center justify-center pb-5 px-5 overflow-y-auto">
-          <div className="flex flex-col w-10/12 lg:w-1/2 items-center justify-center">
+          <div className="flex flex-col min-w-min items-center justify-center">
             {leaderboard === null
               ? (
               <Spin size="default" />

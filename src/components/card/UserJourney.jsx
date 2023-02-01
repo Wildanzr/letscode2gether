@@ -19,7 +19,7 @@ const UserJourney = (props) => {
     return (
       <div className="flex flex-row space-x-1">
         {badges.map((badge, index) => (
-          <img key={index} src={badge} className={`w-14 ${index < current ? 'grayscale-0' : 'grayscale'}`} />
+          <img key={index} src={badge} className={`w-10 h-10 ${index < current ? 'grayscale-0' : 'grayscale'}`} />
         ))}
       </div>
     )

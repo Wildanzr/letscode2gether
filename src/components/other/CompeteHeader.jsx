@@ -131,7 +131,7 @@ const CompeteHeader = (props) => {
               </span>
             </div>
 
-            <div className="flex flex-col w-full space-y-2 items-start">
+            <div className="flex flex-col w-full lg:flex-row space-y-2 lg:space-y-0 space-x-0 lg:space-x-4 items-center">
               <p className="mb-0 text-sm font-ubuntu font-bold whitespace-nowrap">
                 {langConfig.competeListDesc}
               </p>

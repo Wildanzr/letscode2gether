@@ -47,7 +47,7 @@ const UserProfile = (props) => {
         </div>
 
         {/* About */}
-        <div className="flex flex-col w-full rounded-md bg-milk dark:bg-alternate items-start justify-start space-y-2 px-5 py-5 duration-300 ease-in-out">
+        <div className="flex flex-col w-full rounded-md bg-milk dark:bg-alternate items-center justify-center space-y-2 px-5 py-5 duration-300 ease-in-out">
           {/* Header About */}
           <div className="flex flex-row w-full items-center justify-center">
             <div className="flex items-center space-x-2">

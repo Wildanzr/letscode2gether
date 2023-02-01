@@ -111,7 +111,7 @@ const CompeteLobbyPage = () => {
               )
             : isJoined && compete
               ? (
-            <div className="flex flex-col w-full h-screen items-center justify-start">
+            <div className="flex flex-col w-full h-full items-center justify-start">
               <CompeteHeader compete={compete} />
               <div className="flex flex-col w-full items-center justify-center space-y-6">
                 {/* Tabs */}
