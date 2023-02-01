@@ -56,9 +56,9 @@ const Challenge = (props) => {
   return (
     <div className="flex flex-row justify-between w-full px-5 py-3 rounded-lg border-2 lg:border-4 border-easy bg-gradient-to-r from-[#CCF3F6] dark:from-[#30143F] via-[#DDCFF0] dark:via-[#151223] to:[#DCE7B3] dark:to-[#151729] duration-300 ease-out">
       <div className="flex w-4/6 flex-col space-y-3">
-        <p className="mb-0 font-ubuntu tracking-wide font-bold">{title}</p>
-        <div className="flex flex-row w-full space-x-5 items-center">
-          <p className="mb-0 text-sm font-ubuntu font-medium">
+        <p className="mb-0 font-ubuntu tracking-wide text-base font-bold">{title}</p>
+        <div className="flex flex-col lg:flex-row w-full lg:space-x-5 items-start lg:items-center">
+          <p className="mb-0 text-xs lg:text-sm font-ubuntu font-medium">
             {langConfig.challengeLevelLabel}
             <span
               className={`pl-2 mb-0 text-sm font-ubuntu font-medium ${
@@ -73,7 +73,7 @@ const Challenge = (props) => {
             </span>
           </p>
 
-          <p className="mb-0 text-sm font-ubuntu font-medium">
+          <p className="mb-0 text-xs lg:text-sm font-ubuntu font-medium">
             {langConfig.challengMaxPointLabel}
             <span className="pl-2 mb-0 text-sm font-ubuntu font-medium text-easy">
               {maxPoint}

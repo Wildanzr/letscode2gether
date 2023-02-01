@@ -307,7 +307,7 @@ const CollabInfo = (props) => {
 
   return (
     <div className="flex flex-col space-y-1">
-      <div className="rt-collab-info flex flex-col">
+      <div className="rt-collab-info flex flex-col" data-tour="observable-parent">
         <div className="flex flex-row space-x-2">
           <p className="mb-0">{langConfig.collabDriver}</p>
           <div className="mb-0 font-bold">

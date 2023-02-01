@@ -60,12 +60,12 @@ const ProblemList = (props) => {
             <div className="flex w-2/6 items-center justify-start">
               <p className="mb-0 text-sm">{title}</p>
             </div>
-            <div className="flex w-2/6 justify-center lg:justify-start items-center">
+            <div className="flex w-1/6 justify-center lg:justify-start items-center">
               <p className={`mb-0 text-sm ${difficulty === 1 ? 'text-success' : difficulty === 2 ? 'text-medium' : 'text-hard'}`}>
                 {difficulty === 1 ? langConfig.challengeLevel1 : difficulty === 2 ? langConfig.challengeLevel2 : langConfig.challengeLevel3 }
               </p>
             </div>
-            <div className="flex w-2/6 space-x-6 justify-end lg:justify-start items-center">
+            <div className="flex w-3/6 space-x-6 justify-end lg:justify-start items-center">
               <Link
                 to={`path/${competeId}/problems/${_id}`}
                 className={`w-4/6 py-2 ${isDone === null ? 'bg-snow' : isDone === 0 ? 'bg-easy text-snow hover:text-snow hover:dark:text-snow' : isDone === 1 ? 'bg-medium text-main hover:text-main hover:dark:text-main' : 'bg-success text-main hover:text-main hover:dark:text-main'} text-center rounded font-medium lg:font-bold duration-150 ease-in-out`}

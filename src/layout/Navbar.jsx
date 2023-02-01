@@ -299,7 +299,7 @@ const Navbar = (props) => {
       <div
         className={`w-full lg:hidden ${
           toggle ? 'h-0 hidden' : 'flex flex-col h-full'
-        } transition-all space-y-2 items-center bg-snow dark:bg-main duration-300`}
+        } transition-all space-y-2 items-center bg-milk dark:bg-alternate duration-300 py-3`}
       >
         {paths.map((path, index) => (
           <Link
@@ -318,7 +318,7 @@ const Navbar = (props) => {
           ? (
           <>
             <Link
-              to={'/auth/profile'}
+              to={`/profile/${user.username}`}
               className={
                 'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
               }
@@ -327,7 +327,7 @@ const Navbar = (props) => {
             </Link>
 
             <Link
-              to={'/auth/setting'}
+              to={'/settings'}
               className={
                 'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
               }
