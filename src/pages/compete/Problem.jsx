@@ -1,7 +1,8 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useCollab } from '../../contexts/CollabContext'
+import { steps } from '../../constants/steps'
 
 import api from '../../api'
 import { Navbar as MainNavbar, Footer } from '../../layout'
@@ -12,6 +13,10 @@ import Result from '../../components/result'
 
 import Cookies from 'js-cookie'
 import { useParams } from 'react-router-dom'
+import { Modal } from 'antd'
+import Tour from 'reactour'
+
+const { confirm } = Modal
 
 const CompeteProblemPage = () => {
   // useParams
@@ -30,6 +35,25 @@ const CompeteProblemPage = () => {
   // Collab States
   const { problemStates } = useCollab()
   const { setCompeteProblem, setCompeteMaxPoint, setLanguageList } = problemStates
+
+  // Local States
+  const [isTourOpen, setIsTourOpen] = useState(false)
+
+  // Show Confirm Modal
+  const showConfirm = () => {
+    confirm({
+      title: 'Apakah kamu ingin melihat cara kerja aplikasi ini?',
+      okText: 'Ya, saya ingin melihatnya',
+      okType: 'primary',
+      cancelText: 'Tidak',
+      onOk () {
+        setIsTourOpen(true)
+      },
+      onCancel () {
+        console.log('Cancel')
+      }
+    })
+  }
 
   // Get compete problem detail
   const getCompeteProblemDetail = async () => {
@@ -88,6 +112,13 @@ const CompeteProblemPage = () => {
     }
   }, [user])
 
+  // Open tour after 3 seconds
+  useEffect(() => {
+    setTimeout(() => {
+      showConfirm()
+    }, 2000)
+  }, [])
+
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <MainNavbar>
@@ -109,6 +140,22 @@ const CompeteProblemPage = () => {
         </main>
       </MainNavbar>
       <Footer />
+      <Tour
+        steps={steps}
+        isOpen={isTourOpen}
+        rounded={5}
+        scrollSmooth
+        scrollDuration={500}
+        scrollOffset={-100}
+        accentColor='#3B82F6'
+        onRequestClose={() => setIsTourOpen(false)}
+        badgeContent={(curr, tot) => `${curr} dari ${tot}`}
+        padding={{
+          mask: 14,
+          popover: [5, 10],
+          wrapper: 20
+        }}
+      />
     </div>
   )
 }

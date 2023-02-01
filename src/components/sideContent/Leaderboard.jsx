@@ -16,7 +16,7 @@ const Leaderboard = () => {
   const [limit, setLimit] = useState(10)
   const [total, setTotal] = useState(10)
   const [fetch, setFetch] = useState(true)
-  const [start, setStart] = useState(limit)
+  const [start, setStart] = useState(limit - 10)
 
   // Handle pagination change
   const onShowSizeChange = (current, pageSize) => {
