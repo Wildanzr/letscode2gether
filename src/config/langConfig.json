@@ -423,5 +423,7 @@
   "editJourneyName": "Nama",
   "editJourneyDescription": "Deskripsi",
   "editJourneyLanguage": "Bahasa yang dapat digunakan",
-  "editJourneyProblems": "Daftar Permasalahan"
+  "editJourneyProblems": "Daftar Permasalahan",
+
+  "collabHelp": "Bantuan?"
 }

@@ -4,7 +4,9 @@ import { useGlobal } from '../../contexts/GlobalContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useCollab } from '../../contexts/CollabContext'
 
+import Cookies from 'js-cookie'
 import { Typography, Input, Spin, message } from 'antd'
+import { useLocation } from 'react-router-dom'
 
 const { Paragraph } = Typography
 
@@ -12,9 +14,13 @@ const CollabInfo = (props) => {
   // Props destructure
   const { competeProblemId, guestName } = props
 
+  // useLocation
+  const location = useLocation()
+
   // Global Functions
-  const { globalFunctions } = useGlobal()
+  const { globalFunctions, globalState } = useGlobal()
   const { mySwal } = globalFunctions
+  const { setIsTourNeverShow } = globalState
 
   // Collab States
   const { collabStates } = useCollab()
@@ -37,6 +43,16 @@ const CollabInfo = (props) => {
   const [driver, setDriver] = useState(null)
   const [participants, setParticipants] = useState(null)
   const [initRoom, setInitRoom] = useState(true)
+
+  // Show help
+  const showHelp = () => {
+    setIsTourNeverShow(true)
+    Cookies.remove('isTourNeverShow')
+
+    setTimeout(() => {
+      setIsTourNeverShow(false)
+    }, 500)
+  }
 
   // Create room
   const createRoom = async () => {
@@ -237,7 +253,7 @@ const CollabInfo = (props) => {
 
   // Handle leave room response
   const handleLeaveRoom = (res) => {
-    if (res.status) {
+    if (res && res.status) {
       message.info(langConfig.infoMeLeftRoom)
       setIsPrivate(true)
       createRoom()
@@ -344,7 +360,7 @@ const CollabInfo = (props) => {
           </div>
         )}
 
-        <div className="flex flex-row space-x-2 pb-2">
+        <div className="flex flex-row space-x-2">
           <p className="mb-0">{langConfig.collabIDRoom}</p>
           {roomId === null
             ? (
@@ -360,6 +376,10 @@ const CollabInfo = (props) => {
             </Paragraph>
               )}
         </div>
+
+        {!location.pathname.includes('collab') && (
+          <button onClick={() => showHelp()} className='flex w-full pb-2 items-start justify-start text-success font-semibold'>{langConfig.collabHelp}</button>
+        )}
       </div>
 
       <div className="flex flex-row space-x-2">

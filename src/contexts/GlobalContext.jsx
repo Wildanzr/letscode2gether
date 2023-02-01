@@ -3,6 +3,8 @@ import { createContext, useContext, useState } from 'react'
 import Swal from 'sweetalert2/dist/sweetalert2.all'
 import withReactContent from 'sweetalert2-react-content'
 
+import Cookies from 'js-cookie'
+
 const GlobalContext = createContext()
 
 export const GlobalProvider = ({ children }) => {
@@ -12,6 +14,7 @@ export const GlobalProvider = ({ children }) => {
   const [tabs, setTabs] = useState(0)
   const [isOn, setIsOn] = useState(false)
   const [toggle, setToggle] = useState(true)
+  const [isTourNeverShow, setIsTourNeverShow] = useState(Cookies.get('isTourNeverShow') || false)
 
   // Global Functions
   const mySwal = withReactContent(Swal)
@@ -36,7 +39,9 @@ export const GlobalProvider = ({ children }) => {
     toggle,
     setToggle,
     isOnlyEditor,
-    setIsOnlyEditor
+    setIsOnlyEditor,
+    isTourNeverShow,
+    setIsTourNeverShow
   }
 
   // Export global functions

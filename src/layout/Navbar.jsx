@@ -128,10 +128,11 @@ const Navbar = (props) => {
         title: langConfig.dialogLogout,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
         confirmButtonText: 'Ya, keluar!',
-        cancelButtonText: 'Nanti saja'
+        cancelButtonText: 'Nanti saja',
+        reverseButtons: true
       })
       .then((result) => {
         if (result.isConfirmed) {
