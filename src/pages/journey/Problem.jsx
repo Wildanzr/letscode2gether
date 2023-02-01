@@ -13,17 +13,16 @@ import Result from '../../components/result'
 
 import Cookies from 'js-cookie'
 import { useParams } from 'react-router-dom'
-import { Modal } from 'antd'
 import Tour from 'reactour'
 
-const { confirm } = Modal
 const ProblemPage = () => {
   // useParams
   const { competeProblemId, competeId } = useParams()
 
   // Global States
-  const { globalState, editorState } = useGlobal()
-  const { colHide, setIsOnlyEditor } = globalState
+  const { globalState, editorState, globalFunctions } = useGlobal()
+  const { colHide, setIsOnlyEditor, isTourNeverShow, setIsTourNeverShow } = globalState
+  const { mySwal } = globalFunctions
   const { run } = editorState
 
   // Auth States and Functions
@@ -37,6 +36,7 @@ const ProblemPage = () => {
 
   // Local States
   const [isTourOpen, setIsTourOpen] = useState(false)
+  const [localFirst, setLocalFirst] = useState(false)
 
   // Get compete problem detail
   const getCompeteProblemDetail = async () => {
@@ -81,18 +81,37 @@ const ProblemPage = () => {
     }
   }
 
-  // Show Confirm Modal
-  const showConfirm = () => {
-    confirm({
-      title: 'Apakah kamu ingin melihat cara kerja aplikasi ini?',
-      okText: 'Ya, saya ingin melihatnya',
-      okType: 'primary',
-      cancelText: 'Tidak',
-      onOk () {
+  // Never show tour again
+  const neverShowTour = () => {
+    Cookies.set('isTourNeverShow', true)
+    setIsTourNeverShow(true)
+
+    // Close Swal
+    mySwal.close()
+  }
+
+  // Swal footer
+  const SwalFooter = () => {
+    return (
+      <a className='text-easy text-base font-semibold' onClick={() => neverShowTour()}>Jangan tampilkan lagi.</a>
+    )
+  }
+
+  // Show mySwal
+  const showTourSwal = () => {
+    mySwal.fire({
+      title: 'Ingin melihat tour LetsCode?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, saya ingin melihatnya',
+      cancelButtonText: 'Tidak perlu',
+      reverseButtons: true,
+      footer: SwalFooter()
+    }).then((result) => {
+      if (result.isConfirmed) {
         setIsTourOpen(true)
-      },
-      onCancel () {
-        console.log('Cancel')
       }
     })
   }
@@ -114,9 +133,17 @@ const ProblemPage = () => {
   // Open tour after 3 seconds
   useEffect(() => {
     setTimeout(() => {
-      showConfirm()
+      setLocalFirst(true)
+      !isTourNeverShow && showTourSwal()
     }, 2000)
   }, [])
+
+  // Monitor isTourNeverShow
+  useEffect(() => {
+    if (localFirst) {
+      !isTourNeverShow && showTourSwal()
+    }
+  }, [isTourNeverShow])
 
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
