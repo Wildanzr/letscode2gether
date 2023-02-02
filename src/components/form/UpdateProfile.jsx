@@ -1,4 +1,5 @@
 /* eslint-disable prefer-promise-reject-errors */
+import langConfig from '../../config/langConfig.json'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { useAuth } from '../../contexts/AuthContext'
 
@@ -28,6 +29,7 @@ const UpdateProfile = (props) => {
     phone,
     bio
   } = userDetails
+  console.log(dateOfBirth)
 
   // Global Functions
   const { globalFunctions } = useGlobal()
@@ -49,13 +51,13 @@ const UpdateProfile = (props) => {
   const [form] = Form.useForm()
 
   // Custom Date Format
-  const dateFormat = 'YYYY/MM/DD'
+  const dateFormat = 'DD/MM/YYYY'
 
   // onFinish
   const onFinish = async (values) => {
     // Show loading
     mySwal.fire({
-      title: 'Updating your profile...',
+      title: langConfig.loadingUpdateProfile,
       allowOutsideClick: true,
       backdrop: true,
       allowEscapeKey: true,
@@ -90,7 +92,7 @@ const UpdateProfile = (props) => {
 
       mySwal.fire({
         icon: 'success',
-        title: 'Update Profile Success',
+        title: langConfig.successUpdateProfile,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -134,7 +136,7 @@ const UpdateProfile = (props) => {
     } else {
       const isTaken = await checkUsername(value)
       if (isTaken) {
-        return Promise.reject('Username is taken')
+        return Promise.reject(langConfig.validateUsernameTaken)
       }
     }
   }, 500)
@@ -152,7 +154,7 @@ const UpdateProfile = (props) => {
           fullName,
           username,
           gender,
-          dateOfBirth: moment(dateOfBirth, dateFormat),
+          dateOfBirth: moment(dateOfBirth),
           address,
           phone,
           bio
@@ -164,15 +166,15 @@ const UpdateProfile = (props) => {
           rules={[
             {
               required: true,
-              message: 'Please input your full name!'
+              message: langConfig.formFullNameRule1
             },
             {
               max: 255,
-              message: 'Full name must be at most 255 characters'
+              message: langConfig.formFullNameRule2
             },
             {
               min: 3,
-              message: 'Full name must be at least 3 characters'
+              message: langConfig.formFullNameRule3
             }
           ]}
         >
@@ -185,20 +187,19 @@ const UpdateProfile = (props) => {
           rules={[
             {
               required: true,
-              message: 'Please input your username!'
+              message: langConfig.formUsernameRule1
             },
             {
               min: 3,
-              message: 'Username must be at least 3 characters'
+              message: langConfig.formUsernameRule2
             },
             {
               max: 20,
-              message: 'Username must be at most 20 characters'
+              message: langConfig.formUsernameRule3
             },
             {
               pattern: /^[a-z0-9]+$/,
-              message:
-                'Username must be lowercase and contain only letters and numbers'
+              message: langConfig.formUsernameRule4
             },
             {
               validator: usernameValidator
@@ -214,13 +215,13 @@ const UpdateProfile = (props) => {
           rules={[
             {
               required: true,
-              message: 'Please select your gender'
+              message: langConfig.formGenderRule1
             }
           ]}
         >
           <Select placeholder="Sex">
-            <Option value={true}>Male</Option>
-            <Option value={false}>Female</Option>
+            <Option value={true}>{langConfig.formGenderOption1}</Option>
+            <Option value={false}>{langConfig.formGenderOption2}</Option>
           </Select>
         </Item>
 
@@ -230,7 +231,7 @@ const UpdateProfile = (props) => {
           rules={[
             {
               required: true,
-              message: 'Please input your date of birth!'
+              message: langConfig.formBirthdayRule1
             }
           ]}
         >
@@ -250,11 +251,11 @@ const UpdateProfile = (props) => {
             },
             {
               max: 500,
-              message: 'Address must be at most 500 characters'
+              message: langConfig.formAddressRule1
             },
             {
               min: 3,
-              message: 'Address must be at least 3 characters'
+              message: langConfig.formAddressRule2
             }
           ]}
         >
@@ -274,15 +275,15 @@ const UpdateProfile = (props) => {
             },
             {
               max: 20,
-              message: 'Phone must be at most 20 characters'
+              message: langConfig.formPhoneRule1
             },
             {
               min: 8,
-              message: 'Phone must be at least 8 characters'
+              message: langConfig.formPhoneRule2
             },
             {
               pattern: /^[0-9]+$/,
-              message: 'Phone must contain only numbers'
+              message: langConfig.formPhoneRule3
             }
           ]}
         >
@@ -295,7 +296,7 @@ const UpdateProfile = (props) => {
           rules={[
             {
               max: 1000,
-              message: 'Bio must be at most 1000 characters'
+              message: langConfig.formBioRule1
             }
           ]}
         >
@@ -308,7 +309,7 @@ const UpdateProfile = (props) => {
             onClick={() => form.submit()}
             className="w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white font-ubuntu tracking-wider uppercase transition-colors duration-200 transform bg-easy rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400"
           >
-            Update Profile
+            {langConfig.updateProfileUpdate}
           </button>
         </Item>
       </Form>

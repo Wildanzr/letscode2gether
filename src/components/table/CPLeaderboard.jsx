@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 
 const CPLeaderboard = (props) => {
   // Destrcuturing props
-  const { data } = props
+  const { data, start } = props
+
   return (
     <table className="w-full table-auto shadow-md">
       <thead>
@@ -13,10 +14,10 @@ const CPLeaderboard = (props) => {
             RANK
           </th>
           <th className="py-3 px-5 text-left overflow-clip whitespace-nowrap">
-            NAME
+            USERNAME
           </th>
           <th className="py-3 px-5 text-center overflow-clip whitespace-nowrap">
-            POINT
+            POIN
           </th>
         </tr>
       </thead>
@@ -30,13 +31,13 @@ const CPLeaderboard = (props) => {
               <div className="flex items-center justify-start">
                 <div className="font-medium whitespace-nowrap">
                   <span className="ml-3 text-main">
-                  {index + 1 === 1
+                  {start + index + 1 === 1
                     ? '🥇'
-                    : index + 1 === 2
+                    : start + index + 1 === 2
                       ? '🥈'
-                      : index + 1 === 3
+                      : start + index + 1 === 3
                         ? '🥉'
-                        : index + 1
+                        : start + index + 1
                     }
                   </span>
                 </div>
@@ -46,7 +47,7 @@ const CPLeaderboard = (props) => {
               <div className="flex items-center justify-start">
               <div className="font-medium whitespace-nowrap">
                   <Link
-                    to={`/profile/${person.username}`}
+                    to={`/profile/${person.userId.username}`}
                     className="flex flex-row group space-x-2 items-center group"
                   >
                     <div className="flex h-8 w-8 rounded-full group-hover:border-easy">

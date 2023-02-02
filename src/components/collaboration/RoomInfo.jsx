@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import { useCollab } from '../../contexts/CollabContext'
@@ -6,11 +7,6 @@ import { CollabInfo } from '../other'
 
 import Draggable from 'react-draggable'
 import { useParams } from 'react-router-dom'
-import { customAlphabet } from 'nanoid'
-
-// Random guest name
-const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWZYZ', 5)
-const guestName = `Guest-${nanoid()}`
 
 const RoomInfo = () => {
   // useParams
@@ -21,11 +17,12 @@ const RoomInfo = () => {
   const { user } = authStates
 
   const { collabStates } = useCollab()
-  const { roomId } = collabStates
+  const { roomId, guestName } = collabStates
 
   // Local States
   const [collab, setCollab] = useState(false)
   const [visible, setVisible] = useState(true)
+
   // Open collaboration video
   const openCollaboration = () => {
     setCollab(true)
@@ -54,7 +51,7 @@ const RoomInfo = () => {
         DISABLE_JOIN_LEAVE_NOTIFICATIONS: true
       },
       userInfo: {
-        displayName: user ? user.username : guestName
+        displayName: user && user.username ? user.username : guestName
       }
     }
     // eslint-disable-next-line no-undef
@@ -80,7 +77,9 @@ const RoomInfo = () => {
           {collab
             ? (
             <strong className="flex flex-row justify-start items-center px-5 py-2 bg-gray-900 text-white border-b-2 border-white hover:border-blue-500 duration-300">
-              <p className="flex w-10/12 mb-0 cursor-move">Collaboration</p>
+              <p className="flex w-10/12 mb-0 cursor-move">
+                {langConfig.collabCommunication}
+              </p>
               <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="currentColor" className="bi bi-x-lg flex w-2/12 hover:fill-white duration-300" viewBox="0 0 16 16" onClick={() => removeCollab('meet')}>
                 <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
               </svg>
@@ -90,9 +89,9 @@ const RoomInfo = () => {
             : (
             <button
                 onClick={openCollaboration}
-                className="flex py-2 px-2 rounded-sm border-b-2 tracking-wide bg-easy dark:bg-main text-snow border-white hover:border-medium dark:hover:border-blue-500  duration-300"
+                className="rt-meet flex py-2 px-2 rounded-sm border-b-2 tracking-wide bg-easy dark:bg-main text-snow border-white hover:border-medium dark:hover:border-blue-500  duration-300"
               >
-                Open Communication
+                {langConfig.collabOpenCommunication}
               </button>
               )
           }

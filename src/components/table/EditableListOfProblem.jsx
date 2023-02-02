@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 
@@ -17,29 +18,29 @@ const EditableListOfProblem = (props) => {
   const [fetch, setFetch] = useState(true)
   const [headingList] = useState([
     {
-      name: 'NO',
+      name: langConfig.tableDetailJourney1,
       wide: 5,
       align: 'text-left'
     },
     {
-      name: 'NAME',
+      name: langConfig.tableDetailJourney2,
       wide: 45,
       align: 'text-left'
     },
     {
-      name: 'MAX POINT',
+      name: langConfig.tableDetailJourney3,
       wide: 15,
       align: 'text-center'
     },
     {
-      name: 'DIFFICULTY',
+      name: langConfig.tableDetailJourney4,
       wide: 15,
       align: 'text-center'
     },
     {
-      name: 'ACTIONS',
+      name: langConfig.tableDetailJourney5,
       wide: 20,
-      align: 'text-right'
+      align: 'text-center'
     }
   ])
 
@@ -69,7 +70,7 @@ const EditableListOfProblem = (props) => {
   const deleteProblem = async (problemId) => {
     // Show loading
     mySwal.fire({
-      title: 'Deleting Problem...',
+      title: langConfig.loadingDeleteProblem,
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => mySwal.showLoading()
@@ -115,12 +116,12 @@ const EditableListOfProblem = (props) => {
   const dialogDeleteProblem = (problemId) => {
     mySwal.fire({
       icon: 'warning',
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this problem!',
+      title: langConfig.dialogDeleteProblem,
+      text: langConfig.infoDeleteProblem,
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Ya, hapus!',
       confirmButtonColor: '#d33',
-      cancelButtonText: 'No, keep it',
+      cancelButtonText: 'Batal',
       cancelButtonColor: '#3085d6',
       reverseButtons: true
     }).then((result) => {
@@ -215,13 +216,19 @@ const EditableListOfProblem = (props) => {
                   <div className="flex items-center justify-center">
                     <div className="font-medium whitespace-nowrap">
                       {difficulty === 1 && (
-                        <Tag color="#16A34A">Easy</Tag>
+                        <Tag color="#16A34A">
+                          {langConfig.challengeLevel1}
+                        </Tag>
                       )}
                       {difficulty === 2 && (
-                        <Tag color="#EAB308">Medium</Tag>
+                        <Tag color="#EAB308">
+                          {langConfig.challengeLevel2}
+                        </Tag>
                       )}
                       {difficulty === 3 && (
-                        <Tag color="#DC2626">Hard</Tag>
+                        <Tag color="#DC2626">
+                          {langConfig.challengeLevel3}
+                        </Tag>
                       )}
                     </div>
                   </div>
@@ -269,7 +276,7 @@ const EditableListOfProblem = (props) => {
               >
                 <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
                 <span className="text-base font-medium text-snow whitespace-nowrap">
-                  Add More Problem
+                  {langConfig.tableAddProblem}
                 </span>
               </Link>
             </div>

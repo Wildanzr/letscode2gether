@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 
@@ -74,13 +75,13 @@ const SettingPage = () => {
                 className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${tabKey === 1 ? 'bg-easy text-snow' : 'text-main'}`}
                 onClick={() => setTabKey(1)}
               >
-                Update Profile
+                {langConfig.updateProfileTab1}
               </button>
               <button
                 className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${tabKey === 2 ? 'bg-easy text-snow' : 'text-main'}`}
                 onClick={() => setTabKey(2)}
               >
-                Change Password
+                {langConfig.updateProfileTab2}
               </button>
             </div>
 

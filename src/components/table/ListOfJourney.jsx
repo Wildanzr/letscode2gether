@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 
@@ -18,22 +19,22 @@ const ListOfJourney = (props) => {
   // Local states
   const [headingList] = useState([
     {
-      name: 'NO',
+      name: langConfig.tableManagementJourney1,
       wide: 5,
       align: 'text-left'
     },
     {
-      name: 'NAME',
+      name: langConfig.tableManagementJourney2,
       wide: 75,
       align: 'text-left'
     },
     {
-      name: 'TOTAL PROBLEM',
+      name: langConfig.tableManagementJourney3,
       wide: 10,
       align: 'text-center'
     },
     {
-      name: 'ACTIONS',
+      name: langConfig.tableManagementJourney4,
       wide: 10,
       align: 'text-center'
     }
@@ -43,7 +44,7 @@ const ListOfJourney = (props) => {
   const deleteJourney = async (journeyId) => {
     // Show loading
     mySwal.fire({
-      title: 'Creating Problem...',
+      title: langConfig.loadingDeleteJourney,
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => {
@@ -90,12 +91,12 @@ const ListOfJourney = (props) => {
   const dialogDeleteJourney = (journeyId) => {
     mySwal.fire({
       icon: 'warning',
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this learning journey!',
+      title: langConfig.dialogDeleteJourney,
+      text: langConfig.infoDeleteJourney,
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Ya, hapus!',
       confirmButtonColor: '#d33',
-      cancelButtonText: 'No, keep it',
+      cancelButtonText: 'Batal',
       cancelButtonColor: '#3085d6',
       reverseButtons: true
     }).then((result) => {
@@ -234,7 +235,7 @@ const ListOfJourney = (props) => {
               >
                 <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
                 <span className="text-base font-medium text-snow whitespace-nowrap">
-                  Add More Learning Journey
+                  {langConfig.tableAddJourney}
                 </span>
               </Link>
             </div>

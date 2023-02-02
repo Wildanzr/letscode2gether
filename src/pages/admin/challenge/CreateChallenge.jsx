@@ -1,3 +1,4 @@
+import langConfig from '../../../config/langConfig.json'
 import { useState } from 'react'
 
 import { Navbar, Footer } from '../../../layout'
@@ -13,11 +14,11 @@ const CreateChallengePage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: 'List of Challenges',
+      name: langConfig.adminChallenge1,
       target: '/admin/manage/challenges'
     },
     {
-      name: 'Create Challenges',
+      name: langConfig.adminChallenge1a,
       target: `/admin/manage/challenges/${journeyId}/problems/create`
     }
   ])
@@ -28,7 +29,7 @@ const CreateChallengePage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              Challenges
+              {langConfig.adminChallenge}
             </h3>
             <Breadcrumb paths={paths} />
           </div>

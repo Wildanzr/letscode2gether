@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 
 import { useGlobal } from '../../contexts/GlobalContext'
@@ -11,7 +12,6 @@ import { encode } from 'js-base64'
 import { useParams } from 'react-router-dom'
 
 const Runner = () => {
-  // useParams
   // useParams
   const { competeProblemId = 'collaboration' } = useParams()
 
@@ -234,7 +234,7 @@ const Runner = () => {
       // Show error
       mySwal.fire({
         icon: 'error',
-        title: 'Please login to submit your code',
+        title: langConfig.collabMustLogin,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -249,12 +249,14 @@ const Runner = () => {
     mySwal
       .fire({
         title: 'Submit Code?',
-        text: 'Are you sure you want to submit your code?',
+        text: langConfig.dialogSubmitCode,
         icon: 'question',
         showCancelButton: true,
-        confirmButtonText: 'Yes, submit it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: false
+        confirmButtonText: 'Ya, kumpulkan!',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Nanti saja',
+        reverseButtons: true
       })
       .then((result) => {
         if (result.isConfirmed) {
@@ -284,7 +286,9 @@ const Runner = () => {
       {showInput && <InputArea input={input} setInput={setInput} />}
 
       <div className="flex flex-row w-full px-2 items-center justify-between">
-        <CustomInput value={showInput} change={setShowInput} />
+        <div className="flex rt-custom-input">
+          <CustomInput value={showInput} change={setShowInput} />
+        </div>
         <div className="flex flex-row items-center justify-start space-x-4">
           <button
             disabled={btnDisabled}
@@ -292,7 +296,7 @@ const Runner = () => {
               if (language === null) {
                 mySwal.fire({
                   icon: 'error',
-                  title: 'Please select a language first',
+                  title: langConfig.collabSubmitWarn,
                   allowOutsideClick: true,
                   backdrop: true,
                   allowEscapeKey: true,
@@ -305,13 +309,13 @@ const Runner = () => {
               runCode('run', 'run')
               setRun(true)
             }}
-            className={`flex py-1 px-1 lg:px-2 justify-center font-bold font-code tracking-wider rounded-sm text-easy dark:text-snow border-2 border-easy dark:border-white hover:border-main hover:text-main dark:hover:border-blue-500 duration-300 ${
+            className={`rt-code-run flex py-1 px-1 lg:px-2 justify-center font-bold font-code tracking-wider rounded-sm text-easy dark:text-snow border-2 border-easy dark:border-white hover:border-main hover:text-main dark:hover:border-blue-500 duration-300 ${
               btnDisabled
                 ? 'border-gray-300 text-gray-300 hover:border-gray-300'
                 : ''
             }`}
           >
-            RUN CODE
+            {langConfig.collabRun}
           </button>
 
           {!isOnlyEditor && (
@@ -321,7 +325,7 @@ const Runner = () => {
                 if (language === null) {
                   mySwal.fire({
                     icon: 'error',
-                    title: 'Please select a language first',
+                    title: langConfig.collabSubmitWarn,
                     allowOutsideClick: true,
                     backdrop: true,
                     allowEscapeKey: true,
@@ -333,13 +337,13 @@ const Runner = () => {
                 }
                 submitDialog()
               }}
-              className={`flex py-1 px-1 lg:px-2 justify-center font-bold font-code tracking-wider bg-easy dark:bg-main rounded-sm border-b-2 text-snow border-white hover:border-medium dark:hover:border-blue-500 duration-300 ${
+              className={`rt-code-submit flex py-1 px-1 lg:px-2 justify-center font-bold font-code tracking-wider bg-easy dark:bg-main rounded-sm border-b-2 text-snow border-white hover:border-medium dark:hover:border-blue-500 duration-300 ${
                 btnDisabled
                   ? 'border-gray-300 text-gray-300 hover:border-gray-300'
                   : ''
               }`}
             >
-              SUBMIT CODE
+              {langConfig.collabSubmit}
             </button>
           )}
         </div>

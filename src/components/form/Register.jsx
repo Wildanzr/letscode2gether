@@ -1,4 +1,5 @@
 /* eslint-disable prefer-promise-reject-errors */
+import langConfig from '../../config/langConfig.json'
 import { useGlobal } from '../../contexts/GlobalContext'
 import api from '../../api'
 
@@ -23,7 +24,7 @@ const Register = () => {
   const [form] = Form.useForm()
 
   // Custom Date Format
-  const dateFormat = 'YYYY/MM/DD'
+  const dateFormat = 'DD/MM/YYYY'
 
   // Finish Success
   const onFinish = async (values) => {
@@ -34,7 +35,7 @@ const Register = () => {
 
     // Show loading
     mySwal.fire({
-      title: 'Registering you in...',
+      title: langConfig.loadingRegister,
       allowOutsideClick: true,
       backdrop: true,
       allowEscapeKey: true,
@@ -50,7 +51,7 @@ const Register = () => {
 
       mySwal.fire({
         icon: 'success',
-        title: 'Register Success',
+        title: langConfig.successRegister,
         text: data.message,
         allowOutsideClick: true,
         backdrop: true,
@@ -110,7 +111,7 @@ const Register = () => {
     if (value) {
       const isTaken = await checkUsername(value)
       if (isTaken) {
-        return Promise.reject('Username is taken')
+        return Promise.reject(langConfig.validateUsernameTaken)
       }
     }
   }, 500)
@@ -120,7 +121,7 @@ const Register = () => {
     if (value) {
       const isTaken = await checkEmail(value)
       if (isTaken) {
-        return Promise.reject('Email is taken')
+        return Promise.reject(langConfig.validateEmailTaken)
       }
     }
   }, 500)
@@ -139,22 +140,22 @@ const Register = () => {
         rules={[
           {
             required: true,
-            message: 'Please input your email!'
+            message: langConfig.formEmailRule1
           },
           {
             type: 'email',
-            message: 'Please input a valid email!'
+            message: langConfig.formEmailRule2
           },
           {
             max: 50,
-            message: 'Email must be at most 50 characters'
+            message: langConfig.formEmailRule3
           },
           {
             validator: emailValidator
           }
         ]}
       >
-        <Input placeholder="Email" />
+        <Input placeholder={langConfig.formPlaceHolderEmail} />
       </Item>
 
       {/* Fullname */}
@@ -163,19 +164,19 @@ const Register = () => {
         rules={[
           {
             required: true,
-            message: 'Please input your full name!'
+            message: langConfig.formFullNameRule1
           },
           {
             max: 255,
-            message: 'Full name must be at most 255 characters'
+            message: langConfig.formFullNameRule2
           },
           {
             min: 3,
-            message: 'Full name must be at least 3 characters'
+            message: langConfig.formFullNameRule3
           }
         ]}
       >
-        <Input placeholder="Full Name" />
+        <Input placeholder={langConfig.formPlaceholderFullName} />
       </Item>
 
       {/* Username */}
@@ -184,26 +185,26 @@ const Register = () => {
         rules={[
           {
             required: true,
-            message: 'Please input your username!'
+            message: langConfig.formUsernameRule1
           },
           {
             min: 3,
-            message: 'Username must be at least 3 characters'
+            message: langConfig.formUsernameRule2
           },
           {
             max: 20,
-            message: 'Username must be at most 20 characters'
+            message: langConfig.formUsernameRule3
           },
           {
             pattern: /^[a-z0-9]+$/,
-            message: 'Username must be lowercase and contain only letters and numbers'
+            message: langConfig.formUsernameRule4
           },
           {
             validator: usernameValidator
           }
         ]}
       >
-        <Input placeholder="Username" />
+        <Input placeholder={langConfig.formPlaceholderUsername} />
       </Item>
 
       {/* Gender */}
@@ -212,13 +213,13 @@ const Register = () => {
         rules={[
           {
             required: true,
-            message: 'Please select your gender'
+            message: langConfig.formGenderRule1
           }
         ]}
       >
-        <Select placeholder="Sex">
-          <Option value={true}>Male</Option>
-          <Option value={false}>Female</Option>
+        <Select placeholder={langConfig.formPlaceholderGender}>
+          <Option value={true}>{langConfig.formGenderOption1}</Option>
+          <Option value={false}>{langConfig.formGenderOption2}</Option>
         </Select>
       </Item>
 
@@ -228,13 +229,13 @@ const Register = () => {
         rules={[
           {
             required: true,
-            message: 'Please input your date of birth!'
+            message: langConfig.formBirthdayRule1
           }
         ]}
       >
         <DatePicker
           format={dateFormat}
-          placeholder="Date of Birth"
+          placeholder={langConfig.formPlaceholderBirthday}
           className="w-full"
         />
       </Item>
@@ -245,19 +246,19 @@ const Register = () => {
         rules={[
           {
             required: true,
-            message: 'Please input your password!'
+            message: langConfig.formPasswordRule1
           },
           {
             min: 8,
-            message: 'Password must be at least 8 characters'
+            message: langConfig.formPasswordRule2
           },
           {
             max: 50,
-            message: 'Password must be at most 50 characters'
+            message: langConfig.formPasswordRule3
           }
         ]}
       >
-        <Input.Password placeholder="Password" />
+        <Input.Password placeholder={langConfig.formPlaceholderPassword} />
       </Item>
 
       {/* Confirm Password */}
@@ -266,21 +267,19 @@ const Register = () => {
         rules={[
           {
             required: true,
-            message: 'Please confirm your password!'
+            message: langConfig.formPasswordRule4
           },
           ({ getFieldValue }) => ({
             validator (rule, value) {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve()
               }
-              return Promise.reject(
-                'The two passwords that you entered do not match!'
-              )
+              return Promise.reject(langConfig.changePasswordWarn1)
             }
           })
         ]}
       >
-        <Input.Password placeholder="Confirm Password" />
+        <Input.Password placeholder={langConfig.formPlaceholderConfirmPassword} />
       </Item>
 
       {/* Submit */}
@@ -289,16 +288,16 @@ const Register = () => {
           type="submit"
           className="w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white font-ubuntu tracking-wider uppercase transition-colors duration-200 transform bg-easy rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400"
         >
-          Register
+          {langConfig.authRegisterButton}
         </button>
       </Item>
 
       {/* Already have an account? login */}
       <Item>
         <p className="text-center font-ubuntu text-main dark:text-snow">
-          Already have an account?{' '}
-          <Link to="/auth/login" className="text-blue-500 hover:text-blue-700">
-            Login
+          {langConfig.authRegisterHaveAccount}
+          <Link to="/auth/login" className="text-blue-500 hover:text-blue-700 pl-1">
+            {langConfig.authLogin}
           </Link>
         </p>
       </Item>

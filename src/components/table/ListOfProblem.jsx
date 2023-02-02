@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 
 import api from '../../api'
@@ -14,27 +15,27 @@ const ListOfProblem = (props) => {
   // Local states
   const [headingList] = useState([
     {
-      name: 'NO',
+      name: langConfig.tableDetailJourney1,
       wide: 5,
       align: 'text-left'
     },
     {
-      name: 'NAME',
+      name: langConfig.tableDetailJourney2,
       wide: 65,
       align: 'text-left'
     },
     {
-      name: 'MAX POINT',
+      name: langConfig.tableDetailJourney3,
       wide: 10,
       align: 'text-center'
     },
     {
-      name: 'DIFFICULTY',
+      name: langConfig.tableDetailJourney4,
       wide: 10,
       align: 'text-center'
     },
     {
-      name: 'ACTIONS',
+      name: langConfig.tableDetailJourney5,
       wide: 10,
       align: 'text-right'
     }
@@ -115,13 +116,13 @@ const ListOfProblem = (props) => {
                             <div className="flex items-center justify-center">
                               <div className="font-medium whitespace-nowrap">
                               {difficulty === 1 && (
-                                <Tag color="#16A34A">Easy</Tag>
+                                <Tag color="#16A34A">{langConfig.challengeLevel1}</Tag>
                               )}
                               {difficulty === 2 && (
-                                <Tag color="#EAB308">Medium</Tag>
+                                <Tag color="#EAB308">{langConfig.challengeLevel2}</Tag>
                               )}
                               {difficulty === 3 && (
-                                <Tag color="#DC2626">Hard</Tag>
+                                <Tag color="#DC2626">{langConfig.challengeLevel3}</Tag>
                               )}
                               </div>
                             </div>

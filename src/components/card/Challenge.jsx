@@ -1,3 +1,5 @@
+import langConfig from '../../config/langConfig.json'
+
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 
@@ -54,10 +56,10 @@ const Challenge = (props) => {
   return (
     <div className="flex flex-row justify-between w-full px-5 py-3 rounded-lg border-2 lg:border-4 border-easy bg-gradient-to-r from-[#CCF3F6] dark:from-[#30143F] via-[#DDCFF0] dark:via-[#151223] to:[#DCE7B3] dark:to-[#151729] duration-300 ease-out">
       <div className="flex w-4/6 flex-col space-y-3">
-        <p className="mb-0 font-ubuntu tracking-wide font-bold">{title}</p>
-        <div className="flex flex-row w-full space-x-5 items-center">
-          <p className="mb-0 text-sm font-ubuntu font-medium">
-            Level:
+        <p className="mb-0 font-ubuntu tracking-wide text-base font-bold">{title}</p>
+        <div className="flex flex-col lg:flex-row w-full lg:space-x-5 items-start lg:items-center">
+          <p className="mb-0 text-xs lg:text-sm font-ubuntu font-medium">
+            {langConfig.challengeLevelLabel}
             <span
               className={`pl-2 mb-0 text-sm font-ubuntu font-medium ${
                 difficulty === 1
@@ -67,12 +69,12 @@ const Challenge = (props) => {
                   : 'text-hard'
               }`}
             >
-              {difficulty === 1 ? 'Easy' : difficulty === 2 ? 'Medium' : 'Hard'}
+              {difficulty === 1 ? langConfig.challengeLevel1 : difficulty === 2 ? langConfig.challengeLevel2 : langConfig.challengeLevel3}
             </span>
           </p>
 
-          <p className="mb-0 text-sm font-ubuntu font-medium">
-            Max Point:{' '}
+          <p className="mb-0 text-xs lg:text-sm font-ubuntu font-medium">
+            {langConfig.challengMaxPointLabel}
             <span className="pl-2 mb-0 text-sm font-ubuntu font-medium text-easy">
               {maxPoint}
             </span>
@@ -95,7 +97,7 @@ const Challenge = (props) => {
                 : 'bg-success'
             } text-main text-center rounded font-medium lg:font-bold cursor-not-allowed`}
           >
-            Locked
+            {langConfig.competeProblemLocked}
           </buttton>
             )
           : (
@@ -105,11 +107,11 @@ const Challenge = (props) => {
               isDone === null
                 ? 'bg-snow'
                 : isDone === 0
-                ? 'bg-snow'
+                ? 'bg-easy text-snow hover:text-snow hover:dark:text-snow'
                 : isDone === 1
-                ? 'bg-medium'
-                : 'bg-success'
-            } text-main text-center rounded font-medium lg:font-bold`}
+                ? 'bg-medium text-main hover:text-main hover:dark:text-main'
+                : 'bg-success text-main hover:text-main hover:dark:text-main'
+            }  text-center rounded font-medium lg:font-bold`}
           >
             {isDone === null
               ? (
@@ -117,14 +119,14 @@ const Challenge = (props) => {
                 )
               : isDone === 0
                 ? (
-                    'Solve Now'
+                    langConfig.journeyListProblemButton1
                   )
                 : isDone === 1
                   ? (
-                      'Try Again'
+                      langConfig.journeyListProblemButton2
                     )
                   : (
-                      'Solved'
+                      langConfig.journeyListProblemButton3
                     )}
           </Link>
             )}

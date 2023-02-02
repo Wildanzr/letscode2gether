@@ -1,3 +1,4 @@
+import langConfig from '../../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 
 import api from '../../../api'
@@ -16,15 +17,15 @@ const EditProblemPage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: 'List of Learning Journeys',
+      name: langConfig.adminLearningJourney1,
       target: '/admin/manage/journeys'
     },
     {
-      name: 'Edit Learning Journey',
+      name: langConfig.adminLearningJourney2a,
       target: `/admin/manage/journeys/${journeyId}/edit`
     },
     {
-      name: 'Edit Problem',
+      name: langConfig.adminLearningJourney4,
       target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
     }
   ])
@@ -70,7 +71,7 @@ const EditProblemPage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              Learning Journey
+              {langConfig.adminJourney}
             </h3>
             <Breadcrumb paths={paths} />
           </div>
@@ -80,14 +81,14 @@ const EditProblemPage = () => {
             <div className="flex flex-col space-y-4 w-full font-ubuntu">
               <div className="flex flex-col w-full space-y-2">
                 <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-                  Sample Cases
+                  {langConfig.problemDetailSampleCase}
                 </p>
                 <EditableSampleCase sampleCases={sampleCases} setFetch={setFetch} />
               </div>
 
               <div className="flex flex-col w-full space-y-2">
                 <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-                  Test Cases
+                  {langConfig.problemDetailTestCase}
                 </p>
                 <EditableTestCase testCases={testCases} setFetch={setFetch}/>
               </div>

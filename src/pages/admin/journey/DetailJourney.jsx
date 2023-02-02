@@ -1,3 +1,4 @@
+import langConfig from '../../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 import { languageOptions } from '../../../constants/languageOptions'
 
@@ -18,11 +19,11 @@ const DetailJourneyPage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: 'List of Learning Journeys',
+      name: langConfig.adminLearningJourney1,
       target: '/admin/manage/journeys'
     },
     {
-      name: 'Detail Learning Journey',
+      name: langConfig.adminLearningJourney2,
       target: `/admin/manage/journeys/${journeyId}`
     }
   ])
@@ -85,7 +86,7 @@ const DetailJourneyPage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              Learning Journey
+              {langConfig.adminJourney}
             </h3>
             <Breadcrumb paths={paths} />
           </div>
@@ -95,13 +96,13 @@ const DetailJourneyPage = () => {
             journeyDetail
               ? (
               <div className="flex flex-col space-y-4 w-full font-ubuntu">
-                <Description title="Name" value={journeyDetail.name} />
+                <Description title={langConfig.journeyDetailName} value={journeyDetail.name} />
                 <Description
-                  title="Description"
+                  title={langConfig.journeyDetailDescription}
                   value={journeyDetail.description}
                 />
-                <Description title="Language Allowed" value={languageAllowed} />
-                <Description title="Problems" value="" />
+                <Description title={langConfig.journeyDetailLanguage} value={languageAllowed} />
+                <Description title={langConfig.journeyDetailProblems} value="" />
 
                 {/* List of Problems */}
                 <div className="flex flex-col w-full space-y-2 overflow-y-auto">

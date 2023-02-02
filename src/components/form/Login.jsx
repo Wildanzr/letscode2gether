@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { useAuth } from '../../contexts/AuthContext'
 import api from '../../api'
@@ -36,7 +37,7 @@ const Login = () => {
 
     // Show loading
     mySwal.fire({
-      title: 'Login you in...',
+      title: langConfig.loadingLogIn,
       allowOutsideClick: true,
       backdrop: true,
       allowEscapeKey: true,
@@ -65,7 +66,7 @@ const Login = () => {
 
       mySwal.fire({
         icon: 'success',
-        title: 'Login Success',
+        title: langConfig.successLogIn,
         text: data.message,
         allowOutsideClick: true,
         backdrop: true,
@@ -108,15 +109,15 @@ const Login = () => {
         rules={[
           {
             required: true,
-            message: 'Please input your username or email!'
+            message: langConfig.formUsernameOrEmailRule1
           },
           {
             max: 50,
-            message: 'Username or email must be at most 50 characters'
+            message: langConfig.formUsernameOrEmailRule2
           }
         ]}
       >
-        <Input placeholder="Username or Email" />
+        <Input placeholder={langConfig.formPlaceholderUsernameOrEmail} />
       </Item>
 
       <Item
@@ -124,15 +125,15 @@ const Login = () => {
         rules={[
           {
             required: true,
-            message: 'Please input your password!'
+            message: langConfig.formPasswordRule1
           },
           {
             max: 50,
-            message: 'Password must be at most 50 characters'
+            message: langConfig.formPasswordRule3
           }
         ]}
       >
-        <Input.Password placeholder="Password" />
+        <Input.Password placeholder={langConfig.formPlaceholderPassword} />
       </Item>
 
       {/* Remember me and forgot password in a row */}
@@ -140,11 +141,13 @@ const Login = () => {
         <Item name="remember" valuePropName="checked" noStyle>
           <Checkbox defaultChecked={false}>
             <span className="text-main dark:text-snow duration-300 ease-in-out">
-              Remember me
+              {langConfig.authLoginRemember}
             </span>
           </Checkbox>
         </Item>
-        <Link to="/auth/forgot">Forgot password?</Link>
+        <Link to="/auth/forgot">
+          {langConfig.authLoginForgot}
+        </Link>
       </div>
 
       <Item>
@@ -152,19 +155,19 @@ const Login = () => {
           type="submit"
           className="w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white font-ubuntu tracking-wider uppercase transition-colors duration-200 transform bg-easy rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400"
         >
-          Login
+          {langConfig.authLogin}
         </button>
       </Item>
 
       {/* Don't have an account? register */}
       <Item>
         <p className="text-center font-ubuntu text-main dark:text-snow">
-          Don&apos;t have an account?{' '}
+          {langConfig.authLoginNotHaveAccount}
           <Link
             to="/auth/register"
-            className="text-blue-500 hover:text-blue-700"
+            className="text-blue-500 hover:text-blue-700 pl-1"
           >
-            Register
+            {langConfig.authLoginRegister}
           </Link>
         </p>
       </Item>

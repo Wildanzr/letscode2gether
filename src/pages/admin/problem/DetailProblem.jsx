@@ -1,3 +1,4 @@
+import langConfig from '../../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 
 import api from '../../../api'
@@ -23,29 +24,29 @@ const DetailProblemPage = () => {
     origin === 'edit'
       ? [
           {
-            name: 'List of Learning Journeys',
+            name: langConfig.adminLearningJourney1,
             target: '/admin/manage/journeys'
           },
           {
-            name: 'Edit Learning Journey',
+            name: langConfig.adminLearningJourney2a,
             target: `/admin/manage/journeys/${journeyId}/edit`
           },
           {
-            name: 'Detail Problem',
+            name: langConfig.adminLearningJourney3,
             target: `/admin/manage/journeys/${journeyId}/problems/${problemId}?origin=edit`
           }
         ]
       : [
           {
-            name: 'List of Learning Journeys',
+            name: langConfig.adminLearningJourney1,
             target: '/admin/manage/journeys'
           },
           {
-            name: 'Detail Learning Journey',
+            name: langConfig.adminLearningJourney1,
             target: `/admin/manage/journeys/${journeyId}`
           },
           {
-            name: 'Detail Problem',
+            name: langConfig.adminLearningJourney1,
             target: `/admin/manage/journeys/${journeyId}/problems/${problemId}?origin=detail`
           }
         ]
@@ -97,22 +98,22 @@ const DetailProblemPage = () => {
           {problemDetail
             ? (
               <div className="flex flex-col space-y-4 w-full font-ubuntu">
-                <Description title="Title" value={problemDetail.title} />
-                <Description title="Description" value={problemDetail.description} />
-                <Description title="Constraints" value={problemDetail.constraint} />
+                <Description title={langConfig.problemDetailTitle} value={problemDetail.title} />
+                <Description title={langConfig.problemDetailDescription} value={problemDetail.description} />
+                <Description title={langConfig.problemDetailConstraints} value={problemDetail.constraint} />
                 <Description
-                  title="Difficulty"
+                  title={langConfig.problemDetailDifficulty}
                   value={
                     problemDetail.difficulty === 1
-                      ? <span className='font-medium text-success'>Easy</span>
+                      ? <span className='font-medium text-success'>{langConfig.challengeLevel1}</span>
                       : problemDetail.difficulty === 2
-                        ? <span className='font-medium text-medium'>Medium</span>
-                        : <span className='font-medium text-hard'>Hard</span>
+                        ? <span className='font-medium text-medium'>{langConfig.challengeLevel2}</span>
+                        : <span className='font-medium text-hard'>{langConfig.challengeLevel3}</span>
                   }
                 />
-                <Description title="Input Format" value={problemDetail.inputFormat} />
-                <Description title="Output Format" value={problemDetail.outputFormat} />
-                <Description title="Sample Cases" value={null} />
+                <Description title={langConfig.problemDetailInputFormat} value={problemDetail.inputFormat} />
+                <Description title={langConfig.problemDetailOutputFormat} value={problemDetail.outputFormat} />
+                <Description title={langConfig.problemDetailSampleCase} value={null} />
 
                 {/* Problem Sample Cases */}
                 <div className="flex flex-col w-full space-y-2 overflow-y-auto">
@@ -123,7 +124,7 @@ const DetailProblemPage = () => {
                   </div>
                 </div>
 
-                <Description title="Test Cases" value={null} />
+                <Description title={langConfig.problemDetailTestCase} value={null} />
 
                 {/* Problem Test Cases */}
                 <div className="flex flex-col w-full space-y-2 overflow-y-auto">

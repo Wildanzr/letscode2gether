@@ -1,3 +1,5 @@
+import langConfig from '../../config/langConfig.json'
+
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 
@@ -48,7 +50,7 @@ const Submission = () => {
       setSubmissions([])
 
       // Show info message in 5 seconds
-      message.info('Please login to see your submissions', 5)
+      message.info(langConfig.infoMustLogin, 5)
     }
   }, [user])
   return (
@@ -57,7 +59,9 @@ const Submission = () => {
         {submissions === null
           ? <Spin size="default" />
           : submissions.length === 0
-            ? <p className="mb-0 text-base tracking-wide text-main dark:text-snow duration-300 ease-in-out">You have no submissions yet...</p>
+            ? <p className="mb-0 text-base tracking-wide text-main dark:text-snow duration-300 ease-in-out">
+              {langConfig.submissionEmpty}
+            </p>
             : <SubmissionList submissions={submissions} />
         }
       </div>

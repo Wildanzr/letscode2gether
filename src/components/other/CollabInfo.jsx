@@ -1,9 +1,12 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useCollab } from '../../contexts/CollabContext'
 
+import Cookies from 'js-cookie'
 import { Typography, Input, Spin, message } from 'antd'
+import { useLocation } from 'react-router-dom'
 
 const { Paragraph } = Typography
 
@@ -11,28 +14,50 @@ const CollabInfo = (props) => {
   // Props destructure
   const { competeProblemId, guestName } = props
 
+  // useLocation
+  const location = useLocation()
+
   // Global Functions
-  const { globalFunctions } = useGlobal()
+  const { globalFunctions, globalState } = useGlobal()
   const { mySwal } = globalFunctions
+  const { setIsTourNeverShow } = globalState
 
   // Collab States
   const { collabStates } = useCollab()
-  const { socket, roomId, setRoomId, setCode, setLanguage } = collabStates
+  const {
+    socket,
+    roomId,
+    setRoomId,
+    setLanguage,
+    setLoadingEditor,
+    isPrivate,
+    setIsPrivate
+  } = collabStates
 
   // Auth States
   const { authStates } = useAuth()
   const { user } = authStates
 
   // Local States
-  const [privateRoom, setPrivateRoom] = useState(true)
   const [inputRoomId, setInputRoomId] = useState(null)
   const [driver, setDriver] = useState(null)
   const [participants, setParticipants] = useState(null)
+  const [initRoom, setInitRoom] = useState(true)
+
+  // Show help
+  const showHelp = () => {
+    setIsTourNeverShow(true)
+    Cookies.remove('isTourNeverShow')
+
+    setTimeout(() => {
+      setIsTourNeverShow(false)
+    }, 500)
+  }
 
   // Create room
-  const createRoom = () => {
+  const createRoom = async () => {
     const payload = {
-      userId: user ? user._id : guestName,
+      userId: user && user._id ? user._id : guestName,
       competeProblemId
     }
 
@@ -40,6 +65,7 @@ const CollabInfo = (props) => {
     setDriver(null)
     setRoomId(null)
     setParticipants(null)
+    setLoadingEditor(true)
 
     socket.emit('req_create_room', payload)
   }
@@ -51,17 +77,17 @@ const CollabInfo = (props) => {
     setRoomId(codeId)
 
     // Determine participants
-    const participantsList = privateRoom ? [] : participants
+    const participantsList = isPrivate ? [] : participants
     setParticipants(participantsList)
   }
 
   // Join room
   const joinRoom = () => {
     if (inputRoomId === null || inputRoomId === '') {
-      message.error('Please enter a room ID')
+      message.error(langConfig.collabRoomWarn1)
       return
     } else if (inputRoomId.length < 5 || inputRoomId.length > 5) {
-      message.error('Room ID consists of 5 characters')
+      message.error(langConfig.collabRoomWarn2)
       return
     }
 
@@ -74,7 +100,7 @@ const CollabInfo = (props) => {
 
     // Show loading
     mySwal.fire({
-      title: 'Joining room...',
+      title: langConfig.loadingJoinRoom,
       allowOutsideClick: true,
       allowEscapeKey: true,
       allowEnterKey: true,
@@ -90,26 +116,28 @@ const CollabInfo = (props) => {
   // Handle join room
   const handleJoinRoom = (res) => {
     if (res.status) {
-      const { collaboration, codeData } = res.data
-      const { codeId, participants } = collaboration
-      const { selectedLanguage, code } = codeData
+      const { collaboration } = res.data
+      const { codeId, participants, language } = collaboration
       const newDriver = participants[0].username
 
       // Set values
       setRoomId(codeId)
       setDriver(newDriver)
+      setLoadingEditor(true)
 
-      // Set collaboration code and language
-      if (selectedLanguage) setLanguage(selectedLanguage)
-
-      if (code) setCode(code)
+      // Set collaboration language
+      if (language) setLanguage(language)
 
       // Determine participants
-      const participantList = !privateRoom
-        ? participants.filter((participant) => participant.username !== user.username)
-        : participants.filter((participant) => participant.username !== newDriver)
+      const participantList = !isPrivate
+        ? participants.filter(
+          (participant) => participant.username !== user.username
+        )
+        : participants.filter(
+          (participant) => participant.username !== newDriver
+        )
 
-      setPrivateRoom(false)
+      setIsPrivate(false)
       setParticipants(participantList)
 
       // Show success
@@ -149,12 +177,18 @@ const CollabInfo = (props) => {
     const newDriver = participants[0].username
 
     // Show notification
-    message.info('Someone joined the room.')
+    message.info(langConfig.infoSomeoneJoined)
 
     // Determine participants
-    const participantList = !privateRoom
-      ? participants.filter((participant) => user ? participant.username !== user.username : participant.username !== guestName)
-      : participants.filter((participant) => participant.username !== newDriver)
+    const participantList = !isPrivate
+      ? participants.filter((participant) =>
+        user
+          ? participant.username !== user.username
+          : participant.username !== guestName
+      )
+      : participants.filter(
+        (participant) => participant.username !== newDriver
+      )
 
     setParticipants(participantList)
   }
@@ -170,12 +204,18 @@ const CollabInfo = (props) => {
     setDriver(newDriver)
 
     // Show notification
-    message.info('Someone left the room.')
+    message.info(langConfig.infoSomeoneLeft)
 
     // Determine participants
-    const participantList = !privateRoom
-      ? participants.filter((participant) => user ? participant.username !== user.username : participant.username !== guestName)
-      : participants.filter((participant) => participant.username !== newDriver)
+    const participantList = !isPrivate
+      ? participants.filter((participant) =>
+        user
+          ? participant.username !== user.username
+          : participant.username !== guestName
+      )
+      : participants.filter(
+        (participant) => participant.username !== newDriver
+      )
 
     setParticipants(participantList)
   }
@@ -183,37 +223,39 @@ const CollabInfo = (props) => {
   // Leave room
   const leaveRoom = () => {
     // Show dialog
-    mySwal.fire({
-      title: 'Are you sure want to leave this room?',
-      showDenyButton: true,
-      confirmButtonText: 'Leave',
-      confirmButtonColor: '#ff4d4f',
-      denyButtonText: 'Stay here',
-      denyButtonColor: '#1890ff',
-      reverseButtons: true,
-      backdrop: true,
-      allowOutsideClick: true,
-      allowEscapeKey: true,
-      allowEnterKey: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Create payload
-        const payload = {
-          userId: user ? user._id : guestName,
-          roomId: inputRoomId
-        }
+    mySwal
+      .fire({
+        title: langConfig.dialogLeftRoom,
+        showDenyButton: true,
+        confirmButtonText: 'Keluar',
+        confirmButtonColor: '#ff4d4f',
+        denyButtonText: 'Tetap disini',
+        denyButtonColor: '#1890ff',
+        reverseButtons: true,
+        backdrop: true,
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+        allowEnterKey: true
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // Create payload
+          const payload = {
+            userId: user && user._id ? user.username : guestName,
+            roomId: inputRoomId
+          }
 
-        // Emit leave room
-        socket.emit('req_leave_room', payload)
-      }
-    })
+          // Emit leave room
+          socket.emit('req_leave_room', payload)
+        }
+      })
   }
 
   // Handle leave room response
   const handleLeaveRoom = (res) => {
-    if (res.status) {
-      message.info('You left the room.')
-      setPrivateRoom(true)
+    if (res && res.status) {
+      message.info(langConfig.infoMeLeftRoom)
+      setIsPrivate(true)
       createRoom()
     } else {
       console.log(res)
@@ -233,14 +275,17 @@ const CollabInfo = (props) => {
 
   // Initaily request for room ID
   useEffect(() => {
-    createRoom()
-  }, [])
+    if (initRoom) {
+      createRoom()
+      setInitRoom(false)
+    }
+  }, [initRoom])
 
   // Websocket Listeners
   useEffect(() => {
     // Initially request for room ID, this line works when user refreshes the page
     socket.on('connect', () => {
-      createRoom()
+      setInitRoom(true)
     })
 
     // Listeners
@@ -262,77 +307,104 @@ const CollabInfo = (props) => {
 
   return (
     <div className="flex flex-col space-y-1">
-      <div className="flex flex-row space-x-2">
-        <p className="mb-0">Driver:</p>
-        <div className="mb-0 font-bold">
-          {driver === null
-            ? <Spin size="small" />
-            : driver
-          }
-        </div>
-      </div>
-
-      <div className="flex flex-row space-x-2">
-        <p className="mb-0">Navigator:</p>
-        {participants === null
-          ? <Spin size='small' />
-          : participants.length === 0
-            ? <p className="mb-0 font-bold">-</p>
-            : <div className="flex flex-col space-y-1">
-                <p className="mb-0 font-bold">{participants[0].username}</p>
-            </div>
-        }
-      </div>
-
-      {participants !== null && participants.length > 1 && (
+      <div className="rt-collab-info flex flex-col" data-tour="observable-parent">
         <div className="flex flex-row space-x-2">
-        <p className="mb-0">Participants:</p>
-        {participants === null
-          ? <Spin size='small' />
-          : participants.length === 0
-            ? <p className="mb-0 font-bold">-</p>
-            : <div className="flex flex-col space-y-1">
+          <p className="mb-0">{langConfig.collabDriver}</p>
+          <div className="mb-0 font-bold">
+            {driver === null ? <Spin size="small" /> : driver}
+          </div>
+        </div>
+
+        <div className="flex flex-row space-x-2">
+          <p className="mb-0">{langConfig.collabNavigator}</p>
+          {participants === null
+            ? (
+            <Spin size="small" />
+              )
+            : participants.length === 0
+              ? (
+            <p className="mb-0 font-bold">-</p>
+                )
+              : (
+            <div className="flex flex-col space-y-1">
+              <p className="mb-0 font-bold">{participants[0].username}</p>
+            </div>
+                )}
+        </div>
+
+        {participants !== null && participants.length > 1 && (
+          <div className="flex flex-row space-x-2">
+            <p className="mb-0">{langConfig.collabParticipants}</p>
+            {participants === null
+              ? (
+              <Spin size="small" />
+                )
+              : participants.length === 0
+                ? (
+              <p className="mb-0 font-bold">-</p>
+                  )
+                : (
+              <div className="flex flex-col space-y-1">
                 {participants.map((participant, index) => {
                   if (index !== 0) {
-                    return <p className="mb-0 font-bold" key={index}>{participant.username}</p>
+                    return (
+                      <p className="mb-0 font-bold" key={index}>
+                        {participant.username}
+                      </p>
+                    )
                   }
                   return null
                 })}
-            </div>
-        }
-      </div>
-      )
-      }
+              </div>
+                  )}
+          </div>
+        )}
 
-      <div className="flex flex-row space-x-2 pb-2">
-        <p className="mb-0">Id Room:</p>
-        {roomId === null
-          ? <Spin size='small' />
-          : <Paragraph
-            copyable
-            style={{ marginBottom: 0 }}
-            className="mb-0 font-bold text-main dark:text-snow duration-300 ease-in-out"
-          >
-            {roomId}
-          </Paragraph>
-        }
+        <div className="flex flex-row space-x-2">
+          <p className="mb-0">{langConfig.collabIDRoom}</p>
+          {roomId === null
+            ? (
+            <Spin size="small" />
+              )
+            : (
+            <Paragraph
+              copyable
+              style={{ marginBottom: 0 }}
+              className="mb-0 font-bold text-main dark:text-snow duration-300 ease-in-out"
+            >
+              {roomId}
+            </Paragraph>
+              )}
+        </div>
+
+        {!location.pathname.includes('collab') && (
+          <button onClick={() => showHelp()} className='flex w-full pb-2 items-start justify-start text-success font-semibold'>{langConfig.collabHelp}</button>
+        )}
       </div>
 
       <div className="flex flex-row space-x-2">
-        <Input
-          maxLength={5}
-          minLength={5}
-          allowClear
-          disabled={!privateRoom}
-          onChange={(e) => setInputRoomId(e.target.value)}
-          placeholder="Enter custom room id"
-        />
-        <button
-          onClick={privateRoom ? joinRoom : leaveRoom}
-          className="flex py-1 px-1 lg:px-2 justify-center font-medium whitespace-nowrap bg-easy dark:bg-main rounded-sm border-b-2 text-snow border-white hover:border-medium dark:hover:border-blue-500 duration-300"
-        >
-          {privateRoom ? 'Join Room' : 'Leave Room'}
-        </button>
+        <div className="flex rt-collab-field">
+          <Input
+            maxLength={5}
+            minLength={5}
+            allowClear
+            disabled={!isPrivate}
+            onChange={(e) => setInputRoomId(e.target.value)}
+            placeholder={langConfig.formPlaceholderRoomID}
+          />
+        </div>
+        <div className="flex rt-collab-button">
+          <button
+            onClick={isPrivate ? joinRoom : leaveRoom}
+            className={`flex py-1 px-1 lg:px-2 justify-center font-medium whitespace-nowrap ${
+              isPrivate
+                ? 'bg-easy dark:bg-main hover:border-medium dark:hover:border-blue-500'
+                : 'bg-hard dark:hover:border-medium hover:border-medium'
+            } rounded-sm border-b-2 text-snow border-white duration-300`}
+          >
+            {isPrivate ? langConfig.collabRoomJoin : langConfig.collabRoomLeft}
+          </button>
+        </div>
       </div>
     </div>
   )

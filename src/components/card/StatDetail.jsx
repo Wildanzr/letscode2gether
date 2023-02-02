@@ -10,7 +10,7 @@ const StatDetail = (props) => {
         {icon === 4 && <BsTrophy className="h-8 w-8 fill-snow dark:fill-main duration-300 ease-in-out" />}
         <div className="flex flex-col">
             <h3 className="mb-0 font-ubuntu text-snow dark:text-main text-sm font-light duration-300 ease-in-out whitespace-nowrap">{title}</h3>
-            <span className="mb-0 font-ubuntu text-snow dark:text-main text-base font-medium duration-300 ease-in-out">{value}</span>
+            <div className="mb-0 font-ubuntu text-snow dark:text-main text-base font-medium duration-300 ease-in-out">{value}</div>
         </div>
     </div>
   )

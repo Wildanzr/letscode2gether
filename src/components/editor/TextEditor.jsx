@@ -1,75 +1,87 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
-
 import { useGlobal } from '../../contexts/GlobalContext'
 import { useCollab } from '../../contexts/CollabContext'
 
 import { languageOptions } from '../../constants/languageOptions'
-
-import Editor from '@monaco-editor/react'
+import MonacoEditor from './MonacoEditor'
 
 const TextEditor = () => {
   // Global States
-  const { editorState } = useGlobal()
+  const { editorState, globalFunctions } = useGlobal()
   const { theme } = editorState
+  const { mySwal } = globalFunctions
 
   // Collab States
   const { collabStates } = useCollab()
-  const { language, setLanguage, code, setCode, socket, roomId } = collabStates
+  const { socket, language, setLanguage, roomId, loadingEditor, setLoadingEditor } = collabStates
 
   // Local state
   const [langValue, setLangValue] = useState('javascript')
-  const [defaultTemplate] = useState('// Lets solve this problem!\n// Choose your language and start coding!')
+  const [defaultTemplate] = useState(langConfig.editorTemplate)
 
-  // Emit code to server
-  const changeCode = (value) => {
-    const payload = {
-      roomId,
-      selectedLanguage: language,
-      code: value
+  const setIntelisense = (language) => {
+    const lang = languageOptions.find((lang) => lang.id === language)
+    setLangValue(lang.value || 'javascript')
+    setLanguage(lang.id || null)
+  }
+
+  const handleChangeLanguage = (res) => {
+    if (res.status) {
+      const { language } = res.data
+      setIntelisense(language)
+    } else {
+      console.log(res)
+      // Show error
+      mySwal.fire({
+        icon: 'error',
+        title: res.message,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 3000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      })
     }
-
-    socket.emit('req_update_code', payload)
-
-    // socket.emit('req_mvp_code', { code: value, room: 'mvp-1' })
-    setCode(value)
   }
 
-  // Hanlde code change
-  const handleCode = (res) => {
-    setLanguage(res.selectedLanguage)
-    setCode(res.code)
-  }
-
-  // Websocket Listener
   useEffect(() => {
-    // Listeners
-    socket.on('res_update_code', handleCode)
-
-    // Unlisteners
-    return () => {
-      socket.off('res_update_code', handleCode)
+    if (loadingEditor) {
+      setLoadingEditor(false)
     }
-  }, [socket])
+  }, [loadingEditor])
 
   // Monitor language change, then set intellisense to the language
   useEffect(() => {
     if (language !== null) {
-      const lang = languageOptions.find((lang) => lang.id === language)
-      setLangValue(lang.value || 'javascript')
-      setCode(lang.template || 'console.log("hello, world");')
+      setIntelisense(language)
     }
   }, [language])
 
+  // Monitor socket
+  useEffect(() => {
+    socket.on('res_update_lang', handleChangeLanguage)
+
+    return () => {
+      socket.off('res_update_lang', handleChangeLanguage)
+    }
+  })
+
   return (
-    <Editor
-      height={'100%'}
-      width={'100%'}
-      language={langValue}
-      value={code}
-      theme={theme}
-      defaultValue={defaultTemplate}
-      onChange={changeCode}
-    />
+    <>
+      {loadingEditor
+        ? null
+        : <div className="rt-editor flex w-full h-full">
+          <MonacoEditor
+              language={langValue}
+              defaultValue={defaultTemplate}
+              theme={theme}
+              roomId={roomId}
+            />
+        </div>
+      }
+    </>
   )
 }
 

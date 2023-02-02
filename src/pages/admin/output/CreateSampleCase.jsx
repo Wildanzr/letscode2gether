@@ -1,3 +1,4 @@
+import langConfig from '../../../config/langConfig.json'
 import { useState } from 'react'
 
 import { Navbar, Footer } from '../../../layout'
@@ -14,33 +15,33 @@ const CreateSampleCasePage = () => {
   const [paths] = useState(journeyId === undefined
     ? [
         {
-          name: 'List of Challenges',
+          name: langConfig.adminChallenge1,
           target: '/admin/manage/challenges'
         },
         {
-          name: 'Edit Challenge',
+          name: langConfig.adminChallenge2,
           target: `/admin/manage/challenges/${competeId}/problems/${challengeId}/edit`
         },
         {
-          name: 'Add Sample Case',
+          name: langConfig.adminChallenge4,
           target: `/admin/manage/challenges/${competeId}/problems/${challengeId}/samplecases/create`
         }
       ]
     : [
         {
-          name: 'List of Learning Journeys',
+          name: langConfig.adminLearningJourney1,
           target: '/admin/manage/journeys'
         },
         {
-          name: 'Edit Learning Journey',
+          name: langConfig.adminLearningJourney2a,
           target: `/admin/manage/journeys/${journeyId}/edit`
         },
         {
-          name: 'Edit Problem',
+          name: langConfig.adminLearningJourney4,
           target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
         },
         {
-          name: 'Add Sample Case',
+          name: langConfig.adminLearningJourney5,
           target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/samplecases/create`
         }
       ]
@@ -53,7 +54,10 @@ const CreateSampleCasePage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              {journeyId === undefined ? 'Challenges' : 'Learning Journey'}
+              {journeyId === undefined
+                ? langConfig.adminChallenge
+                : langConfig.adminJourney
+              }
             </h3>
             <Breadcrumb paths={paths} />
           </div>

@@ -1,3 +1,5 @@
+import langConfig from '../../config/langConfig.json'
+
 const TestCaseDetail = (props) => {
   const { testCases } = props
   return (
@@ -5,13 +7,13 @@ const TestCaseDetail = (props) => {
       <thead>
         <tr className="bg-gray-600 text-white uppercase text-sm leading-normal">
           <th className="py-3 px-5 w-[5%] text-left overflow-clip whitespace-nowrap">
-            NO
+            {langConfig.tableTestDetail1}
           </th>
           <th className="py-3 px-5 w-[45%] text-left overflow-clip whitespace-nowrap">
-            INPUT
+            {langConfig.tableTestDetail2}
           </th>
           <th className="py-3 px-5 w-[45%] text-left overflow-clip whitespace-nowrap">
-            OUTPUT
+            {langConfig.tableTestDetail3}
           </th>
         </tr>
       </thead>
@@ -40,7 +42,7 @@ const TestCaseDetail = (props) => {
                     <div className="flex items-center justify-start">
                       <div className="font-medium whitespace-nowrap">
                         {inputSplit === null
-                          ? <p className="mb-0 text-gray-300">No Input</p>
+                          ? <p className="mb-0 text-gray-300">{langConfig.infoNoInput}</p>
                           : inputSplit.map((input, index) => (
                             <p key={index} className="mb-0 text-gray-600">{input}</p>
                           ))
@@ -52,7 +54,7 @@ const TestCaseDetail = (props) => {
                     <div className="flex items-center justify-start">
                       <div className="font-medium whitespace-nowrap">
                       {outputSplit === null
-                        ? <p className="mb-0 text-gray-300">No Input</p>
+                        ? <p className="mb-0 text-gray-300">{langConfig.infoNoInput}</p>
                         : outputSplit.map((output, index) => (
                             <p key={index} className="mb-0 text-gray-600">{output}</p>
                         ))
