@@ -304,6 +304,7 @@
   "sampleCaseExpected": "Keluaran yang diharapkan",
   "sampleCaseError": "Kesalahan Kode",
   "sampleCompileError": "Kompilasi Kesalahan",
+  "sampleSolutionError": "Penjelasan dari Mimin",
   "collabOpenCommunication": "Buka Komunikasi Video",
   "collabCommunication": "Terhubung Komunikasi Video",
   "collabDriver": "Driver:",
