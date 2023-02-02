@@ -51,7 +51,7 @@ const UpdateProfile = (props) => {
   const [form] = Form.useForm()
 
   // Custom Date Format
-  const dateFormat = 'YYYY/MM/DD'
+  const dateFormat = 'DD/MM/YYYY'
 
   // onFinish
   const onFinish = async (values) => {
@@ -154,7 +154,7 @@ const UpdateProfile = (props) => {
           fullName,
           username,
           gender,
-          dateOfBirth: moment(dateOfBirth, dateFormat),
+          dateOfBirth: moment(dateOfBirth),
           address,
           phone,
           bio

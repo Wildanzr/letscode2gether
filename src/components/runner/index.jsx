@@ -13,7 +13,6 @@ import { useParams } from 'react-router-dom'
 
 const Runner = () => {
   // useParams
-  // useParams
   const { competeProblemId = 'collaboration' } = useParams()
 
   // Global States
@@ -254,8 +253,10 @@ const Runner = () => {
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'Ya, kumpulkan!',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
         cancelButtonText: 'Nanti saja',
-        reverseButtons: false
+        reverseButtons: true
       })
       .then((result) => {
         if (result.isConfirmed) {
