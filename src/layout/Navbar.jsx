@@ -1,5 +1,3 @@
-import langConfig from '../config/langConfig.json'
-
 import { useState, useEffect } from 'react'
 import { useGlobal } from '../contexts/GlobalContext'
 import { useAuth } from '../contexts/AuthContext'
@@ -41,17 +39,17 @@ const Navbar = (props) => {
       ? [
           {
             to: '/admin/dashboard',
-            name: langConfig.adminNav1,
+            name: 'Dashboard',
             no: 1
           },
           {
             to: '/admin/manage/journeys',
-            name: langConfig.adminNav2,
+            name: 'Manage Learning Journey',
             no: 2
           },
           {
             to: '/admin/manage/challenges',
-            name: langConfig.adminNav3,
+            name: 'Manage Challenge',
             no: 3
           }
         ]
@@ -59,34 +57,34 @@ const Navbar = (props) => {
         ? [
             {
               to: '/teacher/dashboard',
-              name: langConfig.teacherNav1,
+              name: 'Dashboard',
               no: 1
             },
             {
               to: '/teacher/manage/competes',
-              name: langConfig.teacherNav2,
+              name: 'Manage Competes',
               no: 2
             }
           ]
         : [
             {
               to: '/learning-journey',
-              name: langConfig.userNav1,
+              name: 'Learning Journey',
               no: 1
             },
             {
               to: '/challenges',
-              name: langConfig.userNav2,
+              name: 'Challenge',
               no: 2
             },
             {
               to: '/competes',
-              name: langConfig.userNav3,
+              name: 'Compete',
               no: 3
             },
             {
               to: '/leaderboards',
-              name: langConfig.userNav4,
+              name: 'Leaderboard',
               no: 4
             }
           ]
@@ -125,21 +123,21 @@ const Navbar = (props) => {
   const dialogLogout = () => {
     mySwal
       .fire({
-        title: langConfig.dialogLogout,
+        title: 'Are you sure?',
+        text: 'You will be logged out!',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Ya, keluar!',
-        cancelButtonText: 'Nanti saja',
-        reverseButtons: true
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, logout!',
+        cancelButtonText: 'No, stay!'
       })
       .then((result) => {
         if (result.isConfirmed) {
           // show loading 2 second
           mySwal
             .fire({
-              title: langConfig.infoSeeYouAgain,
+              title: 'See you again!',
               timer: 2000,
               timerProgressBar: true,
               didOpen: () => {
@@ -160,17 +158,17 @@ const Navbar = (props) => {
         ? [
             {
               to: '/admin/dashboard',
-              name: langConfig.adminNav1,
+              name: 'Dashboard',
               no: 1
             },
             {
               to: '/admin/manage/journeys',
-              name: langConfig.adminNav2,
+              name: 'Manage Learning Journey',
               no: 2
             },
             {
               to: '/admin/manage/challenges',
-              name: langConfig.adminNav3,
+              name: 'Manage Challenge',
               no: 3
             }
           ]
@@ -178,34 +176,34 @@ const Navbar = (props) => {
           ? [
               {
                 to: '/teacher/dashboard',
-                name: langConfig.teacherNav1,
+                name: 'Dashboard',
                 no: 1
               },
               {
                 to: '/teacher/manage/competes',
-                name: langConfig.teacherNav2,
+                name: 'Manage Competes',
                 no: 2
               }
             ]
           : [
               {
                 to: '/learning-journey',
-                name: langConfig.userNav1,
+                name: 'Learning Journey',
                 no: 1
               },
               {
                 to: '/challenges',
-                name: langConfig.userNav2,
+                name: 'Challenge',
                 no: 2
               },
               {
                 to: '/competes',
-                name: langConfig.userNav3,
+                name: 'Compete',
                 no: 3
               },
               {
                 to: '/leaderboards',
-                name: langConfig.userNav4,
+                name: 'Leaderboard',
                 no: 4
               }
             ]
@@ -279,7 +277,7 @@ const Navbar = (props) => {
                   tabs === 5 ? 'border-b-2' : ''
                 }`}
               >
-                {langConfig.userNav5}
+                Login
               </Link>
               <Link
                 to="/auth/register"
@@ -288,7 +286,7 @@ const Navbar = (props) => {
                   tabs === 6 ? 'border-b-2' : ''
                 }`}
               >
-                {langConfig.userNav6}
+                Register
               </Link>
             </>
               )}
@@ -299,7 +297,7 @@ const Navbar = (props) => {
       <div
         className={`w-full lg:hidden ${
           toggle ? 'h-0 hidden' : 'flex flex-col h-full'
-        } transition-all space-y-2 items-center bg-milk dark:bg-alternate duration-300 py-3`}
+        } transition-all space-y-2 items-center bg-snow dark:bg-main duration-300`}
       >
         {paths.map((path, index) => (
           <Link
@@ -310,7 +308,7 @@ const Navbar = (props) => {
               'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
             }
           >
-            {langConfig[`userNav${index + 1}`]}
+            {path.name}
           </Link>
         ))}
 
@@ -318,21 +316,21 @@ const Navbar = (props) => {
           ? (
           <>
             <Link
-              to={`/profile/${user.username}`}
+              to={'/auth/profile'}
               className={
                 'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
               }
             >
-              {langConfig.menu1}
+              Profile
             </Link>
 
             <Link
-              to={'/settings'}
+              to={'/auth/setting'}
               className={
                 'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
               }
             >
-              {langConfig.menu2}
+              Setting
             </Link>
 
             <div
@@ -341,7 +339,7 @@ const Navbar = (props) => {
                 'w-full text-hard text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
               }
             >
-              {langConfig.userNav7}
+              Logout
             </div>
           </>
             )
@@ -354,7 +352,7 @@ const Navbar = (props) => {
                 'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
               }
             >
-              {langConfig.userNav5}
+              Login
             </Link>
 
             <Link
@@ -364,7 +362,7 @@ const Navbar = (props) => {
                 'w-full text-main py-1 dark:text-snow text-base text-center tracking-wide whitespace-nowrap font-ubuntu font-medium hover:text-easy dark:hover:text-easy border-easy ease-in-out duration-300'
               }
             >
-              {langConfig.userNav6}
+              Register
             </Link>
           </>
             )}

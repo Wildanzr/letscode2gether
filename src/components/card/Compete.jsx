@@ -1,5 +1,3 @@
-import langConfig from '../../config/langConfig.json'
-
 import { useState, useEffect } from 'react'
 
 import { useGlobal } from '../../contexts/GlobalContext'
@@ -98,13 +96,13 @@ const Compete = (props) => {
           {isJoined === null
             ? <Spin size="small" />
             : isJoined
-              ? <Link to={`${_id}/lobby`} className="px-2 py-2 bg-success text-main cursor-pointer whitespace-nowrap rounded font-medium"> {langConfig.competeButtonLabel2} </Link>
+              ? <Link to={`${_id}/lobby`} className="px-2 py-2 bg-success text-main cursor-pointer whitespace-nowrap rounded font-medium"> Joined </Link>
               : moment().isAfter(moment(end))
                 ? <Link to={`${_id}/lobby`} className="px-2 py-2 bg-success text-main cursor-pointer whitespace-nowrap rounded font-medium">
-                    {langConfig.competeButtonLabel3}
+                    Check Result
                   </Link>
                 : <label onClick={joinCompete} htmlFor='modal-join-compete' className="px-2 py-2 bg-easy text-snow cursor-pointer whitespace-nowrap rounded font-medium">
-                    {langConfig.competeButtonLabel1}
+                    Join Now
                   </label>
           }
         </div>
@@ -112,7 +110,7 @@ const Compete = (props) => {
         {/* Compete Information */}
         <div className="flex flex-col w-full space-y-1 items-start">
           <p className="mb-0 text-sm font-ubuntu font-bold">
-            {langConfig.competeChallenger}
+            Challenger:{' '}
             <Link
                 to={`/profile/${username}`}
                 onClick={() => setTabs(0)}
@@ -121,19 +119,19 @@ const Compete = (props) => {
             </Link>
           </p>
           <p className="mb-0 text-sm font-ubuntu font-bold">
-            {langConfig.competeStart}
-            <span className="pl-2 mb-0 text-sm font-ubuntu font-thin">
+            Starts In:{' '}
+            <span className="mb-0 text-sm font-ubuntu font-thin">
               {moment(start).format('dddd, DD MMMM YYYY HH:mm')}
             </span>
           </p>
           <p className="mb-0 text-sm font-ubuntu font-bold">
-            {langConfig.competeEnd}
+            Ends In:{' '}
             <span className="pl-2 mb-0 text-sm font-ubuntu font-thin">
               {moment(end).format('dddd, DD MMMM YYYY HH:mm')}
             </span>
           </p>
           <p className="mb-0 text-sm font-ubuntu font-thin text-justify">
-            <span className="font-bold">{langConfig.competeListDesc}</span> <br />
+            <span className="font-bold">Description:</span> <br />
             {description}
           </p>
         </div>

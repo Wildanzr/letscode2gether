@@ -1,4 +1,3 @@
-import langConfig from '../../config/langConfig.json'
 import { useCollab } from '../../contexts/CollabContext'
 
 import ProblemSpecification from './ProblemSpecification'
@@ -27,7 +26,7 @@ const Problem = () => {
   }
 
   return (
-    <div className="rt-problem-description flex flex-col w-full h-full space-y-4 text-main dark:text-snow duration-300 ease-in-out">
+    <div className="flex flex-col w-full h-full space-y-4 text-main dark:text-snow duration-300 ease-in-out">
       <div className="flex flex-col w-full">
         {competeProblem
           ? (
@@ -39,7 +38,7 @@ const Problem = () => {
         }
       </div>
       <div className="flex flex-col w-full p-2 bg-white text-black">
-        <ProblemSpecification title={langConfig.problemConstraints}>
+        <ProblemSpecification title="Constraints">
           {competeProblem
             ? <p className="mb-0">{formatOutput(competeProblem.constraint)}</p>
             : <Spin size='small' />
@@ -48,7 +47,7 @@ const Problem = () => {
       </div>
 
       <div className="flex flex-col w-full p-2 bg-white text-black">
-        <ProblemSpecification title={langConfig.problemInputFormat}>
+        <ProblemSpecification title="Input Format">
           {competeProblem
             ? <p className="mb-0">{formatOutput(competeProblem.inputFormat)}</p>
             : <Spin size='small' />
@@ -57,7 +56,7 @@ const Problem = () => {
       </div>
 
       <div className="flex flex-col w-full p-2 bg-white text-black">
-        <ProblemSpecification title={langConfig.problemOutputFormat}>
+        <ProblemSpecification title="Output Format">
           {competeProblem
             ? <p className="mb-0">{formatOutput(competeProblem.outputFormat)}</p>
             : <Spin size='small' />
@@ -68,10 +67,10 @@ const Problem = () => {
       {competeProblem
         ? (
             competeProblem.sampleCases.map((sample, index) => (
-            <SampleCase key={index} title={`${langConfig.problemSampleCase} ${index + 1}`} {...sample} />
+            <SampleCase key={index} title="Sample Case 1" {...sample} />
             ))
           )
-        : <SampleCase title={`${langConfig.problemSampleCase} 1`} input={null} output={null} />
+        : <SampleCase title="Sample Case 1" input={null} output={null} />
       }
 
     </div>

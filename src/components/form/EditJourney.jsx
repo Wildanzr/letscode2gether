@@ -1,4 +1,3 @@
-import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { languageOptions } from '../../constants/languageOptions'
@@ -49,7 +48,7 @@ const EditJourney = (props) => {
   const onFinish = async (payload) => {
     // Show loading
     mySwal.fire({
-      title: langConfig.loadingUpdateJourney,
+      title: 'Updating Journey...',
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => {
@@ -60,7 +59,7 @@ const EditJourney = (props) => {
     // Configuration
     const config = {
       headers: {
-        authorization: `Bearer ${Cookies.get('jwtToken')}`
+        authorization: Cookies.get('jwtToken')
       }
     }
 
@@ -83,7 +82,7 @@ const EditJourney = (props) => {
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: langConfig.successUpdateJourney,
+        title: 'Update learning journey success!',
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -155,7 +154,7 @@ const EditJourney = (props) => {
           <div className="flex flex-row w-full items-start justify-start">
             <div className="flex w-1/4">
               <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-                {langConfig.editJourneyName}
+                Name
               </p>
             </div>
             <div className="flex w-3/4">
@@ -165,15 +164,15 @@ const EditJourney = (props) => {
                 rules={[
                   {
                     required: true,
-                    message: langConfig.formJourneyNameRule1
+                    message: 'Please input name of journey!'
                   },
                   {
                     max: 255,
-                    message: langConfig.formJourneyNameRule2
+                    message: 'Name must be at most 255 characters'
                   }
                 ]}
               >
-                <Input placeholder={langConfig.formPlaceholderJourneyName} />
+                <Input placeholder="Name of Learning Journey" />
               </Item>
             </div>
           </div>
@@ -182,7 +181,7 @@ const EditJourney = (props) => {
           <div className="flex flex-row w-full items-start justify-start">
             <div className="flex w-1/4">
               <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-                {langConfig.editJourneyDescription}
+                Description
               </p>
             </div>
             <div className="flex w-3/4">
@@ -192,13 +191,13 @@ const EditJourney = (props) => {
                 rules={[
                   {
                     required: true,
-                    message: langConfig.formJourneyDescriptionRule1
+                    message: 'Please input description of journey!'
                   }
                 ]}
               >
                 <TextArea
                   rows={5}
-                  placeholder={langConfig.formPlaceholderJourneyDescription}
+                  placeholder="Description of Learning Journey"
                 />
               </Item>
             </div>
@@ -208,7 +207,7 @@ const EditJourney = (props) => {
           <div className="flex flex-row w-full items-start justify-start">
             <div className="flex w-1/4">
               <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-                {langConfig.editJourneyLanguage}
+                Language Allowed
               </p>
             </div>
             <div className="flex w-3/4">
@@ -218,18 +217,18 @@ const EditJourney = (props) => {
                 rules={[
                   {
                     required: true,
-                    message: langConfig.formJourneyLanguageRule1
+                    message: 'Please select language allowed!'
                   },
                   {
                     type: 'array',
                     min: 1,
-                    message: langConfig.formJourneyLanguageRule2
+                    message: 'Please select at least one language!'
                   }
                 ]}
               >
                 <Select
                   mode="multiple"
-                  placeholder={langConfig.formPlaceholderJourneyLanguage}
+                  placeholder="Select language allowed"
                   showSearch={true}
                   allowClear={true}
                   className="w-full"
@@ -251,14 +250,14 @@ const EditJourney = (props) => {
                 to="/admin/manage/journeys"
                 className="px-4 py-2 mt-4 text-sm font-medium text-center font-ubuntu tracking-wider uppercase transition-colors transform border-2 text-main dark:text-snow border-main dark:border-snow dark:hover:border-easy hover:border-easy duration-300 ease-in-out"
               >
-                {langConfig.buttonCancel}
+                Cancel
               </Link>
 
               <button
                 type="submit"
                 className="px-4 py-2 mt-4 text-sm font-medium text-center text-white font-ubuntu tracking-wider uppercase transition-colors duration-200 transform bg-easy hover:bg-blue-400 focus:outline-none focus:bg-blue-400"
               >
-                {langConfig.buttonSave}
+                Save
               </button>
             </div>
           </Item>
@@ -266,7 +265,7 @@ const EditJourney = (props) => {
           {/* Problem List */}
           <div className="flex flex-col w-full">
             <p className="font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-              {langConfig.editJourneyProblems}
+              Problems
             </p>
             {children}
           </div>

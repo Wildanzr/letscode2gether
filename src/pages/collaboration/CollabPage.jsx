@@ -12,7 +12,7 @@ import Result from '../../components/result'
 const CollabPage = () => {
   // Global States
   const { globalState, editorState } = useGlobal()
-  const { colHide, setIsOnlyEditor, setColHide } = globalState
+  const { colHide, setIsOnlyEditor } = globalState
   const { run } = editorState
 
   // Auth States and Functions
@@ -28,7 +28,6 @@ const CollabPage = () => {
   useEffect(() => {
     setIsOnlyEditor(true)
     setLanguageList(null)
-    setColHide(false)
   }, [])
 
   // Travel log

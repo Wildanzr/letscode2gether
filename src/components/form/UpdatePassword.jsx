@@ -1,5 +1,4 @@
 /* eslint-disable prefer-promise-reject-errors */
-import langConfig from '../../config/langConfig.json'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { Form, Input } from 'antd'
 
@@ -21,7 +20,7 @@ const UpdatePassword = () => {
   const onFinish = async (payload) => {
     // Show loading
     mySwal.fire({
-      title: langConfig.loadingChangePassword,
+      title: 'Updating your password...',
       allowOutsideClick: true,
       backdrop: true,
       allowEscapeKey: true,
@@ -43,7 +42,7 @@ const UpdatePassword = () => {
 
       mySwal.fire({
         icon: 'success',
-        title: langConfig.successChangePassword,
+        title: 'Update password success!',
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -76,19 +75,19 @@ const UpdatePassword = () => {
         rules={[
           {
             required: true,
-            message: langConfig.formPasswordRule1
+            message: 'Please input your password!'
           },
           {
             min: 8,
-            message: langConfig.formPasswordRule2
+            message: 'Password must be at least 8 characters'
           },
           {
             max: 50,
-            message: langConfig.formPasswordRule3
+            message: 'Password must be at most 50 characters'
           }
         ]}
       >
-        <Input.Password placeholder={langConfig.formPlaceholderCurrentPassword} />
+        <Input.Password placeholder="Current Password" />
       </Item>
 
       <Item
@@ -96,19 +95,19 @@ const UpdatePassword = () => {
         rules={[
           {
             required: true,
-            message: langConfig.formPasswordRule1
+            message: 'Please input your password!'
           },
           {
             min: 8,
-            message: langConfig.formPasswordRule2
+            message: 'Password must be at least 8 characters'
           },
           {
             max: 50,
-            message: langConfig.formPasswordRule3
+            message: 'Password must be at most 50 characters'
           }
         ]}
       >
-        <Input.Password placeholder={langConfig.formPlaceholderNewPassword} />
+        <Input.Password placeholder="New Password" />
       </Item>
 
       <Item
@@ -116,19 +115,21 @@ const UpdatePassword = () => {
         rules={[
           {
             required: true,
-            message: langConfig.formPasswordRule4
+            message: 'Please confirm your password!'
           },
           ({ getFieldValue }) => ({
             validator (rule, value) {
               if (!value || getFieldValue('newPassword') === value) {
                 return Promise.resolve()
               }
-              return Promise.reject(langConfig.changePasswordWarn1)
+              return Promise.reject(
+                'The two passwords that you entered do not match!'
+              )
             }
           })
         ]}
       >
-        <Input.Password placeholder={langConfig.formPlaceholderConfirmPassword} />
+        <Input.Password placeholder="Confirm New Password" />
       </Item>
 
       <Item>
@@ -136,7 +137,7 @@ const UpdatePassword = () => {
           onClick={() => form.submit()}
           className="w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white font-ubuntu tracking-wider uppercase transition-colors duration-200 transform bg-easy rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400"
         >
-          {langConfig.changePasswordChange}
+          Update Password
         </button>
       </Item>
     </Form>

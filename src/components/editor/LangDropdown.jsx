@@ -20,7 +20,7 @@ const LangDropdown = (props) => {
   // Rerender component
   const rerender = async () => {
     setRender(false)
-    await new Promise((resolve) => setTimeout(resolve, 500))
+    await new Promise((resolve) => setTimeout(resolve, 800))
     setRender(true)
   }
 
@@ -38,7 +38,7 @@ const LangDropdown = (props) => {
             placeholder={placeholder}
             optionFilterProp="children"
             onChange={(value) => onChange(value)}
-            value={language}
+            defaultValue={language}
           >
             {options.map((language) => {
               return (

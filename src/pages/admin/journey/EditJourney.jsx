@@ -1,4 +1,3 @@
-import langConfig from '../../../config/langConfig.json'
 import { useState } from 'react'
 
 import { Navbar, Footer } from '../../../layout'
@@ -15,11 +14,11 @@ const EditJourneyPage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: langConfig.adminLearningJourney1,
+      name: 'List of Learning Journeys',
       target: '/admin/manage/journeys'
     },
     {
-      name: langConfig.adminLearningJourney4,
+      name: 'Edit Learning Journey',
       target: `/admin/manage/journeys/${journeyId}/edit`
     }
   ])
@@ -31,7 +30,7 @@ const EditJourneyPage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              {langConfig.adminJourney}
+              Learning Journey
             </h3>
             <Breadcrumb paths={paths} />
           </div>

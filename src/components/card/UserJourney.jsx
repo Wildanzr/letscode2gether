@@ -4,7 +4,6 @@ import B3 from '../../assets/badge3.svg'
 import B4 from '../../assets/badge4.svg'
 import B5 from '../../assets/badge5.svg'
 import B6 from '../../assets/badge6.svg'
-import langConfig from '../../config/langConfig.json'
 
 const UserJourney = (props) => {
   // Props Destructure
@@ -19,7 +18,7 @@ const UserJourney = (props) => {
     return (
       <div className="flex flex-row space-x-1">
         {badges.map((badge, index) => (
-          <img key={index} src={badge} className={`w-10 h-10 ${index < current ? 'grayscale-0' : 'grayscale'}`} />
+          <img key={index} src={badge} className={`w-14 ${index < current ? 'grayscale-0' : 'grayscale'}`} />
         ))}
       </div>
     )
@@ -52,7 +51,7 @@ const UserJourney = (props) => {
         <div className="flex flex-col w-full space-y-2">
           <div className="flex flex-col space-y-2 items-center">
             <p className="mb-0 text-lg font-ubuntu font-bold">
-              {langConfig.profileJourneyProgress}
+              Journey progress:
             </p>
             <p className="mb-0 text-4xl font-ubuntu font-bold text-success">
               {progress}%
@@ -61,7 +60,7 @@ const UserJourney = (props) => {
 
           <div className="flex flex-col space-y-2 items-center">
             <p className="mb-0 text-lg font-ubuntu font-bold">
-              {langConfig.profileBadges}
+              Badges:
             </p>
             {defineBadge(point)}
           </div>

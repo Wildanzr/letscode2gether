@@ -7,4 +7,3 @@ export { default as SearchDebounce } from './SearchDebounce'
 export { default as CompeteSearch } from './CompeteSearch'
 
 export { default as CompeteHeader } from './CompeteHeader'
-export { default as LearningProgress } from './LearningProgress'

@@ -1,5 +1,3 @@
-import langConfig from '../config/langConfig.json'
-
 import { useState } from 'react'
 import { useGlobal } from '../contexts/GlobalContext'
 
@@ -56,7 +54,7 @@ const Profile = (props) => {
                 className="px-4 py-2 text-sm text-main dark:text-snow flex flex-row items-center space-x-2 hover:bg-gray-300 dark:hover:bg-gray-600"
               >
                 <RiDashboard3Line className="text-lg" />
-                <span>{isAdmin ? langConfig.menu3 : langConfig.menu4}</span>
+                <span>{isAdmin ? 'User View' : 'Admin Dashboard'}</span>
               </Link>
             )}
 
@@ -68,7 +66,7 @@ const Profile = (props) => {
                 className="px-4 py-2 text-sm text-main dark:text-snow flex flex-row items-center space-x-2 hover:bg-gray-300 dark:hover:bg-gray-600"
               >
                 <RiDashboard3Line className="text-lg" />
-                <span>{isTeacher ? langConfig.menu3 : langConfig.menu5}</span>
+                <span>{isTeacher ? 'User View' : 'Teacher Dashboard'}</span>
               </Link>
             )}
 
@@ -78,7 +76,7 @@ const Profile = (props) => {
               className="px-4 py-2 text-sm text-main dark:text-snow flex flex-row items-center space-x-2 hover:bg-gray-300 dark:hover:bg-gray-600"
             >
               <RiShieldUserLine className="text-lg" />
-              <span>{langConfig.menu1}</span>
+              <span>Profile</span>
             </Link>
             <Link
               to="/settings"
@@ -86,7 +84,7 @@ const Profile = (props) => {
               className="px-4 py-2 text-sm text-main dark:text-snow flex flex-row items-center space-x-2 hover:bg-gray-300 dark:hover:bg-gray-600"
             >
               <RiSettings3Line className="text-lg" />
-              <span>{langConfig.menu2}</span>
+              <span>Settings</span>
             </Link>
           </div>
           <div
@@ -94,7 +92,7 @@ const Profile = (props) => {
             className="px-4 py-2 text-sm cursor-pointer text-main dark:text-snow flex flex-row items-center space-x-2 hover:bg-gray-300 dark:hover:bg-gray-600"
           >
             <RiLogoutBoxRLine className="text-lg" />
-            <span>{langConfig.userNav7}</span>
+            <span>Logout</span>
           </div>
         </div>
       )}

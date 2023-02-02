@@ -1,5 +1,3 @@
-import langConfig from '../../config/langConfig.json'
-
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 
@@ -60,23 +58,23 @@ const ProblemList = (props) => {
             <div className="flex w-2/6 items-center justify-start">
               <p className="mb-0 text-sm">{title}</p>
             </div>
-            <div className="flex w-1/6 justify-center lg:justify-start items-center">
+            <div className="flex w-2/6 justify-center lg:justify-start items-center">
               <p className={`mb-0 text-sm ${difficulty === 1 ? 'text-success' : difficulty === 2 ? 'text-medium' : 'text-hard'}`}>
-                {difficulty === 1 ? langConfig.challengeLevel1 : difficulty === 2 ? langConfig.challengeLevel2 : langConfig.challengeLevel3 }
+                {difficulty === 1 ? 'Easy' : difficulty === 2 ? 'Medium' : 'Hard'}
               </p>
             </div>
-            <div className="flex w-3/6 space-x-6 justify-end lg:justify-start items-center">
+            <div className="flex w-2/6 space-x-6 justify-end lg:justify-start items-center">
               <Link
                 to={`path/${competeId}/problems/${_id}`}
-                className={`w-4/6 py-2 ${isDone === null ? 'bg-snow' : isDone === 0 ? 'bg-easy text-snow hover:text-snow hover:dark:text-snow' : isDone === 1 ? 'bg-medium text-main hover:text-main hover:dark:text-main' : 'bg-success text-main hover:text-main hover:dark:text-main'} text-center rounded font-medium lg:font-bold duration-150 ease-in-out`}
+                className={`w-4/6 py-2 ${isDone === null ? 'bg-snow' : isDone === 0 ? 'bg-snow' : isDone === 1 ? 'bg-medium' : 'bg-success'} text-main text-center rounded font-medium lg:font-bold hover:text-main hover:dark:text-main`}
                 >
                 {isDone === null
                   ? <Spin size="small" />
                   : isDone === 0
-                    ? langConfig.journeyListProblemButton1
+                    ? 'Solve Now'
                     : isDone === 1
-                      ? langConfig.journeyListProblemButton2
-                      : langConfig.journeyListProblemButton3
+                      ? 'Try Again'
+                      : 'Solved'
                 }
               </Link>
             </div>
@@ -90,3 +88,53 @@ const ProblemList = (props) => {
 }
 
 export default ProblemList
+
+// <li>
+//   <div className="flex flex-row font-ubuntu items-center">
+//     <div className="flex w-2/6 items-center justify-start">
+//       <p className="mb-0 text-sm">Hello World</p>
+//     </div>
+//     <div className="flex w-2/6 justify-center lg:justify-start items-center">
+//       <p className="mb-0 text-sm text-success">easy</p>
+//     </div>
+//     <div className="flex w-2/6 space-x-6 justify-end lg:justify-start items-center">
+//       <button className="w-4/6 py-2 bg-snow text-main rounded font-medium lg:font-bold">
+//         Solved
+//       </button>
+//     </div>
+//   </div>
+// </li>
+
+// <li>
+//   <div className="flex flex-row font-ubuntu items-center">
+//     <div className="flex w-2/6 items-center justify-start">
+//       <p className="mb-0 text-sm">
+//         Apakah Ini Belum Terlalu Panjang
+//       </p>
+//     </div>
+//     <div className="flex w-2/6 justify-center lg:justify-start items-center">
+//       <p className="mb-0 text-sm text-medium">medium</p>
+//     </div>
+//     <div className="flex w-2/6 space-x-6 justify-end lg:justify-start items-center">
+//       <button className="w-4/6 py-2 bg-medium text-main rounded font-medium lg:font-bold">
+//         Try Again
+//       </button>
+//     </div>
+//   </div>
+// </li>
+
+// <li>
+//   <div className="flex flex-row font-ubuntu items-center">
+//     <div className="flex w-2/6 items-center justify-start">
+//       <p className="mb-0 text-sm">Introduce Myself</p>
+//     </div>
+//     <div className="flex w-2/6 justify-center lg:justify-start items-center">
+//       <p className="mb-0 text-sm text-hard">hard</p>
+//     </div>
+//     <div className="flex w-2/6 space-x-6 justify-end lg:justify-start items-center">
+//       <button className="w-4/6 py-2 bg-success text-snow rounded font-medium lg:font-bold">
+//         Lets Solve
+//       </button>
+//     </div>
+//   </div>
+// </li>

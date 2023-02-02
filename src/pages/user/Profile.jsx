@@ -59,7 +59,7 @@ const ProfilePage = () => {
     <div className="flex flex-col items-center justify-between w-full min-h-screen space-y-14 bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <Navbar>
         <div className="flex w-full items-center justify-center">
-            <div className="flex flex-col w-full lg:min-w-min items-center justify-center">
+            <div className="flex flex-col w-full lg:w-1/2 items-center justify-center">
             {profileDetails === null
               ? <Spin size="default" />
               : <div className='flex flex-col'>

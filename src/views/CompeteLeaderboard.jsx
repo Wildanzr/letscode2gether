@@ -22,7 +22,7 @@ const CompeteLeaderboard = () => {
 
       // Set Value
       setLeaderboard(leaderboard)
-      // console.table(leaderboard)
+      console.table(leaderboard)
     } catch (error) {
       console.log(error)
     }
@@ -33,7 +33,7 @@ const CompeteLeaderboard = () => {
     getCompeteLeaderboard()
   }, [])
   return (
-    <div className="flex flex-col min-w-min">
+    <div className="flex flex-col w-full">
       {leaderboard === null
         ? <Spin size="default" />
         : <Leaderboard leaderboard={leaderboard} />

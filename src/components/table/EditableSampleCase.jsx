@@ -1,4 +1,3 @@
-import langConfig from '../../config/langConfig.json'
 import { useState } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 
@@ -23,27 +22,27 @@ const EditableSampleCase = (props) => {
   // Local States
   const [headingList] = useState([
     {
-      name: langConfig.tableSampleDetail1,
+      name: 'NO',
       wide: 5,
       align: 'text-left'
     },
     {
-      name: langConfig.tableSampleDetail2,
+      name: 'INPUT',
       wide: 15,
       align: 'text-left'
     },
     {
-      name: langConfig.tableSampleDetail3,
+      name: 'OUTPUT',
       wide: 15,
       align: 'text-left'
     },
     {
-      name: langConfig.tableSampleDetail4,
+      name: 'EXPLANATION',
       wide: 45,
       align: 'text-left'
     },
     {
-      name: langConfig.tableSampleDetail5,
+      name: 'ACTIONS',
       wide: 20,
       align: 'text-right'
     }
@@ -53,7 +52,7 @@ const EditableSampleCase = (props) => {
   const deleteSampleCase = async (sampleId) => {
     // Show loading
     mySwal.fire({
-      title: langConfig.loadingDeleteSampleCase,
+      title: 'Deleting Sample Case...',
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => {
@@ -79,7 +78,7 @@ const EditableSampleCase = (props) => {
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: langConfig.successDeleteSampleCase,
+        title: 'Delete sample case successfully',
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -105,12 +104,12 @@ const EditableSampleCase = (props) => {
   const dialogDeleteSampleCase = (sampleId) => {
     mySwal.fire({
       icon: 'warning',
-      title: langConfig.dialogDeleteSampleCase,
-      text: langConfig.infoDeleteSampleCase,
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this sample case!',
       showCancelButton: true,
-      confirmButtonText: 'Ya, hapus!',
+      confirmButtonText: 'Yes, delete it!',
       confirmButtonColor: '#d33',
-      cancelButtonText: 'Batal',
+      cancelButtonText: 'No, keep it',
       cancelButtonColor: '#3085d6',
       reverseButtons: true
     }).then((result) => {
@@ -174,7 +173,7 @@ const EditableSampleCase = (props) => {
                                 {input}
                               </p>
                             ))
-                            : <p className="mb-0 text-gray-300">{langConfig.infoNoInput}</p>
+                            : <p className="mb-0 text-gray-300">No Input</p>
                           }
                         </div>
                       </div>
@@ -232,7 +231,7 @@ const EditableSampleCase = (props) => {
                   <div className="flex items-center justify-center">
                     <div className="font-medium whitespace-nowrap">
                       <span className="ml-3 text-gray-600">
-                        {langConfig.infoZeroSampleCase}
+                        No Sample Cases
                       </span>
                     </div>
                   </div>
@@ -260,7 +259,7 @@ const EditableSampleCase = (props) => {
                   >
                     <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
                     <span className="text-base font-medium text-snow whitespace-nowrap">
-                      {langConfig.tableAddSample}
+                      {sampleCases.length > 0 ? 'Add More Sample Cases' : 'Add Sample Case'}
                     </span>
                   </Link>
                 </div>

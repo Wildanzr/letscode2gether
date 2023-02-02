@@ -1,5 +1,4 @@
 /* eslint-disable prefer-promise-reject-errors */
-import langConfig from '../../config/langConfig.json'
 import { useGlobal } from '../../contexts/GlobalContext'
 import api from '../../api'
 
@@ -28,7 +27,7 @@ const Reset = (props) => {
   const onFinish = async (values) => {
     // Show loading
     mySwal.fire({
-      title: langConfig.loadingResetPassword,
+      title: 'Resetting your password...',
       allowOutsideClick: true,
       backdrop: true,
       allowEscapeKey: true,
@@ -45,7 +44,7 @@ const Reset = (props) => {
 
       mySwal.fire({
         icon: 'success',
-        title: langConfig.successResetPassword,
+        title: 'Reset Password Success',
         text: data.message,
         allowOutsideClick: true,
         backdrop: true,
@@ -87,19 +86,19 @@ const Reset = (props) => {
         rules={[
           {
             required: true,
-            message: langConfig.formPasswordRule1
+            message: 'Please input your password!'
           },
           {
             min: 8,
-            message: langConfig.formPasswordRule2
+            message: 'Password must be at least 8 characters'
           },
           {
             max: 50,
-            message: langConfig.formPasswordRule3
+            message: 'Password must be at most 50 characters'
           }
         ]}
       >
-        <Input.Password placeholder={langConfig.formPlaceholderPassword} />
+        <Input.Password placeholder="Password" />
       </Item>
 
       <Item
@@ -107,19 +106,21 @@ const Reset = (props) => {
         rules={[
           {
             required: true,
-            message: langConfig.formPasswordRule4
+            message: 'Please confirm your password!'
           },
           ({ getFieldValue }) => ({
             validator (rule, value) {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve()
               }
-              return Promise.reject(langConfig.changePasswordWarn1)
+              return Promise.reject(
+                'The two passwords that you entered do not match!'
+              )
             }
           })
         ]}
       >
-        <Input.Password placeholder={langConfig.formPlaceholderConfirmPassword} />
+        <Input.Password placeholder="Confirm Password" />
       </Item>
 
       <Item>
@@ -127,7 +128,7 @@ const Reset = (props) => {
           type="submit"
           className="w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white font-ubuntu tracking-wider uppercase transition-colors duration-200 transform bg-easy rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400"
         >
-          {langConfig.authResetPasswordButton}
+          Reset Password
         </button>
       </Item>
 

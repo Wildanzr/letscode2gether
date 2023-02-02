@@ -1,4 +1,3 @@
-import langConfig from '../../../config/langConfig.json'
 import { useState } from 'react'
 
 import { Navbar, Footer } from '../../../layout'
@@ -16,33 +15,33 @@ const EditTestCasePage = () => {
     journeyId === undefined
       ? [
           {
-            name: langConfig.adminChallenge1,
+            name: 'List of Challenges',
             target: '/admin/manage/challenges'
           },
           {
-            name: langConfig.adminChallenge2,
+            name: 'Edit Challenge',
             target: `/admin/manage/challenges/${competeId}/problems/${challengeId}/edit`
           },
           {
-            name: langConfig.adminChallenge7,
+            name: 'Edit Test Case',
             target: `/admin/manage/challenges/${competeId}/problems/${challengeId}/testcases/edit`
           }
         ]
       : [
           {
-            name: langConfig.adminLearningJourney1,
+            name: 'List of Learning Journeys',
             target: '/admin/manage/journeys'
           },
           {
-            name: langConfig.adminLearningJourney2a,
+            name: 'Edit Learning Journey',
             target: `/admin/manage/journeys/${journeyId}/edit`
           },
           {
-            name: langConfig.adminLearningJourney4,
+            name: 'Edit Problem',
             target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
           },
           {
-            name: langConfig.adminLearningJourney8,
+            name: 'Edit Test Case',
             target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/testcases/${testId}/edit`
           }
         ])

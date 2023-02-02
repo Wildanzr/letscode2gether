@@ -1,4 +1,3 @@
-import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 
@@ -35,7 +34,7 @@ const AddSample = (props) => {
   const onFinish = async (payload) => {
     // Show loading
     mySwal.fire({
-      title: langConfig.loadingUpdateTestcase,
+      title: 'Updating Test Case...',
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => {
@@ -46,7 +45,7 @@ const AddSample = (props) => {
     // Configuration
     const config = {
       headers: {
-        authorization: `Bearer ${Cookies.get('jwtToken')}`
+        authorization: Cookies.get('jwtToken')
       }
     }
 
@@ -61,7 +60,7 @@ const AddSample = (props) => {
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: langConfig.successUpdateTestcase,
+        title: 'Update test case successfully',
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -101,7 +100,7 @@ const AddSample = (props) => {
     // Configuration
     const config = {
       headers: {
-        authorization: `Bearer ${Cookies.get('jwtToken')}`
+        authorization: Cookies.get('jwtToken')
       }
     }
 
@@ -143,7 +142,7 @@ const AddSample = (props) => {
           <div className="flex flex-row w-full items-start justify-start">
             <div className="flex w-1/4">
               <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-              {langConfig.testCaseInput}
+                Input
               </p>
             </div>
             <div className="flex w-3/4">
@@ -152,14 +151,18 @@ const AddSample = (props) => {
                 className="w-full"
                 rules={[
                   {
-                    max: 1000,
-                    message: langConfig.formInputRule1
+                    required: true,
+                    message: 'Please fill the input of test case!'
+                  },
+                  {
+                    max: 255,
+                    message: 'Input must be at most 255 characters'
                   }
                 ]}
               >
                 <TextArea
                   rows={5}
-                  placeholder={langConfig.formPlaceholderInput}
+                  placeholder="Input of sample case"
                   className="font-code"
                 />
               </Item>
@@ -170,7 +173,7 @@ const AddSample = (props) => {
           <div className="flex flex-row w-full items-start justify-start">
             <div className="flex w-1/4">
               <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-              {langConfig.testCaseOutput}
+                Output
               </p>
             </div>
             <div className="flex w-3/4">
@@ -180,17 +183,17 @@ const AddSample = (props) => {
                 rules={[
                   {
                     required: true,
-                    message: langConfig.formOutputRule1
+                    message: 'Please fill the output of test case!'
                   },
                   {
-                    max: 1000,
-                    message: langConfig.formOutputRule2
+                    max: 255,
+                    message: 'Output must be at most 255 characters'
                   }
                 ]}
               >
                 <TextArea
                   rows={5}
-                  placeholder={langConfig.formPlaceholderOutput}
+                  placeholder="Output of sample case"
                   className="font-code"
                 />
               </Item>
@@ -210,14 +213,14 @@ const AddSample = (props) => {
                 }
                 className="px-4 py-2 mt-4 text-sm font-medium text-center font-ubuntu tracking-wider uppercase transition-colors transform border-2 text-main dark:text-snow border-main dark:border-snow dark:hover:border-easy hover:border-easy duration-300 ease-in-out"
               >
-                {langConfig.buttonCancel}
+                Cancel
               </Link>
 
               <button
                 type="submit"
                 className="px-4 py-2 mt-4 text-sm font-medium text-center text-white font-ubuntu tracking-wider uppercase transition-colors duration-200 transform bg-easy hover:bg-blue-400 focus:outline-none focus:bg-blue-400"
               >
-                {langConfig.buttonSave}
+                Update
               </button>
             </div>
           </Item>

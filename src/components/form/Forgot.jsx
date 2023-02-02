@@ -1,4 +1,3 @@
-import langConfig from '../../config/langConfig.json'
 import { useGlobal } from '../../contexts/GlobalContext'
 import api from '../../api'
 
@@ -24,7 +23,7 @@ const Forgot = () => {
   const onFinish = async (values) => {
     // Show loading
     mySwal.fire({
-      title: langConfig.loadingForgotPassword,
+      title: 'Validating your email...',
       allowOutsideClick: true,
       backdrop: true,
       allowEscapeKey: true,
@@ -40,7 +39,7 @@ const Forgot = () => {
 
       mySwal.fire({
         icon: 'success',
-        title: langConfig.successForgotPassword,
+        title: 'Done',
         text: data.message,
         allowOutsideClick: true,
         backdrop: true,
@@ -82,19 +81,19 @@ const Forgot = () => {
         rules={[
           {
             required: true,
-            message: langConfig.formEmailRule1
+            message: 'Please input your email!'
           },
           {
             type: 'email',
-            message: langConfig.formEmailRule2
+            message: 'Please input a valid email!'
           },
           {
             max: 50,
-            message: langConfig.formEmailRule3
+            message: 'Email must be at most 50 characters'
           }
         ]}
       >
-        <Input placeholder={langConfig.formPlaceHolderEmail} />
+        <Input placeholder="Email" />
       </Item>
 
       <Item>
@@ -102,13 +101,13 @@ const Forgot = () => {
           type="submit"
           className="w-full px-4 py-2 mt-2 text-sm font-medium text-center text-white font-ubuntu tracking-wider uppercase transition-colors duration-200 transform bg-easy rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400"
         >
-          {langConfig.authForgot}
+          Send Me A Reset Link
         </button>
       </Item>
 
       {/* Back to login */}
       <div className="flex flex-row justify-center items-center w-full font-ubuntu">
-        <Link to="/auth/login">{langConfig.authForgotToLogin}</Link>
+        <Link to="/auth/login">Back to login</Link>
       </div>
     </Form>
   )

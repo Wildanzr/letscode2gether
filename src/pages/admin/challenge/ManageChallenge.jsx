@@ -1,4 +1,3 @@
-import langConfig from '../../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 
 import api from '../../../api'
@@ -14,7 +13,7 @@ const ManageChallengePage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: langConfig.adminChallenge1,
+      name: 'List of Challenges',
       target: '/admin/manage/challenges'
     }
   ])
@@ -115,7 +114,7 @@ const ManageChallengePage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              {langConfig.adminChallenge}
+              Challenges
             </h3>
             <Breadcrumb paths={paths} />
           </div>
@@ -133,7 +132,6 @@ const ManageChallengePage = () => {
                 onChange={onShowSizeChange}
                 defaultCurrent={defaultCurrent}
                 total={total}
-                locale={{ items_per_page: '/ halaman' }}
               />
             </div>
 

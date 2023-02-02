@@ -1,5 +1,3 @@
-import langConfig from '../../config/langConfig.json'
-
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 
@@ -111,18 +109,18 @@ const CompeteLobbyPage = () => {
               )
             : isJoined && compete
               ? (
-            <div className="flex flex-col w-full h-full items-center justify-start">
+            <div className="flex flex-col w-full h-screen items-center justify-start">
               <CompeteHeader compete={compete} />
               <div className="flex flex-col w-full items-center justify-center space-y-6">
                 {/* Tabs */}
-                <div className="flex bg-gray-200 rounded-lg mt-5">
+                <div className="flex bg-gray-200 rounded-lg">
                   <button
                     className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${
                       tabKey === 1 ? 'bg-easy text-snow' : 'text-main'
                     }`}
                     onClick={() => setTabKey(1)}
                   >
-                    {langConfig.competeLobbyTab1}
+                    Problems
                   </button>
                   <button
                     className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${
@@ -130,7 +128,7 @@ const CompeteLobbyPage = () => {
                     }`}
                     onClick={() => setTabKey(2)}
                   >
-                    {langConfig.competeLobbyTab2}
+                    Leaderboard
                   </button>
                 </div>
 
@@ -157,9 +155,7 @@ const CompeteLobbyPage = () => {
                 )
               : (
                   <div className="flex w-full h-screen items-center justify-center">
-                    <p className='text-lg font-semibold'>
-                      {langConfig.competeLobbyNoJoin}
-                    </p>
+                    <p className='text-lg font-semibold'>Oops you are not join this compete</p>
                   </div>
                 )}
         </div>

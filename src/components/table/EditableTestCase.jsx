@@ -1,4 +1,3 @@
-import langConfig from '../../config/langConfig.json'
 import { useState } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 
@@ -23,22 +22,22 @@ const EditableTestCase = (props) => {
   // Heading list
   const [headingList] = useState([
     {
-      name: langConfig.tableTestDetail1,
+      name: 'NO',
       wide: 5,
       align: 'text-left'
     },
     {
-      name: langConfig.tableTestDetail2,
+      name: 'INPUT',
       wide: 15,
       align: 'text-left'
     },
     {
-      name: langConfig.tableTestDetail3,
+      name: 'OUTPUT',
       wide: 15,
       align: 'text-left'
     },
     {
-      name: langConfig.tableTestDetail4,
+      name: 'ACTIONS',
       wide: 20,
       align: 'text-right'
     }
@@ -48,7 +47,7 @@ const EditableTestCase = (props) => {
   const deleteTestCase = async (testId) => {
     // Show loading
     mySwal.fire({
-      title: langConfig.loadingDeleteTestcase,
+      title: 'Deleting Test Case...',
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => {
@@ -74,7 +73,7 @@ const EditableTestCase = (props) => {
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: langConfig.successDeleteSampleCase,
+        title: 'Delete test case successfully',
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -102,12 +101,12 @@ const EditableTestCase = (props) => {
   const dialogDeleteTestCase = (testId) => {
     mySwal.fire({
       icon: 'warning',
-      title: langConfig.dialogDeleteTestcase,
-      text: langConfig.infoDeleteTestcase,
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this test case!',
       showCancelButton: true,
-      confirmButtonText: 'Ya, hapus!',
+      confirmButtonText: 'Yes, delete it!',
       confirmButtonColor: '#d33',
-      cancelButtonText: 'Batal',
+      cancelButtonText: 'No, keep it',
       cancelButtonColor: '#3085d6',
       reverseButtons: true
     }).then((result) => {
@@ -166,9 +165,7 @@ const EditableTestCase = (props) => {
                                   {input}
                                 </p>
                               ))
-                              : <p className="mb-0 text-gray-300">
-                                {langConfig.infoNoInput}
-                              </p>
+                              : <p className="mb-0 text-gray-300">No Input</p>
                             }
                             </div>
                           </div>
@@ -214,9 +211,7 @@ const EditableTestCase = (props) => {
                   <td colSpan={4} className="py-3 px-5 text-left overflow-clip">
                     <div className="flex items-center justify-center">
                       <div className="font-medium whitespace-nowrap">
-                        <span className="ml-3 text-gray-600">
-                          {langConfig.infoZeroTestcase}
-                        </span>
+                        <span className="ml-3 text-gray-600">No Test Cases</span>
                       </div>
                     </div>
                   </td>
@@ -245,7 +240,7 @@ const EditableTestCase = (props) => {
                   >
                     <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
                     <span className="text-base font-medium text-snow whitespace-nowrap">
-                      {langConfig.tableAddTest}
+                      {testCases.length > 0 ? 'Add More Test Cases' : 'Add Test Case'}
                     </span>
                   </Link>
                 </div>

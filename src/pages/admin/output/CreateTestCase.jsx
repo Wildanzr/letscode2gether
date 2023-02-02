@@ -1,4 +1,3 @@
-import langConfig from '../../../config/langConfig.json'
 import { useState } from 'react'
 
 import { Navbar, Footer } from '../../../layout'
@@ -16,33 +15,33 @@ const CreateTestCasePage = () => {
     journeyId === undefined
       ? [
           {
-            name: langConfig.adminChallenge1,
+            name: 'List of Challenges',
             target: '/admin/manage/challenges'
           },
           {
-            name: langConfig.adminChallenge2,
+            name: 'Edit Challenge',
             target: `/admin/manage/challenges/${competeId}/problems/${challengeId}/edit`
           },
           {
-            name: langConfig.adminChallenge5,
+            name: 'Add Test Case',
             target: `/admin/manage/challenges/${competeId}/problems/${challengeId}/testcases/create`
           }
         ]
       : [
           {
-            name: langConfig.adminLearningJourney1,
+            name: 'List of Learning Journeys',
             target: '/admin/manage/journeys'
           },
           {
-            name: langConfig.aadminLearningJourney2a,
+            name: 'Edit Learning Journey',
             target: `/admin/manage/journeys/${journeyId}/edit`
           },
           {
-            name: langConfig.adminLearningJourney4,
+            name: 'Edit Problem',
             target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/edit`
           },
           {
-            name: langConfig.adminLearningJourney6,
+            name: 'Add Test Case',
             target: `/admin/manage/journeys/${journeyId}/problems/${problemId}/testcases/create`
           }
         ])
@@ -54,10 +53,7 @@ const CreateTestCasePage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              {journeyId === undefined
-                ? langConfig.adminChallenge
-                : langConfig.adminJourney
-              }
+              {journeyId === undefined ? 'Challenges' : 'Learning Journey'}
             </h3>
             <Breadcrumb paths={paths} />
           </div>

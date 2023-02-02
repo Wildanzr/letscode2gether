@@ -1,5 +1,3 @@
-import langConfig from '../../config/langConfig.json'
-
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import CompetePic from '../../assets/compete.svg'
@@ -26,44 +24,44 @@ const CompetePage = () => {
       ? [
           {
             value: 'on going',
-            label: langConfig.competeFilterLabel1
+            label: 'On Going'
           },
           {
             value: 'passed',
-            label: langConfig.competeFilterLabel2
+            label: 'Passed'
           }
         ]
       : user.role === 1
         ? [
             {
               value: 'on going',
-              label: langConfig.competeFilterLabel1
+              label: 'On Going'
             },
             {
               value: 'passed',
-              label: langConfig.competeFilterLabel2
+              label: 'Passed'
             },
             {
               value: 'joined',
-              label: langConfig.competeFilterLabel3
+              label: 'Joined'
             },
             {
               value: 'created',
-              label: langConfig.competeFilterLabel4
+              label: 'Created'
             }
           ]
         : [
             {
               value: 'on going',
-              label: langConfig.competeFilterLabel1
+              label: 'On Going'
             },
             {
               value: 'passed',
-              label: langConfig.competeFilterLabel2
+              label: 'Passed'
             },
             {
               value: 'joined',
-              label: langConfig.competeFilterLabel3
+              label: 'Joined'
             }
           ]
   )
@@ -100,7 +98,6 @@ const CompetePage = () => {
   const onShowSizeChange = (current, pageSize) => {
     setCurrent(current)
     setTotal(parseInt((pageSize = 10)))
-    setFetch(true)
   }
 
   // Handle search input
@@ -120,7 +117,7 @@ const CompetePage = () => {
       const { data } = await api.get(path)
       const { meta } = data
       const { competes } = data.data
-      // console.log(data.data)
+      // console.log(data)
 
       // Set values
       setCompetes(competes)
@@ -146,44 +143,44 @@ const CompetePage = () => {
         ? [
             {
               value: 'on going',
-              label: langConfig.competeFilterLabel1
+              label: 'On Going'
             },
             {
               value: 'passed',
-              label: langConfig.competeFilterLabel2
+              label: 'Passed'
             }
           ]
         : user.role === 1
           ? [
               {
                 value: 'on going',
-                label: langConfig.competeFilterLabel1
+                label: 'On Going'
               },
               {
                 value: 'passed',
-                label: langConfig.competeFilterLabel2
+                label: 'Passed'
               },
               {
                 value: 'joined',
-                label: langConfig.competeFilterLabel3
+                label: 'Joined'
               },
               {
                 value: 'created',
-                label: langConfig.competeFilterLabel4
+                label: 'Created'
               }
             ]
           : [
               {
                 value: 'on going',
-                label: langConfig.competeFilterLabel1
+                label: 'On Going'
               },
               {
                 value: 'passed',
-                label: langConfig.competeFilterLabel2
+                label: 'Passed'
               },
               {
                 value: 'joined',
-                label: langConfig.competeFilterLabel3
+                label: 'Joined'
               }
             ]
     )
@@ -207,13 +204,21 @@ const CompetePage = () => {
           <div className="flex w-full lg:w-2/3 items-center justify-center">
             <div className="flex flex-col w-full space-y-4 lg:space-y-8 items-center lg:items-start">
               <p className="text-3xl text-center lg:text-left mb-0 lg:text-5xl font-ubuntu font-medium">
-                {langConfig.userNav3}
+                Compete
               </p>
               <p className="flex lg:hidden font-ubuntu text-base lg:text-lg text-center lg:text-left">
-                {langConfig.competeDesc}
+                Competition is a a rivalry where two or more parties strive for
+                a common goal which cannot be shared: where one&apos;s gain is
+                the other&apos;s loss. But, in this competition you can share
+                and collaborate with your friend to solve the problem. Ready to
+                start?
               </p>
               <p className="hidden lg:flex font-ubuntu text-base lg:text-lg text-center lg:text-left">
-                {langConfig.competeDesc}
+                Competition is a a rivalry where two or more parties strive for
+                a common goal which cannot be shared: where one&apos;s gain is
+                the other&apos;s loss. But, in this competition you can share
+                and collaborate with your friend to solve the problem. Ready to
+                start?
               </p>
             </div>
           </div>
@@ -223,11 +228,11 @@ const CompetePage = () => {
         <div className="flex flex-col m-0 px-[5%] space-y-5 lg:pt-0 w-full items-center justify-between">
           <div className="w-full hidden lg:flex">
             <Search
-              placeholder={langConfig.competeSearch}
+              placeholder="Search Compete"
               prefix={<RiSearchLine />}
               allowClear
               onChange={debounce(handleSearch, 500)}
-              enterButton={langConfig.competeSearchButton}
+              enterButton="Search"
             />
           </div>
 
@@ -235,7 +240,7 @@ const CompetePage = () => {
             <Cascader
               options={options}
               onChange={onChange}
-              placeholder={langConfig.competeFilterLabel}
+              placeholder="Filter Compete"
               defaultValue={['on going']}
               allowClear={false}
             />
@@ -245,22 +250,21 @@ const CompetePage = () => {
               onChange={onShowSizeChange}
               defaultCurrent={current}
               total={total}
-              locale={{ items_per_page: ' / halaman' }}
             />
           </div>
 
           <div className="flex flex-row lg:hidden w-full space-x-5">
             <Search
-              placeholder={langConfig.competeSearch}
+              placeholder="Search Compete"
               prefix={<RiSearchLine />}
               allowClear
               onChange={debounce(handleSearch, 500)}
-              enterButton={langConfig.competeSearchButton}
+              enterButton="Search"
             />
             <Cascader
               options={options}
               onChange={onChange}
-              placeholder={langConfig.competeFilterLabel}
+              placeholder="Filter Challenge"
               defaultValue={['on going']}
               allowClear={false}
             />
@@ -272,15 +276,18 @@ const CompetePage = () => {
               onChange={onShowSizeChange}
               defaultCurrent={current}
               total={total}
-              locale={{ items_per_page: ' / halaman' }}
             />
           </div>
 
           {/* Compete List */}
           {competes === null
-            ? <Spin size="default" />
+            ? (
+            <Spin size="default" />
+              )
             : competes.length === 0
-              ? <p className="text-2xl py-2 font-ubuntu font-medium">{langConfig.competeNoData}</p>
+              ? (
+            <p className="text-center text-xl font-ubuntu">No Compete</p>
+                )
               : (
                   competes.map((compete, index) => {
                     const { key: competeKey } = compete

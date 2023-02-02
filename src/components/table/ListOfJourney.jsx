@@ -1,4 +1,3 @@
-import langConfig from '../../config/langConfig.json'
 import { useState } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 
@@ -19,22 +18,22 @@ const ListOfJourney = (props) => {
   // Local states
   const [headingList] = useState([
     {
-      name: langConfig.tableManagementJourney1,
+      name: 'NO',
       wide: 5,
       align: 'text-left'
     },
     {
-      name: langConfig.tableManagementJourney2,
+      name: 'NAME',
       wide: 75,
       align: 'text-left'
     },
     {
-      name: langConfig.tableManagementJourney3,
+      name: 'TOTAL PROBLEM',
       wide: 10,
       align: 'text-center'
     },
     {
-      name: langConfig.tableManagementJourney4,
+      name: 'ACTIONS',
       wide: 10,
       align: 'text-center'
     }
@@ -44,7 +43,7 @@ const ListOfJourney = (props) => {
   const deleteJourney = async (journeyId) => {
     // Show loading
     mySwal.fire({
-      title: langConfig.loadingDeleteJourney,
+      title: 'Creating Problem...',
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => {
@@ -91,12 +90,12 @@ const ListOfJourney = (props) => {
   const dialogDeleteJourney = (journeyId) => {
     mySwal.fire({
       icon: 'warning',
-      title: langConfig.dialogDeleteJourney,
-      text: langConfig.infoDeleteJourney,
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this learning journey!',
       showCancelButton: true,
-      confirmButtonText: 'Ya, hapus!',
+      confirmButtonText: 'Yes, delete it!',
       confirmButtonColor: '#d33',
-      cancelButtonText: 'Batal',
+      cancelButtonText: 'No, keep it',
       cancelButtonColor: '#3085d6',
       reverseButtons: true
     }).then((result) => {
@@ -235,7 +234,7 @@ const ListOfJourney = (props) => {
               >
                 <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
                 <span className="text-base font-medium text-snow whitespace-nowrap">
-                  {langConfig.tableAddJourney}
+                  Add More Learning Journey
                 </span>
               </Link>
             </div>

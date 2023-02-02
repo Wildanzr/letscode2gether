@@ -1,5 +1,3 @@
-import langConfig from '../../config/langConfig.json'
-
 import { useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 
@@ -37,16 +35,16 @@ const HomePage = () => {
         <div className="flex w-full lg:w-1/2 items-center justify-center">
           <div className="flex flex-col w-full space-y-4 lg:space-y-8 items-center">
             <p className='text-3xl text-center mb-0 lg:text-5xl font-ubuntu font-medium'>
-              {langConfig.home1}
+              A new way to learn
             </p>
             <p className='flex lg:hidden font-ubuntu text-base lg:text-lg text-center'>
-              {langConfig.home1Desc}
+              LetsCode is the best platform to help you learn programming, improve problem solving and collaborative skills.
             </p>
             <p className='hidden lg:flex font-ubuntu text-base lg:text-lg text-center'>
-              {langConfig.home1Desc}
+              LetsCode is the best platform to help you learn programming, <br /> improve problem solving and collaborative skills.
             </p>
-            <Link to='/learning-journey' className='flex flex-row items-center space-x-4 px-10 py-3 rounded-full font-ubuntu font-medium text-lg text-snow hover:text-snow bg-easy'>
-              {langConfig.home1Button} <RiArrowRightSLine className='w-6 h-6' />
+            <Link to='/collab' className='flex flex-row items-center space-x-4 px-10 py-3 rounded-full font-ubuntu font-medium text-lg text-snow hover:text-snow bg-easy'>
+              Get Started <RiArrowRightSLine className='w-6 h-6' />
             </Link>
           </div>
         </div>
@@ -61,17 +59,14 @@ const HomePage = () => {
         <div className="flex w-full lg:w-1/2 items-center justify-center">
           <div className="flex flex-col w-full space-y-4 lg:space-y-8 items-center">
             <p className='text-3xl text-center mb-0 lg:text-5xl font-ubuntu font-medium'>
-              {langConfig.home2}
+              Together more easier
             </p>
             <p className='flex lg:hidden font-ubuntu text-base lg:text-lg text-center'>
-              {langConfig.home2Desc}
+              Don&apos;t think too hard! Invite your friends to solve problems together. We provide a text editor platform that can be used to collaborate anywhere and anytime.
             </p>
             <p className='hidden lg:flex font-ubuntu text-base lg:text-lg text-center'>
-              {langConfig.home2Desc}
+              Don&apos;t think too hard! Invite your friends to solve problems together. <br /> We provide a text editor platform that can be used to <br /> collaborate anywhere and anytime.
             </p>
-            <Link to='/collab' className='flex flex-row items-center space-x-4 px-10 py-3 rounded-full font-ubuntu font-medium text-lg text-snow hover:text-snow bg-easy'>
-              {langConfig.home2Button} <RiArrowRightSLine className='w-6 h-6' />
-            </Link>
           </div>
         </div>
       </div>
@@ -85,13 +80,13 @@ const HomePage = () => {
         <div className="flex w-full lg:w-1/2 items-center justify-center">
           <div className="flex flex-col w-full space-y-4 lg:space-y-8 items-center">
             <p className='text-3xl text-center mb-0 lg:text-5xl font-ubuntu font-medium'>
-              {langConfig.home3}
+              Simply compile and run
             </p>
             <p className='flex lg:hidden font-ubuntu text-base lg:text-lg text-center'>
-              {langConfig.home3Desc}
+              No need to install and configure programming languages on your device. Just choose a programming language and write a few lines of code.
             </p>
             <p className='hidden lg:flex font-ubuntu text-base lg:text-lg text-center'>
-              {langConfig.home3Desc}
+            No need to install and configure programming language <br /> on your device. Just choose a programming language <br /> and write a few lines of code.
             </p>
           </div>
         </div>

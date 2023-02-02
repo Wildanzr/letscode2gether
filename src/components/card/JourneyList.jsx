@@ -1,5 +1,3 @@
-import langConfig from '../../config/langConfig.json'
-
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 
@@ -94,7 +92,7 @@ const JourneyList = (props) => {
 
         <div className="flex flex-row lg:flex-col items-center text-xl space-x-4 lg:space-y-4">
           <p className="mb-0 text-left lg:text-center font-ubuntu font-medium">
-            {langConfig.journeyListProgress}
+            Your Progress:
           </p>
           <div className="mb-0 lg:text-4xl text-left lg:text-center text-success font-ubuntu font-medium">
             {progress === null

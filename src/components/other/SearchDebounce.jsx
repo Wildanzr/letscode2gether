@@ -1,4 +1,3 @@
-import langConfig from '../../config/langConfig.json'
 import api from '../../api'
 
 import Cookies from 'js-cookie'
@@ -74,13 +73,10 @@ const SearchDebounce = (props) => {
   return (
     <Search
     onChange={isChallenge ? debounce(searchProblem, 500) : debounce(searchJourney, 500)}
-        placeholder={isChallenge
-          ? langConfig.formPlaceholderSearchChallenge
-          : langConfig.formPlaceholderSearchJourney
-        }
+        placeholder="Search Learning Journey"
         prefix={<RiSearchLine />}
         allowClear
-        enterButton={langConfig.competeSearchButton}
+        enterButton="Search"
     />
   )
 }

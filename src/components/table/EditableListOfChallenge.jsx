@@ -1,4 +1,3 @@
-import langConfig from '../../config/langConfig.json'
 import { useState } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 
@@ -19,29 +18,29 @@ const EditableListOfChallenge = (props) => {
   // Local states
   const [headingList] = useState([
     {
-      name: langConfig.tableManagementChallenge1,
+      name: 'NO',
       wide: 5,
       align: 'text-left'
     },
     {
-      name: langConfig.tableManagementChallenge2,
+      name: 'NAME',
       wide: 65,
       align: 'text-left'
     },
     {
-      name: langConfig.tableManagementChallenge3,
+      name: 'MAX POINT',
       wide: 10,
       align: 'text-center'
     },
     {
-      name: langConfig.tableManagementChallenge4,
+      name: 'DIFFICULTY',
       wide: 10,
       align: 'text-center'
     },
     {
-      name: langConfig.tableManagementChallenge5,
+      name: 'ACTIONS',
       wide: 10,
-      align: 'text-center'
+      align: 'text-right'
     }
   ])
 
@@ -49,7 +48,7 @@ const EditableListOfChallenge = (props) => {
   const deleteProblem = async (problemId) => {
     // Show loading
     mySwal.fire({
-      title: langConfig.loadingDeleteChallenge,
+      title: 'Deleting Problem...',
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => mySwal.showLoading()
@@ -69,7 +68,7 @@ const EditableListOfChallenge = (props) => {
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: langConfig.successDeleteChallenge,
+        title: 'Delete challenge success',
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -95,12 +94,12 @@ const EditableListOfChallenge = (props) => {
   const dialogDeleteProblem = (problemId) => {
     mySwal.fire({
       icon: 'warning',
-      title: langConfig.dialogDeleteChallenge,
-      text: langConfig.infoDeleteChallenge,
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this problem!',
       showCancelButton: true,
-      confirmButtonText: 'Ya, hapus!',
+      confirmButtonText: 'Yes, delete it!',
       confirmButtonColor: '#d33',
-      cancelButtonText: 'Batal',
+      cancelButtonText: 'No, keep it',
       cancelButtonColor: '#3085d6',
       reverseButtons: true
     }).then((result) => {
@@ -166,9 +165,7 @@ const EditableListOfChallenge = (props) => {
                     <td colSpan={5} className="py-3 px-5 text-left overflow-clip">
                       <div className="flex items-center justify-center">
                         <div className="font-medium whitespace-nowrap">
-                          <span className="text-gray-600">
-                            {langConfig.infoZeroChallenge}
-                          </span>
+                          <span className="text-gray-600">No Challenges Found</span>
                         </div>
                       </div>
                     </td>
@@ -207,13 +204,13 @@ const EditableListOfChallenge = (props) => {
                 <div className="flex items-center justify-center">
                   <div className="font-medium whitespace-nowrap">
                     {difficulty === 1 && (
-                      <Tag color="#16A34A">{langConfig.challengeLevel1}</Tag>
+                      <Tag color="#16A34A">Easy</Tag>
                     )}
                     {difficulty === 2 && (
-                      <Tag color="#EAB308">{langConfig.challengeLevel2}</Tag>
+                      <Tag color="#EAB308">Medium</Tag>
                     )}
                     {difficulty === 3 && (
-                      <Tag color="#DC2626">{langConfig.challengeLevel3}</Tag>
+                      <Tag color="#DC2626">Hard</Tag>
                     )}
                   </div>
                 </div>
@@ -265,7 +262,10 @@ const EditableListOfChallenge = (props) => {
                     <>
                       <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
                       <span className="text-base font-medium text-snow whitespace-nowrap">
-                        {langConfig.tableAddChallenge}
+                        {problems.length === 0
+                          ? 'Add Challenge'
+                          : 'Add More Challenge'
+                        }
                       </span>
                     </>
                     )

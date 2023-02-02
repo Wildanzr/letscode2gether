@@ -1,5 +1,4 @@
 /* eslint-disable prefer-promise-reject-errors */
-import langConfig from '../../config/langConfig.json'
 import { useGlobal } from '../../contexts/GlobalContext'
 import api from '../../api'
 
@@ -24,7 +23,7 @@ const TeacherRegister = () => {
   const [form] = Form.useForm()
 
   // Custom Date Format
-  const dateFormat = 'DD/MM/YYYY'
+  const dateFormat = 'YYYY/MM/DD'
 
   // Finish Success
   const onFinish = async (values) => {
@@ -35,7 +34,7 @@ const TeacherRegister = () => {
 
     // Show loading
     mySwal.fire({
-      title: langConfig.loadingRegister,
+      title: 'Registering you in...',
       allowOutsideClick: true,
       backdrop: true,
       allowEscapeKey: true,
@@ -51,7 +50,7 @@ const TeacherRegister = () => {
 
       mySwal.fire({
         icon: 'success',
-        title: langConfig.successRegister,
+        title: 'Register Success',
         text: data.message,
         allowOutsideClick: true,
         backdrop: true,
@@ -111,7 +110,7 @@ const TeacherRegister = () => {
     if (value) {
       const isTaken = await checkUsername(value)
       if (isTaken) {
-        return Promise.reject(langConfig.validateUsernameTaken)
+        return Promise.reject('Username is taken')
       }
     }
   }, 500)
@@ -121,7 +120,7 @@ const TeacherRegister = () => {
     if (value) {
       const isTaken = await checkEmail(value)
       if (isTaken) {
-        return Promise.reject(langConfig.validateEmailTaken)
+        return Promise.reject('Email is taken')
       }
     }
   }, 500)
@@ -140,22 +139,22 @@ const TeacherRegister = () => {
         rules={[
           {
             required: true,
-            message: langConfig.formEmailRule1
+            message: 'Please input your email!'
           },
           {
             type: 'email',
-            message: langConfig.formEmailRule2
+            message: 'Please input a valid email!'
           },
           {
             max: 50,
-            message: langConfig.formEmailRule3
+            message: 'Email must be at most 50 characters'
           },
           {
             validator: emailValidator
           }
         ]}
       >
-        <Input placeholder={langConfig.formPlaceHolderEmail} />
+        <Input placeholder="Email" />
       </Item>
 
       {/* Fullname */}
@@ -164,19 +163,19 @@ const TeacherRegister = () => {
         rules={[
           {
             required: true,
-            message: langConfig.formFullNameRule1
+            message: 'Please input your full name!'
           },
           {
             max: 255,
-            message: langConfig.formFullNameRule2
+            message: 'Full name must be at most 255 characters'
           },
           {
             min: 3,
-            message: langConfig.formFullNameRule3
+            message: 'Full name must be at least 3 characters'
           }
         ]}
       >
-        <Input placeholder={langConfig.formPlaceholderFullName} />
+        <Input placeholder="Full Name" />
       </Item>
 
       {/* Username */}
@@ -185,26 +184,26 @@ const TeacherRegister = () => {
         rules={[
           {
             required: true,
-            message: langConfig.formUsernameRule1
+            message: 'Please input your username!'
           },
           {
             min: 3,
-            message: langConfig.formUsernameRule2
+            message: 'Username must be at least 3 characters'
           },
           {
             max: 20,
-            message: langConfig.formUsernameRule3
+            message: 'Username must be at most 20 characters'
           },
           {
             pattern: /^[a-z0-9]+$/,
-            message: langConfig.formUsernameRule4
+            message: 'Username must be lowercase and contain only letters and numbers'
           },
           {
             validator: usernameValidator
           }
         ]}
       >
-        <Input placeholder={langConfig.formPlaceholderUsername} />
+        <Input placeholder="Username" />
       </Item>
 
       {/* Gender */}
@@ -213,13 +212,13 @@ const TeacherRegister = () => {
         rules={[
           {
             required: true,
-            message: langConfig.formGenderRule1
+            message: 'Please select your gender'
           }
         ]}
       >
-        <Select placeholder={langConfig.formPlaceholderGender} >
-          <Option value={true}>{langConfig.formGenderOption1}</Option>
-          <Option value={false}>{langConfig.formGenderOption2}</Option>
+        <Select placeholder="Sex">
+          <Option value={true}>Male</Option>
+          <Option value={false}>Female</Option>
         </Select>
       </Item>
 
@@ -229,13 +228,13 @@ const TeacherRegister = () => {
         rules={[
           {
             required: true,
-            message: langConfig.formBirthdayRule1
+            message: 'Please input your date of birth!'
           }
         ]}
       >
         <DatePicker
           format={dateFormat}
-          placeholder={langConfig.formPlaceholderBirthday}
+          placeholder="Date of Birth"
           className="w-full"
         />
       </Item>
@@ -246,19 +245,19 @@ const TeacherRegister = () => {
         rules={[
           {
             required: true,
-            message: langConfig.formPasswordRule1
+            message: 'Please input your password!'
           },
           {
             min: 8,
-            message: langConfig.formPasswordRule2
+            message: 'Password must be at least 8 characters'
           },
           {
             max: 50,
-            message: langConfig.formPasswordRule3
+            message: 'Password must be at most 50 characters'
           }
         ]}
       >
-        <Input.Password placeholder={langConfig.formPlaceholderPassword} />
+        <Input.Password placeholder="Password" />
       </Item>
 
       {/* Confirm Password */}
@@ -267,14 +266,16 @@ const TeacherRegister = () => {
         rules={[
           {
             required: true,
-            message: langConfig.formPasswordRule4
+            message: 'Please confirm your password!'
           },
           ({ getFieldValue }) => ({
             validator (rule, value) {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve()
               }
-              return Promise.reject(langConfig.changePasswordWarn1)
+              return Promise.reject(
+                'The two passwords that you entered do not match!'
+              )
             }
           })
         ]}
@@ -288,16 +289,16 @@ const TeacherRegister = () => {
           type="submit"
           className="w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white font-ubuntu tracking-wider uppercase transition-colors duration-200 transform bg-easy rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400"
         >
-          {langConfig.authRegisterButton}
+          Register
         </button>
       </Item>
 
       {/* Already have an account? login */}
       <Item>
         <p className="text-center font-ubuntu text-main dark:text-snow">
-        {langConfig.authRegisterHaveAccount}
-          <Link to="/auth/login" className="text-blue-500 hover:text-blue-700 pl-1">
-            {langConfig.authLogin}
+          Already have an account?{' '}
+          <Link to="/auth/login" className="text-blue-500 hover:text-blue-700">
+            Login
           </Link>
         </p>
       </Item>

@@ -16,31 +16,28 @@ const Leaderboard = () => {
   const [limit, setLimit] = useState(10)
   const [total, setTotal] = useState(10)
   const [fetch, setFetch] = useState(true)
-  const [start, setStart] = useState(limit - 10)
 
   // Handle pagination change
   const onShowSizeChange = (current, pageSize) => {
     setPage(current)
     setLimit(pageSize)
-    setStart(pageSize - (pageSize - (current - 1) * pageSize))
     setFetch(true)
   }
 
   // Get leaderboard
   const getLeaderboard = async () => {
     // Reset leaderboard
-    setLeaderboard([])
+    setLeaderboard(null)
 
     try {
       const { data } = await api.get(`/compete-problems/${competeProblemId}/leaderboard?page=${page}&limit=${limit}`)
       const { meta } = data
       const { leaderboard } = data.data
+      // console.log(data)
 
       // Set value
       setLeaderboard(leaderboard)
-      setLimit(meta.limit)
       setTotal(meta.total)
-      setPage(meta.page)
     } catch (error) {
       console.log(error)
     }
@@ -61,13 +58,12 @@ const Leaderboard = () => {
           : leaderboard.length === 0
             ? <p className="text-white">No one has solved this problem yet</p>
             : <div className="flex flex-col w-full space-y-4 items-center justify-center">
-              <CPLeaderboard data={leaderboard} start={start} />
+              <CPLeaderboard data={leaderboard} />
               <Pagination
                 onChange={onShowSizeChange}
                 showSizeChanger
                 defaultCurrent={page}
                 total={total}
-                locale={{ items_per_page: ' / halaman' }}
               />
             </div>
         }

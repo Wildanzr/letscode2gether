@@ -1,4 +1,3 @@
-import langConfig from '../../config/langConfig.json'
 import { useState } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import FallBack from '../../assets/fault.png'
@@ -52,11 +51,11 @@ const UpdateProfilePicture = (props) => {
       const isJpgOrPng =
         file.type === 'image/jpeg' || file.type === 'image/png'
       if (!isJpgOrPng) {
-        message.error(langConfig.updatePictureProfileWarn1)
+        message.error('You can only upload JPG/PNG file!')
       }
       const isLt2M = file.size / 1024 / 1024 < 2
       if (!isLt2M) {
-        message.error(langConfig.updatePictureProfileWarn2)
+        message.error('Image must smaller than 2MB!')
       }
       setFileList(file)
       return isJpgOrPng && isLt2M
@@ -90,9 +89,7 @@ const UpdateProfilePicture = (props) => {
       <ImgCrop rotate>
         <Upload {...uploadProps}>
           <div className="flex flex-col items-center justify-center">
-            <Button icon={<UploadOutlined />}>
-              {langConfig.profileUpdatePicture}
-            </Button>
+            <Button icon={<UploadOutlined />}>Update Picture Profile</Button>
           </div>
         </Upload>
       </ImgCrop>

@@ -28,6 +28,7 @@ const Testcase = (props) => {
 
   // Check token
   const checkToken = async (token) => {
+    // console.log('Checking token...')
     let tempRes = {
       statusId: 1,
       data: null

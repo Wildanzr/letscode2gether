@@ -1,4 +1,3 @@
-import langConfig from '../../config/langConfig.json'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { useCollab } from '../../contexts/CollabContext'
 
@@ -15,6 +14,7 @@ const SideContent = () => {
   // Collab States
   const { problemStates } = useCollab()
   const { competeProblem } = problemStates
+  // console.log(competeProblem)
 
   return (
     <div
@@ -30,17 +30,17 @@ const SideContent = () => {
         <div className="flex flex-col w-full p-2">
           {competeProblem
             ? <div className='flex flex-col w-full space-y-1 pb-5'>
-              <h4 className="rt-problem-title mb-0 text-lg lg:text-2xl font-semibold text-main dark:text-snow duration-300 ease-in-out">
+              <h4 className="mb-0 text-lg lg:text-2xl font-semibold text-main dark:text-snow duration-300 ease-in-out">
                 {competeProblem.title}
               </h4>
 
               <div className="flex flex-row space-x-2 items-center">
                 <p className="mb-0 text-sm font-thin duration-300 ease-in-out">
-                  {langConfig.sideContentChallenger}
+                  Challenger:
                 </p>
                   <Link
                     to={`/profile/${competeProblem.challenger.username}`}
-                    className="rt-problem-challenger ml-2 font-medium text-easy text-base"
+                    className="ml-2 font-medium text-easy text-base"
                   >
                     {competeProblem.challenger.username}
                   </Link>

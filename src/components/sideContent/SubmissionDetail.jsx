@@ -1,4 +1,3 @@
-import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 import { languageOptions } from '../../constants/languageOptions'
 
@@ -85,17 +84,13 @@ const SubmissionDetail = (props) => {
         <div className="w-full flex flex-col space-y-2">
           {/* Language */}
           <div className="flex flex-row w-full pb-0 space-x-2 text-white">
-            <p className="mb-0 font-medium">
-              {langConfig.submissionLanguage}
-            </p>
+            <p className="mb-0 font-medium">Language:</p>
             <p className="mb-0 font-bold text-success">{transformLanguageAllowed(submission.languageCode)}</p>
           </div>
 
           <div className="flex flex-col w-full h-full">
             <TestCaseResult tokens={submission.tokens} />
-            <p className="mb-2 text-white">
-              {langConfig.submissionSourceCode}
-            </p>
+            <p className="mb-2 text-white">Source Code:</p>
             <div className="flex flex-col w-full h-80">
               <Editor
                 height={'100%'}

@@ -1,4 +1,3 @@
-import langConfig from '../../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 
 import api from '../../../api'
@@ -14,7 +13,7 @@ const ManageJourneyPage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: langConfig.adminLearningJourney1,
+      name: 'List of Learning Journeys',
       target: '/admin/manage/journeys'
     }
   ])
@@ -63,7 +62,7 @@ const ManageJourneyPage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              {langConfig.adminJourney}
+              Learning Journey
             </h3>
             <Breadcrumb paths={paths} />
           </div>
@@ -99,7 +98,8 @@ const ManageJourneyPage = () => {
           {/* Learning Journey Data */}
           <div className="flex flex-col w-full space-y-2 overflow-y-auto">
             <span className="text-xs font-ubuntu font-light text-main dark:text-snow duration-300 ease-in-out">
-              {langConfig.adminLearningJourneyInfo}
+              * Learning journey was sorted by name, make sure it was sequence
+              by their name.
             </span>
             <div className="flex flex-col pb-4 overflow-y-auto">
               <div className="flex w-full">

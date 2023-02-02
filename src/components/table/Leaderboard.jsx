@@ -1,4 +1,4 @@
-import langConfig from '../../config/langConfig.json'
+import React from 'react'
 
 import B1 from '../../assets/badge1.svg'
 import B2 from '../../assets/badge2.svg'
@@ -18,17 +18,17 @@ const Leaderboard = (props) => {
     if (point === 0) {
       return <p className='mb-0 text-2xl font-ubuntu font-bold text-success'>-</p>
     } else if (point < 500) {
-      return <img src={B1} className="w-10 h-10" />
+      return <img src={B1} className="w-10" />
     } else if (point < 1000) {
-      return <img src={B2} className="w-10 h-10" />
+      return <img src={B2} className="w-10" />
     } else if (point < 1500) {
-      return <img src={B3} className="w-10 h-10" />
+      return <img src={B3} className="w-10" />
     } else if (point < 2000) {
-      return <img src={B4} className="w-10 h-10" />
+      return <img src={B4} className="w-10" />
     } else if (point < 2500) {
-      return <img src={B5} className="w-10 h-10" />
+      return <img src={B5} className="w-10" />
     } else {
-      return <img src={B6} className="w-10 h-10" />
+      return <img src={B6} className="w-10" />
     }
   }
 
@@ -37,16 +37,16 @@ const Leaderboard = (props) => {
       <thead>
         <tr className="bg-easy dark:bg-floor duration-300 ease-in-out text-white uppercase text-sm leading-normal">
           <th className="py-3 px-5 w-10 text-left overflow-clip whitespace-nowrap">
-            {langConfig.leaderboardRank}
+            RANK
           </th>
           <th className="py-3 px-5 text-left overflow-clip whitespace-nowrap">
-            {langConfig.leaderboardName}
+            NAME
           </th>
           <th className="py-3 px-5 text-center overflow-clip whitespace-nowrap">
-            {langConfig.leaderboardPoint}
+            POINT
           </th>
           <th className="py-3 px-5 text-center overflow-clip whitespace-nowrap">
-            {langConfig.leaderboardBadge}
+            CURRENT BADGE
           </th>
         </tr>
       </thead>

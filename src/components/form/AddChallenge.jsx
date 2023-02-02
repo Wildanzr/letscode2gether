@@ -1,4 +1,3 @@
-import langConfig from '../../config/langConfig.json'
 import { useState } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 
@@ -31,15 +30,15 @@ const AddChallenge = () => {
   const [otherFields] = useState([
     {
       name: 'constraint',
-      placeholder: langConfig.problemDetailConstraints
+      placeholder: 'Constraints'
     },
     {
       name: 'inputFormat',
-      placeholder: langConfig.problemDetailInputFormat
+      placeholder: 'Input Format'
     },
     {
       name: 'outputFormat',
-      placeholder: langConfig.problemDetailOutputFormat
+      placeholder: 'Output Format'
     }
   ])
 
@@ -52,7 +51,7 @@ const AddChallenge = () => {
   const onFinish = async (payload) => {
     // Show loading
     mySwal.fire({
-      title: langConfig.loadingCreateChallenge,
+      title: 'Creating Challenge...',
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => {
@@ -84,7 +83,7 @@ const AddChallenge = () => {
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: langConfig.successCreateChallenge,
+        title: 'Challenge created successfully',
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -120,7 +119,7 @@ const AddChallenge = () => {
       <div className="flex flex-row w-full items-start justify-start">
         <div className="flex w-1/4">
           <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-            {langConfig.problemDetailTitle}
+            Title
           </p>
         </div>
         <div className="flex w-3/4">
@@ -130,19 +129,19 @@ const AddChallenge = () => {
             rules={[
               {
                 required: true,
-                message: langConfig.formChallengeTitleRule1
+                message: 'Please input title of problem!'
               },
               {
                 min: 3,
-                message: langConfig.formChallengeTitleRule1
+                message: 'Title must be at least 3 characters!'
               },
               {
                 max: 255,
-                message: langConfig.formChallengeTitleRule1
+                message: 'Title must be at most 255 characters'
               }
             ]}
           >
-            <Input placeholder={langConfig.formPlaceholderChallengeTitle} />
+            <Input placeholder="Title of challenge" />
           </Item>
         </div>
       </div>
@@ -151,7 +150,7 @@ const AddChallenge = () => {
       <div className="flex flex-row w-full items-start justify-start">
         <div className="flex w-1/4">
           <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-            {langConfig.problemDetailDescription}
+            Description
           </p>
         </div>
         <div className="flex w-3/4">
@@ -161,13 +160,13 @@ const AddChallenge = () => {
             rules={[
               {
                 required: true,
-                message: langConfig.formChallengeDescriptionRule1
+                message: 'Please input description of problem!'
               }
             ]}
           >
             <TextArea
               rows={5}
-              placeholder={langConfig.formPlaceholderChallengeDescription}
+              placeholder="Description of challenge"
               className="w-full"
             />
           </Item>
@@ -178,7 +177,7 @@ const AddChallenge = () => {
       <div className="flex flex-row w-full items-start justify-start">
         <div className="flex w-1/4">
           <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-            {langConfig.problemDetailDifficulty}
+            Difficulty
           </p>
         </div>
         <div className="flex w-3/4">
@@ -188,23 +187,17 @@ const AddChallenge = () => {
             rules={[
               {
                 required: true,
-                message: langConfig.formChallengeDifficultyRule1
+                message: 'Please select difficulty of problem!'
               }
             ]}
           >
             <Select
-              placeholder={langConfig.formPlaceholderChallengeDifficulty}
+              placeholder="Select difficulty of challenge"
               className="w-full"
             >
-              <Select.Option value={1}>
-                {langConfig.challengeLevel1}
-              </Select.Option>
-              <Select.Option value={2}>
-                {langConfig.challengeLevel2}
-              </Select.Option>
-              <Select.Option value={3}>
-                {langConfig.challengeLevel3}
-              </Select.Option>
+              <Select.Option value="1">Easy</Select.Option>
+              <Select.Option value="2">Medium</Select.Option>
+              <Select.Option value="3">Hard</Select.Option>
             </Select>
           </Item>
         </div>
@@ -230,19 +223,15 @@ const AddChallenge = () => {
                 rules={[
                   {
                     required: true,
-                    message: `${langConfig.formConstraintsAndFormatRule1a} ${placeholder.toLowerCase()} ${langConfig.formConstraintsAndFormatRule1c}`
+                    message: `Please input ${placeholder.toLowerCase()} of challenge!`
                   },
                   {
-                    max: 1000,
-                    message: `${placeholder} ${langConfig.formConstraintsAndFormatRule2}`
+                    max: 255,
+                    message: `${placeholder} must be at most 255 characters`
                   }
                 ]}
               >
-                <TextArea
-                  autoSize={{ minRows: 1, maxRows: 10 }}
-                  placeholder={`${placeholder} ${langConfig.formConstraintsAndFormatRule1b}`}
-                  className="w-full"
-                />
+                <Input placeholder={`${placeholder} of challenge`} />
               </Item>
             </div>
           </div>
@@ -256,14 +245,14 @@ const AddChallenge = () => {
             to={'/admin/manage/challenges'}
             className="px-4 py-2 mt-4 text-sm font-medium text-center font-ubuntu tracking-wider uppercase transition-colors transform border-2 text-main dark:text-snow border-main dark:border-snow dark:hover:border-easy hover:border-easy duration-300 ease-in-out"
           >
-            {langConfig.buttonCancel}
+            Cancel
           </Link>
 
           <button
             type="submit"
             className="px-4 py-2 mt-4 text-sm font-medium text-center text-white font-ubuntu tracking-wider uppercase transition-colors duration-200 transform bg-easy hover:bg-blue-400 focus:outline-none focus:bg-blue-400"
           >
-            {langConfig.buttonAdd}
+            Save
           </button>
         </div>
       </Item>

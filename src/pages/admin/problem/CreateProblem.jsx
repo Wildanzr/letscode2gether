@@ -1,4 +1,3 @@
-import langConfig from '../../../config/langConfig.json'
 import { useState } from 'react'
 
 import { Navbar, Footer } from '../../../layout'
@@ -14,15 +13,15 @@ const CreateProblemPage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: langConfig.adminLearningJourney1,
+      name: 'List of Learning Journeys',
       target: '/admin/manage/journeys'
     },
     {
-      name: langConfig.adminLearningJourney2a,
+      name: 'Edit Learning Journey',
       target: `/admin/manage/journeys/${journeyId}/edit`
     },
     {
-      name: langConfig.adminLearningJourney1b,
+      name: 'Create Problem',
       target: `/admin/manage/journeys/${journeyId}/problems/create`
     }
   ])
