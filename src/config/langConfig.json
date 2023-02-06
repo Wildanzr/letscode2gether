@@ -68,6 +68,7 @@
   "competeLobbyNoJoin": "Maaf, kamu tidak tergabung dalam kompetisi ini.",
   "competeProblemNoData": "Tidak ada permasalahan ditemukan.",
   "competeProblemLocked": "Dikunci",
+  "competeNotLogin": "Maaf kamu harus masuk terlebih dahulu!",
   "leaderboardDesc": "Disini kamu dapat melihat pengguna teratas dari LetsCode. Ingin melihat namamu di sini? Yuk, mulai belajar dan berlatihlah! Kami yakin kamu pasti bisa!",
   "leaderboardRank": "RANK",
   "leaderboardName": "USERNAME",
@@ -146,6 +147,11 @@
   "formChallengeTitleRule3": "Judul tantangan tidak boleh melebihi dari 255 karakter!",
   "formChallengeDescriptionRule1": "Mohon masukkan deskripsi tantangan!",
   "formChallengeDifficultyRule1": "Mohon pilih tingkat kesulitan tantangan!",
+  "formCompeteNameRule1": "Mohon masukkan nama kompetisi!",
+  "formCompeteNameRule2": "Nama kompetisi tidak boleh melebihi dari 255 karakter!",
+  "formCompeteDescriptionRule1": "Mohon masukkan deskripsi kompetisi!",
+  "formCompeteDurationRule1": "Mohon masukkan durasi kompetisi!",
+  "formCompeteDurationRule2": "Mohon mengisi waktu mulai dan waktu berakhir kompetisi!",
 
 
   "formPlaceholderFullName": "Nama lengkap",
@@ -174,6 +180,10 @@
   "formPlaceholderChallengeTitle": "Judul tantangan",
   "formPlaceholderChallengeDescription": "Deskripsi tantangan",
   "formPlaceholderChallengeDifficulty": "Tingkat kesulitan tantangan",
+  "formPlaceholderCompeteName": "Nama kompetisi",
+  "formPlaceholderCompeteDescription": "Deskripsi kompetisi",
+  "formPlaceholderCompeteStart": "Mulai",
+  "formPlaceholderCompeteEnd": "Berakhir",
   
   
   
@@ -211,6 +221,11 @@
   "loadingDeleteChallenge": "Sedang menghapus tantangan...",
   "loadingCreateChallenge": "Sedang membuat tantangan...",
   "loadingUpdateChallenge": "Sedang memperbarui tantangan...",
+  "loadingDeleteCompete": "Sedang menghapus kompetisi...",
+  "loadingCreateCompete": "Sedang membuat kompetisi...",
+  "loadingUpdateCompete": "Sedang memperbarui kompetisi...",
+
+
 
 
   "successUpdateProfile": "Pembaruan profil berhasil",
@@ -218,6 +233,7 @@
   "successLogIn": "Berhasil masuk",
   "successForgotPassword": "Berhasil",
   "successRegister": "Pendaftaran berhasil",
+  "successDeleteProblem": "Permasalahan berhasil dihapus",
   "successResetPassword": "Password berhasil diperbarui",
   "successUpdateJourney": "Jalur belajar berhasil diperbarui",
   "successUpdateProblem": "Permasalahan berhasil diperbarui",
@@ -231,6 +247,10 @@
   "successDeleteChallenge": "Tantangan berhasil dihapus",
   "successCreateChallenge": "Tantangan berhasil dibuat",
   "successUpdateChallenge": "Tantangan berhasil diperbarui",
+  "successDeleteJourney": "Jalur belajar berhasil dihapus",
+  "successDeleteCompete": "Kompetisi berhasil dihapus",
+  "successUpdateCompete": "Kompetisi berhasil diperbarui",
+  "successCreateCompete": "Kompetisi berhasil dibuat",
 
 
   "infoSomeoneJoined": "Seseorang bergabung dalaman ruangan.",
@@ -239,6 +259,7 @@
   "infoMustLogin": "Kamu harus masuk untuk melihat pengumpulanmu.",
   "infoSeeYouAgain": "Sampai jumpa kembali",
   "infoDeleteJourney": "Jalur belajar yang telah dihapus tidak dapat dipulihkan.",
+  "infoDeleteCompete": "Kompetisi yang telah dihapus tidak dapat dipulihkan.",
   "infoNoInput": "Tidak ada masukkan",
   "infoDeleteSampleCase": "Contoh kasus yang telah dihapus tidak dapat dipulihkan.",
   "infoDeleteTestcase": "Kasus uji yang telah dihapus tidak dapat dipulihkan.",
@@ -258,6 +279,7 @@
   "dialogDeleteTestcase": "Hapus kasus uji?",
   "dialogDeleteProblem": "Hapus permasalahan?",
   "dialogDeleteChallenge": "Hapus tantangan?",
+  "dialogDeleteCompete": "Hapus kompetisi?",
 
   
   "validateUsernameTaken": "Username telah digunakan!",
@@ -367,6 +389,19 @@
   "adminChallenge6": "Edit Contoh Kasus",
   "adminChallenge7": "Edit Uji Kasus",
 
+  "adminCompete": "Kompetisi",
+  "adminCompete1": "Daftar Kompetisi",
+  "adminCompete1a": "Tambah Kompetisi",
+  "adminCompete2": "Edit Kompetisi",
+  "adminCompete3": "Detail Kompetisi",
+  "adminCompete4": "Tambah Permasalahan",
+  "adminCompete4a": "Detail Permasalahan",
+  "adminCompete5": "Edit Permasalahan",
+  "adminCompete6": "Tambah Contoh Kasus",
+  "adminCompete7": "Tambah Uji Kasus",
+  "adminCompete8": "Edit Contoh Kasus",
+  "adminCompete9": "Edit Uji Kasus",
+
 
   "tableManagementJourney1": "NO",
   "tableManagementJourney2": "NAMA MATERI",
@@ -404,12 +439,25 @@
   "tableAddSample": "Tambahkan Contoh Kasus",
   "tableAddTest": "Tambahkan Uji Kasus",
   "tableAddChallenge": "Tambahkan Tantangan",
+  "tableAddCompete": "Tambahkan Kompetisi",
+
+  "tableCompete1": "NO",
+  "tableCompete2": "NAMA",
+  "tableCompete3": "KUNCI",
+  "tableCompete4": "TOTAL PERMASALAHAN",
+  "tableCompete5": "AKSI",
 
 
   "journeyDetailName": "Nama",
   "journeyDetailDescription": "Deskripsi",
   "journeyDetailLanguage": "Bahasa yang dapat digunakan",
   "journeyDetailProblems": "Daftar Permasalahan",
+
+  "competeDetailName": "Nama",
+  "competeDetailDescription": "Deskripsi",
+  "competeDetailLanguage": "Bahasa yang dapat digunakan",
+  "competeDetailProblems": "Daftar Permasalahan",
+  "competeDuration": "Durasi Kompetisi",
 
   
   "problemDetailTitle": "Judul",

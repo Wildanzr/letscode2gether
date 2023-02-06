@@ -1,3 +1,4 @@
+import langConfig from '../../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 import { languageOptions } from '../../../constants/languageOptions'
 
@@ -18,11 +19,11 @@ const DetailCompetesPage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: 'List of Competes',
+      name: langConfig.adminCompete1,
       target: '/teacher/manage/competes'
     },
     {
-      name: 'Detail Compete',
+      name: langConfig.adminCompete3,
       target: `/teacher/manage/competes/${journeyId}`
     }
   ])
@@ -86,7 +87,7 @@ const DetailCompetesPage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              Competes
+              {langConfig.adminCompete}
             </h3>
             <Breadcrumb paths={paths} />
           </div>
@@ -96,13 +97,13 @@ const DetailCompetesPage = () => {
             journeyDetail
               ? (
               <div className="flex flex-col space-y-4 w-full font-ubuntu">
-                <Description title="Name" value={journeyDetail.name} />
+                <Description title={langConfig.competeDetailName} value={journeyDetail.name} />
                 <Description
-                  title="Description"
+                  title={langConfig.competeDetailDescription}
                   value={journeyDetail.description}
                 />
-                <Description title="Language Allowed" value={languageAllowed} />
-                <Description title="Problems" value="" />
+                <Description title={langConfig.competeDetailLanguage} value={languageAllowed} />
+                <Description title={langConfig.competeDetailProblems} value="" />
 
                 {/* List of Problems */}
                 <div className="flex flex-col w-full space-y-2 overflow-y-auto">
