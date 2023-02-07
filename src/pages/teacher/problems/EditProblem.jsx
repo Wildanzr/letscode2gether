@@ -1,3 +1,4 @@
+import langConfig from '../../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 
 import api from '../../../api'
@@ -16,15 +17,15 @@ const EditCompeteProblemPage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: 'List of Competes',
+      name: langConfig.adminCompete1,
       target: '/teacher/manage/competes'
     },
     {
-      name: 'Edit Compete',
+      name: langConfig.adminCompete2,
       target: `/teacher/manage/competes/${journeyId}/edit`
     },
     {
-      name: 'Edit Problem',
+      name: langConfig.adminCompete5,
       target: `/teacher/manage/competes/${journeyId}/problems/${problemId}/edit`
     }
   ])
@@ -70,7 +71,7 @@ const EditCompeteProblemPage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              Competes
+              {langConfig.adminCompete}
             </h3>
             <Breadcrumb paths={paths} />
           </div>
@@ -80,14 +81,14 @@ const EditCompeteProblemPage = () => {
             <div className="flex flex-col space-y-4 w-full font-ubuntu">
               <div className="flex flex-col w-full space-y-2">
                 <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-                  Sample Cases
+                  {langConfig.problemDetailSampleCase}
                 </p>
                 <EditableSampleCase sampleCases={sampleCases} setFetch={setFetch} competes={true}/>
               </div>
 
               <div className="flex flex-col w-full space-y-2">
                 <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-                  Test Cases
+                  {langConfig.problemDetailTestCase}
                 </p>
                 <EditableTestCase testCases={testCases} setFetch={setFetch} competes={true}/>
               </div>

@@ -1,3 +1,4 @@
+import langConfig from '../../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../../contexts/AuthContext'
 
@@ -14,7 +15,7 @@ const ManageCompetesPage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: 'List of Competes',
+      name: langConfig.adminCompete1,
       target: '/teacher/manage/journeys'
     }
   ])
@@ -69,7 +70,7 @@ const ManageCompetesPage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              Competes
+              {langConfig.adminCompete}
             </h3>
             <Breadcrumb paths={paths} />
           </div>

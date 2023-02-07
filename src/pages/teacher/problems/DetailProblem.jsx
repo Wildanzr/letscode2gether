@@ -1,3 +1,4 @@
+import langConfig from '../../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 
 import api from '../../../api'
@@ -23,29 +24,29 @@ const EditCompeteProblemPage = () => {
     origin === 'edit'
       ? [
           {
-            name: 'List of Competes',
+            name: langConfig.adminCompete1,
             target: '/teacher/manage/competes'
           },
           {
-            name: 'Edit Compete',
+            name: langConfig.adminCompete2,
             target: `/teacher/manage/competes/${journeyId}/edit`
           },
           {
-            name: 'Detail Problem',
+            name: langConfig.adminCompete4a,
             target: `/teacher/manage/competes/${journeyId}/problems/${problemId}?origin=edit`
           }
         ]
       : [
           {
-            name: 'List of Competes',
+            name: langConfig.adminCompete1,
             target: '/teacher/manage/competes'
           },
           {
-            name: 'Detail Compete',
+            name: langConfig.adminCompete3,
             target: `/teacher/manage/competes/${journeyId}`
           },
           {
-            name: 'Detail Problem',
+            name: langConfig.adminCompete4a,
             target: `/teacher/manage/competes/${journeyId}/problems/${problemId}?origin=detail`
           }
         ]
@@ -88,7 +89,7 @@ const EditCompeteProblemPage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              Competes
+              {langConfig.adminCompete}
             </h3>
             <Breadcrumb paths={paths} />
           </div>
@@ -97,22 +98,28 @@ const EditCompeteProblemPage = () => {
           {problemDetail
             ? (
               <div className="flex flex-col space-y-4 w-full font-ubuntu">
-                <Description title="Title" value={problemDetail.title} />
-                <Description title="Description" value={problemDetail.description} />
-                <Description title="Constraints" value={problemDetail.constraint} />
+                <Description title={langConfig.problemDetailTitle} value={problemDetail.title} />
+                <Description title={langConfig.problemDetailDescription} value={problemDetail.description} />
+                <Description title={langConfig.problemDetailConstraints} value={problemDetail.constraint} />
                 <Description
-                  title="Difficulty"
+                  title={langConfig.problemDetailDifficulty}
                   value={
                     problemDetail.difficulty === 1
-                      ? <span className='font-medium text-success'>Easy</span>
+                      ? <span className='font-medium text-success'>
+                        {langConfig.challengeLevel1}
+                      </span>
                       : problemDetail.difficulty === 2
-                        ? <span className='font-medium text-medium'>Medium</span>
-                        : <span className='font-medium text-hard'>Hard</span>
+                        ? <span className='font-medium text-medium'>
+                          {langConfig.challengeLevel2}
+                        </span>
+                        : <span className='font-medium text-hard'>
+                          {langConfig.challengeLevel3}
+                        </span>
                   }
                 />
-                <Description title="Input Format" value={problemDetail.inputFormat} />
-                <Description title="Output Format" value={problemDetail.outputFormat} />
-                <Description title="Sample Cases" value={null} />
+                <Description title={langConfig.problemDetailInputFormat} value={problemDetail.inputFormat} />
+                <Description title={langConfig.problemOutputFormat} value={problemDetail.outputFormat} />
+                <Description title={langConfig.problemDetailSampleCase} value={null} />
 
                 {/* Problem Sample Cases */}
                 <div className="flex flex-col w-full space-y-2 overflow-y-auto">
@@ -123,7 +130,7 @@ const EditCompeteProblemPage = () => {
                   </div>
                 </div>
 
-                <Description title="Test Cases" value={null} />
+                <Description title={langConfig.problemDetailTestCase} value={null} />
 
                 {/* Problem Test Cases */}
                 <div className="flex flex-col w-full space-y-2 overflow-y-auto">

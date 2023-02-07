@@ -1,3 +1,4 @@
+import langConfig from '../../../config/langConfig.json'
 import { useState } from 'react'
 
 import { Navbar, Footer } from '../../../layout'
@@ -14,11 +15,11 @@ const EditCompetesPage = () => {
   // Breadcrumb paths
   const [paths] = useState([
     {
-      name: 'List of Competes',
+      name: langConfig.adminCompete1,
       target: '/teacher/manage/competes'
     },
     {
-      name: 'Edit Compete',
+      name: langConfig.adminCompete2,
       target: `/teacher/manage/competes/${journeyId}/edit`
     }
   ])
@@ -30,7 +31,7 @@ const EditCompetesPage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              Competes
+              {langConfig.adminCompete}
             </h3>
             <Breadcrumb paths={paths} />
           </div>

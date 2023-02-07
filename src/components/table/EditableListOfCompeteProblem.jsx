@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 
@@ -20,29 +21,29 @@ const EditableListOfCompeteProblem = (props) => {
   const [fetch, setFetch] = useState(true)
   const [headingList] = useState([
     {
-      name: 'NO',
+      name: langConfig.tableManagementChallenge1,
       wide: 5,
       align: 'text-left'
     },
     {
-      name: 'NAME',
+      name: langConfig.tableManagementChallenge2,
       wide: 45,
       align: 'text-left'
     },
     {
-      name: 'MAX POINT',
+      name: langConfig.tableManagementChallenge3,
       wide: 15,
       align: 'text-center'
     },
     {
-      name: 'DIFFICULTY',
+      name: langConfig.tableManagementChallenge4,
       wide: 15,
       align: 'text-center'
     },
     {
-      name: 'ACTIONS',
+      name: langConfig.tableManagementChallenge5,
       wide: 20,
-      align: 'text-right'
+      align: 'text-center'
     }
   ])
 
@@ -72,7 +73,7 @@ const EditableListOfCompeteProblem = (props) => {
   const deleteProblem = async (problemId) => {
     // Show loading
     mySwal.fire({
-      title: 'Deleting Problem...',
+      title: langConfig.loadingDeleteProblem,
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => mySwal.showLoading()
@@ -92,7 +93,7 @@ const EditableListOfCompeteProblem = (props) => {
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: 'Delete problem success',
+        title: langConfig.successDeleteProblem,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -118,12 +119,12 @@ const EditableListOfCompeteProblem = (props) => {
   const dialogDeleteProblem = (problemId) => {
     mySwal.fire({
       icon: 'warning',
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this problem!',
+      title: langConfig.dialogDeleteProblem,
+      text: langConfig.infoDeleteProblem,
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Ya, hapus!',
       confirmButtonColor: '#d33',
-      cancelButtonText: 'No, keep it',
+      cancelButtonText: 'Batal',
       cancelButtonColor: '#3085d6',
       reverseButtons: true
     }).then((result) => {
@@ -218,13 +219,19 @@ const EditableListOfCompeteProblem = (props) => {
                   <div className="flex items-center justify-center">
                     <div className="font-medium whitespace-nowrap">
                       {difficulty === 1 && (
-                        <Tag color="#16A34A">Easy</Tag>
+                        <Tag color="#16A34A">
+                          {langConfig.challengeLevel1}
+                        </Tag>
                       )}
                       {difficulty === 2 && (
-                        <Tag color="#EAB308">Medium</Tag>
+                        <Tag color="#EAB308">
+                          {langConfig.challengeLevel2}
+                        </Tag>
                       )}
                       {difficulty === 3 && (
-                        <Tag color="#DC2626">Hard</Tag>
+                        <Tag color="#DC2626">
+                          {langConfig.challengeLevel3}
+                        </Tag>
                       )}
                     </div>
                   </div>
@@ -278,7 +285,7 @@ const EditableListOfCompeteProblem = (props) => {
               >
                 <BsPlus className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
                 <span className="text-base font-medium text-snow whitespace-nowrap">
-                  Add More Problem
+                  {langConfig.tableAddProblem}
                 </span>
               </Link>
             </div>

@@ -309,7 +309,7 @@ const Runner = () => {
               runCode('run', 'run')
               setRun(true)
             }}
-            className={`rt-code-run flex py-1 px-1 lg:px-2 justify-center font-bold font-code tracking-wider rounded-sm text-easy dark:text-snow border-2 border-easy dark:border-white hover:border-main hover:text-main dark:hover:border-blue-500 duration-300 ${
+            className={`rt-code-run flex py-1 px-1 lg:px-2 justify-center font-bold font-code tracking-wider rounded-sm text-main dark:text-snow border-2 border-main dark:border-white hover:border-easy hover:text-main dark:hover:border-blue-500 duration-300 ${
               btnDisabled
                 ? 'border-gray-300 text-gray-300 hover:border-gray-300'
                 : ''

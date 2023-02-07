@@ -37,7 +37,7 @@ const Compete = (props) => {
     if (!user) {
       mySwal.fire({
         icon: 'error',
-        title: 'You must login first!',
+        title: langConfig.competeNotLogin,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,

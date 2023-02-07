@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react'
+import langConfig from '../../config/langConfig.json'
 
-import { Tag, Spin } from 'antd'
+import { Tag, Spin, message } from 'antd'
 
 import axios from 'axios'
-import { BsCheckCircle, BsXCircle } from 'react-icons/bs'
+import { BsCheckCircle, BsXCircle, BsQuestionCircleFill } from 'react-icons/bs'
 
 const TestCase = (props) => {
   const { token, title } = props
 
   // Local States
   const [result, setResult] = useState(null)
+  const [tokenInvalid, setTokenInvalid] = useState(false)
 
   // Get Submission Result
   const getSubmission = async (token) => {
@@ -38,6 +40,8 @@ const TestCase = (props) => {
       }
     } catch (err) {
       console.log('err', err)
+      setResult(false)
+      setTokenInvalid(true)
       return {
         statusId: 13,
         data: null
@@ -62,8 +66,9 @@ const TestCase = (props) => {
     }
 
     // Set value
-    if (tempRes.statusId === 3 || tempRes.data.status.id === 3) setResult(true)
-    else setResult(false)
+    if (tempRes.data !== null) {
+      if (tempRes.statusId === 3 || tempRes.data.status.id === 3) setResult(true)
+    } else setResult(false)
   }
 
   // Initially check token
@@ -75,7 +80,9 @@ const TestCase = (props) => {
       ? '#FFFFFF'
       : result === true
         ? '#16A34A'
-        : '#DC2626'
+        : tokenInvalid === true
+          ? '#8D9F8D'
+          : '#DC2626'
     }`}>
       <div className="flex flex-row gap-2 py-2 items-center justify-center">
         <span className={`font-medium tracking-wide text-sm ${result === null ? 'text-black' : 'text-white'} duration-150 ease-in-out`}>{title}</span>
@@ -83,7 +90,9 @@ const TestCase = (props) => {
           ? <Spin size="small" />
           : result === true
             ? <BsCheckCircle className={`w-5 h-5 duration-150 ease-in-out ${result === null ? 'fill-black' : 'fill-white'}`} />
-            : <BsXCircle className={`w-5 h-5 duration-150 ease-in-out ${result === null ? 'fill-black' : 'fill-white'}`} />
+            : tokenInvalid === true
+              ? <BsQuestionCircleFill onClick={() => message.info(langConfig.sideContentSubmissionsInfo)} className={`cursor-pointer w-5 h-5 duration-150 ease-in-out ${result === null ? 'fill-black' : 'fill-white'}`} />
+              : <BsXCircle className={`w-5 h-5 duration-150 ease-in-out ${result === null ? 'fill-black' : 'fill-white'}`} />
           }
       </div>
     </Tag>

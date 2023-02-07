@@ -1,3 +1,4 @@
+import langConfig from '../../../config/langConfig.json'
 import { useState } from 'react'
 
 import { Navbar, Footer } from '../../../layout'
@@ -14,19 +15,19 @@ const EditProblemTestCasePage = () => {
   const [paths] = useState(
     [
       {
-        name: 'List of Competes',
+        name: langConfig.adminCompete,
         target: '/teacher/manage/competes'
       },
       {
-        name: 'Edit Compete',
+        name: langConfig.adminCompete2,
         target: `/teacher/manage/competes/${journeyId}/edit`
       },
       {
-        name: 'Edit Problem',
+        name: langConfig.adminCompete5,
         target: `/teacher/manage/competes/${journeyId}/problems/${problemId}/edit`
       },
       {
-        name: 'Edit Test Case',
+        name: langConfig.adminCompete9,
         target: `/teacher/manage/competes/${journeyId}/problems/${problemId}/testcases/${testId}/edit`
       }
     ]
@@ -39,7 +40,7 @@ const EditProblemTestCasePage = () => {
           {/* Header and Breadcrumb */}
           <div className="flex flex-col w-full">
             <h3 className="mb-0 font-ubuntu text-main dark:text-snow text-xl font-medium duration-300 ease-in-out">
-              Competes
+              {langConfig.adminCompete}
             </h3>
             <Breadcrumb paths={paths} />
           </div>

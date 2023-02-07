@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useAuth } from '../../contexts/AuthContext'
 
 import api from '../../api'
@@ -79,11 +80,11 @@ const CompeteSearch = (props) => {
   }
   return (
     <Search
-        placeholder="Search Learning Journey"
+        placeholder={langConfig.competeSearch}
         onChange={isChallenge ? debounce(searchProblem, 500) : debounce(searchJourney, 500)}
         prefix={<RiSearchLine />}
         allowClear
-        enterButton="Search"
+        enterButton={langConfig.competeSearchButton}
     />
   )
 }
