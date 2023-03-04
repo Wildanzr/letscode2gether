@@ -1,4 +1,4 @@
-import{e as k,a as m}from"./react-dom.dfd08c0f.js";var h={},_,y=k.exports;_=h.createRoot=y.createRoot,h.hydrateRoot=y.hydrateRoot;/** @preserve
+import{e as k,a as m}from"./react-dom.b71f8272.js";var h={},_,y=k.exports;_=h.createRoot=y.createRoot,h.hydrateRoot=y.hydrateRoot;/** @preserve
   * package: sweetalert2-react-content v5.0.3
   * file: dist/sweetalert2-react-content.es.js
   * homepage: https://github.com/sweetalert2/sweetalert2-react-content#readme
