@@ -29,7 +29,6 @@ const UpdateProfile = (props) => {
     phone,
     bio
   } = userDetails
-  console.log(dateOfBirth)
 
   // Global Functions
   const { globalFunctions } = useGlobal()
@@ -69,7 +68,6 @@ const UpdateProfile = (props) => {
 
     // Create payload
     const payload = {
-      email: values.email,
       username: values.username,
       fullName: values.fullName,
       gender: values.gender,
