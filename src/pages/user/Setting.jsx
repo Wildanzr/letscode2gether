@@ -25,15 +25,17 @@ const SettingPage = () => {
   }
 
   // Get profile details
-  const getProfileDetails = async () => {
-    // Reset user details
-    setUserDetails(null)
-
+  const getProfileDetails = async (user) => {
     // Config
     const config = {
       headers: {
         authorization: Cookies.get('jwtToken')
       }
+    }
+
+    // Check if user is null
+    if (user === null) {
+      await getUserData()
     }
 
     try {
@@ -48,10 +50,24 @@ const SettingPage = () => {
     }
   }
 
+  // Local get user data
+  const getUserData = async () => {
+    // Set header authorization
+    const config = {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+    await api.get('/auth/me', config).then((res) => {
+      // console.log(res.data)
+      getProfileDetails(res.data.data.user)
+    })
+  }
+
   // Initially get user data
   useEffect(() => {
     if (fetch) {
-      getProfileDetails()
+      getProfileDetails(user)
       setFetch(false)
     }
   }, [fetch])

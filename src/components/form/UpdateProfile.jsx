@@ -176,7 +176,7 @@ const UpdateProfile = (props) => {
             }
           ]}
         >
-          <Input placeholder="Full Name" />
+          <Input placeholder="Nama Lengkap" />
         </Item>
 
         {/* Username */}
@@ -235,7 +235,7 @@ const UpdateProfile = (props) => {
         >
           <DatePicker
             format={dateFormat}
-            placeholder="Date of Birth"
+            placeholder="Tanggal Lahir"
             className="w-full"
           />
         </Item>
@@ -259,7 +259,7 @@ const UpdateProfile = (props) => {
         >
           {/* min rows 1 max 3 */}
           <TextArea
-            placeholder="Address"
+            placeholder="Alamat"
             autoSize={{ minRows: 1, maxRows: 2 }}
           />
         </Item>
@@ -285,7 +285,7 @@ const UpdateProfile = (props) => {
             }
           ]}
         >
-          <Input placeholder="Phone" />
+          <Input placeholder="Nomor Telepon" />
         </Item>
 
         {/* Bio */}
