@@ -4,6 +4,8 @@ import { defineTheme } from '../../libs/defineTheme'
 import { themeDropDown } from '../../constants/themeDropdown'
 import { languageOptions } from '../../constants/languageOptions'
 
+import { useCallbackPrompt } from '../../hooks/useCallbackPrompt'
+
 import { useState, useEffect } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { useAuth } from '../../contexts/AuthContext'
@@ -15,8 +17,9 @@ import LangDropdown from './LangDropdown'
 
 const Editor = () => {
   // Global States
-  const { editorState } = useGlobal()
+  const { editorState, globalFunctions } = useGlobal()
   const { setTheme } = editorState
+  const { mySwal } = globalFunctions
 
   // Auth States
   const { authStates } = useAuth()
@@ -26,6 +29,9 @@ const Editor = () => {
   const { collabStates, problemStates } = useCollab()
   const { setLanguage, guestName, roomId, socket } = collabStates
   const { languageList } = problemStates
+
+  // Callback Prompt Hook
+  const [showPrompt, cancelNavigation, confirmNavigation] = useCallbackPrompt(true)
 
   // Local States
   const [languageAllowed, setLanguageAllowed] = useState(
@@ -61,7 +67,7 @@ const Editor = () => {
 
     setTimeout(() => {
       socket.emit('req_leave_room', payload)
-    }, 3000)
+    }, 1000)
   }
 
   // Change theme
@@ -88,6 +94,33 @@ const Editor = () => {
   useEffect(() => {
     rId = roomId
   }, [roomId])
+
+  // Monitor showPrompt state
+  useEffect(() => {
+    if (showPrompt) {
+      mySwal.fire({
+        icon: 'warning',
+        title: langConfig.dialogLeaveRoom,
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: langConfig.dialogLeave,
+        cancelButtonText: langConfig.dialogStay,
+        reverseButtons: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        backdrop: true,
+        preConfirm: () => {
+          forceLeaveRoom()
+          confirmNavigation()
+        }
+      }).then((result) => {
+        if (result.isDismissed) {
+          cancelNavigation()
+        }
+      })
+    }
+  }, [showPrompt])
 
   return (
     <>

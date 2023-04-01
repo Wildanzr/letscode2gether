@@ -254,22 +254,22 @@ const CollabInfo = (props) => {
   // Handle leave room response
   const handleLeaveRoom = (res) => {
     if (res && res.status) {
-      message.info(langConfig.infoMeLeftRoom)
       setIsPrivate(true)
       createRoom()
+      message.info(langConfig.infoMeLeftRoom)
     } else {
       console.log(res)
       // Show error
-      mySwal.fire({
-        icon: 'error',
-        title: res.message,
-        allowOutsideClick: true,
-        backdrop: true,
-        allowEscapeKey: true,
-        timer: 3000,
-        showConfirmButton: false,
-        timerProgressBar: true
-      })
+      // mySwal.fire({
+      //   icon: 'error',
+      //   title: res.message,
+      //   allowOutsideClick: true,
+      //   backdrop: true,
+      //   allowEscapeKey: true,
+      //   timer: 3000,
+      //   showConfirmButton: false,
+      //   timerProgressBar: true
+      // })
     }
   }
 

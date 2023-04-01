@@ -14,7 +14,6 @@ export default defineConfig({
           'framer-motion': ['framer-motion'],
           'react-icons': ['react-icons'],
           axios: ['axios'],
-          'monaco-themes': ['monaco-themes'],
           sweetalert2: ['sweetalert2'],
           'react-draggable': ['react-draggable'],
           'sweetalert2-react-content': ['sweetalert2-react-content']

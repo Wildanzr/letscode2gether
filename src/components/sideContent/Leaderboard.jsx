@@ -28,9 +28,6 @@ const Leaderboard = () => {
 
   // Get leaderboard
   const getLeaderboard = async () => {
-    // Reset leaderboard
-    setLeaderboard([])
-
     try {
       const { data } = await api.get(`/compete-problems/${competeProblemId}/leaderboard?page=${page}&limit=${limit}`)
       const { meta } = data

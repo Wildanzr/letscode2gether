@@ -272,6 +272,9 @@
 
   
   "dialogLeftRoom": "Apakah kamu yakin ingin keluar dari ruangan ini?",
+  "dialogLeaveRoom": "Apakah kamu yakin ingin meninggalkan ruangan ini?",
+  "dialogLeave": "Ya, keluar",
+  "dialogStay": "Tetap di sini",
   "dialogSubmitCode": "Apakah kamu yakin ingin mengumpulkan kode ini?",
   "dialogLogout": "Apakah kamu yakin ingin keluar?",
   "dialogDeleteJourney": "Hapus jalur belajar?",
@@ -335,6 +338,7 @@
   "collabIDRoom": "ID Ruangan:",
   "collabRoomJoin": "Gabung",
   "collabRoomLeft": "Keluar",
+  "collabRoomStay": "Tetap di sini",
   "collabMustLogin": "Kamu harus masuk untuk mengumpulkan kode!",
   "collabRun": "JALANKAN",
   "collabSubmit": "KUMPULKAN",
