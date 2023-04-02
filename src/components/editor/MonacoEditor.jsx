@@ -1,4 +1,5 @@
 import langConfig from '../../config/langConfig.json'
+import { languageOptions } from '../../constants/languageOptions'
 import { useState, useEffect, useRef } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { useCollab } from '../../contexts/CollabContext'
@@ -30,13 +31,14 @@ const MonacoEditor = (props) => {
 
   // Collab States
   const { collabStates } = useCollab()
-  const { setCode, guestName, isPrivate } = collabStates
+  const { setCode, guestName, isPrivate, language: collabLang } = collabStates
 
   // Local states
   const editorRef = useRef(null)
   const [editorReady, setEditorReady] = useState(false)
   const [customCss, setCustomCss] = useState('.user { }')
   const [renderCss, setRenderCss] = useState(true)
+  let cpIdWithCode = competeProblemId
 
   // Local variables
   let ydoc = null
@@ -101,7 +103,7 @@ const MonacoEditor = (props) => {
     // Check if any code is saved in cookie
     setTimeout(() => {
       if (isPrivate) {
-        const code = Cookies.get(competeProblemId)
+        const code = Cookies.get(cpIdWithCode)
         if (code) {
           editorRef.current.setValue(code)
           setCode(editorRef.current.getValue())
@@ -120,11 +122,6 @@ const MonacoEditor = (props) => {
       provider.awareness.on('update', (changes) => {
         // Update code
         setCode(editorRef.current.getValue())
-
-        // If room is private, save code to cookie for 30 days
-        if (isPrivate) {
-          Cookies.set(competeProblemId, editorRef.current.getValue(), { expires: 30 })
-        }
 
         // Update user list
         const users = Array.from(provider.awareness.states)
@@ -155,6 +152,32 @@ const MonacoEditor = (props) => {
       setRenderCss(false)
     }
   }, [renderCss])
+
+  // Save code to cookie every 5 seconds
+  useEffect(() => {
+    if (isPrivate) {
+      const interval = setInterval(() => {
+        Cookies.set(cpIdWithCode, editorRef.current.getValue(), { expires: 30 })
+      }, 5000)
+      return () => clearInterval(interval)
+    }
+  }, [cpIdWithCode, isPrivate, collabLang])
+
+  // Monitor language state
+  useEffect(() => {
+    cpIdWithCode = `${competeProblemId}_${collabLang}`
+    if (editorReady) {
+      const template = languageOptions.find((lang) => lang.id === collabLang).template
+      if (isPrivate) {
+        const code = Cookies.get(cpIdWithCode)
+        if (code) {
+          editorRef.current.setValue(code)
+        } else {
+          editorRef.current.setValue(template)
+        }
+      }
+    }
+  }, [collabLang])
 
   // Determine if collaboration or compete problem
   useEffect(() => {
