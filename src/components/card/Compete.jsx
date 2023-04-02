@@ -103,9 +103,13 @@ const Compete = (props) => {
                 ? <Link to={`${_id}/lobby`} className="px-2 py-2 bg-success text-main cursor-pointer whitespace-nowrap rounded font-medium">
                     {langConfig.competeButtonLabel3}
                   </Link>
-                : <label onClick={joinCompete} htmlFor='modal-join-compete' className="px-2 py-2 bg-easy text-snow cursor-pointer whitespace-nowrap rounded font-medium">
-                    {langConfig.competeButtonLabel1}
-                  </label>
+                : username === user.username
+                  ? <Link to={`${_id}/lobby`} className="px-2 py-2 bg-easy text-snow cursor-pointer whitespace-nowrap rounded font-medium">
+                      {langConfig.competeButtonLabel4}
+                    </Link>
+                  : <label onClick={joinCompete} htmlFor='modal-join-compete' className="px-2 py-2 bg-easy text-snow cursor-pointer whitespace-nowrap rounded font-medium">
+                      {langConfig.competeButtonLabel1}
+                    </label>
           }
         </div>
 

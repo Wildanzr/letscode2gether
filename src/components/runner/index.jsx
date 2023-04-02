@@ -10,6 +10,7 @@ import InputArea from './InputArea'
 
 import { encode } from 'js-base64'
 import { useParams } from 'react-router-dom'
+import { RiLockFill } from 'react-icons/ri'
 
 const Runner = () => {
   // useParams
@@ -19,7 +20,7 @@ const Runner = () => {
   const { editorState, globalFunctions, globalState } = useGlobal()
   const { setRun, showInput, setShowInput, setCustomInput } = editorState
   const { mySwal } = globalFunctions
-  const { setColHide, setColSideContent, isOnlyEditor } = globalState
+  const { setColHide, setColSideContent, isOnlyEditor, timeOut } = globalState
 
   // Auth States
   const { authStates } = useAuth()
@@ -291,7 +292,7 @@ const Runner = () => {
         </div>
         <div className="flex flex-row items-center justify-start space-x-4">
           <button
-            disabled={btnDisabled}
+            disabled={btnDisabled || timeOut}
             onClick={() => {
               if (language === null) {
                 mySwal.fire({
@@ -309,18 +310,21 @@ const Runner = () => {
               runCode('run', 'run')
               setRun(true)
             }}
-            className={`rt-code-run flex py-1 px-1 lg:px-2 justify-center font-bold font-code tracking-wider rounded-sm text-main dark:text-snow border-2 border-main dark:border-white hover:border-easy hover:text-main dark:hover:border-blue-500 duration-300 ${
+            className={`rt-code-run flex py-1 px-1 lg:px-2 items-center justify-center font-bold font-code tracking-wider rounded-sm text-main dark:text-snow border-2 border-main dark:border-white hover:border-easy hover:text-main dark:hover:border-blue-500 duration-300 ${
               btnDisabled
                 ? 'border-gray-300 text-gray-300 hover:border-gray-300'
                 : ''
             }`}
           >
+            {timeOut && (
+              <RiLockFill className="mr-1 fill-main dark:fill-snow duration-300 ease-in-out" />
+            )}
             {langConfig.collabRun}
           </button>
 
           {!isOnlyEditor && (
             <button
-              disabled={btnDisabled}
+              disabled={btnDisabled || timeOut}
               onClick={() => {
                 if (language === null) {
                   mySwal.fire({
@@ -337,12 +341,15 @@ const Runner = () => {
                 }
                 submitDialog()
               }}
-              className={`rt-code-submit flex py-1 px-1 lg:px-2 justify-center font-bold font-code tracking-wider bg-easy dark:bg-main rounded-sm border-b-2 text-snow border-white hover:border-medium dark:hover:border-blue-500 duration-300 ${
+              className={`rt-code-submit flex py-1 px-1 lg:px-2 items-center justify-center font-bold font-code tracking-wider bg-easy dark:bg-main rounded-sm border-b-2 text-snow border-white hover:border-medium dark:hover:border-blue-500 duration-300 ${
                 btnDisabled
                   ? 'border-gray-300 text-gray-300 hover:border-gray-300'
                   : ''
               }`}
             >
+              {timeOut && (
+                <RiLockFill className="mr-1 fill-main dark:fill-snow duration-300 ease-in-out" />
+              )}
               {langConfig.collabSubmit}
             </button>
           )}

@@ -15,6 +15,7 @@ export const GlobalProvider = ({ children }) => {
   const [isOn, setIsOn] = useState(false)
   const [toggle, setToggle] = useState(true)
   const [isTourNeverShow, setIsTourNeverShow] = useState(Cookies.get('isTourNeverShow') || false)
+  const [timeOut, setTimeOut] = useState(false)
 
   // Global Functions
   const mySwal = withReactContent(Swal)
@@ -41,7 +42,9 @@ export const GlobalProvider = ({ children }) => {
     isOnlyEditor,
     setIsOnlyEditor,
     isTourNeverShow,
-    setIsTourNeverShow
+    setIsTourNeverShow,
+    timeOut,
+    setTimeOut
   }
 
   // Export global functions

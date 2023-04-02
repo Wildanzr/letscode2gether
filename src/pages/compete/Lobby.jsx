@@ -2,6 +2,7 @@ import langConfig from '../../config/langConfig.json'
 
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
+import { useGlobal } from '../../contexts/GlobalContext'
 
 import api from '../../api'
 import { Navbar, Footer } from '../../layout'
@@ -11,6 +12,7 @@ import { CompeteProblemList, CompeteLeaderboard } from '../../views'
 import Cookies from 'js-cookie'
 import { Spin } from 'antd'
 import { useParams } from 'react-router-dom'
+import moment from 'moment'
 
 const CompeteLobbyPage = () => {
   // useParams
@@ -20,6 +22,10 @@ const CompeteLobbyPage = () => {
   const { authStates, authFunctions } = useAuth()
   const { user } = authStates
   const { travelLog } = authFunctions
+
+  // Global States
+  const { globalState } = useGlobal()
+  const { setTimeOut } = globalState
 
   // Local States
   const [isJoined, setIsJoined] = useState(null)
@@ -57,6 +63,9 @@ const CompeteLobbyPage = () => {
 
       // Set Value
       setCompete(compete)
+      if (moment() > moment(compete.end)) {
+        setTimeOut(true)
+      }
 
       await getCompeteProblems(_id)
     } catch (error) {
@@ -81,6 +90,7 @@ const CompeteLobbyPage = () => {
   // Initially check is user already joined
   useEffect(() => {
     if (user) {
+      getCompeteDetails()
       checkJoined()
     } else {
       setIsJoined(false)
@@ -155,13 +165,60 @@ const CompeteLobbyPage = () => {
               </div>
             </div>
                 )
-              : (
-                  <div className="flex w-full h-screen items-center justify-center">
-                    <p className='text-lg font-semibold'>
-                      {langConfig.competeLobbyNoJoin}
-                    </p>
-                  </div>
-                )}
+              : compete !== null &&
+            user.username === compete.challenger.username
+                ? (
+            <div className="flex flex-col w-full h-full items-center justify-start">
+              <CompeteHeader compete={compete} />
+              <div className="flex flex-col w-full items-center justify-center space-y-6">
+                {/* Tabs */}
+                <div className="flex bg-gray-200 rounded-lg mt-5">
+                  <button
+                    className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${
+                      tabKey === 1 ? 'bg-easy text-snow' : 'text-main'
+                    }`}
+                    onClick={() => setTabKey(1)}
+                  >
+                    {langConfig.competeLobbyTab1}
+                  </button>
+                  <button
+                    className={`whitespace-nowrap font-bold text-base tracking-wide flex-1 py-2 px-4 text-center rounded-lg focus:outline-none ${
+                      tabKey === 2 ? 'bg-easy text-snow' : 'text-main'
+                    }`}
+                    onClick={() => setTabKey(2)}
+                  >
+                    {langConfig.competeLobbyTab2}
+                  </button>
+                </div>
+
+                {/* Tab Content */}
+                {(tabKey === 1 && isJoined) || (tabKey === 1 && user.username === compete.challenger.username)
+                  ? (
+                      compete === null || problems === null
+                        ? (
+                    <Spin size="default" />
+                          )
+                        : (
+                    <CompeteProblemList
+                      problems={problems}
+                      competeId={compete._id}
+                      compete={compete}
+                    />
+                          )
+                    )
+                  : (
+                  <CompeteLeaderboard />
+                    )}
+              </div>
+            </div>
+                  )
+                : (
+            <div className="flex w-full h-screen items-center justify-center">
+              <p className="text-lg font-semibold">
+                {langConfig.competeLobbyNoJoin}
+              </p>
+            </div>
+                  )}
         </div>
       </Navbar>
 

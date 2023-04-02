@@ -1,8 +1,16 @@
 import { useCallback, useEffect, useState } from 'react'
+
+import { useGlobal } from '../contexts/GlobalContext'
+
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useBlocker } from './useBlocker'
 
 export function useCallbackPrompt (when) {
+  // Global State
+  const { globalState } = useGlobal()
+  const { setTimeOut } = globalState
+
+  // Local State
   const navigate = useNavigate()
   const location = useLocation()
   const [showPrompt, setShowPrompt] = useState(false)
@@ -26,6 +34,7 @@ export function useCallbackPrompt (when) {
   const confirmNavigation = useCallback(() => {
     setShowPrompt(false)
     setConfirmedNavigation(true)
+    setTimeOut(false)
   }, [])
 
   useEffect(() => {

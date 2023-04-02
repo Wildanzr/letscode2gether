@@ -85,8 +85,8 @@ const Challenge = (props) => {
       <div className="flex w-2/6 items-start justify-end">
         {disabled
           ? (
-          <buttton
-            disabled
+          <Link
+            to={`path/${competeId}/problems/${competeProblemId}`}
             className={`w-full lg:w-2/3 py-2 ${
               isDone === null
                 ? 'bg-snow'
@@ -95,10 +95,10 @@ const Challenge = (props) => {
                 : isDone === 1
                 ? 'bg-medium'
                 : 'bg-success'
-            } text-main text-center rounded font-medium lg:font-bold cursor-not-allowed`}
+            } text-main text-center rounded font-medium lg:font-bold`}
           >
             {langConfig.competeProblemLocked}
-          </buttton>
+          </Link>
             )
           : (
           <Link
