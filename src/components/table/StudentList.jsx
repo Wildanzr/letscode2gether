@@ -15,7 +15,7 @@ import B6 from '../../assets/badge6.svg'
 
 const StudentList = (props) => {
   // Props destructure
-  const { students } = props
+  const { students, start } = props
 
   // Local states
   const [headingList] = useState([
@@ -94,7 +94,7 @@ const StudentList = (props) => {
                   <td className="py-3 px-5 text-left overflow-clip">
                     <div className="flex items-center justify-center">
                       <div className="font-medium whitespace-nowrap">
-                        <span className="text-main">{index + 1}</span>
+                        <span className="text-main">{start + index + 1}</span>
                       </div>
                     </div>
                   </td>

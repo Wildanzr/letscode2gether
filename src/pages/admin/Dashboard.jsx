@@ -21,10 +21,12 @@ const DashboardPage = () => {
   const [search, setSearch] = useState('')
   const [total, setTotal] = useState(10)
   const [fetch, setFetch] = useState(true)
+  const [start, setStart] = useState(limit - 10)
 
   const onShowSizeChange = (current, pageSize) => {
     setPage(current)
     setLimit(pageSize)
+    setStart(pageSize - (pageSize - (current - 1) * pageSize))
     setFetch(true)
   }
 
@@ -40,9 +42,6 @@ const DashboardPage = () => {
 
   // Get student list data
   const getStudentList = async () => {
-    // Reset student
-    setStudents(null)
-
     // Config
     const config = {
       headers: {
@@ -127,7 +126,7 @@ const DashboardPage = () => {
           </div>
           <div className="flex w-full items-center justify-center pb-5 overflow-y-auto">
             <div className="flex flex-col w-full items-center justify-center">
-              <StudentList students={students} />
+              <StudentList students={students} start={start} />
             </div>
           </div>
         </div>
