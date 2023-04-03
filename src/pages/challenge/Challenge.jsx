@@ -84,8 +84,13 @@ const ChallengePage = () => {
       // console.log(data)
 
       const { competes } = data.data
-      setCompeteId(competes[0]._id)
-      setSecondFetch(true)
+
+      if (competes.length === 0) {
+        setProblems([])
+      } else {
+        setCompeteId(competes[0]._id)
+        setSecondFetch(true)
+      }
     } catch (error) {
       console.log(error)
     }

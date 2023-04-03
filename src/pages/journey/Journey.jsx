@@ -43,6 +43,7 @@ const JourneyPage = () => {
       // console.log(data)
 
       const { competes } = data.data
+      // console.log(competes)
       setJourneys(competes)
     } catch (error) {
       console.log(error)
@@ -64,8 +65,12 @@ const JourneyPage = () => {
       // console.log(data)
 
       // Set Value
-      setProgress(progress)
       setPoint(point)
+      if (progress === null) {
+        setProgress(0)
+      } else {
+        setProgress(progress)
+      }
     } catch (error) {
       console.log(error)
     }
@@ -157,13 +162,15 @@ const JourneyPage = () => {
         </div>
 
         <div className="flex flex-col space-y-5 w-full px-[5%]">
-          {journeys
-            ? (
-                journeys.map((journey, index) => (
+          {journeys === null
+            ? <Skeleton active paragraph={5} />
+            : journeys.length === 0
+              ? <p className="text-2xl font-ubuntu font-medium text-center">{langConfig.challengeNoData}</p>
+              : (
+                  journeys.map((journey, index) => (
                 <JourneyList key={index} journey={journey} />
-                ))
-              )
-            : <Skeleton active paragraph={5} />
+                  ))
+                )
           }
         </div>
       </Navbar>

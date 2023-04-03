@@ -244,6 +244,10 @@ const Navbar = (props) => {
 
         {/* Hide if the screen lg */}
         <div className="flex lg:hidden flex-row items-center space-x-5">
+          { user
+            ? <Profile user={user} dialogLogout={dialogLogout} />
+            : null
+          }
           <DarkSwitch />
           <motion.div
             className="flex items-center justify-center rounded-full"
