@@ -153,6 +153,7 @@
   "formCompeteDescriptionRule1": "Mohon masukkan deskripsi kompetisi!",
   "formCompeteDurationRule1": "Mohon masukkan durasi kompetisi!",
   "formCompeteDurationRule2": "Mohon mengisi waktu mulai dan waktu berakhir kompetisi!",
+  "formCompeteKeyRule1": "Mohon masukkan kode akses kompetisi!",
 
 
   "formPlaceholderFullName": "Nama lengkap",
@@ -185,6 +186,7 @@
   "formPlaceholderCompeteDescription": "Deskripsi kompetisi",
   "formPlaceholderCompeteStart": "Mulai",
   "formPlaceholderCompeteEnd": "Berakhir",
+  "formPlaceholderCompeteKey": "Kode akses kompetisi",
   
   
   

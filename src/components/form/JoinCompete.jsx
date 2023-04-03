@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useGlobal } from '../../contexts/GlobalContext'
 
 import api from '../../api'
@@ -81,17 +82,17 @@ const JoinCompete = (props) => {
         rules={[
           {
             required: true,
-            message: 'Please input compete key!'
+            message: langConfig.formCompeteKeyRule1
           }
         ]}
       >
-        <Input placeholder="Ask compete key to your teacher" />
+        <Input placeholder={langConfig.formPlaceholderCompeteKey} />
       </Item>
 
       {/* Button */}
       <Item>
         <Button type="primary" htmlType="submit" className="w-full">
-          Join
+          {langConfig.collabRoomJoin}
         </Button>
       </Item>
     </Form>
