@@ -67,7 +67,11 @@ const TestCase = (props) => {
 
     // Set value
     if (tempRes.data !== null) {
-      if (tempRes.statusId === 3 || tempRes.data.status.id === 3) setResult(true)
+      if (tempRes.statusId === 3 || tempRes.data.status.id === 3) {
+        setResult(true)
+      } else {
+        setResult(false)
+      }
     } else setResult(false)
   }
 

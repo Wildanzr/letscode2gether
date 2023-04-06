@@ -86,7 +86,7 @@ const CollabInfo = (props) => {
     if (inputRoomId === null || inputRoomId === '') {
       message.error(langConfig.collabRoomWarn1)
       return
-    } else if (inputRoomId.length < 5 || inputRoomId.length > 5) {
+    } else if (inputRoomId.length < 10 || inputRoomId.length > 10) {
       message.error(langConfig.collabRoomWarn2)
       return
     }
@@ -385,8 +385,6 @@ const CollabInfo = (props) => {
       <div className="flex flex-row space-x-2">
         <div className="flex rt-collab-field">
           <Input
-            maxLength={5}
-            minLength={5}
             allowClear
             disabled={!isPrivate}
             onChange={(e) => setInputRoomId(e.target.value)}
