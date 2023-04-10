@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  web:
+    build:
+      context: ./
+    image: letscode-web-solo:skripsi
+    restart: always
+    container_name: letscode-web-solo
+    ports:
+      - "3001:3001"
