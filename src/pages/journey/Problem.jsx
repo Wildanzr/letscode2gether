@@ -176,7 +176,7 @@ const ProblemPage = () => {
       selector: '.rt-editor',
       content: () => (
         <div className="font-ubuntu">
-          <p>Bagian ini merupakan text editor. Dengan text editor ini kamu dapat berkolaborasi bersama temanmu melalui ID ruangan yang sama.</p>
+          <p>Bagian ini merupakan text editor untuk menuliskan kode program kamu.</p>
         </div>
       ),
       action: (node) => {
