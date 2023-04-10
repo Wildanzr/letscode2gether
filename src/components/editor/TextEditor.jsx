@@ -8,9 +8,9 @@ import MonacoEditor from './MonacoEditor'
 
 const TextEditor = () => {
   // Global States
-  const { editorState, globalFunctions } = useGlobal()
+  const { editorState } = useGlobal()
   const { theme } = editorState
-  const { mySwal } = globalFunctions
+  // const { mySwal } = globalFunctions
 
   // Collab States
   const { collabStates } = useCollab()
@@ -31,18 +31,18 @@ const TextEditor = () => {
       const { language } = res.data
       setIntelisense(language)
     } else {
-      console.log(res)
-      // Show error
-      mySwal.fire({
-        icon: 'error',
-        title: res.message,
-        allowOutsideClick: true,
-        backdrop: true,
-        allowEscapeKey: true,
-        timer: 3000,
-        showConfirmButton: false,
-        timerProgressBar: true
-      })
+      // console.log(res)
+      // // Show error
+      // mySwal.fire({
+      //   icon: 'error',
+      //   title: res.message,
+      //   allowOutsideClick: true,
+      //   backdrop: true,
+      //   allowEscapeKey: true,
+      //   timer: 3000,
+      //   showConfirmButton: false,
+      //   timerProgressBar: true
+      // })
     }
   }
 

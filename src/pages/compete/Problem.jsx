@@ -5,7 +5,7 @@ import { useCollab } from '../../contexts/CollabContext'
 
 import api from '../../api'
 import { Navbar as MainNavbar, Footer } from '../../layout'
-import { Navbar, RoomInfo, SideContent } from '../../components/collaboration'
+import { Navbar, SideContent } from '../../components/collaboration'
 import Editor from '../../components/editor'
 import Runner from '../../components/runner'
 import Result from '../../components/result'
@@ -151,65 +151,6 @@ const CompeteProblemPage = () => {
       }
     },
     {
-      selector: '.rt-collab-info',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>
-            Bagian ini merupakan informasi mengenai ruang kolaborasi yang terdiri
-            dari <span className="font-bold">driver</span>,{' '}
-            <span className="font-bold">navigator</span>,{' '}
-            <span className="font-bold">partisipan</span>, dan{' '}
-            <span className="font-bold">ID ruangan</span>. Dalam model
-            pembelajaran pair programming,{' '}
-            <span className="font-bold">driver</span> bertanggung jawab menulis
-            kode sesuai arahan dari navigator, sedangkan{' '}
-            <span className="font-bold">navigator</span> yang memimpin diskusi dan
-            bertanggung jawab atas kualitas kode dan desain solusi. Keduanya
-            bekerja sama untuk mencapai solusi terbaik dalam penyelesaian masalah.
-          </p>
-        </div>
-      ),
-      action: (node) => {
-        setColHide(false)
-        node.focus()
-      },
-      observe: '[data-tour="observable-parent"]',
-      mutationObservables: ['[data-tour="observable-parent"]']
-    },
-    {
-      selector: '.rt-collab-field',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>Bagian ini dapat diartikan sebagai gerbang untuk bergabung atau meninggalkan ruang kolaborasi. Untuk bergabung pada ruang kolaborasi, masukkan ID ruangan yang valid. ID ruangan hanya terdiri dari 5 karakter.</p>
-        </div>
-      ),
-      action: (node) => {
-        node.focus()
-      }
-    },
-    {
-      selector: '.rt-collab-button',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>Tekan tombol <span className="font-bold">&quot;Gabung&quot;</span> untuk bergabung pada ruang kolaborasi. Tekan tombol <span className="font-bold">&quot;Keluar&quot;</span> untuk meninggalkan ruang kolaborasi.</p>
-        </div>
-      ),
-      action: (node) => {
-        node.focus()
-      }
-    },
-    {
-      selector: '.rt-meet',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>Tombol ini digunakan untuk membuka komunikasi melalui video conference.</p>
-        </div>
-      ),
-      action: (node) => {
-        node.focus()
-      }
-    },
-    {
       selector: '.rt-language',
       content: () => (
         <div className="font-ubuntu">
@@ -250,8 +191,8 @@ const CompeteProblemPage = () => {
         </div>
       ),
       action: (node) => {
-        const section = document.querySelector('.rt-custom-input')
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        // const section = document.querySelector('.rt-custom-input')
+        // section.scrollIntoView({ behavior: 'smooth', block: 'start' })
         node.focus()
       },
       position: 'bottom'
@@ -308,7 +249,7 @@ const CompeteProblemPage = () => {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Ya, saya ingin melihatnya',
       cancelButtonText: 'Tidak perlu',
-      reverseButtons: true,
+      reverseButtons: false,
       footer: SwalFooter()
     }).then((result) => {
       if (result.isConfirmed) {
@@ -400,8 +341,8 @@ const CompeteProblemPage = () => {
               colHide ? 'w-full lg:w-1/2 h-0 lg:h-full' : 'w-full h-full'
             } justify-between overflow-auto transition-all ease-in-out duration-500 space-y-6`}
           >
-            <div className="flex flex-col w-full h-full items-start justify-start pt-2 pb-10 px-2 space-y-6 bg-milk dark:bg-alternate duration-300 ease-in-out">
-              <RoomInfo />
+            <div className="flex flex-col w-full h-full items-start justify-start pt-5 pb-10 px-2 space-y-6 bg-milk dark:bg-alternate duration-300 ease-in-out">
+              {/* <RoomInfo /> */}
               <Editor />
               <Runner />
               {run && <Result />}

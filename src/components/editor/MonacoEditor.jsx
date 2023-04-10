@@ -190,7 +190,7 @@ const MonacoEditor = (props) => {
   }, [])
 
   return (
-    <div className={'flex flex-col px-5 py-5 w-full h-full'}>
+    <div className={'flex flex-col py-5 w-full h-full'}>
       {renderCss
         ? null
         : <style>{`${customCss}`}</style>
