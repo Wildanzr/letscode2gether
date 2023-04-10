@@ -241,45 +241,45 @@ const CompeteProblemPage = () => {
       action: (node) => {
         node.focus()
       }
-    },
-    {
-      selector: '.rt-custom-input',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>Bagian ini digunakan untuk memasukkan input yang akan diberikan ke program secara kustom.</p>
-        </div>
-      ),
-      action: (node) => {
-        const section = document.querySelector('.rt-custom-input')
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        node.focus()
-      },
-      position: 'bottom'
-    },
-    {
-      selector: '.rt-code-run',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>Tombol ini digunakan untuk menjalankan program dan menampilkan hasilnya.</p>
-        </div>
-      ),
-      action: (node) => {
-        node.focus()
-      },
-      position: 'bottom'
-    },
-    {
-      selector: '.rt-code-submit',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>Tombol ini digunakan untuk mengumpulkan program dan akan menilai dengan uji kasus yang telah disediakan.</p>
-        </div>
-      ),
-      action: (node) => {
-        node.focus()
-      },
-      position: 'bottom'
     }
+    // {
+    //   selector: '.rt-custom-input',
+    //   content: () => (
+    //     <div className="font-ubuntu">
+    //       <p>Bagian ini digunakan untuk memasukkan input yang akan diberikan ke program secara kustom.</p>
+    //     </div>
+    //   ),
+    //   action: (node) => {
+    //     // const section = document.querySelector('.rt-custom-input')
+    //     // section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    //     node.focus()
+    //   },
+    //   position: 'bottom'
+    // },
+    // {
+    //   selector: '.rt-code-run',
+    //   content: () => (
+    //     <div className="font-ubuntu">
+    //       <p>Tombol ini digunakan untuk menjalankan program dan menampilkan hasilnya.</p>
+    //     </div>
+    //   ),
+    //   action: (node) => {
+    //     node.focus()
+    //   },
+    //   position: 'bottom'
+    // },
+    // {
+    //   selector: '.rt-code-submit',
+    //   content: () => (
+    //     <div className="font-ubuntu">
+    //       <p>Tombol ini digunakan untuk mengumpulkan program dan akan menilai dengan uji kasus yang telah disediakan.</p>
+    //     </div>
+    //   ),
+    //   action: (node) => {
+    //     node.focus()
+    //   },
+    //   position: 'bottom'
+    // }
   ]
 
   // Never show tour again
@@ -308,7 +308,7 @@ const CompeteProblemPage = () => {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Ya, saya ingin melihatnya',
       cancelButtonText: 'Tidak perlu',
-      reverseButtons: true,
+      reverseButtons: false,
       footer: SwalFooter()
     }).then((result) => {
       if (result.isConfirmed) {
