@@ -24,3 +24,7 @@
 img {
   display: unset !important;
 }
+
+.ql-container {
+  font-size: inherit !important
+}

@@ -65,7 +65,7 @@ const ListOfJourney = (props) => {
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: 'Journey has been deleted',
+        title: langConfig.successDeleteJourney,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -159,7 +159,9 @@ const ListOfJourney = (props) => {
                     <td colSpan={5} className="py-3 px-5 text-left overflow-clip">
                       <div className="flex items-center justify-center">
                         <div className="font-medium whitespace-nowrap">
-                          <span className="ml-3 text-gray-600">No Journeys Found</span>
+                          <span className="ml-3 text-gray-600">
+                            {langConfig.infoZeroJourney}
+                          </span>
                         </div>
                       </div>
                     </td>

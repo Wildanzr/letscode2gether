@@ -170,7 +170,7 @@ const AddJourney = () => {
       <div className="flex flex-row w-full items-start justify-start">
         <div className="flex w-1/4">
           <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-            Language Allowed
+            {langConfig.journeyDetailLanguage}
           </p>
         </div>
         <div className="flex w-3/4">

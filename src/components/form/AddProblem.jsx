@@ -1,5 +1,5 @@
 import langConfig from '../../config/langConfig.json'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 
 import api from '../../api'
@@ -7,6 +7,8 @@ import api from '../../api'
 import Cookies from 'js-cookie'
 import { Form, Input, Select } from 'antd'
 import { Link, useParams, useNavigate } from 'react-router-dom'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
 // Destructure Antd Components
 const { Item } = Form
@@ -30,6 +32,7 @@ const AddProblem = (props) => {
   const { mySwal } = globalFunctions
 
   // Local States
+  const [quillValue, setQuillValue] = useState('')
   const [otherFields] = useState([
     {
       name: 'constraint',
@@ -44,6 +47,9 @@ const AddProblem = (props) => {
       placeholder: langConfig.problemDetailOutputFormat
     }
   ])
+
+  // Local Refs
+  const quillRef = useRef(null)
 
   // Finish Error
   const onFinishFailed = (errorInfo) => {
@@ -61,6 +67,11 @@ const AddProblem = (props) => {
         mySwal.showLoading()
       }
     })
+
+    payload = {
+      ...payload,
+      description: quillValue
+    }
 
     // Configuration
     const config = {
@@ -148,35 +159,41 @@ const AddProblem = (props) => {
               }
             ]}
           >
-            <Input placeholder={langConfig.formPlaceholderProblemTitle} />
+            <Input
+              placeholder={langConfig.formPlaceholderProblemTitle}
+            />
           </Item>
         </div>
       </div>
 
       {/* Description */}
-      <div className="flex flex-row w-full items-start justify-start">
+      <div className="flex flex-row w-full items-start justify-start pb-5">
         <div className="flex w-1/4">
           <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
             {langConfig.problemDetailDescription}
           </p>
         </div>
         <div className="flex w-3/4">
-          <Item
-            name="description"
-            className="w-full"
-            rules={[
-              {
-                required: true,
-                message: langConfig.formProblemDescriptionRule1
+          <ReactQuill
+            ref={quillRef}
+            className="w-full h-full bg-white"
+            theme='snow'
+            value={quillValue}
+            onChange={setQuillValue}
+            placeholder='Deskripsi permasalahan'
+            modules={{
+              toolbar: {
+                container: [
+                  ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                  [{ list: 'ordered' }, { list: 'bullet' }],
+                  [{ align: [] }],
+                  ['link', 'image'],
+                  [{ color: [] }, { background: [] }],
+                  [{ script: 'super' }, { script: 'sub' }]
+                ]
               }
-            ]}
-          >
-            <TextArea
-              autoSize={{ minRows: 2, maxRows: 10 }}
-              placeholder={langConfig.formPlaceholderProblemDescription}
-              className="w-full"
-            />
-          </Item>
+            }}
+          />
         </div>
       </div>
 

@@ -118,7 +118,7 @@ const Runner = () => {
         config = configWithInput()
       } else {
         // no custom input
-        config = competeProblem
+        config = competeProblemId !== 'collaboration'
           ? { submissions: sampleConfig(competeProblem.sampleCases) }
           : { submissions: [collabConfig()] }
       }
@@ -249,7 +249,7 @@ const Runner = () => {
 
     mySwal
       .fire({
-        title: 'Submit Code?',
+        title: 'Kumpulkan kode?',
         text: langConfig.dialogSubmitCode,
         icon: 'question',
         showCancelButton: true,
@@ -263,6 +263,7 @@ const Runner = () => {
         if (result.isConfirmed) {
           runCode('submit', 'submission')
           setRun(true)
+          setResult([])
           setColHide(true)
           setColSideContent('problems')
         }

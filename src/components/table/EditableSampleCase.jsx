@@ -120,6 +120,21 @@ const EditableSampleCase = (props) => {
     })
   }
 
+  const formatOutput = (str) => {
+    const formatted = str.replace(/\^/g, '\n')
+
+    return (
+      <>
+        {formatted.split('\n').map((line, index) => (
+          <span key={index}>
+            {line}
+            <br />
+          </span>
+        ))}
+      </>
+    )
+  }
+
   return (
     <>
       {sampleCases
@@ -193,7 +208,7 @@ const EditableSampleCase = (props) => {
                     <td className="py-3 px-5 text-left overflow-clip">
                       <div className="flex items-center justify-start">
                         <div className="font-medium">
-                          <span className="text-gray-600">{explanation}</span>
+                          <span className="text-gray-600">{formatOutput(explanation)}</span>
                         </div>
                       </div>
                     </td>

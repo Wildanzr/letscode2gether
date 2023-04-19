@@ -90,7 +90,7 @@ const EditableListOfProblem = (props) => {
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: 'Delete problem success',
+        title: langConfig.successDeleteProblem,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -114,21 +114,23 @@ const EditableListOfProblem = (props) => {
 
   // Dialog delete problem
   const dialogDeleteProblem = (problemId) => {
-    mySwal.fire({
-      icon: 'warning',
-      title: langConfig.dialogDeleteProblem,
-      text: langConfig.infoDeleteProblem,
-      showCancelButton: true,
-      confirmButtonText: 'Ya, hapus!',
-      confirmButtonColor: '#d33',
-      cancelButtonText: 'Batal',
-      cancelButtonColor: '#3085d6',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        deleteProblem(problemId)
-      }
-    })
+    mySwal
+      .fire({
+        icon: 'warning',
+        title: langConfig.dialogDeleteProblem,
+        text: langConfig.infoDeleteProblem,
+        showCancelButton: true,
+        confirmButtonText: 'Ya, hapus!',
+        confirmButtonColor: '#d33',
+        cancelButtonText: 'Batal',
+        cancelButtonColor: '#3085d6',
+        reverseButtons: true
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          deleteProblem(problemId)
+        }
+      })
   }
 
   // Initial get compete problems
@@ -144,7 +146,10 @@ const EditableListOfProblem = (props) => {
       <thead>
         <tr className="bg-gray-600 text-white uppercase text-sm leading-normal">
           {headingList.map((heading, index) => (
-            <th key={index} className={`py-3 px-5 w-[${heading.wide}%] ${heading.align} overflow-clip whitespace-nowrap`}>
+            <th
+              key={index}
+              className={`py-3 px-5 w-[${heading.wide}%] ${heading.align} overflow-clip whitespace-nowrap`}
+            >
               {heading.name}
             </th>
           ))}
@@ -182,11 +187,25 @@ const EditableListOfProblem = (props) => {
             </td>
           </tr>
             )
-          : (
-              problems.map((problem, index) => {
-                const { _id: competeId, problemId, maxPoint } = problem
-                const { _id, title, difficulty } = problemId
-                return (
+          : problems.length === 0
+            ? (
+          <tr className="border-b border-gray-200 bg-gray-100 hover:bg-white">
+            <td colSpan={5} className="py-3 px-5 text-left overflow-clip">
+              <div className="flex items-center justify-center">
+                <div className="font-medium whitespace-nowrap">
+                  <span className="ml-3 text-gray-600">
+                    {langConfig.infoZeroProblem}
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+              )
+            : (
+                problems.map((problem, index) => {
+                  const { _id: competeId, problemId, maxPoint } = problem
+                  const { _id, title, difficulty } = problemId
+                  return (
               <tr
                 key={index}
                 className="border-b border-gray-200 bg-gray-100 hover:bg-white"
@@ -216,19 +235,13 @@ const EditableListOfProblem = (props) => {
                   <div className="flex items-center justify-center">
                     <div className="font-medium whitespace-nowrap">
                       {difficulty === 1 && (
-                        <Tag color="#16A34A">
-                          {langConfig.challengeLevel1}
-                        </Tag>
+                        <Tag color="#16A34A">{langConfig.challengeLevel1}</Tag>
                       )}
                       {difficulty === 2 && (
-                        <Tag color="#EAB308">
-                          {langConfig.challengeLevel2}
-                        </Tag>
+                        <Tag color="#EAB308">{langConfig.challengeLevel2}</Tag>
                       )}
                       {difficulty === 3 && (
-                        <Tag color="#DC2626">
-                          {langConfig.challengeLevel3}
-                        </Tag>
+                        <Tag color="#DC2626">{langConfig.challengeLevel3}</Tag>
                       )}
                     </div>
                   </div>
@@ -258,9 +271,9 @@ const EditableListOfProblem = (props) => {
                   </div>
                 </td>
               </tr>
-                )
-              })
-            )}
+                  )
+                })
+              )}
       </tbody>
       <tfoot>
         {/* Button for add more learning journey */}

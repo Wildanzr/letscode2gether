@@ -35,7 +35,7 @@ const SideContent = () => {
               </h4>
 
               <div className="flex flex-row space-x-2 items-center">
-                <p className="mb-0 text-sm font-thin duration-300 ease-in-out">
+                <p className="mb-0 text-sm font-thin">
                   {langConfig.sideContentChallenger}
                 </p>
                   <Link

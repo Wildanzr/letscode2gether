@@ -165,7 +165,7 @@ const JourneyPage = () => {
           {journeys === null
             ? <Skeleton active paragraph={5} />
             : journeys.length === 0
-              ? <p className="text-2xl font-ubuntu font-medium text-center">{langConfig.challengeNoData}</p>
+              ? <p className="text-2xl font-ubuntu font-medium text-center">{langConfig.journeyNoData}</p>
               : (
                   journeys.map((journey, index) => (
                 <JourneyList key={index} journey={journey} />

@@ -3,6 +3,8 @@ import { useCollab } from '../../contexts/CollabContext'
 
 import ProblemSpecification from './ProblemSpecification'
 import SampleCase from './SampleCase'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.bubble.css'
 
 import { Spin } from 'antd'
 
@@ -27,13 +29,17 @@ const Problem = () => {
   }
 
   return (
-    <div className="rt-problem-description flex flex-col w-full h-full space-y-4 text-main dark:text-snow duration-300 ease-in-out">
+    <div className="rt-problem-description flex flex-col w-full h-full space-y-4 font-ubuntu text-main dark:text-snow duration-300 ease-in-out">
       <div className="flex flex-col w-full">
         {competeProblem
           ? (
-            <p className="text-sm text-justify mb-0">
-              {competeProblem.description}
-            </p>
+            <ReactQuill
+            className="w-full h-full font-ubuntu text-base"
+            theme='bubble'
+            value={competeProblem.description}
+            readOnly={true}
+            placeholder='Deskripsi permasalahan'
+          />
             )
           : <Spin size='small' />
         }
