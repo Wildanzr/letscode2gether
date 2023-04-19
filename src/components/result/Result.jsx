@@ -42,12 +42,12 @@ const Result = (props) => {
 
   const color = statusId === 1 || statusId === 2 ? 'text-yellow-400' : statusId === 3 ? 'text-green-400' : 'text-red-400'
   return (
-    <div className="flex flex-col px-2 py-2 space-y-4 w-full text-main dark:text-snow duration-300 ease-in-out">
+    <div className="flex flex-col px-2 py-2 space-y-4 w-full text-snow dark:text-snow duration-300 ease-in-out">
         <div className="flex flex-col w-full space-y-2">
           <p className="font-semibold text-base mb-0">
             {langConfig.sampleCaseInput}
           </p>
-          <div className={`w-full px-2 py-1 font-code text-base bg-white mb-0 ${stdin ? 'text-black' : 'text-gray-300'}`}>
+          <div className={`w-full px-2 py-1 font-code text-base bg-snow dark:bg-snow mb-0 ${stdin ? 'text-black' : 'text-gray-300'}`}>
             {stdin === undefined
               ? <Spin size='small'/>
               : stdin === null
@@ -61,7 +61,7 @@ const Result = (props) => {
           <p className="font-semibold text-base mb-0">
             {langConfig.sampleCaseOutput}
           </p>
-          <div className={`w-full px-2 py-1 font-code text-base bg-white mb-0 ${stdout ? 'text-black' : 'text-gray-300'}`}>
+          <div className={`w-full px-2 py-1 font-code text-base bg-snow dark:bg-snow mb-0 ${stdout ? 'text-black' : 'text-gray-300'}`}>
             {stdout === undefined
               ? <Spin size='small'/>
               : stdout === null
@@ -77,7 +77,7 @@ const Result = (props) => {
             <p className="font-semibold text-base mb-0">
               {langConfig.sampleCaseExpected}
             </p>
-            <div className="w-full px-2 py-1 font-code text-base bg-white mb-0 text-black">
+            <div className="w-full px-2 py-1 font-code text-base bg-snow dark:bg-snow mb-0 text-black">
               {expected_output === undefined
                 ? <Spin size='small'/>
                 : expected_output === null
@@ -94,7 +94,7 @@ const Result = (props) => {
             <p className="font-semibold text-base mb-0">
               {langConfig.sampleCaseError}
             </p>
-            <div className="w-full px-2 py-1 font-code text-base bg-white mb-0 text-black">
+            <div className="w-full px-2 py-1 font-code text-base bg-snow dark:bg-snow mb-0 text-black">
               {stderr === undefined
                 ? <Spin size='small'/>
                 : stderr === null
@@ -110,7 +110,7 @@ const Result = (props) => {
             <p className="font-semibold text-base mb-0">
               {langConfig.sampleCompileError}
             </p>
-            <div className="w-full px-2 py-1 font-code text-base bg-white mb-0 text-black">
+            <div className="w-full px-2 py-1 font-code text-base bg-snow dark:bg-snow mb-0 text-black">
               {compile_output === undefined
                 ? <Spin size='small'/>
                 : compile_output === null

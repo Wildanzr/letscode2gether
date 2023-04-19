@@ -27,7 +27,7 @@ const SampleCase = (props) => {
       <p className="mb-0 text-sm">
         {langConfig.sampleCaseInput}
       </p>
-      <div className="my-1 px-2 py-2 font-code bg-white w-full text-sm text-black">
+      <div className="my-1 px-2 py-2 font-code w-full text-sm bg-snow text-main">
         {input === null
           ? <span className='text-gray-300'>
             {langConfig.sampleCaseNoInput}
@@ -39,7 +39,7 @@ const SampleCase = (props) => {
       <p className="mb-0 text-sm">
         {langConfig.sampleCaseOutput}
       </p>
-      <div className="my-1 px-2 py-2 bg-white w-full font-code text-sm text-black">
+      <div className="my-1 px-2 py-2 w-full font-code text-sm bg-snow text-main">
         {formatOutput(output) || <Spin size='small' />}
       </div>
 
@@ -48,7 +48,7 @@ const SampleCase = (props) => {
           <p className="mb-0 text-sm">
             {langConfig.sampleCaseExplanation}
           </p>
-          <div className="my-1 px-2 py-2 bg-white w-full font-code text-sm text-black">
+          <div className="my-1 px-2 py-2 w-full font-code text-sm bg-snow text-main">
             {formatOutput(explanation) || <Spin size='small' />}
           </div>
         </>

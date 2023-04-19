@@ -30,7 +30,7 @@ const Problem = () => {
 
   return (
     <div className="rt-problem-description flex flex-col w-full h-full space-y-4 font-ubuntu text-main dark:text-snow duration-300 ease-in-out">
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full bg-snow text-main">
         {competeProblem
           ? (
             <ReactQuill
@@ -44,7 +44,7 @@ const Problem = () => {
           : <Spin size='small' />
         }
       </div>
-      <div className="flex flex-col w-full p-2 bg-white text-black">
+      <div className="flex flex-col w-full p-2 bg-snow text-main">
         <ProblemSpecification title={langConfig.problemConstraints}>
           {competeProblem
             ? <p className="mb-0">{formatOutput(competeProblem.constraint)}</p>
@@ -53,7 +53,7 @@ const Problem = () => {
         </ProblemSpecification>
       </div>
 
-      <div className="flex flex-col w-full p-2 bg-white text-black">
+      <div className="flex flex-col w-full p-2 bg-snow text-main">
         <ProblemSpecification title={langConfig.problemInputFormat}>
           {competeProblem
             ? <p className="mb-0">{formatOutput(competeProblem.inputFormat)}</p>
@@ -62,7 +62,7 @@ const Problem = () => {
         </ProblemSpecification>
       </div>
 
-      <div className="flex flex-col w-full p-2 bg-white text-black">
+      <div className="flex flex-col w-full p-2 bg-snow text-main">
         <ProblemSpecification title={langConfig.problemOutputFormat}>
           {competeProblem
             ? <p className="mb-0">{formatOutput(competeProblem.outputFormat)}</p>

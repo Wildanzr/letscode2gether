@@ -25,7 +25,7 @@ const Result = () => {
         : (
         <div
           className={
-            'flex w-full overflow-x-auto bg-snow dark:bg-main duration-300 ease-in-out'
+            'flex w-full overflow-x-auto bg-easy dark:bg-main duration-300 ease-in-out'
           }
         >
           {result && result.length > 0
