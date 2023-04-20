@@ -1,5 +1,5 @@
 import langConfig from '../../config/langConfig.json'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 
 import api from '../../api'
@@ -7,6 +7,8 @@ import api from '../../api'
 import Cookies from 'js-cookie'
 import { Form, Input, Select } from 'antd'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
 // Destructure Antd Components
 const { Item } = Form
@@ -28,6 +30,7 @@ const AddChallenge = () => {
   const { mySwal } = globalFunctions
 
   // Local States
+  const [quillValue, setQuillValue] = useState('')
   const [otherFields] = useState([
     {
       name: 'constraint',
@@ -43,6 +46,9 @@ const AddChallenge = () => {
     }
   ])
 
+  // Local Refs
+  const quillRef = useRef(null)
+
   // Finish Error
   const onFinishFailed = (errorInfo) => {
     console.log(errorInfo)
@@ -50,6 +56,26 @@ const AddChallenge = () => {
 
   // Finish Success
   const onFinish = async (payload) => {
+    payload = {
+      ...payload,
+      description: quillValue
+    }
+
+    // Check if payload have description
+    if (!payload.description) {
+      mySwal.fire({
+        icon: 'error',
+        title: langConfig.formProblemRule1,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      })
+      return
+    }
+
     // Show loading
     mySwal.fire({
       title: langConfig.loadingCreateChallenge,
@@ -148,29 +174,33 @@ const AddChallenge = () => {
       </div>
 
       {/* Description */}
-      <div className="flex flex-row w-full items-start justify-start">
+      <div className="flex flex-row w-full items-start justify-start pb-5">
         <div className="flex w-1/4">
           <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
             {langConfig.problemDetailDescription}
           </p>
         </div>
         <div className="flex w-3/4">
-          <Item
-            name="description"
-            className="w-full"
-            rules={[
-              {
-                required: true,
-                message: langConfig.formChallengeDescriptionRule1
+        <ReactQuill
+            ref={quillRef}
+            className="w-full h-full bg-white"
+            theme='snow'
+            value={quillValue}
+            onChange={setQuillValue}
+            placeholder='Deskripsi permasalahan'
+            modules={{
+              toolbar: {
+                container: [
+                  ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                  [{ list: 'ordered' }, { list: 'bullet' }],
+                  [{ align: [] }],
+                  ['link'],
+                  [{ color: [] }, { background: [] }],
+                  [{ script: 'super' }, { script: 'sub' }]
+                ]
               }
-            ]}
-          >
-            <TextArea
-              rows={5}
-              placeholder={langConfig.formPlaceholderChallengeDescription}
-              className="w-full"
-            />
-          </Item>
+            }}
+          />
         </div>
       </div>
 

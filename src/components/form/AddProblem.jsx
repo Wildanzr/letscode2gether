@@ -58,20 +58,35 @@ const AddProblem = (props) => {
 
   // Finish Success
   const onFinish = async (payload) => {
+    payload = {
+      ...payload,
+      description: quillValue
+    }
+
+    // Check if payload have description
+    if (!payload.description) {
+      mySwal.fire({
+        icon: 'error',
+        title: langConfig.formProblemRule1,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      })
+      return
+    }
+
     // Show loading
     mySwal.fire({
-      title: langConfig.loadingCreateProblem,
+      title: langConfig.loadingCreateChallenge,
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => {
         mySwal.showLoading()
       }
     })
-
-    payload = {
-      ...payload,
-      description: quillValue
-    }
 
     // Configuration
     const config = {

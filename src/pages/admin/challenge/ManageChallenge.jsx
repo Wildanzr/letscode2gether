@@ -55,9 +55,8 @@ const ManageChallengePage = () => {
     try {
       const { data } = await api.get('/competes?page=1&limit=10&isChallenge=true', config)
       // console.log(data)
-
       const { competes } = data.data
-      console.log(competes)
+
       if (competes.length === 0) {
         setProblems([])
       } else {
