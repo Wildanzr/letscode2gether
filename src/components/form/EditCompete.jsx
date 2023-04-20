@@ -124,7 +124,7 @@ const EditCompete = (props) => {
     try {
       const { data } = await api.get(`/competes/${journeyId}`, config)
       const { compete } = data.data
-      console.log(compete)
+      // console.log(compete)
 
       // Transform languageAllowed
       const selected = compete.languageAllowed

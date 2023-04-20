@@ -14,6 +14,7 @@ const Problem = () => {
   const { competeProblem } = problemStates
 
   const formatOutput = (str) => {
+    if (str === null) return null
     const formatted = str.replace(/\^/g, '\n')
 
     return (

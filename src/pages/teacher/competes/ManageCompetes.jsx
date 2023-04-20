@@ -43,7 +43,6 @@ const ManageCompetesPage = () => {
     try {
       const ENDPOINT = `/competes?page=1&limit=10&isLearnPath=false&isChallenge=false&challengerId=${user._id}`
       const { data } = await api.get(ENDPOINT, config)
-      // console.log(data)
 
       const { meta } = data
       const { competes } = data.data

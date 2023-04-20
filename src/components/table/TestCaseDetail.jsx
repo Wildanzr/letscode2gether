@@ -71,7 +71,9 @@ const TestCaseDetail = (props) => {
             <td colSpan={3} className="py-3 px-5 text-left overflow-clip">
               <div className="flex items-center justify-center">
                 <div className="font-medium whitespace-nowrap">
-                  <span className="ml-3 text-gray-600">No Test Cases</span>
+                  <span className="ml-3 text-gray-600">
+                    {langConfig.infoZeroTestcase}
+                  </span>
                 </div>
               </div>
             </td>

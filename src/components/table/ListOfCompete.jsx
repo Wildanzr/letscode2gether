@@ -169,7 +169,9 @@ const ListOfCompete = (props) => {
                     <td colSpan={5} className="py-3 px-5 text-left overflow-clip">
                       <div className="flex items-center justify-center">
                         <div className="font-medium whitespace-nowrap">
-                          <span className="ml-3 text-gray-600">No Compete Found</span>
+                          <span className="ml-3 text-gray-600">
+                            {langConfig.infoZeroCompete}
+                          </span>
                         </div>
                       </div>
                     </td>

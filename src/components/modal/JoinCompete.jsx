@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 
 import { JoinCompete as JoinCompeteForm } from '../../components/form'
@@ -48,7 +49,7 @@ const JoinCompete = (props) => {
               : (
               <div className='flex flex-col space-y-4 items-center justify-center'>
                 <h3 className="text-lg font-bold tracking-wide text-center text-main dark:text-snow duration-300 ease-in-out">
-                  Join {name} ?
+                  {langConfig.competeButtonLabel1} {name} ?
                 </h3>
 
                 <JoinCompeteForm competeId={_id} />

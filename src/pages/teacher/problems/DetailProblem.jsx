@@ -10,6 +10,8 @@ import { SampleCaseDetail, TestCaseDetail } from '../../../components/table'
 import Cookies from 'js-cookie'
 import { Skeleton } from 'antd'
 import { useParams, useSearchParams } from 'react-router-dom'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.bubble.css'
 
 const EditCompeteProblemPage = () => {
   // useParams
@@ -78,6 +80,21 @@ const EditCompeteProblemPage = () => {
     }
   }
 
+  // Render problem description
+  const renderProblemDescription = (description) => {
+    return (
+      <div className="flex flex-col w-full">
+        <ReactQuill
+          className="w-full h-full font-ubuntu text-base"
+          theme="bubble"
+          value={description}
+          readOnly={true}
+          placeholder="Deskripsi permasalahan"
+        />
+      </div>
+    )
+  }
+
   // Initial get problem detail
   useEffect(() => {
     getProblemDetail()
@@ -99,7 +116,7 @@ const EditCompeteProblemPage = () => {
             ? (
               <div className="flex flex-col space-y-4 w-full font-ubuntu">
                 <Description title={langConfig.problemDetailTitle} value={problemDetail.title} />
-                <Description title={langConfig.problemDetailDescription} value={problemDetail.description} />
+                <Description title={langConfig.problemDetailDescription} value={renderProblemDescription(problemDetail.description)} />
                 <Description title={langConfig.problemDetailConstraints} value={problemDetail.constraint} />
                 <Description
                   title={langConfig.problemDetailDifficulty}

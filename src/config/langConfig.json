@@ -255,6 +255,7 @@
   "successDeleteCompete": "Kompetisi berhasil dihapus",
   "successUpdateCompete": "Kompetisi berhasil diperbarui",
   "successCreateCompete": "Kompetisi berhasil dibuat",
+  "successJoinCompete": "Berhasil bergabung",
 
 
   "infoSomeoneJoined": "Seseorang bergabung dalaman ruangan.",
@@ -273,6 +274,7 @@
   "infoZeroTestcase": "Tidak ada kasus uji yang dibuat.",
   "infoZeroChallenge": "Tidak ada tantangan yang dibuat.",
   "infoZeroJourney": "Tidak ada jalur belajar yang dibuat.",
+  "infoZeroCompete": "Tidak ada kompetisi yang dibuat.",
   "infoZeroProblem": "Tidak ada permasalahan yang dibuat.",
   "infoZeroStudents": "Tidak ada peserta didik yang terdaftar.",
 

@@ -27,7 +27,7 @@ const JoinCompete = (props) => {
   const onFinish = async (values) => {
     // Show loading
     mySwal.fire({
-      title: 'Joining you in...',
+      title: langConfig.loadingJoinRoom,
       allowOutsideClick: true,
       backdrop: true,
       allowEscapeKey: true,
@@ -49,7 +49,7 @@ const JoinCompete = (props) => {
 
       mySwal.fire({
         icon: 'success',
-        title: 'Joined successfully!',
+        title: langConfig.successJoinCompete,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,

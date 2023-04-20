@@ -77,7 +77,6 @@ const AddCompete = () => {
 
     try {
       const { data } = await api.post('/competes', payload, config)
-      console.log(data)
 
       // Show success
       mySwal.fire({

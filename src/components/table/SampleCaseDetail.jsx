@@ -4,6 +4,7 @@ const SampleCaseDetail = (props) => {
   const { sampleCases } = props
 
   const formatOutput = (str) => {
+    if (str === null) return null
     const formatted = str.replace(/\^/g, '\n')
 
     return (
@@ -104,7 +105,9 @@ const SampleCaseDetail = (props) => {
             <td colSpan={5} className="py-3 px-5 text-left overflow-clip">
               <div className="flex items-center justify-center">
                 <div className="font-medium whitespace-nowrap">
-                  <span className="ml-3 text-gray-600">No Sample Cases</span>
+                  <span className="ml-3 text-gray-600">
+                    {langConfig.infoZeroSampleCase}
+                  </span>
                 </div>
               </div>
             </td>
