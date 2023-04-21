@@ -152,7 +152,7 @@ const CollabInfo = (props) => {
         timerProgressBar: true
       })
     } else {
-      console.log(res)
+      // console.log(res)
       // Show error
       mySwal.fire({
         icon: 'error',
@@ -258,7 +258,7 @@ const CollabInfo = (props) => {
       createRoom()
       message.info(langConfig.infoMeLeftRoom)
     } else {
-      console.log(res)
+      // console.log(res)
       // Show error
       // mySwal.fire({
       //   icon: 'error',

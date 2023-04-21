@@ -66,7 +66,6 @@ const AddJourney = () => {
       isLearnPath: true,
       isChallenge: false
     }
-    console.log(payload)
 
     // Configuration
     const config = {
@@ -77,7 +76,7 @@ const AddJourney = () => {
 
     try {
       const { data } = await api.post('/competes', payload, config)
-      console.log(data)
+      // console.log(data)
 
       // Show success
       mySwal.fire({

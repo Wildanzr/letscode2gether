@@ -89,7 +89,6 @@ const CompetePage = () => {
         `/competes?isLearnPath=false&isChallenge=false&participantId=${user._id}`
       )
     } else if (value[0] === 'created') {
-      console.log('heree')
       setEndpoint(
         `/competes?isLearnPath=false&isChallenge=false&challengerId=${user._id}`
       )

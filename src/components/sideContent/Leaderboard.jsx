@@ -1,3 +1,4 @@
+import langConfig from '../../config/langConfig.json'
 import { useState, useEffect } from 'react'
 
 import api from '../../api'
@@ -56,7 +57,9 @@ const Leaderboard = () => {
         {leaderboard === null
           ? <Spin size='default' />
           : leaderboard.length === 0
-            ? <p className="text-white">No one has solved this problem yet</p>
+            ? <p className="text-white">
+              {langConfig.infoZeroSolved}
+            </p>
             : <div className="flex flex-col w-full space-y-4 items-center justify-center">
               <CPLeaderboard data={leaderboard} start={start} />
               <Pagination

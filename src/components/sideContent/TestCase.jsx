@@ -39,7 +39,7 @@ const TestCase = (props) => {
         }
       }
     } catch (err) {
-      console.log('err', err)
+      console.log(err)
       setResult(false)
       setTokenInvalid(true)
       return {

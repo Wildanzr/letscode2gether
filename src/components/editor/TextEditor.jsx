@@ -31,7 +31,7 @@ const TextEditor = () => {
       const { language } = res.data
       setIntelisense(language)
     } else {
-      console.log(res)
+      // console.log(res)
       // Show error
       mySwal.fire({
         icon: 'error',

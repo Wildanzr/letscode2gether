@@ -76,7 +76,7 @@ const ProblemPage = () => {
       content: (
         <div className="flex flex-col font-ubuntu text-justify">
           <p>
-            Bagian ini merupakan detail permasalahan. Berikut tips penyelesaian
+            Bagian ini merupakan <Bold text="detail permasalahan" />. Berikut tips penyelesaian
             masalah:
           </p>
           <ol className="list-decimal list-inside">
@@ -266,6 +266,53 @@ const ProblemPage = () => {
     }
   ]
 
+  const handleJoyrideCallback = (data) => {
+    const { action, index, status, type } = data
+
+    const handleNext = (pos) => {
+      return (action === ACTIONS.NEXT || action === ACTIONS.CLOSE) && index === pos && type === EVENTS.STEP_AFTER
+    }
+
+    const handlePrev = (pos) => {
+      return (action === ACTIONS.PREV || action === ACTIONS.CLOSE) && index === pos && type === EVENTS.STEP_AFTER
+    }
+
+    const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
+
+    // Close tour
+    if (finishedStatuses.includes(status)) {
+      setIsTourOpen(false)
+    }
+
+    // Open Problem
+    if (handleNext(3) || handlePrev(5)) {
+      setColHide(true)
+      setColSideContent('problems')
+    }
+
+    // Open submission
+    if (handleNext(4) || handlePrev(6)) {
+      setColHide(true)
+      setColSideContent('submissions')
+    }
+
+    // Open leaderboard
+    if (handleNext(5) || handlePrev(7)) {
+      setColHide(true)
+      setColSideContent('leaderboard')
+    }
+
+    // Hide leaderboard
+    if (handleNext(6) || handlePrev(8)) {
+      setIsTourOpen(false)
+      setColHide(false)
+
+      setTimeout(() => {
+        setIsTourOpen(true)
+      }, 350)
+    }
+  }
+
   // Get compete problem detail
   const getCompeteProblemDetail = async () => {
     // Config
@@ -359,63 +406,6 @@ const ProblemPage = () => {
       })
   }
 
-  // const handleJoyrideCallback1 = (data) => {
-  //   const { action, index, status, type } = data
-
-  //   if (([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND]).includes(type)) {
-  //     const nextStepIndex = index + (action === ACTIONS.PREV ? -1 : 1)
-
-  //     if ()
-  //   }
-  // }
-
-  const handleJoyrideCallback = (data) => {
-    const { action, index, status, type } = data
-
-    const handleNext = (pos) => {
-      return (action === ACTIONS.NEXT || action === ACTIONS.CLOSE) && index === pos && type === EVENTS.STEP_AFTER
-    }
-
-    const handlePrev = (pos) => {
-      return (action === ACTIONS.PREV || action === ACTIONS.CLOSE) && index === pos && type === EVENTS.STEP_AFTER
-    }
-
-    const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
-
-    // Close tour
-    if (finishedStatuses.includes(status)) {
-      setIsTourOpen(false)
-    }
-
-    // Open Problem
-    if (handleNext(3) || handlePrev(5)) {
-      setColHide(true)
-      setColSideContent('problems')
-    }
-
-    // Open submission
-    if (handleNext(4) || handlePrev(6)) {
-      setColHide(true)
-      setColSideContent('submissions')
-    }
-
-    // Open leaderboard
-    if (handleNext(5) || handlePrev(7)) {
-      setColHide(true)
-      setColSideContent('leaderboard')
-    }
-
-    // Hide leaderboard
-    if (handleNext(6) || handlePrev(8)) {
-      setIsTourOpen(false)
-      setColHide(false)
-
-      setTimeout(() => {
-        setIsTourOpen(true)
-      }, 350)
-    }
-  }
-
   // Initially get compete problem detail
   useEffect(() => {
     setIsOnlyEditor(false)
@@ -479,7 +469,7 @@ const ProblemPage = () => {
           <SideContent />
           <div
             className={`flex flex-col ${
-              colHide ? 'w-full lg:w-1/2 h-0 lg:h-full' : 'w-full h-full'
+              colHide ? 'w-full lg:w-1/2 lg:h-full' : 'w-full h-full'
             } justify-between overflow-auto transition-all ease-in-out duration-500 space-y-6`}
           >
             <div className="flex flex-col w-full h-full items-start justify-start pt-2 pb-10 px-2 space-y-6 bg-milk dark:bg-alternate duration-300 ease-in-out">
