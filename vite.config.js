@@ -5,12 +5,13 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react(), splitVendorChunkPlugin()],
   define: {
-    global: {}
+    global: 'window'
   },
   build: {
     rollupOptions: {
       output: {
         manualChunks: {
+          react: ['react'],
           'react-dom': ['react-dom'],
           'react-router-dom': ['react-router-dom'],
           antd: ['antd'],
@@ -19,7 +20,16 @@ export default defineConfig({
           axios: ['axios'],
           sweetalert2: ['sweetalert2'],
           'react-draggable': ['react-draggable'],
-          'sweetalert2-react-content': ['sweetalert2-react-content']
+          'sweetalert2-react-content': ['sweetalert2-react-content'],
+          '@monaco-editor/react': ['@monaco-editor/react'],
+          '@ant-design/icons': ['@ant-design/icons'],
+          moment: ['moment'],
+          yjs: ['yjs'],
+          'y-websocket': ['y-websocket'],
+          'y-monaco': ['y-monaco'],
+          'react-joyride': ['react-joyride'],
+          'react-quill': ['react-quill'],
+          'socket.io-client': ['socket.io-client']
         }
       }
     }
