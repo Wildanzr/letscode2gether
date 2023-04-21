@@ -13,7 +13,7 @@ import { Bold } from '../../components/other'
 
 import Cookies from 'js-cookie'
 import { useParams } from 'react-router-dom'
-import Joyride, { STATUS } from 'react-joyride'
+import Joyride, { STATUS, ACTIONS, EVENTS } from 'react-joyride'
 import emoji from 'react-easy-emoji'
 
 const ProblemPage = () => {
@@ -24,8 +24,8 @@ const ProblemPage = () => {
   const { globalState, editorState, globalFunctions } = useGlobal()
   const {
     colHide,
-    // setColHide,
-    // setColSideContent,
+    setColHide,
+    setColSideContent,
     setIsOnlyEditor,
     isTourNeverShow,
     setIsTourNeverShow
@@ -100,7 +100,7 @@ const ProblemPage = () => {
           <Bold text="Papan Peringkat" />.
         </p>
       ),
-      placement: 'bottom',
+      placement: 'right-start',
       disableBeacon: true
     },
     {
@@ -110,7 +110,7 @@ const ProblemPage = () => {
           Menu ini digunakan untuk melihat <Bold text="detail" /> permasalahan.
         </p>
       ),
-      placement: 'right',
+      placement: 'bottom',
       disableBeacon: true
     },
     {
@@ -121,7 +121,7 @@ const ProblemPage = () => {
           kode program.
         </p>
       ),
-      placement: 'right',
+      placement: 'bottom',
       disableBeacon: true
     },
     {
@@ -137,7 +137,7 @@ const ProblemPage = () => {
           Menu yang ditekan dua kali akan disembunyikan dan memperlebar ukuran teks editor.
         </p>
       ),
-      placement: 'right',
+      placement: 'bottom',
       disableBeacon: true
     },
     {
@@ -349,22 +349,70 @@ const ProblemPage = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          setIsTourOpen(true)
+          setColHide(true)
+          setColSideContent('problems')
+
+          setTimeout(() => {
+            setIsTourOpen(true)
+          }, 350)
         }
       })
   }
 
+  // const handleJoyrideCallback1 = (data) => {
+  //   const { action, index, status, type } = data
+
+  //   if (([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND]).includes(type)) {
+  //     const nextStepIndex = index + (action === ACTIONS.PREV ? -1 : 1)
+
+  //     if ()
+  //   }
+  // }
+
   const handleJoyrideCallback = (data) => {
     const { action, index, status, type } = data
-    console.log('action', action)
-    console.log('index', index)
-    console.log('status', status)
-    console.log('type', type)
+
+    const handleNext = (pos) => {
+      return (action === ACTIONS.NEXT || action === ACTIONS.CLOSE) && index === pos && type === EVENTS.STEP_AFTER
+    }
+
+    const handlePrev = (pos) => {
+      return (action === ACTIONS.PREV || action === ACTIONS.CLOSE) && index === pos && type === EVENTS.STEP_AFTER
+    }
 
     const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
 
+    // Close tour
     if (finishedStatuses.includes(status)) {
       setIsTourOpen(false)
+    }
+
+    // Open Problem
+    if (handleNext(3) || handlePrev(5)) {
+      setColHide(true)
+      setColSideContent('problems')
+    }
+
+    // Open submission
+    if (handleNext(4) || handlePrev(6)) {
+      setColHide(true)
+      setColSideContent('submissions')
+    }
+
+    // Open leaderboard
+    if (handleNext(5) || handlePrev(7)) {
+      setColHide(true)
+      setColSideContent('leaderboard')
+    }
+
+    // Hide leaderboard
+    if (handleNext(6) || handlePrev(8)) {
+      setIsTourOpen(false)
+      setColHide(false)
+
+      setTimeout(() => {
+        setIsTourOpen(true)
+      }, 350)
     }
   }
 
