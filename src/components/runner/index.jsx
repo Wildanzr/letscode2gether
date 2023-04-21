@@ -284,7 +284,7 @@ const Runner = () => {
   }, [socket])
 
   return (
-    <div className="flex flex-col w-full items-center space-y-4 text-main dark:text-snow">
+    <div className="flex flex-col w-full items-center space-y-4 px-5 text-main dark:text-snow">
       {showInput && <InputArea input={input} setInput={setInput} />}
 
       <div className="flex flex-row w-full px-2 items-center justify-between">

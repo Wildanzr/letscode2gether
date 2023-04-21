@@ -9,11 +9,12 @@ import { Navbar, RoomInfo, SideContent } from '../../components/collaboration'
 import Editor from '../../components/editor'
 import Runner from '../../components/runner'
 import Result from '../../components/result'
+import { Bold } from '../../components/other'
 
 import Cookies from 'js-cookie'
 import { useParams } from 'react-router-dom'
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
-import Tour from 'reactour'
+import Joyride, { STATUS } from 'react-joyride'
+import emoji from 'react-easy-emoji'
 
 const ProblemPage = () => {
   // useParams
@@ -21,7 +22,14 @@ const ProblemPage = () => {
 
   // Global States
   const { globalState, editorState, globalFunctions } = useGlobal()
-  const { colHide, setColHide, setColSideContent, setIsOnlyEditor, isTourNeverShow, setIsTourNeverShow } = globalState
+  const {
+    colHide,
+    // setColHide,
+    // setColSideContent,
+    setIsOnlyEditor,
+    isTourNeverShow,
+    setIsTourNeverShow
+  } = globalState
   const { mySwal } = globalFunctions
   const { run } = editorState
 
@@ -32,258 +40,230 @@ const ProblemPage = () => {
 
   // Collab States
   const { problemStates } = useCollab()
-  const { setCompeteProblem, setCompeteMaxPoint, setLanguageList } = problemStates
+  const { setCompeteProblem, setCompeteMaxPoint, setLanguageList } =
+    problemStates
 
   // Local States
   const [isTourOpen, setIsTourOpen] = useState(false)
   const [localFirst, setLocalFirst] = useState(false)
 
   // Tour step and scroll lock
-  const disableBody = (target) => disableBodyScroll(target)
-  const enableBody = (target) => enableBodyScroll(target)
   const steps = [
     {
-      selector: '.rt-problem-title',
-      content: () => (
-        <div className="font-ubuntu">
+      target: '.rt-problem-title',
+      content: (
+        <p className="font-ubuntu text-justify">
+          Ini merupakan <Bold text="judul" /> dari permasalahan yang sedang
+          dikerjakan.
+        </p>
+      ),
+      placement: 'bottom',
+      disableBeacon: true
+    },
+    {
+      target: '.rt-problem-challenger',
+      content: (
+        <p className="font-ubuntu text-justify">
+          Username tersebut adalah <Bold text="penantang" /> yang membuat
+          permasalahan ini.
+        </p>
+      ),
+      placement: 'bottom',
+      disableBeacon: true
+    },
+    {
+      target: '.rt-problem-description',
+      content: (
+        <div className="flex flex-col font-ubuntu text-justify">
           <p>
-            Bagian ini merupakan <span className="font-bold">judul</span> dari
-            permasalahan yang sedang dikerjakan.
+            Bagian ini merupakan detail permasalahan. Berikut tips penyelesaian
+            masalah:
+          </p>
+          <ol className="list-decimal list-inside">
+            <li>Pahami permasalahan {emoji('🧐')}</li>
+            <li>Temukan solusi penyelesaian {emoji('🤫')}</li>
+            <li>Tulis kode program {emoji('👨‍💻')}</li>
+            <li>Uji solusi {emoji('🧪')}</li>
+            <li>Kumpulkan kode program {emoji('📝')}</li>
+          </ol>
+        </div>
+      ),
+      placement: 'right-start',
+      disableBeacon: true
+    },
+    {
+      target: '.rt-navigation',
+      content: (
+        <p className="font-ubuntu text-justify">
+          Bagian ini merupakan navigasi permasalahan yang terdiri dari{' '}
+          <Bold text="Permasalahan" />, <Bold text="Pengumpulan" />, dan{' '}
+          <Bold text="Papan Peringkat" />.
+        </p>
+      ),
+      placement: 'bottom',
+      disableBeacon: true
+    },
+    {
+      target: '.rt-nav-problem',
+      content: (
+        <p className="font-ubuntu text-justify">
+          Menu ini digunakan untuk melihat <Bold text="detail" /> permasalahan.
+        </p>
+      ),
+      placement: 'right',
+      disableBeacon: true
+    },
+    {
+      target: '.rt-nav-submission',
+      content: (
+        <p className="font-ubuntu text-justify">
+          Menu ini digunakan untuk melihat <Bold text="riwayat pengumpulan" />{' '}
+          kode program.
+        </p>
+      ),
+      placement: 'right',
+      disableBeacon: true
+    },
+    {
+      target: '.rt-nav-leaderboard',
+      content: (
+        <p className="font-ubuntu text-justify">
+          Menu ini digunakan untuk melihat <Bold text="papan peringkat" /> dan
+          siapa saja yang mengerjakan permasalahan ini.
+          <br/>
+          <br/>
+          <Bold text="Pro tips" />:
+          <br/>
+          Menu yang ditekan dua kali akan disembunyikan dan memperlebar ukuran teks editor.
+        </p>
+      ),
+      placement: 'right',
+      disableBeacon: true
+    },
+    {
+      target: '.rt-collab-info',
+      content: (
+        <div className="flex flex-col font-ubuntu text-justify">
+          <p>
+            Bagian ini merupakan informasi mengenai ruang kolaborasi. Dalam model
+            pembelajaran pair programming terdapat 2 peran yaitu:
+          </p>
+          <ul className="list-disc list-inside">
+            <li>
+              <Bold text="Driver" /> bertugas untuk
+            mendesain algoritma dan mengimplementasikan solusi.
+            </li>
+            <li>
+              <Bold text="Navigator" /> memberikan saran dan meninjau kode program yang ditulis.
+            </li>
+          </ul>
+          <p>
+          Di ruang kolaborasi ini, keduanya dapat menulis dan membagikan kode program secara bersamaan.
           </p>
         </div>
       ),
-      action: (node) => {
-        setColHide(true)
-        setColSideContent('problems')
-        node.focus()
-      }
+      placement: 'bottom',
+      disableBeacon: true
     },
     {
-      selector: '.rt-problem-challenger',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>
-            Nama tersebut merupakan <span className="font-bold">penantang</span>{' '}
-            yang membuat permasalahan.
+      target: '.rt-collab-field',
+      content: (
+          <p className='font-ubuntu text-justify'>
+            Bagian ini merupakan field untuk <Bold text="ID Ruangan" /> kolaborasi.
+            Untuk bergabung pada ruang
+            kolaborasi, masukkan ID ruangan yang valid.
           </p>
-        </div>
       ),
-      action: (node) => {
-        setColHide(true)
-        setColSideContent('problems')
-        node.focus()
-      }
+      placement: 'bottom',
+      disableBeacon: true
     },
     {
-      selector: '.rt-problem-description',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>
-            Bagian ini merupakan detail permasalahan yang terdiri dari{' '}
-            <span className="font-bold">deskripsi</span>,{' '}
-            <span className="font-bold">batasan</span>,{' '}
-            <span className="font-bold">format masukan</span>,{' '}
-            <span className="font-bold">format keluaran</span> dan{' '}
-            <span className="font-bold">contoh kasus</span> dari permasalahan yang
-            sedang dikerjakan.
+      target: '.rt-collab-button',
+      content: (
+          <p className='font-ubuntu text-justify'>
+            Tekan tombol <Bold text="&quot;Gabung&quot;" />
+            untuk bergabung pada ruang kolaborasi, atau tekan tombol{' '}
+            <Bold text="&quot;Keluar&quot;" /> untuk
+            meninggalkan ruang kolaborasi.
           </p>
-        </div>
       ),
-      action: (node) => {
-        setColHide(true)
-        setColSideContent('problems')
-        node.focus()
-      }
+      placement: 'right',
+      disableBeacon: true
     },
     {
-      selector: '.rt-navigation',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>
-            Bagian ini merupakan navigasi permasalahan yang terdiri dari informasi{' '}
-            <span className='font-bold'>permasalahan</span>, <span className='font-bold'>pengumpulan</span>, dan <span className='font-bold'>papan peringkat</span>. Tekan salah satu
-            tombol untuk melihat detailnya, jika tombol yang aktif ditekan lagi,
-            maka detail informasi akan disembunyikan. Kamu bisa mencobanya dengan
-            menekan tombol <span className="font-bold">Permasalahan</span>{' '}
-            sekarang.
+      target: '.rt-meet',
+      content: (
+          <p className='font-ubuntu text-justify'>
+            Tekan tombol ini untuk membuka <Bold text="panggilan secara daring" />{' '} {emoji('📞👥')}.
+
+            Panggilan ini seperti zoom atau google meet untuk berkomunikasi dengan partnermu.
           </p>
-        </div>
       ),
-      action: (node) => {
-        node.focus()
-      }
+      placement: 'bottom',
+      disableBeacon: true
     },
     {
-      selector: '.rt-nav-problem',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>Tombol ini digunakan untuk melihat detail permasalahan.</p>
-        </div>
-      ),
-      action: (node) => {
-        setColHide(true)
-        setColSideContent('problems')
-        node.focus()
-      }
-    },
-    {
-      selector: '.rt-nav-submission',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>Tombol ini digunakan untuk melihat detail pengumpulan.</p>
-        </div>
-      ),
-      action: (node) => {
-        setColHide(true)
-        setColSideContent('submissions')
-        node.focus()
-      }
-    },
-    {
-      selector: '.rt-nav-leaderboard',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>Tombol ini digunakan untuk melihat detail papan peringkat.</p>
-        </div>
-      ),
-      action: (node) => {
-        setColHide(true)
-        setColSideContent('leaderboard')
-        setTimeout(() => {
-          node.focus()
-        }, 1000)
-      }
-    },
-    {
-      selector: '.rt-collab-info',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>
-            Bagian ini merupakan informasi mengenai ruang kolaborasi yang terdiri
-            dari <span className="font-bold">driver</span>,{' '}
-            <span className="font-bold">navigator</span>,{' '}
-            <span className="font-bold">partisipan</span>, dan{' '}
-            <span className="font-bold">ID ruangan</span>. Dalam model
-            pembelajaran pair programming,{' '}
-            <span className="font-bold">driver</span> bertanggung jawab menulis
-            kode sesuai arahan dari navigator, sedangkan{' '}
-            <span className="font-bold">navigator</span> yang memimpin diskusi dan
-            bertanggung jawab atas kualitas kode dan desain solusi. Keduanya
-            bekerja sama untuk mencapai solusi terbaik dalam penyelesaian masalah.
+      target: '.rt-language',
+      content: (
+          <p className='font-ubuntu text-justify'>
+            Menu dropdown ini digunakan untuk <Bold text="memilih bahasa pemrograman" />.
           </p>
-        </div>
       ),
-      action: (node) => {
-        setColHide(false)
-        node.focus()
-      },
-      observe: '[data-tour="observable-parent"]',
-      mutationObservables: ['[data-tour="observable-parent"]']
+      placement: 'top',
+      disableBeacon: true
     },
     {
-      selector: '.rt-collab-field',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>Bagian ini dapat diartikan sebagai gerbang untuk bergabung atau meninggalkan ruang kolaborasi. Untuk bergabung pada ruang kolaborasi, masukkan ID ruangan yang valid. ID ruangan hanya terdiri dari 5 karakter.</p>
-        </div>
+      target: '.rt-theme',
+      content: (
+        <p className='font-ubuntu text-justify'>
+            Menu dropdown ini digunakan untuk <Bold text="mengganti tema teks editor" />. Banyak tema
+            yang dapat kamu gunakan sesuai dengan preferensimu.
+          </p>
       ),
-      action: (node) => {
-        node.focus()
-      }
+      placement: 'bottom',
+      disableBeacon: true
     },
     {
-      selector: '.rt-collab-button',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>Tekan tombol <span className="font-bold">&quot;Gabung&quot;</span> untuk bergabung pada ruang kolaborasi. Tekan tombol <span className="font-bold">&quot;Keluar&quot;</span> untuk meninggalkan ruang kolaborasi.</p>
-        </div>
+      target: '.rt-editor',
+      content: (
+          <p className='font-ubuntu text-justify'>
+            Bagian ini merupakan <Bold text="teks editor" />{' '} yang digunakan untuk <Bold text="berkolaborasi dalam pair programming" />. Melalui teks editor ini
+            kamu dapat menulis dan membagikan kodemu secara langsung dan bersamaan tanpa ribet instal aplikasi lain.
+          </p>
       ),
-      action: (node) => {
-        node.focus()
-      }
+      placement: 'bottom',
+      disableBeacon: true
     },
     {
-      selector: '.rt-meet',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>Tombol ini digunakan untuk membuka komunikasi melalui video conference.</p>
-        </div>
+      target: '.rt-custom-input',
+      content: (
+          <p className='font-ubuntu text-justify'>
+            Bagian ini digunakan untuk <Bold text="kustomisasi input" /> yang akan dijalankan kodemu.
+          </p>
       ),
-      action: (node) => {
-        node.focus()
-      }
+      placement: 'top',
+      disableBeacon: true
     },
     {
-      selector: '.rt-language',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>Menu dropdown ini digunakan untuk mengganti bahasa pemrograman. Pilihlah salah satu bahasa pemrograman yang kamu gunakan untuk mengerjakan permasalahan.</p>
-        </div>
+      target: '.rt-code-run',
+      content: (
+          <p className='font-ubuntu text-justify'>
+            Tekan tombol ini untuk <Bold text="menjalankan" /> kodemu dan <Bold text="menampilkan hasil uji cobanya" />.
+          </p>
       ),
-      action: (node) => {
-        node.focus()
-      }
+      placement: 'bottom',
+      disableBeacon: true
     },
     {
-      selector: '.rt-theme',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>Menu dropdown ini digunakan untuk mengganti tema editor. Banyak tema yang dapat kamu gunakan sesuai dengan preferensimu.</p>
-        </div>
+      target: '.rt-code-submit',
+      content: (
+          <p className='font-ubuntu text-justify'>
+            Tekan tombol ini untuk <Bold text="mengumpulkan kodemu" /> dan <Bold text="hasil penilaian solusi masalah" />.
+          </p>
       ),
-      action: (node) => {
-        node.focus()
-      }
-    },
-    {
-      selector: '.rt-editor',
-      content: () => (
-        <div className="font-ubuntu">
-          <p>Bagian ini merupakan text editor. Dengan text editor ini kamu dapat berkolaborasi bersama temanmu melalui ID ruangan yang sama.</p>
-        </div>
-      ),
-      action: (node) => {
-        node.focus()
-      }
+      placement: 'right',
+      disableBeacon: true
     }
-    // {
-    //   selector: '.rt-custom-input',
-    //   content: () => (
-    //     <div className="font-ubuntu">
-    //       <p>Bagian ini digunakan untuk memasukkan input yang akan diberikan ke program secara kustom.</p>
-    //     </div>
-    //   ),
-    //   action: (node) => {
-    //     // const section = document.querySelector('.rt-custom-input')
-    //     // section.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    //     node.focus()
-    //   },
-    //   position: 'bottom'
-    // },
-    // {
-    //   selector: '.rt-code-run',
-    //   content: () => (
-    //     <div className="font-ubuntu">
-    //       <p>Tombol ini digunakan untuk menjalankan program dan menampilkan hasilnya.</p>
-    //     </div>
-    //   ),
-    //   action: (node) => {
-    //     node.focus()
-    //   },
-    //   position: 'bottom'
-    // },
-    // {
-    //   selector: '.rt-code-submit',
-    //   content: () => (
-    //     <div className="font-ubuntu">
-    //       <p>Tombol ini digunakan untuk mengumpulkan program dan akan menilai dengan uji kasus yang telah disediakan.</p>
-    //     </div>
-    //   ),
-    //   action: (node) => {
-    //     node.focus()
-    //   },
-    //   position: 'bottom'
-    // }
   ]
 
   // Get compete problem detail
@@ -296,7 +276,10 @@ const ProblemPage = () => {
     }
 
     try {
-      const { data } = await api.get(`/competes/cp/${competeProblemId}`, config)
+      const { data } = await api.get(
+        `/competes/cp/${competeProblemId}`,
+        config
+      )
       // console.log(data)
 
       const { competeProblem } = data.data
@@ -341,27 +324,48 @@ const ProblemPage = () => {
   // Swal footer
   const SwalFooter = () => {
     return (
-      <a className='text-easy text-base font-semibold' onClick={() => neverShowTour()}>Jangan tampilkan lagi.</a>
+      <a
+        className="text-hard hover:text-hard text-base font-semibold"
+        onClick={() => neverShowTour()}
+      >
+        Jangan tampilkan lagi.
+      </a>
     )
   }
 
   // Show mySwal
   const showTourSwal = () => {
-    mySwal.fire({
-      title: 'Ingin melihat tour LetsCode?',
-      icon: 'info',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya, saya ingin melihatnya',
-      cancelButtonText: 'Tidak perlu',
-      reverseButtons: false,
-      footer: SwalFooter()
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setIsTourOpen(true)
-      }
-    })
+    mySwal
+      .fire({
+        title: 'Ingin melihat tour LetsCode?',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, saya ingin melihatnya',
+        cancelButtonText: 'Tidak perlu',
+        reverseButtons: false,
+        footer: SwalFooter()
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          setIsTourOpen(true)
+        }
+      })
+  }
+
+  const handleJoyrideCallback = (data) => {
+    const { action, index, status, type } = data
+    console.log('action', action)
+    console.log('index', index)
+    console.log('status', status)
+    console.log('type', type)
+
+    const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
+
+    if (finishedStatuses.includes(status)) {
+      setIsTourOpen(false)
+    }
   }
 
   // Initially get compete problem detail
@@ -396,6 +400,32 @@ const ProblemPage = () => {
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">
       <MainNavbar>
+        <Joyride
+          callback={handleJoyrideCallback}
+          steps={steps}
+          run={isTourOpen}
+          continuous={true}
+          hideCloseButton={true}
+          locale={{
+            back: 'Kembali',
+            close: 'Tutup',
+            last: 'Selesai',
+            next: 'Lanjut',
+            skip: 'Lewati'
+          }}
+          scrollToFirstStep
+          showProgress
+          showSkipButton
+          // style next button color to blue
+          styles={{
+            options: {
+              primaryColor: '#3B82F6',
+              textColor: '#1F2937',
+              width: 400,
+              zIndex: 1000
+            }
+          }}
+        />
         <main className="flex flex-col lg:flex-row w-full h-full items-center lg:items-start justify-start bg-milk dark:bg-alternate duration-300 ease-in-out">
           <Navbar />
           <SideContent />
@@ -414,24 +444,6 @@ const ProblemPage = () => {
         </main>
       </MainNavbar>
       <Footer />
-      <Tour
-        steps={steps}
-        isOpen={isTourOpen}
-        rounded={5}
-        scrollSmooth
-        scrollDuration={500}
-        scrollOffset={-100}
-        accentColor='#3B82F6'
-        onAfterOpen={disableBody}
-        onBeforeClose={enableBody}
-        onRequestClose={() => setIsTourOpen(false)}
-        badgeContent={(curr, tot) => `${curr} dari ${tot}`}
-        padding={{
-          mask: 14,
-          popover: [5, 10],
-          wrapper: 20
-        }}
-      />
     </div>
   )
 }

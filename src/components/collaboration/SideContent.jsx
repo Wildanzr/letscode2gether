@@ -30,8 +30,8 @@ const SideContent = () => {
         <div className="flex flex-col w-full p-2">
           {competeProblem
             ? <div className='flex flex-col w-full space-y-1 pb-5'>
-              <h4 className="rt-problem-title mb-0 text-lg lg:text-2xl font-semibold text-main dark:text-snow duration-300 ease-in-out">
-                {competeProblem.title}
+              <h4 className="flex mb-0 text-lg lg:text-2xl font-semibold text-main dark:text-snow duration-300 ease-in-out">
+                <span className='rt-problem-title'>{competeProblem.title}</span>
               </h4>
 
               <div className="flex flex-row space-x-2 items-center">
