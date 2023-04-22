@@ -1,8 +1,6 @@
 import langConfig from '../../config/langConfig.json'
 import { useState } from 'react'
 
-import { LearningProgress } from '../other'
-
 import { Spin } from 'antd'
 import { Link } from 'react-router-dom'
 
@@ -149,7 +147,13 @@ const StudentList = (props) => {
                   </td>
 
                   {/* Learning Progress */}
-                  <LearningProgress studentId={student._id}/>
+                  <td className="py-3 px-5 text-left overflow-clip">
+                    <div className="flex items-center justify-center">
+                      <div className="font-medium whitespace-nowrap">
+                        <span className="font-bold text-success">{`${student.progress}%`}</span>
+                      </div>
+                    </div>
+                  </td>
                 </tr>
             ))
         }
