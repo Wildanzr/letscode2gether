@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/AuthContext'
 import { useCollab } from '../../contexts/CollabContext'
 
 import { Navbar as MainNavbar, Footer } from '../../layout'
-import { RoomInfo } from '../../components/collaboration'
+// import { RoomInfo } from '../../components/collaboration'
 import Editor from '../../components/editor'
 import Runner from '../../components/runner'
 import Result from '../../components/result'
@@ -48,7 +48,7 @@ const CollabPage = () => {
             } justify-between overflow-auto transition-all ease-in-out duration-500 space-y-6`}
           >
             <div className="flex flex-col w-full h-full items-start justify-start pt-2 pb-10 px-2 space-y-6 bg-milk dark:bg-alternate duration-300 ease-in-out">
-              <RoomInfo />
+              {/* <RoomInfo /> */}
               <Editor />
               <Runner />
               {run && <Result />}

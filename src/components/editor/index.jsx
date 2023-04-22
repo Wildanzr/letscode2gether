@@ -15,11 +15,14 @@ import Dropdown from './Dropdown'
 import TextEditor from './TextEditor'
 import LangDropdown from './LangDropdown'
 
+import Cookies from 'js-cookie'
+
 const Editor = () => {
   // Global States
-  const { editorState, globalFunctions } = useGlobal()
+  const { editorState, globalFunctions, globalState } = useGlobal()
   const { setTheme } = editorState
   const { mySwal } = globalFunctions
+  const { setIsTourNeverShow } = globalState
 
   // Auth States
   const { authStates } = useAuth()
@@ -68,6 +71,16 @@ const Editor = () => {
     setTimeout(() => {
       socket.emit('req_leave_room', payload)
     }, 1000)
+  }
+
+  // Show help
+  const showHelp = () => {
+    setIsTourNeverShow(true)
+    Cookies.remove('isTourNeverShow')
+
+    setTimeout(() => {
+      setIsTourNeverShow(false)
+    }, 500)
   }
 
   // Change theme
@@ -123,8 +136,13 @@ const Editor = () => {
   }, [showPrompt])
 
   return (
-    <>
-      <div className="flex flex-row w-full space-x-4 items-start justify-start">
+    <div className='w-full flex flex-col'>
+      {!location.pathname.includes('collab') && (
+        <div className="flex w-full px-5 items-start justify-start">
+          <button onClick={() => showHelp()} className='flex pb-2 items-start justify-start text-success font-semibold'>{langConfig.collabHelp}</button>
+        </div>
+      )}
+      <div className="flex flex-row w-full px-5 space-x-4 items-start justify-start">
         <div className="rt-language">
           <LangDropdown
             options={languageAllowed}
@@ -145,7 +163,7 @@ const Editor = () => {
       <div className="flex flex-col w-full h-[60vh]">
         <TextEditor />
       </div>
-    </>
+    </div>
   )
 }
 

@@ -5,7 +5,7 @@ import { useCollab } from '../../contexts/CollabContext'
 
 import api from '../../api'
 import { Navbar as MainNavbar, Footer } from '../../layout'
-import { Navbar, RoomInfo, SideContent } from '../../components/collaboration'
+import { Navbar, SideContent } from '../../components/collaboration'
 import Editor from '../../components/editor'
 import Runner from '../../components/runner'
 import Result from '../../components/result'
@@ -132,68 +132,68 @@ const CompeteProblemPage = () => {
       placement: 'bottom',
       disableBeacon: true
     },
-    {
-      target: '.rt-collab-info',
-      content: (
-        <div className="flex flex-col font-ubuntu text-justify">
-          <p>
-            Bagian ini merupakan informasi mengenai ruang kolaborasi. Dalam model
-            pembelajaran pair programming terdapat 2 peran yaitu:
-          </p>
-          <ul className="list-disc list-inside">
-            <li>
-              <Bold text="Driver" /> bertugas untuk
-            mendesain algoritma dan mengimplementasikan solusi.
-            </li>
-            <li>
-              <Bold text="Navigator" /> memberikan saran dan meninjau kode program yang ditulis.
-            </li>
-          </ul>
-          <p>
-          Di ruang kolaborasi ini, keduanya dapat menulis dan membagikan kode program secara bersamaan.
-          </p>
-        </div>
-      ),
-      placement: 'bottom',
-      disableBeacon: true
-    },
-    {
-      target: '.rt-collab-field',
-      content: (
-          <p className='font-ubuntu text-justify'>
-            Bagian ini merupakan field untuk <Bold text="ID Ruangan" /> kolaborasi.
-            Untuk bergabung pada ruang
-            kolaborasi, masukkan ID ruangan yang valid.
-          </p>
-      ),
-      placement: 'bottom',
-      disableBeacon: true
-    },
-    {
-      target: '.rt-collab-button',
-      content: (
-          <p className='font-ubuntu text-justify'>
-            Tekan tombol <Bold text="&quot;Gabung&quot;" />
-            untuk bergabung pada ruang kolaborasi, atau tekan tombol{' '}
-            <Bold text="&quot;Keluar&quot;" /> untuk
-            meninggalkan ruang kolaborasi.
-          </p>
-      ),
-      placement: 'right',
-      disableBeacon: true
-    },
-    {
-      target: '.rt-meet',
-      content: (
-          <p className='font-ubuntu text-justify'>
-            Tekan tombol ini untuk membuka <Bold text="panggilan secara daring" />{' '} {emoji('📞👥')}.
+    // {
+    //   target: '.rt-collab-info',
+    //   content: (
+    //     <div className="flex flex-col font-ubuntu text-justify">
+    //       <p>
+    //         Bagian ini merupakan informasi mengenai ruang kolaborasi. Dalam model
+    //         pembelajaran pair programming terdapat 2 peran yaitu:
+    //       </p>
+    //       <ul className="list-disc list-inside">
+    //         <li>
+    //           <Bold text="Driver" /> bertugas untuk
+    //         mendesain algoritma dan mengimplementasikan solusi.
+    //         </li>
+    //         <li>
+    //           <Bold text="Navigator" /> memberikan saran dan meninjau kode program yang ditulis.
+    //         </li>
+    //       </ul>
+    //       <p>
+    //       Di ruang kolaborasi ini, keduanya dapat menulis dan membagikan kode program secara bersamaan.
+    //       </p>
+    //     </div>
+    //   ),
+    //   placement: 'bottom',
+    //   disableBeacon: true
+    // },
+    // {
+    //   target: '.rt-collab-field',
+    //   content: (
+    //       <p className='font-ubuntu text-justify'>
+    //         Bagian ini merupakan field untuk <Bold text="ID Ruangan" /> kolaborasi.
+    //         Untuk bergabung pada ruang
+    //         kolaborasi, masukkan ID ruangan yang valid.
+    //       </p>
+    //   ),
+    //   placement: 'bottom',
+    //   disableBeacon: true
+    // },
+    // {
+    //   target: '.rt-collab-button',
+    //   content: (
+    //       <p className='font-ubuntu text-justify'>
+    //         Tekan tombol <Bold text="&quot;Gabung&quot;" />
+    //         untuk bergabung pada ruang kolaborasi, atau tekan tombol{' '}
+    //         <Bold text="&quot;Keluar&quot;" /> untuk
+    //         meninggalkan ruang kolaborasi.
+    //       </p>
+    //   ),
+    //   placement: 'right',
+    //   disableBeacon: true
+    // },
+    // {
+    //   target: '.rt-meet',
+    //   content: (
+    //       <p className='font-ubuntu text-justify'>
+    //         Tekan tombol ini untuk membuka <Bold text="panggilan secara daring" />{' '} {emoji('📞👥')}.
 
-            Panggilan ini seperti zoom atau google meet untuk berkomunikasi dengan partnermu.
-          </p>
-      ),
-      placement: 'bottom',
-      disableBeacon: true
-    },
+    //         Panggilan ini seperti zoom atau google meet untuk berkomunikasi dengan partnermu.
+    //       </p>
+    //   ),
+    //   placement: 'bottom',
+    //   disableBeacon: true
+    // },
     {
       target: '.rt-language',
       content: (
@@ -455,7 +455,7 @@ const CompeteProblemPage = () => {
             } justify-between overflow-auto transition-all ease-in-out duration-500 space-y-6`}
           >
             <div className="flex flex-col w-full h-full items-start justify-start pt-2 pb-10 px-2 space-y-6 bg-milk dark:bg-alternate duration-300 ease-in-out">
-              <RoomInfo />
+              {/* <RoomInfo /> */}
               <Editor />
               <Runner />
               {run && <Result />}
