@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useCollab } from '../../contexts/CollabContext'
@@ -24,6 +24,9 @@ const CollabPage = () => {
   const { problemStates } = useCollab()
   const { setLanguageList } = problemStates
 
+  // Local States
+  const [from] = useState(new Date())
+
   // Initially set isCollab to true
   useEffect(() => {
     setIsOnlyEditor(true)
@@ -31,10 +34,10 @@ const CollabPage = () => {
     setColHide(false)
   }, [])
 
-  // Travel log
+  // UseEffect when leaving page
   useEffect(() => {
-    if (user) {
-      travelLog('Visiting collaboration page')
+    return () => {
+      if (user) travelLog('Visiting collaboration page', from, new Date())
     }
   }, [user])
 

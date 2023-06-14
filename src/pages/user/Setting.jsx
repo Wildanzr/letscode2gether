@@ -19,6 +19,7 @@ const SettingPage = () => {
   const [userDetails, setUserDetails] = useState(null)
   const [tabKey, setTabKey] = useState(1)
   const [fetch, setFetch] = useState(true)
+  const [from] = useState(new Date())
   const fetcher = {
     fetch,
     setFetch
@@ -72,10 +73,10 @@ const SettingPage = () => {
     }
   }, [fetch])
 
-  // Travel log
+  // UseEffect when leaving page
   useEffect(() => {
-    if (user) {
-      travelLog('Visiting user setting page')
+    return () => {
+      if (user) travelLog('Visiting user setting page', from, new Date())
     }
   }, [user])
 

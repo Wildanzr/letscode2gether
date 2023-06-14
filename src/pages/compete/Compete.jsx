@@ -71,6 +71,7 @@ const CompetePage = () => {
   const [current, setCurrent] = useState(1)
   const [total, setTotal] = useState(10)
   const [fetch, setFetch] = useState(true)
+  const [from] = useState(new Date())
   const [endpoint, setEndpoint] = useState(
     '/competes?isLearnPath=false&isChallenge=false&on=true'
   )
@@ -189,10 +190,10 @@ const CompetePage = () => {
     )
   }, [user])
 
-  // Travel log
+  // UseEffect when leaving page
   useEffect(() => {
-    if (user) {
-      travelLog('Visiting compete page')
+    return () => {
+      if (user) travelLog('Visiting compete page', from, new Date())
     }
   }, [user])
 

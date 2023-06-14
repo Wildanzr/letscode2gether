@@ -1,6 +1,6 @@
 import langConfig from '../../config/langConfig.json'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 
 import Learn from '../../assets/learn.svg'
@@ -18,10 +18,13 @@ const HomePage = () => {
   const { user } = authStates
   const { travelLog } = authFunctions
 
-  // Travel log
+  // Local States
+  const [from] = useState(new Date())
+
+  // UseEffect when leaving page
   useEffect(() => {
-    if (user) {
-      travelLog('Visiting home page')
+    return () => {
+      if (user) travelLog('Visiting home page', from, new Date())
     }
   }, [user])
   return (

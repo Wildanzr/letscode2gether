@@ -21,6 +21,7 @@ const ProfilePage = () => {
   // Local States
   const [profileDetails, setProfileDetails] = useState(null)
   const [journeyDetails, setJourneyDetails] = useState(null)
+  const [from] = useState(new Date())
 
   // Get profile details
   const getProfileDetails = async () => {
@@ -49,10 +50,10 @@ const ProfilePage = () => {
     getProfileDetails()
   }, [])
 
-  // Travel log
+  // UseEffect when leaving page
   useEffect(() => {
-    if (user) {
-      travelLog(`Visiting user profile page ->${username}`)
+    return () => {
+      if (user) travelLog(`Visiting user profile page ->${username}`, from, new Date())
     }
   }, [user])
   return (

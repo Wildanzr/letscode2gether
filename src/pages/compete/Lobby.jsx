@@ -32,6 +32,7 @@ const CompeteLobbyPage = () => {
   const [compete, setCompete] = useState(null)
   const [problems, setProblems] = useState(null)
   const [tabKey, setTabKey] = useState(1)
+  const [from] = useState(new Date())
 
   // Check if user already joined
   const checkJoined = async () => {
@@ -104,10 +105,10 @@ const CompeteLobbyPage = () => {
     }
   }, [isJoined])
 
-  // Travel log
+  // UseEffect when leaving page
   useEffect(() => {
-    if (user) {
-      travelLog(`Visiting compete page lobby ->${competeId}`)
+    return () => {
+      if (user) travelLog(`Visiting compete page lobby ->${competeId}`, from, new Date())
     }
   }, [user])
 

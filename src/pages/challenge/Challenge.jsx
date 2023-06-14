@@ -26,6 +26,7 @@ const ChallengePage = () => {
   const [problems, setProblems] = useState(null)
   const [firstFetch, setFirstFetch] = useState(true)
   const [secondFetch, setSecondFetch] = useState(false)
+  const [from] = useState(new Date())
   // const options = [
   //   {
   //     value: 'level',
@@ -150,10 +151,10 @@ const ChallengePage = () => {
     }
   }, [total, defaultCurrent, secondFetch])
 
-  // Travel log
+  // UseEffect when leaving page
   useEffect(() => {
-    if (user) {
-      travelLog('Visiting challenge page')
+    return () => {
+      if (user) travelLog('Visiting challenge page', from, new Date())
     }
   }, [user])
   return (
