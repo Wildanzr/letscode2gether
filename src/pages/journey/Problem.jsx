@@ -46,6 +46,7 @@ const ProblemPage = () => {
   // Local States
   const [isTourOpen, setIsTourOpen] = useState(false)
   const [localFirst, setLocalFirst] = useState(false)
+  const [from] = useState(new Date())
 
   // Tour step and scroll lock
   const steps = [
@@ -413,13 +414,6 @@ const ProblemPage = () => {
     getCompeteProblemDetail()
   }, [])
 
-  // Travel log
-  useEffect(() => {
-    if (user) {
-      travelLog(`Visiting learning journey problem page ->${competeProblemId}`)
-    }
-  }, [user])
-
   // Open tour after 3 seconds
   useEffect(() => {
     setTimeout(() => {
@@ -434,6 +428,13 @@ const ProblemPage = () => {
       !isTourNeverShow && showTourSwal()
     }
   }, [isTourNeverShow])
+
+  // UseEffect when leaving page
+  useEffect(() => {
+    return () => {
+      if (user) travelLog(`Visiting learning journey problem page ->${competeProblemId}`, from, new Date())
+    }
+  }, [user])
 
   return (
     <div className="flex flex-col items-center justify-between w-full min-h-screen bg-snow dark:bg-main text-main dark:text-snow duration-300 ease-in-out">

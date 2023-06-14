@@ -19,6 +19,7 @@ const LeaderboardPage = () => {
 
   // Local States
   const [leaderboard, setLeaderboard] = useState(null)
+  const [from] = useState(new Date())
 
   // Get overall leaderboard
   const getOverallLeaderboard = async () => {
@@ -39,10 +40,10 @@ const LeaderboardPage = () => {
     getOverallLeaderboard()
   }, [])
 
-  // Travel log
+  // UseEffect when leaving page
   useEffect(() => {
-    if (user) {
-      travelLog('Visiting overall leaderboard page')
+    return () => {
+      if (user) travelLog('Visiting overall leaderboard page', from, new Date())
     }
   }, [user])
   return (

@@ -75,6 +75,7 @@ const CompetePage = () => {
     '/competes?isLearnPath=false&isChallenge=false&on=true'
   )
   const [search, setSearch] = useState('')
+  const [from] = useState(new Date())
 
   // Compete props drill
   const [selectedCompete, setSelectedCompete] = useState(null)
@@ -189,10 +190,10 @@ const CompetePage = () => {
     )
   }, [user])
 
-  // Travel log
+  // UseEffect when leaving page
   useEffect(() => {
-    if (user) {
-      travelLog('Visiting compete page')
+    return () => {
+      if (user) travelLog('Visiting compete page', from, new Date())
     }
   }, [user])
 

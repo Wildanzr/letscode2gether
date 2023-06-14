@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   // TravelLog
-  const travelLog = async (path) => {
+  const travelLog = async (path = '', from = '', to = '') => {
     // Config
     const config = {
       headers: {
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     try {
-      await api.post(`user/travel?path=${path}`, {}, config)
+      await api.post(`user/travel?path=${path}&from=${from}&to=${to}&mode=2`, {}, config)
     } catch (error) {
       console.log(error)
     }

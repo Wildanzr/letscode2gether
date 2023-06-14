@@ -28,6 +28,7 @@ const JourneyPage = () => {
   const [journeys, setJourneys] = useState(null)
   const [progress, setProgress] = useState(null)
   const [point, setPoint] = useState(null)
+  const [from] = useState(new Date())
 
   // Get all journeys
   const getAllJourneys = async () => {
@@ -107,10 +108,10 @@ const JourneyPage = () => {
     getAllJourneys()
   }, [])
 
-  // Travel log
+  // UseEffect when leaving page
   useEffect(() => {
-    if (user) {
-      travelLog('Visiting learning journey page')
+    return () => {
+      if (user) travelLog('Visiting learning journey page', from, new Date())
     }
   }, [user])
   return (
