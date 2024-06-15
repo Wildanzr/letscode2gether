@@ -10,7 +10,7 @@ const { Search } = Input
 
 const SearchDebounce = (props) => {
   // Destructure props
-  const { setJourneys, setProblems, competeId, isChallenge, setDefaultCurrent, setTotal, limit, defaultCurrent, setSearch } = props
+  const { setJourneys, setProblems, competeId, isChallenge, isMaterial, setDefaultCurrent, setTotal, limit, defaultCurrent, setSearch } = props
 
   // Search journeys
   const searchJourney = async (e) => {
@@ -48,7 +48,7 @@ const SearchDebounce = (props) => {
     // Set search
     setSearch(value)
 
-    // // Config
+    // Config
     const config = {
       headers: {
         authorization: `Bearer ${Cookies.get('jwtToken')}`
@@ -71,12 +71,15 @@ const SearchDebounce = (props) => {
       console.log(error)
     }
   }
+
   return (
     <Search
     onChange={isChallenge ? debounce(searchProblem, 500) : debounce(searchJourney, 500)}
         placeholder={isChallenge
           ? langConfig.formPlaceholderSearchChallenge
-          : langConfig.formPlaceholderSearchJourney
+          : isMaterial
+            ? langConfig.formPlaceholderSearchMaterial
+            : langConfig.formPlaceholderSearchJourney
         }
         prefix={<RiSearchLine />}
         allowClear

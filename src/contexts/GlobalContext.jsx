@@ -11,7 +11,7 @@ export const GlobalProvider = ({ children }) => {
   // Global state
   const [colHide, setColHide] = useState(false)
   const [colSideContent, setColSideContent] = useState('')
-  const [tabs, setTabs] = useState(0)
+  const [tabs, setTabs] = useState(-1)
   const [isOn, setIsOn] = useState(false)
   const [toggle, setToggle] = useState(true)
   const [isTourNeverShow, setIsTourNeverShow] = useState(Cookies.get('isTourNeverShow') || false)

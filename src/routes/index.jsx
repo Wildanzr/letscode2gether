@@ -5,6 +5,7 @@ import { useCollab } from '../contexts/CollabContext'
 import { CollabPage } from '../pages/collaboration'
 import { HomePage } from '../pages/home'
 import { JourneyPage, ProblemPage } from '../pages/journey'
+import { MaterialPage } from '../pages/material'
 import { ChallengePage, ChallengeProblemPage } from '../pages/challenge'
 import {
   CompetePage,
@@ -37,7 +38,8 @@ import {
   ManageChallengePage,
   CreateChallengePage,
   DetailChallengePage,
-  EditChallengePage
+  EditChallengePage,
+  ManageMaterialPage
 } from '../pages/admin'
 import {
   CreateCompetesPage,
@@ -95,10 +97,12 @@ const RouteList = () => {
     if (pathname.includes('/admin/dashboard')) setTabs(1)
     else if (pathname.includes('/admin/manage/journeys')) setTabs(2)
     else if (pathname.includes('/admin/manage/challenges')) setTabs(3)
+    else if (pathname.includes('/admin/manage/materials')) setTabs(4)
     // For Teacher
     else if (pathname.includes('/teacher/dashboard')) setTabs(1)
     else if (pathname.includes('/teacher/manage/competes')) setTabs(2)
     // For User
+    else if (pathname.includes('/materials')) setTabs(0)
     else if (pathname.includes('/learning-journey')) setTabs(1)
     else if (pathname.includes('/challenges')) setTabs(2)
     else if (pathname.includes('/competes')) setTabs(3)
@@ -133,7 +137,7 @@ const RouteList = () => {
           path="path/:materialId"
           element={<ProblemPage />}
         />
-        <Route index element={<JourneyPage />} />
+        <Route index element={<MaterialPage />} />
       </Route>
 
       {/* Learning Journey */}
@@ -184,6 +188,7 @@ const RouteList = () => {
       {/* Admin Route */}
       <Route path="/admin">
         <Route path="manage">
+
           {/* Journeys */}
           <Route path="journeys">
             <Route path="create" element={<CreateJourneyPage />} />
@@ -248,6 +253,11 @@ const RouteList = () => {
               element={<EditTestCasePage />}
             />
             <Route index element={<ManageChallengePage />} />
+          </Route>
+
+          {/* Materials */}
+          <Route path="materials">
+            <Route index element={<ManageMaterialPage/>} />
           </Route>
 
           <Route path="*" element={<NotFound />} />
