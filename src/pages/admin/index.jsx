@@ -20,3 +20,4 @@ export { default as EditChallengePage } from './challenge/EditChallenge'
 export { default as CreateChallengePage } from './challenge/CreateChallenge'
 
 export { default as ManageMaterialPage } from './material/ManageMaterial'
+export { default as CreateMaterialPage } from './material/CreateMaterial'

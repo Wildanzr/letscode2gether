@@ -39,7 +39,8 @@ import {
   CreateChallengePage,
   DetailChallengePage,
   EditChallengePage,
-  ManageMaterialPage
+  ManageMaterialPage,
+  CreateMaterialPage
 } from '../pages/admin'
 import {
   CreateCompetesPage,
@@ -257,6 +258,7 @@ const RouteList = () => {
 
           {/* Materials */}
           <Route path="materials">
+            <Route path="create" element={<CreateMaterialPage />} />
             <Route index element={<ManageMaterialPage/>} />
           </Route>
 

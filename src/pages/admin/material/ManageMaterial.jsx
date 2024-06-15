@@ -5,7 +5,7 @@ import api from '../../../api'
 import { Navbar, Footer } from '../../../layout'
 import { Breadcrumb } from '../../../components/breadcrumb'
 import { SearchDebounce } from '../../../components/other'
-import { EditableListOfChallenge } from '../../../components/table'
+import { EditableListofMaterial } from '../../../components/table'
 
 import Cookies from 'js-cookie'
 import { Pagination } from 'antd'
@@ -158,7 +158,7 @@ const ManageMaterialPage = () => {
           <div className="flex flex-col w-full space-y-2 overflow-y-auto">
             <div className="flex flex-col pb-4 overflow-y-auto">
               <div className="flex w-full">
-                <EditableListOfChallenge problems={problems} cpId={competeId} setFetch={setFetch}/>
+                <EditableListofMaterial problems={problems} cpId={competeId} setFetch={setFetch}/>
               </div>
             </div>
           </div>
