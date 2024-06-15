@@ -189,6 +189,11 @@ const Navbar = (props) => {
             ]
           : [
               {
+                to: '/materials',
+                name: langConfig.userNav0,
+                no: 0
+              },
+              {
                 to: '/learning-journey',
                 name: langConfig.userNav1,
                 no: 1

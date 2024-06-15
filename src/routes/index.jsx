@@ -127,6 +127,15 @@ const RouteList = () => {
       {/* Setting */}
       <Route path="/settings" element={<SettingPage />} />
 
+      {/* Materials */}
+      <Route path="/materials">
+        <Route
+          path="path/:materialId"
+          element={<ProblemPage />}
+        />
+        <Route index element={<JourneyPage />} />
+      </Route>
+
       {/* Learning Journey */}
       <Route path="/learning-journey">
         <Route
