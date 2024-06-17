@@ -10,7 +10,8 @@ const { Search } = Input
 
 const SearchDebounce = (props) => {
   // Destructure props
-  const { setJourneys, setProblems, competeId, isChallenge, isMaterial, setDefaultCurrent, setTotal, limit, defaultCurrent, setSearch } = props
+  const { setJourneys, setProblems, setMaterials, competeId, isChallenge, isMaterial, setDefaultCurrent, setTotal, limit, defaultCurrent, setSearch } = props
+  console.log('Defatul current: ', defaultCurrent)
 
   // Search journeys
   const searchJourney = async (e) => {
@@ -72,9 +73,45 @@ const SearchDebounce = (props) => {
     }
   }
 
+  // Search materials
+  const searchMaterial = async (e) => {
+    // Destrcuture props
+    const { value } = e.target
+
+    // Set materials to null
+    setMaterials(null)
+
+    // Config
+    const config = {
+      headers: {
+        authorization: `Bearer ${Cookies.get('jwtToken')}`
+      }
+    }
+
+    try {
+      const { data } = await api.get(`/materials?q=${value}&page=${defaultCurrent}&limit=${limit}`, config)
+      // console.log(data)
+
+      // Set materials
+      const { materials } = data.data
+      setMaterials(materials)
+
+      // Set meta
+      const { page, total } = data.meta
+      setDefaultCurrent(parseInt(page))
+      setTotal(parseInt(total))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Search
-    onChange={isChallenge ? debounce(searchProblem, 500) : debounce(searchJourney, 500)}
+    onChange={isChallenge
+      ? debounce(searchProblem, 500)
+      : isMaterial
+        ? debounce(searchMaterial, 500)
+        : debounce(searchJourney, 500)}
         placeholder={isChallenge
           ? langConfig.formPlaceholderSearchChallenge
           : isMaterial

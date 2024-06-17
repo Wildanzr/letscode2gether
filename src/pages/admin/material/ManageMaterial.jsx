@@ -19,8 +19,7 @@ const ManageMaterialPage = () => {
     }
   ])
 
-  const [competeId, setCompeteId] = useState(null)
-  const [problems, setProblems] = useState(null)
+  const [materials, setMaterials] = useState(null)
   const [fetch, setFetch] = useState(true)
   const [secondFetch, setSecondFetch] = useState(false)
 
@@ -46,32 +45,31 @@ const ManageMaterialPage = () => {
     setSecondFetch(true)
   }
 
-  const fetchJourneys = async () => {
+  const fetchMaterials = async () => {
     const config = {
       headers: {
         Authorization: `Bearer ${Cookies.get('jwtToken')}`
       }
     }
     try {
-      const { data } = await api.get('/competes?page=1&limit=10&isChallenge=true', config)
-      // console.log(data)
-      const { competes } = data.data
+      const { data } = await api.get('/materials?page=1&limit=10', config)
+      console.log(data)
+      const { materials } = data.data
 
-      if (competes.length === 0) {
-        setProblems([])
+      if (materials.length === 0) {
+        setMaterials([])
       } else {
-        setCompeteId(competes[0]._id)
-        setSecondFetch(true)
+        setMaterials(materials)
       }
     } catch (error) {
       console.log(error)
     }
   }
 
-  // Search problems
-  const searchProblem = async () => {
-    // Set problems to null
-    setProblems(null)
+  // Search materials
+  const searchMaterial = async () => {
+    // Set materials to null
+    setMaterials(null)
 
     // Config
     const config = {
@@ -81,12 +79,12 @@ const ManageMaterialPage = () => {
     }
 
     try {
-      const { data } = await api.get(`/competes/${competeId}/challenges?q=${search}&page=${defaultCurrent}&limit=${limit}`, config)
-      // console.log(data)
+      const { data } = await api.get(`/materials?q=${search}&page=${defaultCurrent}&limit=${limit}`, config)
+      console.log(data)
 
-      // Set problems
-      const { problems } = data.data
-      setProblems(problems)
+      // Set materials
+      const { materials } = data.data
+      setMaterials(materials)
 
       // Set meta
       const { page, total } = data.meta
@@ -100,7 +98,7 @@ const ManageMaterialPage = () => {
   // Initial fetch challenge journey
   useEffect(() => {
     if (fetch) {
-      fetchJourneys()
+      fetchMaterials()
       setFetch(false)
     }
   }, [fetch])
@@ -108,7 +106,7 @@ const ManageMaterialPage = () => {
   // Search problems when total or defaultCurrent changed
   useEffect(() => {
     if (secondFetch) {
-      searchProblem()
+      searchMaterial()
       setSecondFetch(false)
     }
   }, [total, defaultCurrent, secondFetch])
@@ -128,7 +126,7 @@ const ManageMaterialPage = () => {
           <div className="flex flex-col m-0 space-y-5 lg:pt-0 w-full items-center justify-between">
 
             <div className="w-full hidden lg:flex">
-              <SearchDebounce setProblems={setProblems} isChallenge={false} isMaterial={true} competeId={competeId} {...paginationProps} />
+              <SearchDebounce isMaterial={true} setMaterials={setMaterials} {...paginationProps} />
             </div>
 
             <div className="w-full hidden flex-row justify-end lg:flex">
@@ -142,7 +140,7 @@ const ManageMaterialPage = () => {
             </div>
 
             <div className="flex flex-row lg:hidden w-full space-x-5">
-              <SearchDebounce setProblems={setProblems} isChallenge={false} isMaterial={true} competeId={competeId} {...paginationProps} />
+              <SearchDebounce isMaterial={true} setMaterials={setMaterials} {...paginationProps} />
             </div>
 
             <div className="w-full flex flex-row justify-center lg:hidden">
@@ -158,7 +156,7 @@ const ManageMaterialPage = () => {
           <div className="flex flex-col w-full space-y-2 overflow-y-auto">
             <div className="flex flex-col pb-4 overflow-y-auto">
               <div className="flex w-full">
-                <EditableListofMaterial problems={problems} cpId={competeId} setFetch={setFetch}/>
+                <EditableListofMaterial materials={materials} setFetch={setFetch}/>
               </div>
             </div>
           </div>
