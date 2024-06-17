@@ -18,3 +18,8 @@ export { default as ManageChallengePage } from './challenge/ManageChallenge'
 export { default as DetailChallengePage } from './challenge/DetailChallenge'
 export { default as EditChallengePage } from './challenge/EditChallenge'
 export { default as CreateChallengePage } from './challenge/CreateChallenge'
+
+export { default as ManageMaterialPage } from './material/ManageMaterial'
+export { default as CreateMaterialPage } from './material/CreateMaterial'
+export { default as DetailMaterialPage } from './material/DetailMaterial'
+export { default as EditMaterialPage } from './material/EditMaterial'

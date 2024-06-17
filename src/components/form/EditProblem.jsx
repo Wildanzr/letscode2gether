@@ -205,7 +205,7 @@ const EditProblem = (props) => {
                   ['bold', 'italic', 'underline', 'strike', 'blockquote'],
                   [{ list: 'ordered' }, { list: 'bullet' }],
                   [{ align: [] }],
-                  ['link'],
+                  ['link', 'image'],
                   [{ color: [] }, { background: [] }],
                   [{ script: 'super' }, { script: 'sub' }]
                 ]

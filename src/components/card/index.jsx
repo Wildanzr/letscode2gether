@@ -7,3 +7,5 @@ export { default as UserJourney } from './UserJourney'
 
 export { default as Compete } from './Compete'
 export { default as Time } from './Time'
+
+export { default as MaterialList } from './MaterialList'

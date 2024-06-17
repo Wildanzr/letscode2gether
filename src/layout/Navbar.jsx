@@ -53,6 +53,11 @@ const Navbar = (props) => {
             to: '/admin/manage/challenges',
             name: langConfig.adminNav3,
             no: 3
+          },
+          {
+            to: '/admin/manage/materials',
+            name: langConfig.adminNav4,
+            no: 4
           }
         ]
       : user !== null && user.role === 1 && isTeacher
@@ -172,6 +177,11 @@ const Navbar = (props) => {
               to: '/admin/manage/challenges',
               name: langConfig.adminNav3,
               no: 3
+            },
+            {
+              to: '/admin/manage/materials',
+              name: langConfig.adminNav4,
+              no: 4
             }
           ]
         : user !== null && user.role === 1 && isTeacher
@@ -188,6 +198,11 @@ const Navbar = (props) => {
               }
             ]
           : [
+              {
+                to: '/materials',
+                name: langConfig.userNav0,
+                no: 0
+              },
               {
                 to: '/learning-journey',
                 name: langConfig.userNav1,
@@ -218,14 +233,14 @@ const Navbar = (props) => {
       <div className="flex flex-row w-full px-5 py-2 bg-snow dark:bg-main ease-in-out items-center justify-between duration-300">
         {/* Hide if the screen lg */}
         <div className="flex lg:hidden flex-row items-center space-x-5">
-          <Link to="/" onClick={() => setTabs(0)}>
+          <Link to="/" onClick={() => setTabs(-1)}>
             <img src={Letscode} className="w-full h-full" />
           </Link>
         </div>
 
         {/* Show if the screen lg */}
         <div className="hidden lg:flex flex-row items-center space-x-5">
-          <Link to="/" onClick={() => setTabs(0)}>
+          <Link to="/" onClick={() => setTabs(-1)}>
             <img src={Letscode} className="w-full h-full" />
           </Link>
           {paths.map((path, index) => (

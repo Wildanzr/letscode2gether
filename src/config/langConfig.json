@@ -1,4 +1,5 @@
 {
+  "userNav0": "Materi",
   "userNav1": "Jalur Belajar",
   "userNav2": "Tantangan",
   "userNav3": "Kompetisi",
@@ -9,6 +10,7 @@
   "adminNav1": "Dashboard",
   "adminNav2": "Manajemen Jalur Belajar",
   "adminNav3": "Manajemen Tantangan",
+  "adminNav4": "Manajemen Materi",
   "teacherNav1": "Dashboard",
   "teacherNav2": "Manajemen Kompetisi",
   "menu1": "Profil",
@@ -24,6 +26,7 @@
   "home2Desc": "Jangan berpikir sendirian! Ajak teman-temanmu untuk menyelesaiakan permasalahan bersama.",
   "home2Button": "Coba Sekarang",
   "home3Desc": "Tidak perlu menginstal aplikasi pemrograman. Cukup dengan memilih salah satu bahasa pemrograman dan mulailah menulis kode.",
+  "materialDesc": "Materi pembelajaran ini akan membantumu memahami konsep dasar pemrograman. LetsCode menyediakan materi pembelajaran yang mudah dipahami dan disertai dengan contoh kasus yang dapat kamu coba. Yuk, mulai belajar!",
   "journeyDesc": "LetsCode menerapkan metode pembelajaran berbasis masalah. Dengan metode ini, kamu dapat belajar dengan cara yang lebih fokus dan terarah serta proses belajarmu akan lebih bermakna karena kamu akan mempraktikkan apa yang telah kamu pelajari sebelumnya.",
   "journeyProgress": "Kemajuan Belajar :",
   "journeyBadges": "Lencana Saat Ini :",
@@ -92,15 +95,11 @@
   "updateProfileTab1": "Perbarui Profil",
   "updateProfileTab2": "Ganti Password",
   "updateProfileUpdate": "Perbarui Profil",
-
-  
   "buttonCancel": "Batal",
   "buttonSave": "Simpan",
   "buttonAdd": "Tambahkan",
   "studentSearchButton": "Cari Peserta Didik",
   "searchButton": "Cari",
-
-
   "formFullNameRule1": "Mohon masukkan nama lengkap!",
   "formFullNameRule2": "Nama lengkap tidak boleh melebihi dari 255 karakter!",
   "formFullNameRule3": "Nama lengkap setidaknya terdiri dari 3 karakter!",
@@ -140,13 +139,16 @@
   "formConstraintsAndFormatRule1a": "Mohon masukkan",
   "formConstraintsAndFormatRule1b": "permasalahan",
   "formConstraintsAndFormatRule1c": "dari tantangan!",
-  "formConstraintsAndFormatRule2": "tidak boleh melebihi dari 1000 karakter!", 
+  "formConstraintsAndFormatRule2": "tidak boleh melebihi dari 1000 karakter!",
   "formInputRule1": "Masukkan tidak boleh melebihi dari 1000 karakter!",
   "formOutputRule1": "Mohon isi keluaran!",
   "formOutputRule2": "Keluaran tidak boleh melebihi dari 10000 karakter!",
   "formChallengeTitleRule1": "Mohon masukkan judul tantangan!",
   "formChallengeTitleRule2": "Judul tantangan setidaknya terdiri dari 3 karakter!",
   "formChallengeTitleRule3": "Judul tantangan tidak boleh melebihi dari 255 karakter!",
+  "formMaterialTitleRule1": "Mohon masukkan judul materi!",
+  "formMaterialTitleRule2": "Judul materi setidaknya terdiri dari 3 karakter!",
+  "formMaterialTitleRule3": "Judul materi tidak boleh melebihi dari 255 karakter!",
   "formChallengeDescriptionRule1": "Mohon masukkan deskripsi tantangan!",
   "formChallengeDifficultyRule1": "Mohon pilih tingkat kesulitan tantangan!",
   "formCompeteNameRule1": "Mohon masukkan nama kompetisi!",
@@ -156,8 +158,7 @@
   "formCompeteDurationRule2": "Mohon mengisi waktu mulai dan waktu berakhir kompetisi!",
   "formCompeteKeyRule1": "Mohon masukkan kode akses kompetisi!",
   "formProblemRule1": "Mohon masukkan deskripsi permasalahan",
-
-
+  "formMaterialRule1": "Mohon masukkan materi",
   "formPlaceholderFullName": "Nama lengkap",
   "formPlaceholderUsername": "Username",
   "formPlaceholderGender": "Jenis kelamin",
@@ -172,6 +173,7 @@
   "formPlaceholderCustomInput": "Isikan percobaan masukkan",
   "formPlaceholderSearchJourney": "Cari Jalur Belajar",
   "formPlaceholderSearchChallenge": "Cari Tantangan",
+  "formPlaceholderSearchMaterial": "Cari Materi",
   "formPlaceholderJourneyName": "Nama Jalur Belajar",
   "formPlaceholderJourneyDescription": "Deskripsi Jalur Belajar",
   "formPlaceholderJourneyLanguage": "Pilih bahasa pemrograman",
@@ -184,26 +186,20 @@
   "formPlaceholderChallengeTitle": "Judul tantangan",
   "formPlaceholderChallengeDescription": "Deskripsi tantangan",
   "formPlaceholderChallengeDifficulty": "Tingkat kesulitan tantangan",
+  "formPlaceholderMaterialTitle": "Judul materi",
   "formPlaceholderCompeteName": "Nama kompetisi",
   "formPlaceholderCompeteDescription": "Deskripsi kompetisi",
   "formPlaceholderCompeteStart": "Mulai",
   "formPlaceholderCompeteEnd": "Berakhir",
   "formPlaceholderCompeteKey": "Kode akses kompetisi",
-  
-  
-  
   "updatePictureProfileWarn1": "Kamu hanya dapat mengupload file JPG/PNG!",
   "updatePictureProfileWarn2": "Ukaran gambar tidak boleh melebihi 2MB!",
   "collabRoomWarn1": "Mohon masukkan ID ruangan!",
   "collabRoomWarn2": "ID ruangan terdiri dari 10 karakter!",
   "collabSubmitWarn": "Pilih salah satu bahasa dahulu!",
-  
-  
   "profileUpdatePicture": "Perbarui Foto Profil",
   "changePasswordWarn1": "Password yang diisi tidak sama!",
   "changePasswordChange": "Ganti Password",
-  
-  
   "loadingLogIn": "Sedang mencoba masuk...",
   "loadingForgotPassword": "Sedang memvalidasi email...",
   "loadingChangePassword": "Sedang memperbarui password...",
@@ -224,15 +220,14 @@
   "loadingUpdateTestcase": "Sedang memperbarui kasus uji...",
   "loadingCreateJourney": "Sedang membuat jalur belajar...",
   "loadingDeleteChallenge": "Sedang menghapus tantangan...",
+  "loadingDeleteMaterial": "Sedang menghapus materi...",
   "loadingCreateChallenge": "Sedang membuat tantangan...",
+  "loadingCreateMaterial": "Sedang membuat materi...",
   "loadingUpdateChallenge": "Sedang memperbarui tantangan...",
   "loadingDeleteCompete": "Sedang menghapus kompetisi...",
   "loadingCreateCompete": "Sedang membuat kompetisi...",
   "loadingUpdateCompete": "Sedang memperbarui kompetisi...",
-
-
-
-
+  "loadingUpdateMaterial": "Sedang memperbarui materi...",
   "successUpdateProfile": "Pembaruan profil berhasil",
   "successChangePassword": "Pembaruan password berhasil",
   "successLogIn": "Berhasil masuk",
@@ -242,6 +237,7 @@
   "successResetPassword": "Password berhasil diperbarui",
   "successUpdateJourney": "Jalur belajar berhasil diperbarui",
   "successUpdateProblem": "Permasalahan berhasil diperbarui",
+  "successUpdateMaterial": "Materi berhasil diperbarui",
   "successCreateProblem": "Permasalahan berhasil dibuat",
   "successDeleteSampleCase": "Contoh kasus berhasil dihapus",
   "successCreateSampleCase": "Contoh kasus berhasil dibuat",
@@ -250,15 +246,15 @@
   "successUpdateTestcase": "Kasus uji berhasil diperbarui",
   "successCreateJourney": "Jalur belajar berhasil dibuat",
   "successDeleteChallenge": "Tantangan berhasil dihapus",
+  "successDeleteMaterial": "Materi berhasil dihapus",
   "successCreateChallenge": "Tantangan berhasil dibuat",
+  "successCreateMaterial": "Materi berhasil dibuat",
   "successUpdateChallenge": "Tantangan berhasil diperbarui",
   "successDeleteJourney": "Jalur belajar berhasil dihapus",
   "successDeleteCompete": "Kompetisi berhasil dihapus",
   "successUpdateCompete": "Kompetisi berhasil diperbarui",
   "successCreateCompete": "Kompetisi berhasil dibuat",
   "successJoinCompete": "Berhasil bergabung",
-
-
   "infoSomeoneJoined": "Seseorang bergabung dalaman ruangan.",
   "infoSomeoneLeft": "Seseorang keluar dari ruangan.",
   "infoMeLeftRoom": "Kamu keluar dari ruangan.",
@@ -271,16 +267,16 @@
   "infoDeleteTestcase": "Kasus uji yang telah dihapus tidak dapat dipulihkan.",
   "infoDeleteProblem": "Permasalahan yang telah dihapus tidak dapat dipulihkan.",
   "infoDeleteChallenge": "Tantangan yang telah dihapus tidak dapat dipulihkan.",
+  "infoDeleteMaterial": "Materi yang telah dihapus tidak dapat dipulihkan.",
   "infoZeroSampleCase": "Tidak ada contoh kasus yang dibuat.",
   "infoZeroTestcase": "Tidak ada kasus uji yang dibuat.",
   "infoZeroChallenge": "Tidak ada tantangan yang dibuat.",
+  "infoZeroMaterial": "Tidak ada materi yang dibuat.",
   "infoZeroJourney": "Tidak ada jalur belajar yang dibuat.",
   "infoZeroCompete": "Tidak ada kompetisi yang dibuat.",
   "infoZeroProblem": "Tidak ada permasalahan yang dibuat.",
   "infoZeroStudents": "Tidak ada peserta didik yang terdaftar.",
   "infoZeroSolved": "Belum ada yang menyelesaikan permasalahan ini.",
-
-  
   "dialogLeftRoom": "Apakah kamu yakin ingin keluar dari ruangan ini?",
   "dialogLeaveRoom": "Apakah kamu yakin ingin meninggalkan ruangan ini?",
   "dialogLeave": "Ya, keluar",
@@ -292,13 +288,10 @@
   "dialogDeleteTestcase": "Hapus kasus uji?",
   "dialogDeleteProblem": "Hapus permasalahan?",
   "dialogDeleteChallenge": "Hapus tantangan?",
+  "dialogDeleteMaterial": "Hapus materi?",
   "dialogDeleteCompete": "Hapus kompetisi?",
-
-  
   "validateUsernameTaken": "Username telah digunakan!",
   "validateEmailTaken": "Email telah digunakan!",
-
-
   "authLogin": "Masuk",
   "authLoginHead": "Masuk LetsCode",
   "authLoginRemember": "Ingat saya",
@@ -316,16 +309,12 @@
   "authResetPassword": "Atur Ulang Password",
   "authResetPasswordHead": "Mimin menemukan akunmu, sekarang kamu dapat memperbarui password.",
   "authResetPasswordButton": "Atur Ulang Password",
-
-
   "sideContentChallenger": "Penantang:",
   "sideContentBack": "Kembali",
   "sideContentProblem": "Permasalahan",
   "sideContentSubmissions": "Pengumpulan",
   "sideContentSubmissionsInfo": "Token pengumpulan kadaluarsa, kamu dapat mengumpulkan ulang.",
   "sideContentLeaderboards": "Papan Peringkat",
-
-
   "problemConstraints": "Batasan",
   "problemInputFormat": "Format Masukkan",
   "problemOutputFormat": "Format Keluaran",
@@ -360,15 +349,11 @@
   "resultResult": "Hasil:",
   "resultMemory": "Penggunaan Memori:",
   "resultTime": "Waktu Eksekusi:",
-
-
   "submissionEmpty": "Belum ada pengumpulan.",
   "submissionName": "Pengumpulan",
   "submissionLanguage": "Bahasa",
   "submissionTestCase": "Uji kasus",
   "submissionSourceCode": "Kode sumber",
-
-
   "totalStudents": "Total Peserta Didik",
   "totalTeachers": "Total Pendidik",
   "totalProblems": "Total Permasalahan",
@@ -376,8 +361,6 @@
   "totalCompetes": "Total Kompetisi",
   "dashboardStatistics": "Statistik",
   "dashboardUserStudent": "Daftar Peserta Didik",
-
-  
   "adminJourney": "Jalur Belajar",
   "adminLearningJourney1": "Daftar Jalur Belajar",
   "adminLearningJourney1a": "Tambah Jalur Belajar",
@@ -391,8 +374,11 @@
   "adminLearningJourney7": "Edit Contoh Kasus",
   "adminLearningJourney8": "Edit Uji Kasus",
   "adminLearningJourneyInfo": "* Daftar materi jalur belajar diurutkan berdasar nama, pastikan membuat materi dengan nama yang berurutan.",
-
-
+  "adminMaterial": "Materi",
+  "adminMaterial1": "Daftar Materi",
+  "adminMaterial1a": "Tambah Materi",
+  "adminMaterial2": "Edit Materi",
+  "adminMaterial3": "Detail Materi",
   "adminChallenge": "Tantangan",
   "adminChallenge1": "Daftar Tantangan",
   "adminChallenge1a": "Tambah Tantangan",
@@ -402,7 +388,6 @@
   "adminChallenge5": "Tambah Uji Kasus",
   "adminChallenge6": "Edit Contoh Kasus",
   "adminChallenge7": "Edit Uji Kasus",
-
   "adminCompete": "Kompetisi",
   "adminCompete1": "Daftar Kompetisi",
   "adminCompete1a": "Tambah Kompetisi",
@@ -415,8 +400,6 @@
   "adminCompete7": "Tambah Uji Kasus",
   "adminCompete8": "Edit Contoh Kasus",
   "adminCompete9": "Edit Uji Kasus",
-
-
   "tableManagementJourney1": "NO",
   "tableManagementJourney2": "NAMA MATERI",
   "tableManagementJourney3": "JUMLAH PERMASALAHAN",
@@ -426,6 +409,9 @@
   "tableManagementChallenge3": "POIN MAKSIMAL",
   "tableManagementChallenge4": "TINGKAT KESULITAN",
   "tableManagementChallenge5": "AKSI",
+  "tableManagementMaterial1": "NO",
+  "tableManagementMaterial2": "JUDUL MATERI",
+  "tableManagementMaterial3": "AKSI",
   "tableDetailJourney1": "NO",
   "tableDetailJourney2": "NAMA",
   "tableDetailJourney3": "POIN MAKSIMAL",
@@ -445,36 +431,31 @@
   "tableStudent3": "USERNAME",
   "tableStudent4": "LENCANA",
   "tableStudent5": "POIN",
-  "tableStudent6": "KEMAJUAN BELAJAR",  
-
-
+  "tableStudent6": "KEMAJUAN BELAJAR",
   "tableAddJourney": "Tambahkan Jalur Belajar",
   "tableAddProblem": "Tambahkan Permasalahan",
   "tableAddSample": "Tambahkan Contoh Kasus",
   "tableAddTest": "Tambahkan Uji Kasus",
   "tableAddChallenge": "Tambahkan Tantangan",
   "tableAddCompete": "Tambahkan Kompetisi",
-
+  "tableAddMaterial": "Tambahkan Materi",
   "tableCompete1": "NO",
   "tableCompete2": "NAMA",
   "tableCompete3": "KUNCI",
   "tableCompete4": "TOTAL PERMASALAHAN",
   "tableCompete5": "AKSI",
-
-
   "journeyDetailName": "Nama",
   "journeyDetailDescription": "Deskripsi",
   "journeyDetailLanguage": "Bahasa yang dapat digunakan",
   "journeyDetailProblems": "Daftar Permasalahan",
-
   "competeDetailName": "Nama",
   "competeDetailDescription": "Deskripsi",
   "competeDetailLanguage": "Bahasa yang dapat digunakan",
   "competeDetailProblems": "Daftar Permasalahan",
   "competeDuration": "Durasi Kompetisi",
-
-  
   "problemDetailTitle": "Judul",
+  "materialName": "Judul",
+  "materialContent": "Materi",
   "problemDetailDescription": "Deskripsi",
   "problemDetailConstraints": "Batasan",
   "problemDetailDifficulty": "Tingkat kesulitan",
@@ -482,11 +463,9 @@
   "problemDetailOutputFormat": "Format keluaran",
   "problemDetailSampleCase": "Contoh kasus",
   "problemDetailTestCase": "Uji kasus",
-
   "editJourneyName": "Nama",
   "editJourneyDescription": "Deskripsi",
   "editJourneyLanguage": "Bahasa yang dapat digunakan",
   "editJourneyProblems": "Daftar Permasalahan",
-
   "collabHelp": "Bantuan?"
 }

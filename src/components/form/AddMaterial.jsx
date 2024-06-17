@@ -5,20 +5,15 @@ import { useGlobal } from '../../contexts/GlobalContext'
 import api from '../../api'
 
 import Cookies from 'js-cookie'
-import { Form, Input, Select } from 'antd'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { Form, Input } from 'antd'
+import { Link, useNavigate } from 'react-router-dom'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 
 // Destructure Antd Components
 const { Item } = Form
-const { TextArea } = Input
 
-const AddChallenge = () => {
-  // useSearchParams
-  const [searchParams] = useSearchParams()
-  const journeyId = searchParams.get('cpId')
-
+const AddMaterial = () => {
   // useForm
   const [form] = Form.useForm()
 
@@ -31,20 +26,6 @@ const AddChallenge = () => {
 
   // Local States
   const [quillValue, setQuillValue] = useState('')
-  const [otherFields] = useState([
-    {
-      name: 'constraint',
-      placeholder: langConfig.problemDetailConstraints
-    },
-    {
-      name: 'inputFormat',
-      placeholder: langConfig.problemDetailInputFormat
-    },
-    {
-      name: 'outputFormat',
-      placeholder: langConfig.problemDetailOutputFormat
-    }
-  ])
 
   // Local Refs
   const quillRef = useRef(null)
@@ -58,14 +39,14 @@ const AddChallenge = () => {
   const onFinish = async (payload) => {
     payload = {
       ...payload,
-      description: quillValue
+      content: quillValue
     }
 
     // Check if payload have description
-    if (!payload.description) {
+    if (!payload.content) {
       mySwal.fire({
         icon: 'error',
-        title: langConfig.formProblemRule1,
+        title: langConfig.formMaterialRule1,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -78,7 +59,7 @@ const AddChallenge = () => {
 
     // Show loading
     mySwal.fire({
-      title: langConfig.loadingCreateChallenge,
+      title: langConfig.loadingCreateMaterial,
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => {
@@ -93,24 +74,15 @@ const AddChallenge = () => {
       }
     }
 
-    // Create Problem
+    // Create Material
     try {
-      const { data } = await api.post('/problems', payload, config)
-      // console.log(data)
-      const problemId = data.data.problem._id
-
-      payload = {
-        problemId,
-        maxPoint: 100
-      }
-
-      // Add Problem to Journey
-      await api.post(`/competes/${journeyId}/problems`, payload, config)
+      const { data } = await api.post('/materials', payload, config)
+      console.log('Result', data)
 
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: langConfig.successCreateChallenge,
+        title: langConfig.successCreateMaterial,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -118,7 +90,7 @@ const AddChallenge = () => {
         showConfirmButton: false,
         timerProgressBar: true
       }).then(() => {
-        navigate(`/admin/manage/challenges/${journeyId}/problems/${problemId}/edit`)
+        navigate('/admin/manage/materials')
       })
     } catch (error) {
       console.log(error)
@@ -137,7 +109,7 @@ const AddChallenge = () => {
   return (
     <Form
       form={form}
-      name="addChallenge"
+      name="addMaterial"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       className="flex flex-col w-full duration-300 ease-in-out"
@@ -146,7 +118,7 @@ const AddChallenge = () => {
       <div className="flex flex-row w-full items-start justify-start">
         <div className="flex w-1/4">
           <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-            {langConfig.problemDetailTitle}
+            {langConfig.materialName}
           </p>
         </div>
         <div className="flex w-3/4">
@@ -156,28 +128,28 @@ const AddChallenge = () => {
             rules={[
               {
                 required: true,
-                message: langConfig.formChallengeTitleRule1
+                message: langConfig.formMaterialTitleRule1
               },
               {
                 min: 3,
-                message: langConfig.formChallengeTitleRule2
+                message: langConfig.formMaterialTitleRule2
               },
               {
                 max: 255,
-                message: langConfig.formChallengeTitleRule3
+                message: langConfig.formMaterialTitleRule3
               }
             ]}
           >
-            <Input placeholder={langConfig.formPlaceholderChallengeTitle} />
+            <Input placeholder={langConfig.formPlaceholderMaterialTitle} />
           </Item>
         </div>
       </div>
 
-      {/* Description */}
+      {/* Content */}
       <div className="flex flex-row w-full items-start justify-start pb-5">
         <div className="flex w-1/4">
           <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-            {langConfig.problemDetailDescription}
+            {langConfig.materialContent}
           </p>
         </div>
         <div className="flex w-3/4">
@@ -187,14 +159,14 @@ const AddChallenge = () => {
             theme='snow'
             value={quillValue}
             onChange={setQuillValue}
-            placeholder='Deskripsi permasalahan'
+            placeholder='Isi materi'
             modules={{
               toolbar: {
                 container: [
                   ['bold', 'italic', 'underline', 'strike', 'blockquote'],
                   [{ list: 'ordered' }, { list: 'bullet' }],
                   [{ align: [] }],
-                  ['link'],
+                  ['link', 'image'],
                   [{ color: [] }, { background: [] }],
                   [{ script: 'super' }, { script: 'sub' }]
                 ]
@@ -204,86 +176,11 @@ const AddChallenge = () => {
         </div>
       </div>
 
-      {/* Difficulty */}
-      <div className="flex flex-row w-full items-start justify-start">
-        <div className="flex w-1/4">
-          <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-            {langConfig.problemDetailDifficulty}
-          </p>
-        </div>
-        <div className="flex w-3/4">
-          <Item
-            name="difficulty"
-            className="w-full"
-            rules={[
-              {
-                required: true,
-                message: langConfig.formChallengeDifficultyRule1
-              }
-            ]}
-          >
-            <Select
-              placeholder={langConfig.formPlaceholderChallengeDifficulty}
-              className="w-full"
-            >
-              <Select.Option value={1}>
-                {langConfig.challengeLevel1}
-              </Select.Option>
-              <Select.Option value={2}>
-                {langConfig.challengeLevel2}
-              </Select.Option>
-              <Select.Option value={3}>
-                {langConfig.challengeLevel3}
-              </Select.Option>
-            </Select>
-          </Item>
-        </div>
-      </div>
-
-      {/* Constraints, Input Format, and Output Format */}
-      {otherFields.map((field, index) => {
-        const { name, placeholder } = field
-        return (
-          <div
-            key={index}
-            className="flex flex-row w-full items-start justify-start"
-          >
-            <div className="flex w-1/4">
-              <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">
-                {placeholder}
-              </p>
-            </div>
-            <div className="flex w-3/4">
-              <Item
-                name={name}
-                className="w-full"
-                rules={[
-                  {
-                    required: true,
-                    message: `${langConfig.formConstraintsAndFormatRule1a} ${placeholder.toLowerCase()} ${langConfig.formConstraintsAndFormatRule1c}`
-                  },
-                  {
-                    max: 1000,
-                    message: `${placeholder} ${langConfig.formConstraintsAndFormatRule2}`
-                  }
-                ]}
-              >
-                <TextArea
-                  autoSize={{ minRows: 1, maxRows: 10 }}
-                  placeholder={`${placeholder} ${langConfig.formConstraintsAndFormatRule1b}`}
-                  className="w-full"
-                />
-              </Item>
-            </div>
-          </div>
-        )
-      })}
-
       {/* Buttons */}
       <Item>
         <div className="flex flex-row space-x-4 w-full items-center justify-end">
           <Link
-            to={'/admin/manage/challenges'}
+            to={'/admin/manage/materials'}
             className="px-4 py-2 mt-4 text-sm font-medium text-center font-ubuntu tracking-wider uppercase transition-colors transform border-2 text-main dark:text-snow border-main dark:border-snow dark:hover:border-easy hover:border-easy duration-300 ease-in-out"
           >
             {langConfig.buttonCancel}
@@ -302,4 +199,4 @@ const AddChallenge = () => {
   )
 }
 
-export default AddChallenge
+export default AddMaterial
