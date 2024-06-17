@@ -6,12 +6,17 @@ import { Spin } from 'antd'
 import Cookies from 'js-cookie'
 
 import api from '../../api'
+import { useAuth } from '../../contexts/AuthContext'
 
 const MaterialList = (props) => {
   const { material } = props
   const { _id, title } = material
 
-  const [isDone, setIsDone] = useState(null)
+  // Auth States
+  const { authStates } = useAuth()
+  const { user } = authStates
+
+  const [isDone, setIsDone] = useState(false)
 
   // Check if user already participant
   const checkIsDone = async () => {
@@ -33,7 +38,9 @@ const MaterialList = (props) => {
   }
 
   useEffect(() => {
-    checkIsDone()
+    if (user) {
+      checkIsDone()
+    }
   }, [])
 
   return (
