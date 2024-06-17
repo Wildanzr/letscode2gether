@@ -4,15 +4,12 @@ import { useState, useEffect } from 'react'
 import api from '../../../api'
 import { Navbar, Footer } from '../../../layout'
 import { Breadcrumb } from '../../../components/breadcrumb'
-import { Description } from '../../../components/other'
+import { EditMaterial } from '../../../components/form'
 
 import Cookies from 'js-cookie'
-import { Skeleton } from 'antd'
 import { useParams } from 'react-router-dom'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.bubble.css'
 
-const DetailMaterialPage = () => {
+const EditMaterialPage = () => {
   // useParams
   const { materialId } = useParams()
 
@@ -23,11 +20,12 @@ const DetailMaterialPage = () => {
       target: '/admin/manage/materials'
     },
     {
-      name: langConfig.adminMaterial3,
-      target: `/admin/manage/materials/${materialId}`
+      name: langConfig.adminMaterial2,
+      target: `/admin/manage/materials/${materialId}/edit`
     }
   ])
 
+  // Local states
   const [materialDetail, setMaterialDetail] = useState(null)
 
   // Get material detail
@@ -42,25 +40,11 @@ const DetailMaterialPage = () => {
     try {
       const { data } = await api.get(`/materials/${materialId}`, config)
       const { material } = data.data
+      console.log('Material', material)
       setMaterialDetail(material)
     } catch (error) {
       console.log(error)
     }
-  }
-
-  // Render problem description
-  const renderMaterialContent = (description) => {
-    return (
-      <div className="flex flex-col w-full bg-snow text-main">
-        <ReactQuill
-          className="w-full h-full font-ubuntu text-base"
-          theme="bubble"
-          value={description}
-          readOnly={true}
-          placeholder="Deskripsi permasalahan"
-        />
-      </div>
-    )
   }
 
   // Initial get problem detail
@@ -79,20 +63,8 @@ const DetailMaterialPage = () => {
             <Breadcrumb paths={paths} />
           </div>
 
-          {/* Detail of Problem */}
-          {materialDetail
-            ? (
-              <div className="flex flex-col space-y-4 w-full font-ubuntu">
-                <Description title={langConfig.materialName} value={materialDetail.title} />
-                <Description title={langConfig.materialContent} value={renderMaterialContent(materialDetail.content)} />
-              </div>
-              )
-            : <Skeleton
-              active
-              paragraph={{ rows: 10 }}
-            />
-          }
-
+          {/* Edit Material */}
+          {materialDetail && <EditMaterial materialDetail={materialDetail} />}
         </div>
       </Navbar>
       <Footer />
@@ -100,4 +72,4 @@ const DetailMaterialPage = () => {
   )
 }
 
-export default DetailMaterialPage
+export default EditMaterialPage

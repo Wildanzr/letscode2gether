@@ -57,8 +57,6 @@ const AddMaterial = () => {
       return
     }
 
-    console.log('payload: ', payload)
-
     // Show loading
     mySwal.fire({
       title: langConfig.loadingCreateMaterial,
@@ -147,7 +145,7 @@ const AddMaterial = () => {
         </div>
       </div>
 
-      {/* Description */}
+      {/* Content */}
       <div className="flex flex-row w-full items-start justify-start pb-5">
         <div className="flex w-1/4">
           <p className="mb-0 font-medium text-base text-main dark:text-snow duration-300 ease-in-out">

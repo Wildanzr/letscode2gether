@@ -14,6 +14,7 @@ export { default as EditCompete } from './EditCompete'
 export { default as AddCompete } from './AddCompete'
 
 export { default as AddMaterial } from './AddMaterial'
+export { default as EditMaterial } from './EditMaterial'
 
 export { default as AddSample } from './AddSample'
 export { default as AddTest } from './AddTest'

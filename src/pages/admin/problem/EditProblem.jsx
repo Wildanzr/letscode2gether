@@ -57,8 +57,6 @@ const EditProblemPage = () => {
     }
   }
 
-  console.log('Herrrr')
-
   // Initial get problem detail
   useEffect(() => {
     if (fetch) {
