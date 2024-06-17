@@ -6,7 +6,7 @@ import api from '../../api'
 
 import Cookies from 'js-cookie'
 import { Form, Input } from 'antd'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 
@@ -14,10 +14,6 @@ import 'react-quill/dist/quill.snow.css'
 const { Item } = Form
 
 const AddMaterial = () => {
-  // useSearchParams
-  const [searchParams] = useSearchParams()
-  const journeyId = searchParams.get('cpId')
-
   // useForm
   const [form] = Form.useForm()
 
@@ -61,9 +57,11 @@ const AddMaterial = () => {
       return
     }
 
+    console.log('payload: ', payload)
+
     // Show loading
     mySwal.fire({
-      title: langConfig.loadingCreateChallenge,
+      title: langConfig.loadingCreateMaterial,
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => {
@@ -78,24 +76,15 @@ const AddMaterial = () => {
       }
     }
 
-    // Create Problem
+    // Create Material
     try {
-      const { data } = await api.post('/problems', payload, config)
-      // console.log(data)
-      const problemId = data.data.problem._id
-
-      payload = {
-        problemId,
-        maxPoint: 100
-      }
-
-      // Add Problem to Journey
-      await api.post(`/competes/${journeyId}/problems`, payload, config)
+      const { data } = await api.post('/materials', payload, config)
+      console.log('Result', data)
 
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: langConfig.successCreateChallenge,
+        title: langConfig.successCreateMaterial,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -103,7 +92,7 @@ const AddMaterial = () => {
         showConfirmButton: false,
         timerProgressBar: true
       }).then(() => {
-        navigate(`/admin/manage/challenges/${journeyId}/problems/${problemId}/edit`)
+        navigate('/admin/manage/materials')
       })
     } catch (error) {
       console.log(error)
