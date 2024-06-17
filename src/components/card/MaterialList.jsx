@@ -26,7 +26,6 @@ const MaterialList = (props) => {
       const { data } = await api.get(`/materials/${_id}/check`, config)
       // console.log(data)
       const { isDone } = data.data
-      console.log(`isDone ${_id}`, isDone)
       setIsDone(isDone)
     } catch (error) {
       console.log(error)

@@ -5,7 +5,7 @@ import { useCollab } from '../contexts/CollabContext'
 import { CollabPage } from '../pages/collaboration'
 import { HomePage } from '../pages/home'
 import { JourneyPage, ProblemPage } from '../pages/journey'
-import { MaterialPage } from '../pages/material'
+import { MaterialDetailPage, MaterialPage } from '../pages/material'
 import { ChallengePage, ChallengeProblemPage } from '../pages/challenge'
 import {
   CompetePage,
@@ -137,8 +137,8 @@ const RouteList = () => {
       {/* Materials */}
       <Route path="/materials">
         <Route
-          path="path/:materialId"
-          element={<ProblemPage />}
+          path="learn/:materialId"
+          element={<MaterialDetailPage />}
         />
         <Route index element={<MaterialPage />} />
       </Route>
