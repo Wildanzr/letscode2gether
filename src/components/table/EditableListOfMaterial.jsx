@@ -35,11 +35,11 @@ const EditableListofMaterial = (props) => {
     }
   ])
 
-  // Delete problem
-  const deleteProblem = async (problemId) => {
+  // Delete material
+  const deleteMaterial = async (materialId) => {
     // Show loading
     mySwal.fire({
-      title: langConfig.loadingDeleteChallenge,
+      title: langConfig.loadingDeleteMaterial,
       allowEscapeKey: true,
       allowOutsideClick: true,
       didOpen: () => mySwal.showLoading()
@@ -53,13 +53,13 @@ const EditableListofMaterial = (props) => {
     }
 
     try {
-      await api.delete(`/materials/${problemId}`, config)
+      await api.delete(`/materials/${materialId}`, config)
       setFetch(true)
 
       // Show success
       mySwal.fire({
         icon: 'success',
-        title: langConfig.successDeleteChallenge,
+        title: langConfig.successDeleteMaterial,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
@@ -81,12 +81,12 @@ const EditableListofMaterial = (props) => {
     }
   }
 
-  // Dialog delete problem
-  const dialogDeleteProblem = (problemId) => {
+  // Dialog delete material
+  const dialogDeleteMaterial = (materialId) => {
     mySwal.fire({
       icon: 'warning',
-      title: langConfig.dialogDeleteChallenge,
-      text: langConfig.infoDeleteChallenge,
+      title: langConfig.dialogDeleteMaterial,
+      text: langConfig.infoDeleteMaterial,
       showCancelButton: true,
       confirmButtonText: 'Ya, hapus!',
       confirmButtonColor: '#d33',
@@ -95,7 +95,7 @@ const EditableListofMaterial = (props) => {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteProblem(problemId)
+        deleteMaterial(materialId)
       }
     })
   }
@@ -176,21 +176,21 @@ const EditableListofMaterial = (props) => {
               <td className="py-3 px-5 text-left overflow-clip">
                 <div className="flex flex-row space-x-4 items-center justify-end">
                   <Link
-                    to={`/admin/manage/challenges/materials/${_id}?origin=edit`}
+                    to={`/admin/manage/materials/${_id}`}
                     className="px-2 py-2 bg-easy rounded-lg"
                   >
                     <BsEye className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
                   </Link>
 
                   <Link
-                    to={`/admin/manage/challenges/materials/${_id}/edit`}
+                    to={`/admin/manage/materials/${_id}/edit`}
                     className="px-2 py-2 bg-medium rounded-lg"
                   >
                     <BsPencil className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />
                   </Link>
 
                   <div
-                    onClick={() => dialogDeleteProblem(_id)}
+                    onClick={() => dialogDeleteMaterial(_id)}
                     className="px-2 py-2 bg-hard rounded-lg cursor-pointer"
                   >
                     <BsTrash className="w-6 h-6 fill-snow hover:fill-main duration-300 ease-in-out" />

@@ -11,7 +11,6 @@ const { Search } = Input
 const SearchDebounce = (props) => {
   // Destructure props
   const { setJourneys, setProblems, setMaterials, competeId, isChallenge, isMaterial, setDefaultCurrent, setTotal, limit, defaultCurrent, setSearch } = props
-  console.log('Defatul current: ', defaultCurrent)
 
   // Search journeys
   const searchJourney = async (e) => {

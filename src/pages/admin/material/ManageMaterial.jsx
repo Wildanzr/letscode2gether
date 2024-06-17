@@ -53,7 +53,7 @@ const ManageMaterialPage = () => {
     }
     try {
       const { data } = await api.get('/materials?page=1&limit=10', config)
-      console.log(data)
+      // console.log(data)
       const { materials } = data.data
 
       if (materials.length === 0) {
@@ -80,7 +80,7 @@ const ManageMaterialPage = () => {
 
     try {
       const { data } = await api.get(`/materials?q=${search}&page=${defaultCurrent}&limit=${limit}`, config)
-      console.log(data)
+      // console.log(data)
 
       // Set materials
       const { materials } = data.data
