@@ -1,11 +1,14 @@
 import langConfig from '../../config/langConfig.json'
 
 import { useState, useEffect } from 'react'
+import Cookies from 'js-cookie'
+
 import { useAuth } from '../../contexts/AuthContext'
 
 import api from '../../api'
 import Learn from '../../assets/learn.svg'
 import { Navbar, Footer } from '../../layout'
+import { MaterialList } from '../../components/card'
 
 const MaterialPage = () => {
   // Auth States and Functions
@@ -15,6 +18,32 @@ const MaterialPage = () => {
 
   // Local states
   const [from] = useState(new Date())
+  const [materials, setMaterials] = useState(null)
+
+  // Get all materials
+  const getAllMaterials = async () => {
+    // Config
+    const config = {
+      headers: {
+        authorization: Cookies.get('jwtToken')
+      }
+    }
+
+    try {
+      const { data } = await api.get('/materials?page=1&limit=100', config)
+      // console.log(data)
+
+      const { materials } = data.data
+      setMaterials(materials)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Initially get all materials
+  useEffect(() => {
+    getAllMaterials()
+  }, [])
 
   // UseEffect when leaving page
   useEffect(() => {
@@ -47,7 +76,7 @@ const MaterialPage = () => {
         </div>
 
         <div className="flex flex-col space-y-5 w-full px-[5%]">
-          <p>This is content</p>
+          {materials !== null && materials.map((material, idx) => (<MaterialList key={idx} material={material} />))}
         </div>
       </Navbar>
 
